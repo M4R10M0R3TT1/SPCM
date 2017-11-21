@@ -9,26 +9,27 @@ import sun.plugin2.os.windows.SECURITY_ATTRIBUTES;
  */
 public class SensingElement {
 
-    private StringProperty SE_name;
+    private StringProperty idSensingElement;
 
     //Default constructor
     public SensingElement(){
-        this.SE_name=null;
+
+        this(null);
     }
 
-    public SensingElement(String SE_name){
-        this.SE_name=new SimpleStringProperty(SE_name);
+    public SensingElement(String idSensingElement){
+        this.idSensingElement=new SimpleStringProperty(idSensingElement);
     }
 
-    public String getSE_name() {
-        return SE_name.get();
+    public String getIdSensingElement() {
+        return idSensingElement.get();
     }
 
-    public StringProperty SE_nameProperty() {
-        return SE_name;
+    public StringProperty idSensingElementProperty() {
+        return idSensingElement;
     }
 
-    public void setSE_name(String SE_name) {
-        this.SE_name.set(SE_name);
+    public void setIdSensingElement(String idSensingElement) {
+        this.idSensingElement.set(idSensingElement);
     }
 }
