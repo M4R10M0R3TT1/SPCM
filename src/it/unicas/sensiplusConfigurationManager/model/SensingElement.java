@@ -1,8 +1,7 @@
-package model;
+package it.unicas.sensiplusConfigurationManager.model;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import sun.plugin2.os.windows.SECURITY_ATTRIBUTES;
 
 /**
  * Created by Antonio on 21/11/2017.

@@ -1,3 +1,5 @@
+package it.unicas.sensiplusConfigurationManager;
+
 /**
  * Created by Antonio on 21/11/2017.
  */

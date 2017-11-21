@@ -1,4 +1,4 @@
-package model;
+package it.unicas.sensiplusConfigurationManager.model;
 
 /**
  * Created by Antonio on 21/11/2017.
