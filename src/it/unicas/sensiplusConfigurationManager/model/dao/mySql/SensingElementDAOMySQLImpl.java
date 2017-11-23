@@ -5,6 +5,10 @@ import it.unicas.sensiplusConfigurationManager.model.SensingElement;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOSensingElement;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -30,7 +34,24 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
 
     @Override
     public List<SensingElement> select(SensingElement a) throws DAOException {
-        return null;
+
+        ArrayList<SensingElement> lista = new ArrayList<SensingElement>();
+
+        try {
+            Statement st = DAOMySQLSettings.getStatement();
+
+            String sql = "SELECT * FROM SensingElement";
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                lista.add(new SensingElement(rs.getString("IdSensingElement")));
+            }
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException sq) {
+            throw new DAOException("In select(): " + sq.getMessage());
+        }
+
+        return lista;
     }
 
     @Override
