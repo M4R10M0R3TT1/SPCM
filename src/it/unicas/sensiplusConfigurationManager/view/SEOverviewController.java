@@ -18,4 +18,10 @@ public class SEOverviewController {
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
+
+    public SEOverviewController(){}
+
+
+
+
 }

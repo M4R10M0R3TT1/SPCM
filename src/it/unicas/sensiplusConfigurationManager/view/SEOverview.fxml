@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.SEOverviewController">
+<AnchorPane prefHeight="506.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.SEOverviewController">
    <children>
       <SplitPane dividerPositions="0.2979942693409742" prefHeight="500.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
@@ -106,10 +106,10 @@
                               </ButtonBar>
                               <TableView fx:id="familyTable" layoutX="24.0" layoutY="-13.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
-                                  <TableColumn minWidth="150.0" prefWidth="229.0" text="ID Family" />
-                                  <TableColumn minWidth="15.0" prefWidth="231.0" text="Family Name" />
-                                    <TableColumn minWidth="0.0" prefWidth="207.0" text="Port Name" />
-                                    <TableColumn minWidth="73.0" prefWidth="223.0" text="Port Type" />
+                                  <TableColumn minWidth="84.0" prefWidth="105.0" text="ID Family" />
+                                  <TableColumn minWidth="15.0" prefWidth="172.0" text="Family Name" />
+                                    <TableColumn minWidth="0.0" prefWidth="169.0" text="Port Name" />
+                                    <TableColumn minWidth="69.0" prefWidth="178.0" text="Port Type" />
                                 </columns>
                               </TableView>
                            </children></AnchorPane>
