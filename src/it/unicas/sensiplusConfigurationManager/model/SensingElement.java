@@ -31,4 +31,9 @@ public class SensingElement {
     public void setIdSensingElement(String idSensingElement) {
         this.idSensingElement.set(idSensingElement);
     }
+
+    @Override
+    public String toString(){
+        return idSensingElement.getValue();
+    }
 }

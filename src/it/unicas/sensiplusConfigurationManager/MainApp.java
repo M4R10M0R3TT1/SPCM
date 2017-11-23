@@ -1,13 +1,17 @@
 package it.unicas.sensiplusConfigurationManager;
 
 import it.unicas.sensiplusConfigurationManager.model.SensingElement;
+import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
+import it.unicas.sensiplusConfigurationManager.model.dao.mySql.SensingElementDAOMySQLImpl;
 import it.unicas.sensiplusConfigurationManager.view.RootLayoutController;
 import it.unicas.sensiplusConfigurationManager.view.SEOverviewController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -29,7 +33,8 @@ public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
 
-    private ObservableList<SensingElement> colleghiData = FXCollections.observableArrayList();
+    private ObservableList<SensingElement> seData = FXCollections.observableArrayList();
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -43,6 +48,14 @@ public class MainApp extends Application {
 
         showSEOverview();
 
+    }
+
+    /**
+     * Returns the data as an observable list of Colleghis.
+     * @return
+     */
+    public ObservableList<SensingElement> getSeData() {
+        return seData;
     }
 
     public void initRootLayout(){
@@ -89,7 +102,34 @@ public class MainApp extends Application {
 
 
     public MainApp(){
+        SensingElement tempSe=new SensingElement("");
+        try{
+            List<SensingElement> list= SensingElementDAOMySQLImpl.getInstance().select(tempSe);
+            seData.addAll(list);
+            /*for (SensingElement item : list){
+                System.out.println(""+mainApp.getSeData()+"\n");
+            }*/
+        } catch (DAOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(getPrimaryStage());
+            alert.setTitle("Error during DB interaction");
+            alert.setHeaderText("Error during search ...");
+            alert.setContentText(e.getMessage());
 
+            alert.showAndWait();
+        }
+
+
+    }
+
+
+
+    /**
+     * Returns the main stage.
+     * @return
+     */
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 
     public static void main(String[] args) { launch(args); }
