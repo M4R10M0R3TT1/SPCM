@@ -4,6 +4,7 @@ import it.unicas.sensiplusConfigurationManager.model.SensingElement;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.SensingElementDAOMySQLImpl;
 import it.unicas.sensiplusConfigurationManager.view.RootLayoutController;
+import it.unicas.sensiplusConfigurationManager.view.SEEditDialogController;
 import it.unicas.sensiplusConfigurationManager.view.SEOverviewController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -15,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,7 +28,7 @@ import java.util.ListIterator;
 import static javafx.application.Application.launch;
 
 /**
- * Created by Antonio on 21/11/2017.
+ * Created by  on 21/11/2017.
  */
 public class MainApp extends Application {
 
@@ -100,6 +102,47 @@ public class MainApp extends Application {
 
     }
 
+
+    /**
+     * Opens a dialog to edit details for the specified sensingElement. If the user
+     * clicks OK, the changes are saved into the provided sensingElement object and true
+     * is returned.
+     *
+     * @param sensingElement the colleghi object to be edited
+     * @return true if the user clicked OK, false otherwise.
+     */
+    public boolean showSEEditDialog(SensingElement sensingElement, boolean verifyLen) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/SEEditDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Sensing Element");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the sensingElement into the controller.
+            SEEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage, verifyLen);
+            controller.setSensingElement(sensingElement);
+
+            // Set the dialog icon.
+            dialogStage.getIcons().add(new Image("file:resources/images/pencil-lapis-128.png"));
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     public MainApp(){
         SensingElement tempSe=new SensingElement("");

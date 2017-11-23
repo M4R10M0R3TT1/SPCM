@@ -3,7 +3,7 @@ package it.unicas.sensiplusConfigurationManager.view;
 import it.unicas.sensiplusConfigurationManager.MainApp;
 
 /**
- * Created by Antonio on 23/11/2017.
+ * Created by on 23/11/2017.
  */
 public class RootLayoutController {
 

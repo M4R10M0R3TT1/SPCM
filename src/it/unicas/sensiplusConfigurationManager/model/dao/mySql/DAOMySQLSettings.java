@@ -5,21 +5,21 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Created by Antonio on 21/11/2017.
+ * Created by  on 21/11/2017.
  */
 public class DAOMySQLSettings {
 
     public final static String DRIVERNAME = "com.mysql.cj.jdbc.Driver";
     public final static String HOST = "localhost";
     public final static String USERNAME = "root";
-    public final static String PWD = "";
+    public final static String PWD = "root";
     public final static String SCHEMA = "sensiDB";
     public final static String PARAMETERS = "?useSSL=false&serverTimezone=UTC";
 
     //private String driverName = "com.mysql.cj.jdbc.Driver";
     private String host = "localhost";
     private String userName = "root";
-    private String pwd = "";
+    private String pwd = "root";
     private String schema = "sensiDB";
 
 

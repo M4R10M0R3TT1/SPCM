@@ -12,7 +12,7 @@ import javafx.scene.control.TableView;
 import java.util.List;
 
 /**
- * Created by Antonio on 23/11/2017.
+ * Created by  on 23/11/2017.
  */
 public class SEOverviewController {
 
@@ -80,4 +80,59 @@ public class SEOverviewController {
             alert.showAndWait();
         }
     }
+
+    /**
+     * Called when the user clicks the new button. Opens a dialog to edit
+     * details for a new Sensing Element.
+     */
+    @FXML
+    private void handleNewSensingElement() {
+        SensingElement tempColleghi = new SensingElement();
+        boolean okClicked = mainApp.showSEEditDialog(tempColleghi, true);
+
+        if (okClicked) {
+            try {
+                SensingElementDAOMySQLImpl.getInstance().insert(tempColleghi);
+                mainApp.getSeData().add(tempColleghi);
+            } catch (DAOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("Error during DB interaction");
+                alert.setHeaderText("Error during insert ...");
+                alert.setContentText(e.getMessage());
+
+                alert.showAndWait();
+            }
+        }
+    }
+
+    /**
+     * Called when the user clicks the edit button. Opens a dialog to edit
+     * details for the selected Sensing Element.
+     */
+    /*@FXML
+    private void handleEditColleghi() {
+        SensingElement selectedSensingElement = seTableView.getSelectionModel().getSelectedItem();
+        if (selectedSensingElement != null) {
+            boolean okClicked = mainApp.showSEEditDialog(selectedSensingElement,true);
+            if (okClicked) {
+                try {
+                    SensingElementDAOMySQLImpl.getInstance().update(selectedSensingElement);
+                    showSensingElementDetails(selectedSensingElement);
+                } catch (DAOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Colleghi Selected");
+            alert.setContentText("Please select a Colleghi in the table.");
+
+            alert.showAndWait();
+        }
+    }*/
 }

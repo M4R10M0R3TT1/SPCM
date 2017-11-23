@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 /**
- * Created by Antonio on 21/11/2017.
+ * Created by  on 21/11/2017.
  */
 public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElement> {
 

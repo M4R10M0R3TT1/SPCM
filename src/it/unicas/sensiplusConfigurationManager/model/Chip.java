@@ -4,7 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
- * Created by Antonio on 21/11/2017.
+ * Created by  on 21/11/2017.
  */
 public class Chip {
 
