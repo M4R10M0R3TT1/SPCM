@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -7,32 +10,33 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.SEOverviewController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.SEOverviewController">
    <children>
       <SplitPane dividerPositions="0.2979942693409742" prefHeight="500.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <TableView prefHeight="498.0" prefWidth="205.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="seTable" prefHeight="498.0" prefWidth="205.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn prefWidth="204.0" text="Sensing Element" />
+                      <TableColumn fx:id="seColumn" prefWidth="204.0" text="Sensing Element" />
                     </columns>
                   </TableView>
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="498.0" prefWidth="474.0">
                <children>
-                  <SplitPane dividerPositions="0.6915322580645161" orientation="VERTICAL" prefHeight="498.0" prefWidth="487.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <SplitPane dividerPositions="0.6157718120805369" orientation="VERTICAL" prefHeight="498.0" prefWidth="487.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="274.0" prefWidth="485.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="484.0">
                            <children>
-                              <GridPane layoutX="71.0" layoutY="59.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="50.0">
+                              <GridPane layoutX="71.0" layoutY="59.0" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="467.0" minWidth="-Infinity" prefWidth="127.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="452.0" minWidth="10.0" prefWidth="127.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="541.0" minWidth="0.0" prefWidth="164.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="453.0" />
                                 </columnConstraints>
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -45,10 +49,70 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
+                                 <children>
+                                    <Label text="rSense:" />
+                                    <Label text="inGain:" GridPane.rowIndex="1" />
+                                    <Label text="outGain:" GridPane.rowIndex="2" />
+                                    <Label text="contacts:" GridPane.rowIndex="3" />
+                                    <Label text="frequency" GridPane.rowIndex="4" />
+                                    <Label text="harmonic" GridPane.rowIndex="5" />
+                                    <Label text="dcBias" GridPane.rowIndex="6" />
+                                    <Label text="modeVI" GridPane.rowIndex="7" />
+                                    <Label text="measureTechnique" GridPane.rowIndex="8" />
+                                    <Label fx:id="rSenseLabel" GridPane.columnIndex="1" />
+                                    <Label fx:id="inGainLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label fx:id="outGainLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label fx:id="contactsLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Label fx:id="frequencyLabel" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Label fx:id="harmonicLabel" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <Label fx:id="dcBiasLabel" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <Label fx:id="modeVILabel" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                    <Label fx:id="measureTechniqueLabel" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                    <Label text="measureType" GridPane.columnIndex="2" />
+                                    <Label text="filter" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Label text="phaseShiftMode" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <Label text="phaseShift" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                    <Label text="IQ" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                                    <Label text="conversionRate" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                                    <Label text="inPortADC" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                                    <Label text="nData" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                                    <Label fx:id="measureTypeLabel" GridPane.columnIndex="3" />
+                                    <Label fx:id="filterLabel" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                    <Label fx:id="phaseShiftModeLabel" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                    <Label fx:id="phaseShiftLabel" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                    <Label fx:id="IQLabel" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                                    <Label fx:id="conversionRateLabel" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                                    <Label fx:id="inPortADCLabel" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                                    <Label fx:id="nDataLabel" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+                                    <Label text="measureUnit" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                                    <Label fx:id="measureUnitLabel" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+                                 </children>
                               </GridPane>
+                              <Label fx:id="idSELabel" layoutX="28.0" layoutY="14.0">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="186.0" prefWidth="485.0" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="54.0" prefWidth="484.0">
+                           <children>
+                              <ButtonBar layoutX="205.0" layoutY="186.0" prefHeight="21.0" prefWidth="265.0" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="14.0">
+                                <buttons>
+                                    <Button mnemonicParsing="false" text="New" />
+                                    <Button mnemonicParsing="false" text="Edit" />
+                                  <Button mnemonicParsing="false" text="Delete" />
+                                </buttons>
+                              </ButtonBar>
+                              <TableView fx:id="familyTable" layoutX="24.0" layoutY="-13.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columns>
+                                  <TableColumn minWidth="150.0" prefWidth="229.0" text="ID Family" />
+                                  <TableColumn minWidth="15.0" prefWidth="231.0" text="Family Name" />
+                                    <TableColumn minWidth="0.0" prefWidth="207.0" text="Port Name" />
+                                    <TableColumn minWidth="73.0" prefWidth="223.0" text="Port Type" />
+                                </columns>
+                              </TableView>
+                           </children></AnchorPane>
                     </items>
                   </SplitPane>
                </children>
