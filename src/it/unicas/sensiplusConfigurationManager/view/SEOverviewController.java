@@ -70,6 +70,8 @@ public class SEOverviewController {
      */
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
+
+        seTableView.setItems(mainApp.getSeData());
     }
 
     public SEOverviewController(){}
@@ -79,12 +81,12 @@ public class SEOverviewController {
 
         seColumn.setCellValueFactory(cellData -> cellData.getValue().idSensingElementProperty());
 
-        /*SensingElement tempSe=new SensingElement("");
+        SensingElement tempSe=new SensingElement("",null,null,null,"",null,"",null,"","","",null,"",null,"",null,"",null,"");
         try{
             List<SensingElement> list= SensingElementDAOMySQLImpl.getInstance().select(tempSe);
             mainApp.getSeData().clear();
             mainApp.getSeData().addAll(list);
-            /*for (SensingElement item : list){
+            for (SensingElement item : list){
                 System.out.println(""+mainApp.getSeData()+"\n");
             }
         } catch (DAOException e) {
@@ -95,7 +97,7 @@ public class SEOverviewController {
             alert.setContentText(e.getMessage());
 
             alert.showAndWait();
-        }*/
+        }
     }
 
     private void showSEDetails(SensingElement sensingElement){
@@ -128,13 +130,13 @@ public class SEOverviewController {
      */
     @FXML
     private void handleNewSensingElement() {
-        SensingElement tempColleghi = new SensingElement();
-        boolean okClicked = mainApp.showSEEditDialog(tempColleghi, true);
+        SensingElement tempSe = new SensingElement();
+        boolean okClicked = mainApp.showSEEditDialog(tempSe, true);
 
         if (okClicked) {
             try {
-                SensingElementDAOMySQLImpl.getInstance().insert(tempColleghi);
-                mainApp.getSeData().add(tempColleghi);
+                SensingElementDAOMySQLImpl.getInstance().insert(tempSe);
+                mainApp.getSeData().add(tempSe);
             } catch (DAOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());

@@ -145,24 +145,6 @@ public class MainApp extends Application {
     }
 
     public MainApp(){
-        SensingElement tempSe=new SensingElement("");
-        try{
-            List<SensingElement> list= SensingElementDAOMySQLImpl.getInstance().select(tempSe);
-            seData.addAll(list);
-            /*for (SensingElement item : list){
-                System.out.println(""+mainApp.getSeData()+"\n");
-            }*/
-        } catch (DAOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initOwner(getPrimaryStage());
-            alert.setTitle("Error during DB interaction");
-            alert.setHeaderText("Error during search ...");
-            alert.setContentText(e.getMessage());
-
-            alert.showAndWait();
-        }
-
-
     }
 
 

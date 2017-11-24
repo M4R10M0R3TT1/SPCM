@@ -38,23 +38,23 @@ public class SensingElement {
 
     public SensingElement(String idSensingElement, Integer rSense, Integer inGain, Integer outGain, String contacts, Integer frequency, String harmonic, Integer dcBias, String modeVI, String measureTecnique, String measureType, Integer filter, String phaseShiftMode, Integer phaseShift, String iq, Integer conversionRate, String inPortADC, Integer nData, String measureUnit){
         this.idSensingElement=new SimpleStringProperty(idSensingElement);
-        this.rSense=new SimpleIntegerProperty(rSense);
-        this.inGain=new SimpleIntegerProperty(inGain);
-        this.outGain=new SimpleIntegerProperty(outGain);
+        this.rSense=null;//new SimpleIntegerProperty(rSense);
+        this.inGain=null;//new SimpleIntegerProperty(inGain);
+        this.outGain=null;//new SimpleIntegerProperty(outGain);
         this.contacts=new SimpleStringProperty(contacts);
-        this.frequency=new SimpleIntegerProperty(frequency);
+        this.frequency=null;//new SimpleIntegerProperty(frequency);
         this.harmonic=new SimpleStringProperty(harmonic);
-        this.dcBias=new SimpleIntegerProperty(dcBias);
+        this.dcBias=null;//new SimpleIntegerProperty(dcBias);
         this.modeVI=new SimpleStringProperty(modeVI);
         this.measureTecnique=new SimpleStringProperty(measureTecnique);
         this.measureType=new SimpleStringProperty(measureType);
-        this.filter=new SimpleIntegerProperty(filter);
+        this.filter=null;//new SimpleIntegerProperty(filter);
         this.phaseShiftMode=new SimpleStringProperty(phaseShiftMode);
-        this.phaseShift=new SimpleIntegerProperty(phaseShift);
+        this.phaseShift=null;//new SimpleIntegerProperty(phaseShift);
         this.iq=new SimpleStringProperty(iq);
-        this.conversionRate=new SimpleIntegerProperty(conversionRate);
+        this.conversionRate=null;//new SimpleIntegerProperty(conversionRate);
         this.inPortADC=new SimpleStringProperty(inPortADC);
-        this.nData=new SimpleIntegerProperty(nData);
+        this.nData=null;//new SimpleIntegerProperty(nData);
         this.measureUnit=new SimpleStringProperty(measureUnit);
     }
 
@@ -70,39 +70,57 @@ public class SensingElement {
         this.idSensingElement.set(idSensingElement);
     }
 
-    public int getrSense() {
+    public Integer getrSense() {
+        if (rSense == null){
+            rSense = new SimpleIntegerProperty(-1);
+        }
         return rSense.get();
     }
 
-    public IntegerProperty rSenseProperty() {
+    /*public IntegerProperty rSenseProperty() {
         return rSense;
-    }
+    }*/
 
-    public void setrSense(int rSense) {
+    public void setrSense(Integer rSense) {
+        if (this.rSense == null){
+            this.rSense = new SimpleIntegerProperty();
+        }
         this.rSense.set(rSense);
     }
 
-    public int getInGain() {
+    public Integer getInGain() {
+        if (inGain == null){
+            inGain = new SimpleIntegerProperty(-1);
+        }
         return inGain.get();
     }
 
-    public IntegerProperty inGainProperty() {
+    /*public IntegerProperty inGainProperty() {
         return inGain;
-    }
+    }*/
 
-    public void setInGain(int inGain) {
+    public void setInGain(Integer inGain) {
+        if (this.inGain == null){
+            this.inGain = new SimpleIntegerProperty();
+        }
         this.inGain.set(inGain);
     }
 
-    public int getOutGain() {
+    public Integer getOutGain() {
+        if (outGain == null){
+            outGain = new SimpleIntegerProperty(-1);
+        }
         return outGain.get();
     }
 
-    public IntegerProperty outGainProperty() {
+    /*public IntegerProperty outGainProperty() {
         return outGain;
-    }
+    }*/
 
-    public void setOutGain(int outGain) {
+    public void setOutGain(Integer outGain) {
+        if (this.outGain == null){
+            this.outGain = new SimpleIntegerProperty();
+        }
         this.outGain.set(outGain);
     }
 
@@ -118,15 +136,21 @@ public class SensingElement {
         this.contacts.set(contacts);
     }
 
-    public int getFrequency() {
+    public Integer getFrequency() {
+        if (frequency == null){
+            frequency = new SimpleIntegerProperty(-1);
+        }
         return frequency.get();
     }
 
-    public IntegerProperty frequencyProperty() {
+    /*public IntegerProperty frequencyProperty() {
         return frequency;
-    }
+    }*/
 
-    public void setFrequency(int frequency) {
+    public void setFrequency(Integer frequency) {
+        if (this.frequency == null){
+            this.frequency = new SimpleIntegerProperty();
+        }
         this.frequency.set(frequency);
     }
 
@@ -142,15 +166,21 @@ public class SensingElement {
         this.harmonic.set(harmonic);
     }
 
-    public int getDcBias() {
+    public Integer getDcBias() {
+        if (dcBias == null){
+            dcBias = new SimpleIntegerProperty(-1);
+        }
         return dcBias.get();
     }
 
-    public IntegerProperty dcBiasProperty() {
+    /*public IntegerProperty dcBiasProperty() {
         return dcBias;
-    }
+    }*/
 
-    public void setDcBias(int dcBias) {
+    public void setDcBias(Integer dcBias) {
+        if (this.dcBias == null){
+            this.dcBias = new SimpleIntegerProperty();
+        }
         this.dcBias.set(dcBias);
     }
 
@@ -190,15 +220,21 @@ public class SensingElement {
         this.measureType.set(measureType);
     }
 
-    public int getFilter() {
+    public Integer getFilter() {
+        if (filter == null){
+            filter = new SimpleIntegerProperty(-1);
+        }
         return filter.get();
     }
 
-    public IntegerProperty filterProperty() {
+    /*public IntegerProperty filterProperty() {
         return filter;
-    }
+    }*/
 
-    public void setFilter(int filter) {
+    public void setFilter(Integer filter) {
+        if (this.filter == null){
+            this.filter = new SimpleIntegerProperty();
+        }
         this.filter.set(filter);
     }
 
@@ -214,15 +250,21 @@ public class SensingElement {
         this.phaseShiftMode.set(phaseShiftMode);
     }
 
-    public int getPhaseShift() {
+    public Integer getPhaseShift() {
+        if (phaseShift == null){
+            phaseShift = new SimpleIntegerProperty(-1);
+        }
         return phaseShift.get();
     }
 
-    public IntegerProperty phaseShiftProperty() {
+    /*public IntegerProperty phaseShiftProperty() {
         return phaseShift;
-    }
+    }*/
 
-    public void setPhaseShift(int phaseShift) {
+    public void setPhaseShift(Integer phaseShift) {
+        if (this.phaseShift == null){
+            this.phaseShift = new SimpleIntegerProperty();
+        }
         this.phaseShift.set(phaseShift);
     }
 
@@ -238,15 +280,21 @@ public class SensingElement {
         this.iq.set(iq);
     }
 
-    public int getConversionRate() {
+    public Integer getConversionRate() {
+        if (conversionRate == null){
+            conversionRate = new SimpleIntegerProperty(-1);
+        }
         return conversionRate.get();
     }
 
-    public IntegerProperty conversionRateProperty() {
+    /*public IntegerProperty conversionRateProperty() {
         return conversionRate;
-    }
+    }*/
 
-    public void setConversionRate(int conversionRate) {
+    public void setConversionRate(Integer conversionRate) {
+        if (this.conversionRate == null){
+            this.conversionRate = new SimpleIntegerProperty();
+        }
         this.conversionRate.set(conversionRate);
     }
 
@@ -262,15 +310,21 @@ public class SensingElement {
         this.inPortADC.set(inPortADC);
     }
 
-    public int getnData() {
+    public Integer getnData() {
+        if (nData == null){
+            nData = new SimpleIntegerProperty(-1);
+        }
         return nData.get();
     }
 
-    public IntegerProperty nDataProperty() {
+    /*public IntegerProperty nDataProperty() {
         return nData;
-    }
+    }*/
 
-    public void setnData(int nData) {
+    public void setnData(Integer nData) {
+        if (this.nData == null){
+            this.nData = new SimpleIntegerProperty();
+        }
         this.nData.set(nData);
     }
 
