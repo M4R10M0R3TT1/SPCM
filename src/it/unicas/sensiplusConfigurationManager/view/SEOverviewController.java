@@ -28,7 +28,7 @@ public class SEOverviewController {
     @FXML
     private Label outGainLabel;
     @FXML
-    private Label conctactsLabel;
+    private Label contactsLabel;
     @FXML
     private Label frequencyLabel;
     @FXML
@@ -38,7 +38,7 @@ public class SEOverviewController {
     @FXML
     private Label modeVILabel;
     @FXML
-    private Label measureTecniqueLabel;
+    private Label measureTechniqueLabel;
     @FXML
     private Label measureTypeLabel;
     @FXML
@@ -54,7 +54,7 @@ public class SEOverviewController {
     @FXML
     private Label inPortADCLabel;
     @FXML
-    private Label nDateLabel;
+    private Label nDataLabel;
     @FXML
     private Label measureUnitLabel;
     @FXML
@@ -96,6 +96,30 @@ public class SEOverviewController {
 
             alert.showAndWait();
         }*/
+    }
+
+    private void showSEDetails(SensingElement sensingElement){
+        if (sensingElement!= null){
+            rSenseLabel.setText(Integer.toString(sensingElement.getrSense()));
+            inGainLabel.setText(Integer.toString(sensingElement.getInGain()));
+            outGainLabel.setText(Integer.toString(sensingElement.getOutGain()));
+            contactsLabel.setText(sensingElement.getContacts());
+            frequencyLabel.setText(Integer.toString(sensingElement.getFrequency()));
+            harmonicLabel.setText(sensingElement.getHarmonic());
+            dcBiasLabel.setText(Integer.toString(sensingElement.getDcBias()));
+            modeVILabel.setText(sensingElement.getModeVI());
+            measureTechniqueLabel.setText(sensingElement.getMeasureTecnique());
+            measureTypeLabel.setText(sensingElement.getMeasureType());
+            filterLabel.setText(Integer.toString(sensingElement.getFilter()));
+            phaseShiftModeLabel.setText(sensingElement.getPhaseShiftMode());
+            phaseShiftLabel.setText(Integer.toString(sensingElement.getPhaseShift()));
+            IQLabel.setText(sensingElement.getIq());
+            conversionRateLabel.setText(Integer.toString(sensingElement.getConversionRate()));
+            inPortADCLabel.setText(sensingElement.getInPortADC());
+            nDataLabel.setText(Integer.toString(sensingElement.getnData()));
+            measureUnitLabel.setText(sensingElement.getMeasureUnit());
+            idSELabel.setText(sensingElement.getIdSensingElement());
+        }
     }
 
     /**
