@@ -53,7 +53,7 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns the data as an observable list of Colleghis.
+     * Returns the data as an observable list of SEs.
      * @return
      */
     public ObservableList<SensingElement> getSeData() {
@@ -108,7 +108,7 @@ public class MainApp extends Application {
      * clicks OK, the changes are saved into the provided sensingElement object and true
      * is returned.
      *
-     * @param sensingElement the colleghi object to be edited
+     * @param sensingElement the SE object to be edited
      * @return true if the user clicked OK, false otherwise.
      */
     public boolean showSEEditDialog(SensingElement sensingElement, boolean verifyLen) {

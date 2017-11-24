@@ -72,7 +72,7 @@ public class SensingElement {
 
     public Integer getrSense() {
         if (rSense == null){
-            rSense = new SimpleIntegerProperty(-1);
+            rSense = new SimpleIntegerProperty();
         }
         return rSense.get();
     }
@@ -90,7 +90,7 @@ public class SensingElement {
 
     public Integer getInGain() {
         if (inGain == null){
-            inGain = new SimpleIntegerProperty(-1);
+            inGain = new SimpleIntegerProperty();
         }
         return inGain.get();
     }
@@ -108,7 +108,7 @@ public class SensingElement {
 
     public Integer getOutGain() {
         if (outGain == null){
-            outGain = new SimpleIntegerProperty(-1);
+            outGain = new SimpleIntegerProperty();
         }
         return outGain.get();
     }
@@ -138,7 +138,7 @@ public class SensingElement {
 
     public Integer getFrequency() {
         if (frequency == null){
-            frequency = new SimpleIntegerProperty(-1);
+            frequency = new SimpleIntegerProperty();
         }
         return frequency.get();
     }
@@ -168,7 +168,7 @@ public class SensingElement {
 
     public Integer getDcBias() {
         if (dcBias == null){
-            dcBias = new SimpleIntegerProperty(-1);
+            dcBias = new SimpleIntegerProperty();
         }
         return dcBias.get();
     }
@@ -222,7 +222,7 @@ public class SensingElement {
 
     public Integer getFilter() {
         if (filter == null){
-            filter = new SimpleIntegerProperty(-1);
+            filter = new SimpleIntegerProperty();
         }
         return filter.get();
     }
@@ -252,7 +252,7 @@ public class SensingElement {
 
     public Integer getPhaseShift() {
         if (phaseShift == null){
-            phaseShift = new SimpleIntegerProperty(-1);
+            phaseShift = new SimpleIntegerProperty();
         }
         return phaseShift.get();
     }
@@ -282,7 +282,7 @@ public class SensingElement {
 
     public Integer getConversionRate() {
         if (conversionRate == null){
-            conversionRate = new SimpleIntegerProperty(-1);
+            conversionRate = new SimpleIntegerProperty();
         }
         return conversionRate.get();
     }
@@ -312,7 +312,7 @@ public class SensingElement {
 
     public Integer getnData() {
         if (nData == null){
-            nData = new SimpleIntegerProperty(-1);
+            nData = new SimpleIntegerProperty();
         }
         return nData.get();
     }

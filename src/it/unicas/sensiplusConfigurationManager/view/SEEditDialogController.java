@@ -89,11 +89,24 @@ public class SEEditDialogController {
         else
             seNameLabel.setText("Insert a new SensingElement");
 
-        /*rSenseTextField.setText(sensingElement.getRSense());
-        inGainTextField.setText(sensingElement.getInGain());
-        ..................
-        ..................
-         */
+        rSenseTextField.setText(Integer.toString(sensingElement.getrSense()));
+        inGainTextField.setText(Integer.toString(sensingElement.getInGain()));
+        outGainTextField.setText(Integer.toString(sensingElement.getOutGain()));
+        contactsTextField.setText(sensingElement.getContacts());
+        frequencyTextField.setText(Integer.toString(sensingElement.getFrequency()));
+        harmonicTextField.setText(sensingElement.getHarmonic());
+        dcBiasTextField.setText(Integer.toString(sensingElement.getDcBias()));
+        modeVITextField.setText(sensingElement.getModeVI());
+        measureTechniqueTextField.setText(sensingElement.getMeasureTecnique());
+        measureTypeTextField.setText(sensingElement.getMeasureType());
+        filterTextField.setText(Integer.toString(sensingElement.getFilter()));
+        phaseShiftModeTextField.setText(sensingElement.getPhaseShiftMode());
+        phaseShiftTextField.setText(Integer.toString(sensingElement.getPhaseShift()));
+        IQTextField.setText(sensingElement.getIq());
+        conversionTextField.setText(Integer.toString(sensingElement.getConversionRate()));
+        inPortADCTextField.setText(sensingElement.getInPortADC());
+        nDataTextField.setText(Integer.toString(sensingElement.getnData()));
+        measureUnitTextField.setText(sensingElement.getMeasureUnit());
     }
 
     /**
@@ -112,14 +125,25 @@ public class SEEditDialogController {
     private void handleOk() {
         if (isInputValid(verifyLen)) {
             sensingElement.setIdSensingElement(sensingElementNameTextField.getText());
-            /*...........................
-            .............................
-            colleghi.setCognome(cognomeField.getText());
-            colleghi.setTelefono(telefonoField.getText());
-            colleghi.setEmail(emailField.getText());
-            if (compleannoField.getText() != null){
-                colleghi.setCompleanno(DateUtil.parse(compleannoField.getText()));
-            }*/
+            sensingElement.setrSense(Integer.parseInt(rSenseTextField.getText()));
+            sensingElement.setInGain(Integer.parseInt(inGainTextField.getText()));
+            sensingElement.setOutGain(Integer.parseInt(outGainTextField.getText()));
+            sensingElement.setContacts(contactsTextField.getText());
+            sensingElement.setFrequency(Integer.parseInt(frequencyTextField.getText()));
+            sensingElement.setHarmonic(harmonicTextField.getText());
+            sensingElement.setDcBias(Integer.parseInt(dcBiasTextField.getText()));
+            sensingElement.setModeVI(modeVITextField.getText());
+            sensingElement.setMeasureTecnique(measureTechniqueTextField.getText());
+            sensingElement.setMeasureType(measureTypeTextField.getText());
+            sensingElement.setFilter(Integer.parseInt(frequencyTextField.getText()));
+            sensingElement.setPhaseShiftMode(phaseShiftModeTextField.getText());
+            sensingElement.setPhaseShift(Integer.parseInt(phaseShiftTextField.getText()));
+            sensingElement.setIq(IQTextField.getText());
+            sensingElement.setConversionRate(Integer.parseInt(conversionTextField.getText()));
+            sensingElement.setInPortADC(inPortADCTextField.getText());
+            sensingElement.setnData(Integer.parseInt(nDataTextField.getText()));
+            sensingElement.setMeasureUnit(measureUnitTextField.getText());
+
             okClicked = true;
             dialogStage.close();
         }
@@ -144,31 +168,60 @@ public class SEEditDialogController {
         if (sensingElementNameTextField.getText() == null || (verifyLen && sensingElementNameTextField.getText().length() == 0)) {
             errorMessage += "No valid Sensing Element Name!\n";
         }
-        /*.............................
-        ...............................
-        if (cognomeField.getText() == null || (verifyLen && cognomeField.getText().length() == 0)) {
+        /*if (rSenseTextField.getText() == null || (verifyLen && rSenseTextField.getText().length() == 0)) {
             errorMessage += "No valid last name!\n";
         }
-        if (telefonoField.getText() == null || (verifyLen && telefonoField.getText().length() == 0)) {
+        if (inGainTextField.getText() == null || (verifyLen && inGainTextField.getText().length() == 0)) {
             errorMessage += "No valid street!\n";
         }
-
-        if (emailField.getText() == null || (verifyLen && emailField.getText().length() == 0)) {
+        if (outGainTextField.getText() == null || (verifyLen && outGainTextField.getText().length() == 0)) {
             errorMessage += "No valid postal code!\n";
         }
-        if (compleannoField.getText() == null && verifyLen){
-            errorMessage += "No valid birthday!\n";
+        if (contactsTextField.getText() == null || (verifyLen && contactsTextField.getText().length() == 0)) {
+            errorMessage += "No valid postal code!\n";
         }
-
-        if (compleannoField.getText() != null){
-            if (compleannoField.getText().length() == 0){
-                errorMessage += "No valid birthday!\n";
-            }
-            if (!DateUtil.validDate(compleannoField.getText())) {
-                errorMessage += "No valid birthday. Use the format dd-mm-yyyy!\n";
-            }
+        if (frequencyTextField.getText() == null || (verifyLen && frequencyTextField.getText().length() == 0)) {
+            errorMessage += "No valid postal code!\n";
+        }
+        if (harmonicTextField.getText() == null || (verifyLen && harmonicTextField.getText().length() == 0)) {
+            errorMessage += "No valid postal code!\n";
+        }
+        if (dcBiasTextField.getText() == null || (verifyLen && dcBiasTextField.getText().length() == 0)) {
+            errorMessage += "No valid postal code!\n";
+        }
+        if (modeVITextField.getText() == null || (verifyLen && modeVITextField.getText().length() == 0)) {
+            errorMessage += "No valid postal code!\n";
+        }
+        if (measureTechniqueTextField.getText() == null || (verifyLen && measureTechniqueTextField.getText().length() == 0)) {
+            errorMessage += "No valid postal code!\n";
+        }
+        if (measureTypeTextField.getText() == null || (verifyLen && measureTypeTextField.getText().length() == 0)) {
+            errorMessage += "No valid postal code!\n";
+        }
+        if (filterTextField.getText() == null || (verifyLen && filterTextField.getText().length() == 0)) {
+            errorMessage += "No valid postal code!\n";
+        }
+        if (phaseShiftModeTextField.getText() == null || (verifyLen && phaseShiftModeTextField.getText().length() == 0)) {
+            errorMessage += "No valid postal code!\n";
+        }
+        if (phaseShiftTextField.getText() == null || (verifyLen && phaseShiftTextField.getText().length() == 0)) {
+            errorMessage += "No valid postal code!\n";
+        }
+        if (IQTextField.getText() == null || (verifyLen && IQTextField.getText().length() == 0)) {
+            errorMessage += "No valid postal code!\n";
+        }
+        if (conversionTextField.getText() == null || (verifyLen && conversionTextField.getText().length() == 0)) {
+            errorMessage += "No valid postal code!\n";
+        }
+        if (inPortADCTextField.getText() == null || (verifyLen && inPortADCTextField.getText().length() == 0)) {
+            errorMessage += "No valid postal code!\n";
+        }
+        if (nDataTextField.getText() == null || (verifyLen && nDataTextField.getText().length() == 0)) {
+            errorMessage += "No valid postal code!\n";
+        }
+        if (measureUnitTextField.getText() == null || (verifyLen && measureUnitTextField.getText().length() == 0)) {
+            errorMessage += "No valid postal code!\n";
         }*/
-
         if (errorMessage.length() == 0) {
             return true;
         } else {
@@ -186,16 +239,6 @@ public class SEEditDialogController {
     }
 
 
-    // Reference to the main application
-    //private MainApp mainApp;
 
-    /**
-     * Is called by the main application to give a reference back to itself.
-     *
-     * @param mainApp
-     */
-    /*public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
-    }*/
 
 }

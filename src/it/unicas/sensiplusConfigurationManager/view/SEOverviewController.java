@@ -74,14 +74,15 @@ public class SEOverviewController {
         seTableView.setItems(mainApp.getSeData());
     }
 
-    public SEOverviewController(){}
+    public SEOverviewController() {
+    }
 
     @FXML
     private void initialize() {
 
         seColumn.setCellValueFactory(cellData -> cellData.getValue().idSensingElementProperty());
 
-        SensingElement tempSe=new SensingElement("",null,null,null,"",null,"",null,"","","",null,"",null,"",null,"",null,"");
+        /*SensingElement tempSe=new SensingElement("",null,null,null,"",null,"",null,"","","",null,"",null,"",null,"",null,"");
         try{
             List<SensingElement> list= SensingElementDAOMySQLImpl.getInstance().select(tempSe);
             mainApp.getSeData().clear();
@@ -97,11 +98,11 @@ public class SEOverviewController {
             alert.setContentText(e.getMessage());
 
             alert.showAndWait();
-        }
+        }*/
     }
 
-    private void showSEDetails(SensingElement sensingElement){
-        if (sensingElement!= null){
+    private void showSEDetails(SensingElement sensingElement) {
+        if (sensingElement != null) {
             rSenseLabel.setText(Integer.toString(sensingElement.getrSense()));
             inGainLabel.setText(Integer.toString(sensingElement.getInGain()));
             outGainLabel.setText(Integer.toString(sensingElement.getOutGain()));
@@ -149,10 +150,33 @@ public class SEOverviewController {
         }
     }
 
-    /**
-     * Called when the user clicks the edit button. Opens a dialog to edit
-     * details for the selected Sensing Element.
-     */
+    @FXML
+    private void handleSearchSensingElement() {
+        SensingElement tempSe = new SensingElement("", null, null, null, "", null, "", null, "", "", "", null, "", null, "", null, "", null, "");
+        boolean okClicked = mainApp.showSEEditDialog(tempSe, true);
+        if (okClicked) {
+            try {
+                List<SensingElement> list = SensingElementDAOMySQLImpl.getInstance().select(tempSe);
+                mainApp.getSeData().clear();
+                mainApp.getSeData().addAll(list);
+                for (SensingElement item : list) {
+                    System.out.println("" + mainApp.getSeData() + "\n");
+                }
+            } catch (DAOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("Error during DB interaction");
+                alert.setHeaderText("Error during search ...");
+                alert.setContentText(e.getMessage());
+
+                alert.showAndWait();
+            }
+        }
+
+        /**
+         * Called when the user clicks the edit button. Opens a dialog to edit
+         * details for the selected Sensing Element.
+         */
     /*@FXML
     private void handleEditColleghi() {
         SensingElement selectedSensingElement = seTableView.getSelectionModel().getSelectedItem();
@@ -178,4 +202,5 @@ public class SEOverviewController {
             alert.showAndWait();
         }
     }*/
+    }
 }
