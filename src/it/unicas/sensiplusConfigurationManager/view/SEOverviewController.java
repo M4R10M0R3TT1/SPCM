@@ -6,6 +6,7 @@ import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.SensingElementDAOMySQLImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -20,6 +21,44 @@ public class SEOverviewController {
     private TableView<SensingElement> seTableView;
     @FXML
     private TableColumn<SensingElement, String> seColumn;
+    @FXML
+    private Label rSenseLabel;
+    @FXML
+    private Label inGainLabel;
+    @FXML
+    private Label outGainLabel;
+    @FXML
+    private Label conctactsLabel;
+    @FXML
+    private Label frequencyLabel;
+    @FXML
+    private Label harmonicLabel;
+    @FXML
+    private Label dcBiasLabel;
+    @FXML
+    private Label modeVILabel;
+    @FXML
+    private Label measureTecniqueLabel;
+    @FXML
+    private Label measureTypeLabel;
+    @FXML
+    private Label filterLabel;
+    @FXML
+    private Label phaseShiftModeLabel;
+    @FXML
+    private Label phaseShiftLabel;
+    @FXML
+    private Label IQLabel;
+    @FXML
+    private Label conversionRateLabel;
+    @FXML
+    private Label inPortADCLabel;
+    @FXML
+    private Label nDateLabel;
+    @FXML
+    private Label measureUnitLabel;
+    @FXML
+    private Label idSELabel;
 
     // Reference to the main application
     private MainApp mainApp;
@@ -57,28 +96,6 @@ public class SEOverviewController {
 
             alert.showAndWait();
         }*/
-    }
-
-
-    @FXML
-    private void clickNew(){
-        SensingElement tempSe=new SensingElement("");
-        try{
-            List<SensingElement> list= SensingElementDAOMySQLImpl.getInstance().select(tempSe);
-            mainApp.getSeData().clear();
-            mainApp.getSeData().addAll(list);
-            /*for (SensingElement item : list){
-                System.out.println(""+item.toString()+"\n");
-            }*/
-        } catch (DAOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("Error during DB interaction");
-            alert.setHeaderText("Error during search ...");
-            alert.setContentText(e.getMessage());
-
-            alert.showAndWait();
-        }
     }
 
     /**
