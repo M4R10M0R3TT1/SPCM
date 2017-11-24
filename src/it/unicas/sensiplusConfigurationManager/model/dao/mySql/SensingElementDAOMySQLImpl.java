@@ -35,7 +35,7 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
     @Override
     public List<SensingElement> select(SensingElement a) throws DAOException {
 
-        ArrayList<SensingElement> lista = new ArrayList<SensingElement>();
+        ArrayList<SensingElement> lista = new ArrayList<>();
 
         try {
             Statement st = DAOMySQLSettings.getStatement();
@@ -43,7 +43,7 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
             String sql = "SELECT * FROM SensingElement";
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                lista.add(new SensingElement(rs.getString("IdSensingElement"),
+                lista.add(new SensingElement(rs.getString("IdSensingElement")/*,
                         rs.getInt("rSense"),
                         rs.getInt("inGain"),
                         rs.getInt("outGain"),
@@ -61,7 +61,7 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
                         rs.getInt("conversionRate"),
                         rs.getString("inPortADC"),
                         rs.getInt("nData"),
-                        rs.getString("measureUnit")));
+                        rs.getString("measureUnit")*/));
 
             }
             DAOMySQLSettings.closeStatement(st);

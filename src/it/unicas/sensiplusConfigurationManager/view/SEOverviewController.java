@@ -72,6 +72,7 @@ public class SEOverviewController {
         this.mainApp = mainApp;
 
         seTableView.setItems(mainApp.getSeData());
+
     }
 
     public SEOverviewController() {
@@ -82,23 +83,11 @@ public class SEOverviewController {
 
         seColumn.setCellValueFactory(cellData -> cellData.getValue().idSensingElementProperty());
 
-        /*SensingElement tempSe=new SensingElement("",null,null,null,"",null,"",null,"","","",null,"",null,"",null,"",null,"");
-        try{
-            List<SensingElement> list= SensingElementDAOMySQLImpl.getInstance().select(tempSe);
-            mainApp.getSeData().clear();
-            mainApp.getSeData().addAll(list);
-            for (SensingElement item : list){
-                System.out.println(""+mainApp.getSeData()+"\n");
-            }
-        } catch (DAOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("Error during DB interaction");
-            alert.setHeaderText("Error during search ...");
-            alert.setContentText(e.getMessage());
+        showSEDetails(null);
+        seTableView.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) ->  showSEDetails(newValue));
 
-            alert.showAndWait();
-        }*/
+
     }
 
     private void showSEDetails(SensingElement sensingElement) {
@@ -152,9 +141,9 @@ public class SEOverviewController {
 
     @FXML
     private void handleSearchSensingElement() {
-        SensingElement tempSe = new SensingElement("", null, null, null, "", null, "", null, "", "", "", null, "", null, "", null, "", null, "");
-        boolean okClicked = mainApp.showSEEditDialog(tempSe, true);
-        if (okClicked) {
+        SensingElement tempSe = new SensingElement(""/*, null, null, null, "", null, "", null, "", "", "", null, "", null, "", null, "", null, ""*/);
+       // boolean okClicked = mainApp.showSEEditDialog(tempSe, false);
+      //  if (okClicked) {
             try {
                 List<SensingElement> list = SensingElementDAOMySQLImpl.getInstance().select(tempSe);
                 mainApp.getSeData().clear();
@@ -171,7 +160,7 @@ public class SEOverviewController {
 
                 alert.showAndWait();
             }
-        }
+       // }
 
         /**
          * Called when the user clicks the edit button. Opens a dialog to edit

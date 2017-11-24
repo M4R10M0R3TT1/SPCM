@@ -80,7 +80,6 @@ public class SEEditDialogController {
      */
     public void setSensingElement(SensingElement sensingElement) {
         this.sensingElement = sensingElement;
-        this.verifyLen = verifyLen;
 
         sensingElementNameTextField.setText(sensingElement.getIdSensingElement());
 
@@ -125,7 +124,7 @@ public class SEEditDialogController {
     private void handleOk() {
         if (isInputValid(verifyLen)) {
             sensingElement.setIdSensingElement(sensingElementNameTextField.getText());
-            sensingElement.setrSense(Integer.parseInt(rSenseTextField.getText()));
+            /*sensingElement.setrSense(Integer.parseInt(rSenseTextField.getText()));
             sensingElement.setInGain(Integer.parseInt(inGainTextField.getText()));
             sensingElement.setOutGain(Integer.parseInt(outGainTextField.getText()));
             sensingElement.setContacts(contactsTextField.getText());
@@ -142,7 +141,7 @@ public class SEEditDialogController {
             sensingElement.setConversionRate(Integer.parseInt(conversionTextField.getText()));
             sensingElement.setInPortADC(inPortADCTextField.getText());
             sensingElement.setnData(Integer.parseInt(nDataTextField.getText()));
-            sensingElement.setMeasureUnit(measureUnitTextField.getText());
+            sensingElement.setMeasureUnit(measureUnitTextField.getText());*/
 
             okClicked = true;
             dialogStage.close();
