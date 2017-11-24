@@ -25,7 +25,6 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
         if (dao == null){
             dao = new SensingElementDAOMySQLImpl();
             logger = Logger.getLogger(SensingElementDAOMySQLImpl.class.getName());
-
         }
         return dao;
     }

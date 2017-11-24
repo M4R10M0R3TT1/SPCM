@@ -140,7 +140,7 @@ public class SEOverviewController {
     }
 
     @FXML
-    private void handleSearchSensingElement() {
+    private void handleReadDB() {
         SensingElement tempSe = new SensingElement("");
        // boolean okClicked = mainApp.showSEEditDialog(tempSe, false);
       //  if (okClicked) {

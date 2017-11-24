@@ -38,32 +38,29 @@ public class SensingElement {
 
     public SensingElement(String idSensingElement, Integer rSense, Integer inGain, Integer outGain, String contacts, Integer frequency, String harmonic, Integer dcBias, String modeVI, String measureTecnique, String measureType, Integer filter, String phaseShiftMode, Integer phaseShift, String iq, Integer conversionRate, String inPortADC, Integer nData, String measureUnit){
         this.idSensingElement=new SimpleStringProperty(idSensingElement);
-        this.rSense=null;//new SimpleIntegerProperty(rSense);
-        this.inGain=null;//new SimpleIntegerProperty(inGain);
-        this.outGain=null;//new SimpleIntegerProperty(outGain);
+        this.rSense=null;
+        this.inGain=null;
+        this.outGain=null;
         this.contacts=new SimpleStringProperty(contacts);
-        this.frequency=null;//new SimpleIntegerProperty(frequency);
+        this.frequency=null;
         this.harmonic=new SimpleStringProperty(harmonic);
-        this.dcBias=null;//new SimpleIntegerProperty(dcBias);
+        this.dcBias=null;
         this.modeVI=new SimpleStringProperty(modeVI);
         this.measureTecnique=new SimpleStringProperty(measureTecnique);
         this.measureType=new SimpleStringProperty(measureType);
-        this.filter=null;//new SimpleIntegerProperty(filter);
+        this.filter=null;
         this.phaseShiftMode=new SimpleStringProperty(phaseShiftMode);
-        this.phaseShift=null;//new SimpleIntegerProperty(phaseShift);
+        this.phaseShift=null;
         this.iq=new SimpleStringProperty(iq);
-        this.conversionRate=null;//new SimpleIntegerProperty(conversionRate);
+        this.conversionRate=null;
         this.inPortADC=new SimpleStringProperty(inPortADC);
-        this.nData=null;//new SimpleIntegerProperty(nData);
+        this.nData=null;
         this.measureUnit=new SimpleStringProperty(measureUnit);
     }
 
     public SensingElement(String idSensingElement){
         this.idSensingElement=new SimpleStringProperty(idSensingElement);
-
     }
-
-
 
     public String getIdSensingElement() {
         return idSensingElement.get();
@@ -84,10 +81,6 @@ public class SensingElement {
         return rSense.get();
     }
 
-    /*public IntegerProperty rSenseProperty() {
-        return rSense;
-    }*/
-
     public void setrSense(Integer rSense) {
         if (this.rSense == null){
             this.rSense = new SimpleIntegerProperty();
@@ -102,10 +95,6 @@ public class SensingElement {
         return inGain.get();
     }
 
-    /*public IntegerProperty inGainProperty() {
-        return inGain;
-    }*/
-
     public void setInGain(Integer inGain) {
         if (this.inGain == null){
             this.inGain = new SimpleIntegerProperty();
@@ -119,10 +108,6 @@ public class SensingElement {
         }
         return outGain.get();
     }
-
-    /*public IntegerProperty outGainProperty() {
-        return outGain;
-    }*/
 
     public void setOutGain(Integer outGain) {
         if (this.outGain == null){
@@ -150,10 +135,6 @@ public class SensingElement {
         return frequency.get();
     }
 
-    /*public IntegerProperty frequencyProperty() {
-        return frequency;
-    }*/
-
     public void setFrequency(Integer frequency) {
         if (this.frequency == null){
             this.frequency = new SimpleIntegerProperty();
@@ -179,10 +160,6 @@ public class SensingElement {
         }
         return dcBias.get();
     }
-
-    /*public IntegerProperty dcBiasProperty() {
-        return dcBias;
-    }*/
 
     public void setDcBias(Integer dcBias) {
         if (this.dcBias == null){
@@ -234,10 +211,6 @@ public class SensingElement {
         return filter.get();
     }
 
-    /*public IntegerProperty filterProperty() {
-        return filter;
-    }*/
-
     public void setFilter(Integer filter) {
         if (this.filter == null){
             this.filter = new SimpleIntegerProperty();
@@ -263,10 +236,6 @@ public class SensingElement {
         }
         return phaseShift.get();
     }
-
-    /*public IntegerProperty phaseShiftProperty() {
-        return phaseShift;
-    }*/
 
     public void setPhaseShift(Integer phaseShift) {
         if (this.phaseShift == null){
@@ -294,10 +263,6 @@ public class SensingElement {
         return conversionRate.get();
     }
 
-    /*public IntegerProperty conversionRateProperty() {
-        return conversionRate;
-    }*/
-
     public void setConversionRate(Integer conversionRate) {
         if (this.conversionRate == null){
             this.conversionRate = new SimpleIntegerProperty();
@@ -323,10 +288,6 @@ public class SensingElement {
         }
         return nData.get();
     }
-
-    /*public IntegerProperty nDataProperty() {
-        return nData;
-    }*/
 
     public void setnData(Integer nData) {
         if (this.nData == null){
