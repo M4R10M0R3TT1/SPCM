@@ -141,16 +141,14 @@ public class SEOverviewController {
 
     @FXML
     private void handleSearchSensingElement() {
-        SensingElement tempSe = new SensingElement(""/*, null, null, null, "", null, "", null, "", "", "", null, "", null, "", null, "", null, ""*/);
+        SensingElement tempSe = new SensingElement("");
        // boolean okClicked = mainApp.showSEEditDialog(tempSe, false);
       //  if (okClicked) {
             try {
                 List<SensingElement> list = SensingElementDAOMySQLImpl.getInstance().select(tempSe);
                 mainApp.getSeData().clear();
                 mainApp.getSeData().addAll(list);
-                for (SensingElement item : list) {
-                    System.out.println("" + mainApp.getSeData() + "\n");
-                }
+
             } catch (DAOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());

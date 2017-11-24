@@ -36,9 +36,9 @@ public class SensingElement {
         this(null/*,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null*/);
     }
 
-    public SensingElement(String idSensingElement/*, Integer rSense, Integer inGain, Integer outGain, String contacts, Integer frequency, String harmonic, Integer dcBias, String modeVI, String measureTecnique, String measureType, Integer filter, String phaseShiftMode, Integer phaseShift, String iq, Integer conversionRate, String inPortADC, Integer nData, String measureUnit*/){
+    public SensingElement(String idSensingElement, Integer rSense, Integer inGain, Integer outGain, String contacts, Integer frequency, String harmonic, Integer dcBias, String modeVI, String measureTecnique, String measureType, Integer filter, String phaseShiftMode, Integer phaseShift, String iq, Integer conversionRate, String inPortADC, Integer nData, String measureUnit){
         this.idSensingElement=new SimpleStringProperty(idSensingElement);
-       /* this.rSense=null;//new SimpleIntegerProperty(rSense);
+        this.rSense=null;//new SimpleIntegerProperty(rSense);
         this.inGain=null;//new SimpleIntegerProperty(inGain);
         this.outGain=null;//new SimpleIntegerProperty(outGain);
         this.contacts=new SimpleStringProperty(contacts);
@@ -55,8 +55,15 @@ public class SensingElement {
         this.conversionRate=null;//new SimpleIntegerProperty(conversionRate);
         this.inPortADC=new SimpleStringProperty(inPortADC);
         this.nData=null;//new SimpleIntegerProperty(nData);
-        this.measureUnit=new SimpleStringProperty(measureUnit);*/
+        this.measureUnit=new SimpleStringProperty(measureUnit);
     }
+
+    public SensingElement(String idSensingElement){
+        this.idSensingElement=new SimpleStringProperty(idSensingElement);
+
+    }
+
+
 
     public String getIdSensingElement() {
         return idSensingElement.get();
