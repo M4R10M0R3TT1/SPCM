@@ -36,6 +36,7 @@ public class MainApp extends Application {
     private BorderPane rootLayout;
 
     private ObservableList<SensingElement> seData = FXCollections.observableArrayList();
+    private ObservableList<SensingElement> seFamData=FXCollections.observableArrayList();
 
 
     @Override
@@ -58,6 +59,10 @@ public class MainApp extends Application {
      */
     public ObservableList<SensingElement> getSeData() {
         return seData;
+    }
+
+    public ObservableList<SensingElement> getSeFamData() {
+        return seFamData;
     }
 
     public void initRootLayout(){

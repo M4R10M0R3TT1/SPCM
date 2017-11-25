@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="506.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.SEOverviewController">
+<AnchorPane prefHeight="506.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.SEOverviewController">
    <children>
       <SplitPane dividerPositions="0.2979942693409742" prefHeight="500.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
@@ -34,8 +34,8 @@
                               <GridPane layoutX="71.0" layoutY="59.0" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                                 <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="467.0" minWidth="-Infinity" prefWidth="127.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="452.0" minWidth="10.0" prefWidth="114.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="541.0" minWidth="0.0" prefWidth="175.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="452.0" minWidth="10.0" prefWidth="171.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="541.0" minWidth="0.0" prefWidth="118.0" />
                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="204.0" />
                                 </columnConstraints>
                                 <rowConstraints>
@@ -108,10 +108,10 @@
                               </ButtonBar>
                               <TableView fx:id="familyTableView" layoutX="24.0" layoutY="-13.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
-                                  <TableColumn minWidth="84.0" prefWidth="105.0" text="ID Family" />
+                                  <TableColumn fx:id="idFamilyColumn" minWidth="84.0" prefWidth="105.0" text="ID Family" />
                                   <TableColumn fx:id="familyNameColumn" minWidth="15.0" prefWidth="172.0" text="Family Name" />
                                     <TableColumn fx:id="portNameColumn" minWidth="0.0" prefWidth="169.0" text="Port Name" />
-                                    <TableColumn minWidth="69.0" prefWidth="178.0" text="Port Type" />
+                                    <TableColumn fx:id="portTypeColumn" minWidth="69.0" prefWidth="178.0" text="Port Type" />
                                 </columns>
                               </TableView>
                               <ButtonBar layoutX="14.0" layoutY="156.0" prefHeight="27.0" prefWidth="53.0" AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="540.0">

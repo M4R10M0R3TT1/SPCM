@@ -75,6 +75,36 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
     }
 
     @Override
+    public List<SensingElement> selectSeFamily(SensingElement a) throws DAOException {
+
+        ArrayList<SensingElement> lista = new ArrayList<>();
+        String se_selected=a.toString();
+        try {
+            Statement st = DAOMySQLSettings.getStatement();
+
+            String sql = "SELECT fc.`_idFamily`,f.family_Name,fc.se_Port FROM SensingElement s,Family f,familyconfig fc WHERE fc._seName='"+se_selected+"' AND fc.`_seName`=s.IdSensingElement AND fc.`_idFamily`=f.IdFamily";
+
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                lista.add(new SensingElement(
+                        rs.getString("_idFamily"),
+                        rs.getString("family_Name"),
+                        rs.getString("se_Port")));
+            }
+            DAOMySQLSettings.closeStatement(st);
+            //System.out.println("Valore di a: "+se_selected);
+            /*for(SensingElement item : lista) {
+                System.out.println("Risultato query: " + item._idFamilyProperty() + "\n");
+            }*/
+
+        } catch (SQLException sq) {
+            throw new DAOException("In select(): " + sq.getMessage());
+        }
+
+        return lista;
+    }
+
+    @Override
     public void update(SensingElement a) throws DAOException {
        /* if (a == null || a.getCognome() == null
                 || a.getNome() == null
@@ -103,11 +133,7 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
         //idSensingElement, rSense, inGain, outGain, contacts, frequency, harmonic, dcBias, modeVI,
         // measureTechnique,measureType, filter, phaseShiftMode, phaseShift, iq, conversionRate, inPortADC, nData, measureUnit
 
-        if (a == null || a.getIdSensingElement() == null){
-            throw new DAOException("If you want to insert a new SensingElement, the field idSensingElement cannot be null!");
-        }
-
-//('OFFCHIP_VOC',500,40,7,'TWO',78125,'FIRST_HARMONIC',0,'VOUT_IIN','EIS','CAPACITANCE',1,'Quadrants',0,'IN_PHASE',50,'IA',1,'%')
+        //('OFFCHIP_VOC',500,40,7,'TWO',78125,'FIRST_HARMONIC',0,'VOUT_IIN','EIS','CAPACITANCE',1,'Quadrants',0,'IN_PHASE',50,'IA',1,'%')
         String sql = "INSERT INTO SensingElement (idSensingElement, rSense, inGain, outGain, contacts, frequency, harmonic, dcBias, modeVI, measureTechnique, measureType, filter, phaseShiftMode, phaseShift, iq, conversionRate, inPortADC, nData, measureUnit) VALUES" +
                 "  ('" + a.getIdSensingElement() + "', " + a.getrSense() + ", " +
                 a.getInGain() + ", " + a.getOutGain() + ", '" +
@@ -136,9 +162,6 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
 
     @Override
     public void delete(SensingElement a) throws DAOException {
-        /*if (a == null || a.getIdSensingElement() == null){
-            throw new DAOException("In delete you have to specify at least the idSensingElement field!");
-        }*/
         String sql = "DELETE FROM SensingElement WHERE IdSensingElement='" + a.getIdSensingElement() + "';";
         logger.info("SQL: " + sql);
 
