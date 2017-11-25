@@ -30,32 +30,41 @@ public class SensingElement {
     private IntegerProperty nData;
     private StringProperty measureUnit;
 
+    //parte family
+    private StringProperty _idFamily;
+    private StringProperty family_Name;
+    private StringProperty se_Port;
+
+
     //Default constructor
     public SensingElement(){
 
         this(null/*,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null*/);
     }
 
-    public SensingElement(String idSensingElement, Integer rSense, Integer inGain, Integer outGain, String contacts, Integer frequency, String harmonic, Integer dcBias, String modeVI, String measureTechnique, String measureType, Integer filter, String phaseShiftMode, Integer phaseShift, String iq, Integer conversionRate, String inPortADC, Integer nData, String measureUnit){
+    public SensingElement(String idSensingElement, Integer rSense, Integer inGain, Integer outGain, String contacts, Integer frequency, String harmonic, Integer dcBias, String modeVI, String measureTechnique, String measureType, Integer filter, String phaseShiftMode, Integer phaseShift, String iq, Integer conversionRate, String inPortADC, Integer nData, String measureUnit,String _idFamily,String family_Name,String se_Port){
         this.idSensingElement=new SimpleStringProperty(idSensingElement);
-        this.rSense=null;
-        this.inGain=null;
-        this.outGain=null;
+        this.rSense= new SimpleIntegerProperty(rSense.intValue());
+        this.inGain=new SimpleIntegerProperty(inGain.intValue());;
+        this.outGain=new SimpleIntegerProperty(outGain.intValue());;
         this.contacts=new SimpleStringProperty(contacts);
-        this.frequency=null;
+        this.frequency=new SimpleIntegerProperty(frequency.intValue());;
         this.harmonic=new SimpleStringProperty(harmonic);
-        this.dcBias=null;
+        this.dcBias=new SimpleIntegerProperty(dcBias.intValue());;
         this.modeVI=new SimpleStringProperty(modeVI);
         this.measureTechnique=new SimpleStringProperty(measureTechnique);
         this.measureType=new SimpleStringProperty(measureType);
-        this.filter=null;
+        this.filter=new SimpleIntegerProperty(filter.intValue());;
         this.phaseShiftMode=new SimpleStringProperty(phaseShiftMode);
-        this.phaseShift=null;
+        this.phaseShift=new SimpleIntegerProperty(phaseShift.intValue());;
         this.iq=new SimpleStringProperty(iq);
-        this.conversionRate=null;
+        this.conversionRate=new SimpleIntegerProperty(conversionRate.intValue());;
         this.inPortADC=new SimpleStringProperty(inPortADC);
-        this.nData=null;
+        this.nData=new SimpleIntegerProperty(nData.intValue());;
         this.measureUnit=new SimpleStringProperty(measureUnit);
+        this._idFamily=new SimpleStringProperty(_idFamily);
+        this.family_Name=new SimpleStringProperty(family_Name);
+        this.se_Port=new SimpleStringProperty(se_Port);
     }
 
     //Constructor for ReadDB
@@ -80,6 +89,9 @@ public class SensingElement {
         this.inPortADC=new SimpleStringProperty("");
         this.nData=null;
         this.measureUnit=new SimpleStringProperty("");
+        this._idFamily=new SimpleStringProperty("");
+        this.family_Name=new SimpleStringProperty("");
+        this.se_Port=new SimpleStringProperty("");
     }
 
     public String getIdSensingElement() {
@@ -326,6 +338,42 @@ public class SensingElement {
 
     public void setMeasureUnit(String measureUnit) {
         this.measureUnit.set(measureUnit);
+    }
+
+    public String get_idFamily() {
+        return _idFamily.get();
+    }
+
+    public StringProperty _idFamilyProperty() {
+        return _idFamily;
+    }
+
+    public void set_idFamily(String _idFamily) {
+        this._idFamily.set(_idFamily);
+    }
+
+    public String getFamily_Name() {
+        return family_Name.get();
+    }
+
+    public StringProperty family_NameProperty() {
+        return family_Name;
+    }
+
+    public void setFamily_Name(String family_Name) {
+        this.family_Name.set(family_Name);
+    }
+
+    public String getSe_Port() {
+        return se_Port.get();
+    }
+
+    public StringProperty se_PortProperty() {
+        return se_Port;
+    }
+
+    public void setSe_Port(String se_Port) {
+        this.se_Port.set(se_Port);
     }
 
     @Override

@@ -60,6 +60,7 @@ public class SEOverviewController {
     @FXML
     private Label idSELabel;
 
+
     // Reference to the main application
     private MainApp mainApp;
 
@@ -85,30 +86,30 @@ public class SEOverviewController {
 
         showSEDetails(null);
         seTableView.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) ->  showSEDetails(newValue));
+                (observable, oldValue, newValue) -> showSEDetails(newValue));
 
 
     }
 
     private void showSEDetails(SensingElement sensingElement) {
         if (sensingElement != null) {
-            rSenseLabel.setText(Integer.toString(sensingElement.getrSense()));
-            inGainLabel.setText(Integer.toString(sensingElement.getInGain()));
-            outGainLabel.setText(Integer.toString(sensingElement.getOutGain()));
+            rSenseLabel.setText(sensingElement.getrSense().toString());
+            inGainLabel.setText(sensingElement.getInGain().toString());
+            outGainLabel.setText(sensingElement.getOutGain().toString());
             contactsLabel.setText(sensingElement.getContacts());
-            frequencyLabel.setText(Integer.toString(sensingElement.getFrequency()));
+            frequencyLabel.setText(sensingElement.getFrequency().toString());
             harmonicLabel.setText(sensingElement.getHarmonic());
-            dcBiasLabel.setText(Integer.toString(sensingElement.getDcBias()));
+            dcBiasLabel.setText(sensingElement.getDcBias().toString());
             modeVILabel.setText(sensingElement.getModeVI());
             measureTechniqueLabel.setText(sensingElement.getmeasureTechnique());
             measureTypeLabel.setText(sensingElement.getMeasureType());
-            filterLabel.setText(Integer.toString(sensingElement.getFilter()));
+            filterLabel.setText(sensingElement.getFilter().toString());
             phaseShiftModeLabel.setText(sensingElement.getPhaseShiftMode());
-            phaseShiftLabel.setText(Integer.toString(sensingElement.getPhaseShift()));
+            phaseShiftLabel.setText(sensingElement.getPhaseShift().toString());
             IQLabel.setText(sensingElement.getIq());
-            conversionRateLabel.setText(Integer.toString(sensingElement.getConversionRate()));
+            conversionRateLabel.setText(sensingElement.getConversionRate().toString());
             inPortADCLabel.setText(sensingElement.getInPortADC());
-            nDataLabel.setText(Integer.toString(sensingElement.getnData()));
+            nDataLabel.setText(sensingElement.getnData().toString());
             measureUnitLabel.setText(sensingElement.getMeasureUnit());
             idSELabel.setText(sensingElement.getIdSensingElement());
 
@@ -171,38 +172,39 @@ public class SEOverviewController {
 
     @FXML
     private void handleReadDB() {
-       // SensingElement tempSe = new SensingElement("");
-        SensingElement tempSe = new SensingElement("",null,null,null,"",null,"",null,"","","",null,"",null,"",null,"",null,"");
+        // SensingElement tempSe = new SensingElement("");
+        SensingElement tempSe = new SensingElement("", 0, 0, 0, "", 0, "", 0, "", "", "", 0, "", 0, "", 0, "", 0, "","","","");
 
-            try {
-                List<SensingElement> list = SensingElementDAOMySQLImpl.getInstance().select(tempSe);
-                mainApp.getSeData().clear();
-                mainApp.getSeData().addAll(list);
+        try {
+            List<SensingElement> list = SensingElementDAOMySQLImpl.getInstance().select(tempSe);
+            mainApp.getSeData().clear();
+            mainApp.getSeData().addAll(list);
 
-            } catch (DAOException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initOwner(mainApp.getPrimaryStage());
-                alert.setTitle("Error during DB interaction");
-                alert.setHeaderText("Error during search ...");
-                alert.setContentText(e.getMessage());
+        } catch (DAOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("Error during DB interaction");
+            alert.setHeaderText("Error during search ...");
+            alert.setContentText(e.getMessage());
 
-                alert.showAndWait();
-            }
-       // }
+            alert.showAndWait();
+        }
+    }
+    // }
 
-        /**
-         * Called when the user clicks the edit button. Opens a dialog to edit
-         * details for the selected Sensing Element.
-         */
-    /*@FXML
-    private void handleEditColleghi() {
+    /**
+     * Called when the user clicks the edit button. Opens a dialog to edit
+     * details for the selected Sensing Element.
+     */
+    @FXML
+    private void handleEditSE() {
         SensingElement selectedSensingElement = seTableView.getSelectionModel().getSelectedItem();
         if (selectedSensingElement != null) {
-            boolean okClicked = mainApp.showSEEditDialog(selectedSensingElement,true);
+            boolean okClicked = mainApp.showSEEditDialog(selectedSensingElement, true);
             if (okClicked) {
                 try {
                     SensingElementDAOMySQLImpl.getInstance().update(selectedSensingElement);
-                    showSensingElementDetails(selectedSensingElement);
+                    showSEDetails(selectedSensingElement);
                 } catch (DAOException e) {
                     e.printStackTrace();
                 }
@@ -218,6 +220,7 @@ public class SEOverviewController {
 
             alert.showAndWait();
         }
-    }*/
     }
 }
+
+

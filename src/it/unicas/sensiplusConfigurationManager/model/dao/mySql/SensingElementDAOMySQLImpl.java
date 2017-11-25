@@ -39,7 +39,8 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
         try {
             Statement st = DAOMySQLSettings.getStatement();
 
-            String sql = "SELECT * FROM SensingElement";
+            String sql = "SELECT s.*,fc.`_idFamily`,f.family_Name,fc.se_Port FROM SensingElement s,Family f,familyconfig fc WHERE s.IdSensingElement=fc.`_seName` and fc.`_idFamily`=f.IdFamily";
+
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
                 lista.add(new SensingElement(rs.getString("IdSensingElement"),
@@ -60,7 +61,10 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
                         rs.getInt("conversionRate"),
                         rs.getString("inPortADC"),
                         rs.getInt("nData"),
-                        rs.getString("measureUnit")));
+                        rs.getString("measureUnit"),
+                        rs.getString("_idFamily"),
+                        rs.getString("family_Name"),
+                        rs.getString("se_Port")));
             }
             DAOMySQLSettings.closeStatement(st);
 
@@ -73,8 +77,27 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
 
     @Override
     public void update(SensingElement a) throws DAOException {
+       /* if (a == null || a.getCognome() == null
+                || a.getNome() == null
+                || a.getEmail() == null
+                || a.getCompleanno() == null
+                || a.getTelefono() == null){
+            throw new DAOException("In select: any field can be null");
+        }*/
 
+        String query = "UPDATE sensingelement SET contacts ='"+ a.getContacts()+"'";
+        try {
+            Statement st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(query);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In update(): " + e.getMessage());
+        }
     }
+
+
 
     @Override
     public void insert(SensingElement a) throws DAOException {
