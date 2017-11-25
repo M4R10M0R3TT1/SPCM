@@ -111,6 +111,9 @@ public class SEOverviewController {
             nDataLabel.setText(Integer.toString(sensingElement.getnData()));
             measureUnitLabel.setText(sensingElement.getMeasureUnit());
             idSELabel.setText(sensingElement.getIdSensingElement());
+
+            //Parte Famiglia
+
         }
     }
 
@@ -141,9 +144,9 @@ public class SEOverviewController {
 
     @FXML
     private void handleReadDB() {
-        SensingElement tempSe = new SensingElement("");
-       // boolean okClicked = mainApp.showSEEditDialog(tempSe, false);
-      //  if (okClicked) {
+       // SensingElement tempSe = new SensingElement("");
+        SensingElement tempSe = new SensingElement("",null,null,null,"",null,"",null,"","","",null,"",null,"",null,"",null,"");
+
             try {
                 List<SensingElement> list = SensingElementDAOMySQLImpl.getInstance().select(tempSe);
                 mainApp.getSeData().clear();

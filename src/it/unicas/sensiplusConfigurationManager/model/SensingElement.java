@@ -59,7 +59,26 @@ public class SensingElement {
     }
 
     public SensingElement(String idSensingElement){
+
         this.idSensingElement=new SimpleStringProperty(idSensingElement);
+        this.rSense= null;
+        this.inGain=null;
+        this.outGain=null;
+        this.contacts=new SimpleStringProperty("");
+        this.frequency=null;
+        this.harmonic=new SimpleStringProperty("");
+        this.dcBias=null;
+        this.modeVI=new SimpleStringProperty("");
+        this.measureTecnique=new SimpleStringProperty("");
+        this.measureType=new SimpleStringProperty("");
+        this.filter=null;
+        this.phaseShiftMode=new SimpleStringProperty("");
+        this.phaseShift=null;
+        this.iq=new SimpleStringProperty("");
+        this.conversionRate=null;
+        this.inPortADC=new SimpleStringProperty("");
+        this.nData=null;
+        this.measureUnit=new SimpleStringProperty("");
     }
 
     public String getIdSensingElement() {

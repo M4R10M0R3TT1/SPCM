@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 /**
- * Created by  on 21/11/2017.
+ * Created by on 21/11/2017.
  */
 public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElement> {
 
@@ -39,11 +39,28 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
         try {
             Statement st = DAOMySQLSettings.getStatement();
 
-            String sql = "SELECT IdSensingElement FROM SensingElement";
+            String sql = "SELECT * FROM SensingElement";
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                lista.add(new SensingElement(rs.getString("IdSensingElement")));
-
+                lista.add(new SensingElement(rs.getString("IdSensingElement"),
+                        rs.getInt("rSense"),
+                        rs.getInt("inGain"),
+                        rs.getInt("outGain"),
+                        rs.getString("contacts"),
+                        rs.getInt("frequency"),
+                        rs.getString("harmonic"),
+                        rs.getInt("dcBias"),
+                        rs.getString("modeVI"),
+                        rs.getString("measureTechnique"),
+                        rs.getString("measureType"),
+                        rs.getInt("filter"),
+                        rs.getString("phaseShiftMode"),
+                        rs.getInt("phaseShift"),
+                        rs.getString("iq"),
+                        rs.getInt("conversionRate"),
+                        rs.getString("inPortADC"),
+                        rs.getInt("nData"),
+                        rs.getString("measureUnit")));
             }
             DAOMySQLSettings.closeStatement(st);
 
