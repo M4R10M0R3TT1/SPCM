@@ -215,8 +215,8 @@ public class SEOverviewController {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
             alert.setTitle("No Selection");
-            alert.setHeaderText("No Colleghi Selected");
-            alert.setContentText("Please select a Colleghi in the table.");
+            alert.setHeaderText("No Sensing Element Selected");
+            alert.setContentText("Please select a Sensing Element in the table.");
 
             alert.showAndWait();
         }
