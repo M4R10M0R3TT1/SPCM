@@ -19,7 +19,7 @@ public class SensingElement {
     private StringProperty harmonic;
     private IntegerProperty dcBias;
     private StringProperty modeVI;
-    private StringProperty measureTecnique;
+    private StringProperty measureTechnique;
     private StringProperty measureType;
     private IntegerProperty filter;
     private StringProperty phaseShiftMode;
@@ -36,7 +36,7 @@ public class SensingElement {
         this(null/*,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null*/);
     }
 
-    public SensingElement(String idSensingElement, Integer rSense, Integer inGain, Integer outGain, String contacts, Integer frequency, String harmonic, Integer dcBias, String modeVI, String measureTecnique, String measureType, Integer filter, String phaseShiftMode, Integer phaseShift, String iq, Integer conversionRate, String inPortADC, Integer nData, String measureUnit){
+    public SensingElement(String idSensingElement, Integer rSense, Integer inGain, Integer outGain, String contacts, Integer frequency, String harmonic, Integer dcBias, String modeVI, String measureTechnique, String measureType, Integer filter, String phaseShiftMode, Integer phaseShift, String iq, Integer conversionRate, String inPortADC, Integer nData, String measureUnit){
         this.idSensingElement=new SimpleStringProperty(idSensingElement);
         this.rSense=null;
         this.inGain=null;
@@ -46,7 +46,7 @@ public class SensingElement {
         this.harmonic=new SimpleStringProperty(harmonic);
         this.dcBias=null;
         this.modeVI=new SimpleStringProperty(modeVI);
-        this.measureTecnique=new SimpleStringProperty(measureTecnique);
+        this.measureTechnique=new SimpleStringProperty(measureTechnique);
         this.measureType=new SimpleStringProperty(measureType);
         this.filter=null;
         this.phaseShiftMode=new SimpleStringProperty(phaseShiftMode);
@@ -58,6 +58,7 @@ public class SensingElement {
         this.measureUnit=new SimpleStringProperty(measureUnit);
     }
 
+    //Constructor for ReadDB
     public SensingElement(String idSensingElement){
 
         this.idSensingElement=new SimpleStringProperty(idSensingElement);
@@ -69,7 +70,7 @@ public class SensingElement {
         this.harmonic=new SimpleStringProperty("");
         this.dcBias=null;
         this.modeVI=new SimpleStringProperty("");
-        this.measureTecnique=new SimpleStringProperty("");
+        this.measureTechnique=new SimpleStringProperty("");
         this.measureType=new SimpleStringProperty("");
         this.filter=null;
         this.phaseShiftMode=new SimpleStringProperty("");
@@ -199,16 +200,16 @@ public class SensingElement {
         this.modeVI.set(modeVI);
     }
 
-    public String getMeasureTecnique() {
-        return measureTecnique.get();
+    public String getmeasureTechnique() {
+        return measureTechnique.get();
     }
 
-    public StringProperty measureTecniqueProperty() {
-        return measureTecnique;
+    public StringProperty measureTechniqueProperty() {
+        return measureTechnique;
     }
 
-    public void setMeasureTecnique(String measureTecnique) {
-        this.measureTecnique.set(measureTecnique);
+    public void setmeasureTechnique(String measureTechnique) {
+        this.measureTechnique.set(measureTechnique);
     }
 
     public String getMeasureType() {

@@ -100,7 +100,7 @@ public class SEOverviewController {
             harmonicLabel.setText(sensingElement.getHarmonic());
             dcBiasLabel.setText(Integer.toString(sensingElement.getDcBias()));
             modeVILabel.setText(sensingElement.getModeVI());
-            measureTechniqueLabel.setText(sensingElement.getMeasureTecnique());
+            measureTechniqueLabel.setText(sensingElement.getmeasureTechnique());
             measureTypeLabel.setText(sensingElement.getMeasureType());
             filterLabel.setText(Integer.toString(sensingElement.getFilter()));
             phaseShiftModeLabel.setText(sensingElement.getPhaseShiftMode());

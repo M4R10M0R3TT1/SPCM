@@ -96,7 +96,7 @@ public class SEEditDialogController {
         harmonicTextField.setText(sensingElement.getHarmonic());
         dcBiasTextField.setText(Integer.toString(sensingElement.getDcBias()));
         modeVITextField.setText(sensingElement.getModeVI());
-        measureTechniqueTextField.setText(sensingElement.getMeasureTecnique());
+        measureTechniqueTextField.setText(sensingElement.getmeasureTechnique());
         measureTypeTextField.setText(sensingElement.getMeasureType());
         filterTextField.setText(Integer.toString(sensingElement.getFilter()));
         phaseShiftModeTextField.setText(sensingElement.getPhaseShiftMode());
@@ -132,7 +132,7 @@ public class SEEditDialogController {
             sensingElement.setHarmonic(harmonicTextField.getText());
             sensingElement.setDcBias(Integer.parseInt(dcBiasTextField.getText()));
             sensingElement.setModeVI(modeVITextField.getText());
-            sensingElement.setMeasureTecnique(measureTechniqueTextField.getText());
+            sensingElement.setmeasureTechnique(measureTechniqueTextField.getText());
             sensingElement.setMeasureType(measureTypeTextField.getText());
             sensingElement.setFilter(Integer.parseInt(frequencyTextField.getText()));
             sensingElement.setPhaseShiftMode(phaseShiftModeTextField.getText());

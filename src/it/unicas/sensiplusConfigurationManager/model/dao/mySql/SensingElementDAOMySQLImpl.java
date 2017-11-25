@@ -78,7 +78,38 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
 
     @Override
     public void insert(SensingElement a) throws DAOException {
+        //idSensingElement, rSense, inGain, outGain, contacts, frequency, harmonic, dcBias, modeVI,
+        // measureTechnique,measureType, filter, phaseShiftMode, phaseShift, iq, conversionRate, inPortADC, nData, measureUnit
 
+        if (a == null || a.getIdSensingElement() == null){
+            throw new DAOException("If you want to insert a new SensingElement, the field idSensingElement cannot be null!");
+        }
+
+//('OFFCHIP_VOC',500,40,7,'TWO',78125,'FIRST_HARMONIC',0,'VOUT_IIN','EIS','CAPACITANCE',1,'Quadrants',0,'IN_PHASE',50,'IA',1,'%')
+        String sql = "INSERT INTO SensingElement (idSensingElement, rSense, inGain, outGain, contacts, frequency, harmonic, dcBias, modeVI, measureTechnique, measureType, filter, phaseShiftMode, phaseShift, iq, conversionRate, inPortADC, nData, measureUnit) VALUES" +
+                "  ('" + a.getIdSensingElement() + "', " + a.getrSense() + ", " +
+                a.getInGain() + ", " + a.getOutGain() + ", '" +
+                a.getContacts() + "', " + a.getFrequency() + ", '" +
+                a.getHarmonic() + "', " + a.getDcBias() + ", '" +
+                a.getModeVI() + "', '" + a.getmeasureTechnique() + "', '"+
+                a.getMeasureType() + "', " + a.getFilter() + ", '" +
+                a.getPhaseShiftMode() + "', " + a.getPhaseShift() + ", '" +
+                a.getIq() + "', " + a.getConversionRate() + ", '" +
+                a.getInPortADC() + "', " + a.getnData() + ", '" +
+                a.getMeasureUnit() + "')";
+
+
+        logger.info("SQL: " + sql);
+
+        try {
+            Statement st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In insert(): " + e.getMessage());
+        }
     }
 
     @Override
