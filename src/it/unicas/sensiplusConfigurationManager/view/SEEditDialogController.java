@@ -83,8 +83,10 @@ public class SEEditDialogController {
 
         sensingElementNameTextField.setText(sensingElement.getIdSensingElement());
 
-        if(sensingElement.getIdSensingElement()!=null)
-            seNameLabel.setText(sensingElement.getIdSensingElement());
+        if(sensingElement.getIdSensingElement()!=null) {
+            seNameLabel.setText("Edit SensingElement "+sensingElement.getIdSensingElement());
+            sensingElementNameTextField.setDisable(true);
+        }
         else
             seNameLabel.setText("Insert a new SensingElement");
 
