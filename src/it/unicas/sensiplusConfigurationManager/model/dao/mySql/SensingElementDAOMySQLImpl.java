@@ -84,7 +84,26 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
             throw new DAOException("In select: any field can be null");
         }*/
 
-        String query = "UPDATE sensingelement SET contacts ='"+ a.getContacts()+"'";
+        String query = "UPDATE sensingelement SET " +
+                "rSense='"+ a.getrSense().intValue() +
+                "', inGain='"+ a.getInGain()+
+                "', outGain='"+ a.getOutGain()+
+                "', contacts ='"+ a.getContacts()+
+                "', frequency ='"+ a.getFrequency()+
+                "', harmonic ='"+ a.getHarmonic()+
+                "', dcBias ='"+ a.getDcBias()+
+                "', modeVI ='"+ a.getModeVI()+
+                "', measureTechnique ='"+ a.getmeasureTechnique()+
+                "', measureType ='"+ a.getMeasureType()+
+                "', filter ='"+ a.getFilter()+
+                "', phaseShiftMode ='"+ a.getPhaseShiftMode()+
+                "', phaseShift ='"+ a.getPhaseShift()+
+                "', iq ='"+ a.getIq()+
+                "', conversionRate ='"+ a.getConversionRate()+
+                "', inPortADC ='"+ a.getInPortADC()+
+                "', nData ='"+ a.getnData()+
+                "', measureUnit ='"+ a.getMeasureUnit()+
+                "' WHERE IdSensingElement='"+a.getIdSensingElement()+"'";
         try {
             Statement st = DAOMySQLSettings.getStatement();
             int n = st.executeUpdate(query);
