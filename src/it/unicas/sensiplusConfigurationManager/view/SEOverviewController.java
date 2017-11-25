@@ -173,7 +173,7 @@ public class SEOverviewController {
     @FXML
     private void handleReadDB() {
         // SensingElement tempSe = new SensingElement("");
-        SensingElement tempSe = new SensingElement("", 0, 0, 0, "", 0, "", 0, "", "", "", 0, "", 0, "", 0, "", 0, "","","","");
+        SensingElement tempSe = new SensingElement("", 0, 0, 0, "", 0, "", 0, "", "", "", 0, "", 0, "", 0, "", 0,"");
 
         try {
             List<SensingElement> list = SensingElementDAOMySQLImpl.getInstance().select(tempSe);

@@ -42,7 +42,7 @@ public class SensingElement {
         this(null/*,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null*/);
     }
 
-    public SensingElement(String idSensingElement, Integer rSense, Integer inGain, Integer outGain, String contacts, Integer frequency, String harmonic, Integer dcBias, String modeVI, String measureTechnique, String measureType, Integer filter, String phaseShiftMode, Integer phaseShift, String iq, Integer conversionRate, String inPortADC, Integer nData, String measureUnit,String _idFamily,String family_Name,String se_Port){
+    public SensingElement(String idSensingElement, Integer rSense, Integer inGain, Integer outGain, String contacts, Integer frequency, String harmonic, Integer dcBias, String modeVI, String measureTechnique, String measureType, Integer filter, String phaseShiftMode, Integer phaseShift, String iq, Integer conversionRate, String inPortADC, Integer nData, String measureUnit){
         this.idSensingElement=new SimpleStringProperty(idSensingElement);
         this.rSense= new SimpleIntegerProperty(rSense.intValue());
         this.inGain=new SimpleIntegerProperty(inGain.intValue());;
@@ -62,9 +62,7 @@ public class SensingElement {
         this.inPortADC=new SimpleStringProperty(inPortADC);
         this.nData=new SimpleIntegerProperty(nData.intValue());;
         this.measureUnit=new SimpleStringProperty(measureUnit);
-        this._idFamily=new SimpleStringProperty(_idFamily);
-        this.family_Name=new SimpleStringProperty(family_Name);
-        this.se_Port=new SimpleStringProperty(se_Port);
+
     }
 
     //Constructor for ReadDB
@@ -89,9 +87,7 @@ public class SensingElement {
         this.inPortADC=new SimpleStringProperty("");
         this.nData=null;
         this.measureUnit=new SimpleStringProperty("");
-        this._idFamily=new SimpleStringProperty("");
-        this.family_Name=new SimpleStringProperty("");
-        this.se_Port=new SimpleStringProperty("");
+
     }
 
     public String getIdSensingElement() {

@@ -39,7 +39,9 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
         try {
             Statement st = DAOMySQLSettings.getStatement();
 
-            String sql = "SELECT s.*,fc.`_idFamily`,f.family_Name,fc.se_Port FROM SensingElement s,Family f,familyconfig fc WHERE s.IdSensingElement=fc.`_seName` and fc.`_idFamily`=f.IdFamily";
+           // String sql = "SELECT s.*,fc.`_idFamily`,f.family_Name,fc.se_Port FROM SensingElement s,Family f,familyconfig fc WHERE s.IdSensingElement=fc.`_seName` and fc.`_idFamily`=f.IdFamily";
+
+            String sql = "SELECT * FROM SensingElement";
 
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
@@ -61,10 +63,7 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
                         rs.getInt("conversionRate"),
                         rs.getString("inPortADC"),
                         rs.getInt("nData"),
-                        rs.getString("measureUnit"),
-                        rs.getString("_idFamily"),
-                        rs.getString("family_Name"),
-                        rs.getString("se_Port")));
+                        rs.getString("measureUnit")));
             }
             DAOMySQLSettings.closeStatement(st);
 
