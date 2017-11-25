@@ -142,6 +142,33 @@ public class SEOverviewController {
         }
     }
 
+    /**
+     * Called when the user clicks on the delete button.
+     */
+    @FXML
+    private void handleDeleteSensingElement() {
+        int selectedIndex = seTableView.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+
+            SensingElement sensingElement = seTableView.getItems().get(selectedIndex);
+            try {
+                SensingElementDAOMySQLImpl.getInstance().delete(sensingElement);
+                seTableView.getItems().remove(selectedIndex);
+            } catch (DAOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Colleghi Selected");
+            alert.setContentText("Please select a Colleghi in the table.");
+
+            alert.showAndWait();
+        }
+    }
+
     @FXML
     private void handleReadDB() {
        // SensingElement tempSe = new SensingElement("");

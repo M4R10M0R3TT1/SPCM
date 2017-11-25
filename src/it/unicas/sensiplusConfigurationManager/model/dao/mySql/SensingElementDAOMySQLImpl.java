@@ -114,6 +114,21 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
 
     @Override
     public void delete(SensingElement a) throws DAOException {
+        /*if (a == null || a.getIdSensingElement() == null){
+            throw new DAOException("In delete you have to specify at least the idSensingElement field!");
+        }*/
+        String sql = "DELETE FROM SensingElement WHERE IdSensingElement='" + a.getIdSensingElement() + "';";
+        logger.info("SQL: " + sql);
 
+        Statement st = null;
+        try {
+            st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In delete(): " + e.getMessage());
+        }
     }
 }

@@ -101,7 +101,7 @@
                                 <buttons>
                                     <Button fx:id="newButton" mnemonicParsing="false" onAction="#handleNewSensingElement" text="New" />
                                     <Button fx:id="editButton" mnemonicParsing="false" text="Edit" />
-                                  <Button fx:id="deleteButton" mnemonicParsing="false" text="Delete" />
+                                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDeleteSensingElement" text="Delete" />
                                     <Button fx:id="addButton" mnemonicParsing="false" text="Add Family" />
                                     <Button fx:id="delButton" mnemonicParsing="false" text="Del Family" />
                                 </buttons>
