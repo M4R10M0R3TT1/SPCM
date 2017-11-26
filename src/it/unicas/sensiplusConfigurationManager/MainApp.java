@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -93,7 +94,8 @@ public class MainApp extends Application {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/SEOverview.fxml"));
-            AnchorPane SEOverview = (AnchorPane) loader.load();
+
+            TabPane SEOverview= (TabPane) loader.load();
 
             // Set person overview into the center of root layout.
             rootLayout.setCenter(SEOverview);
