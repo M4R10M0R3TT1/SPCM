@@ -6,6 +6,7 @@ import it.unicas.sensiplusConfigurationManager.model.dao.mySql.SensingElementDAO
 import it.unicas.sensiplusConfigurationManager.view.RootLayoutController;
 import it.unicas.sensiplusConfigurationManager.view.SEEditDialogController;
 import it.unicas.sensiplusConfigurationManager.view.SEOverviewController;
+import it.unicas.sensiplusConfigurationManager.view.TabPaneOverviewController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,12 +14,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import sun.plugin.javascript.navig.Anchor;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -50,7 +53,7 @@ public class MainApp extends Application {
 
         initRootLayout();
 
-        showSEOverview();
+        showTabPaneOverview();
 
     }
 
@@ -89,19 +92,20 @@ public class MainApp extends Application {
     }
 
 
-    public void showSEOverview(){
+    public void showTabPaneOverview(){
         try {
-            // Load person overview.
+            // Load TabPaneoverview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/SEOverview.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/TabPaneOverview.fxml"));
 
-            TabPane SEOverview= (TabPane) loader.load();
+            AnchorPane TabPaneOverview= (AnchorPane) loader.load();
 
-            // Set person overview into the center of root layout.
-            rootLayout.setCenter(SEOverview);
+            // Set TabPaneoverview into the center of root layout.
+            rootLayout.setCenter(TabPaneOverview);
 
             // Give the controller access to the main app.
-            SEOverviewController controller = loader.getController();
+            //SEOverviewController controller = loader.getController();
+            TabPaneOverviewController controller =loader.getController();
             controller.setMainApp(this);
 
         } catch (IOException e) {
