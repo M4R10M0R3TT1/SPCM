@@ -91,9 +91,7 @@ public class SensingElement {
     }
 
     //Constructor for FamilyConfig
-    public SensingElement(/*String idSensingElement, */String _idFamily, String family_Name, String se_Port){
-
-        //this.idSensingElement=new SimpleStringProperty(idSensingElement);
+    public SensingElement(String _idFamily, String family_Name, String se_Port){
         this._idFamily=new SimpleStringProperty(_idFamily);
         this.family_Name=new SimpleStringProperty(family_Name);
         this.se_Port=new SimpleStringProperty(se_Port);
