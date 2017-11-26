@@ -60,17 +60,6 @@ public class SEOverviewController {
     @FXML
     private Label idSELabel;
 
-    @FXML
-    private TableView familyTableView;
-    @FXML
-    private TableColumn<SensingElement, String> idFamilyColumn;
-    @FXML
-    private TableColumn<SensingElement, String> familyNameColumn;
-    @FXML
-    private TableColumn<SensingElement, String> portNameColumn;
-    @FXML
-    private TableColumn<SensingElement, String> portTypeColumn;
-
 
     // Reference to the main application
     private MainApp mainApp;
@@ -84,7 +73,6 @@ public class SEOverviewController {
         this.mainApp = mainApp;
 
         seTableView.setItems(mainApp.getSeData());
-        familyTableView.setItems(mainApp.getSeFamData());
 
     }
 
@@ -100,9 +88,6 @@ public class SEOverviewController {
         seTableView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showSEDetails(newValue));
 
-        idFamilyColumn.setCellValueFactory(cellData -> cellData.getValue()._idFamilyProperty());
-        familyNameColumn.setCellValueFactory(cellData -> cellData.getValue().family_NameProperty());
-        portNameColumn.setCellValueFactory(cellData -> cellData.getValue().se_PortProperty());
 
     }
 
@@ -129,19 +114,7 @@ public class SEOverviewController {
             idSELabel.setText(sensingElement.getIdSensingElement());
 
             //Parte Famiglia
-            try {
-                List<SensingElement> list = SensingElementDAOMySQLImpl.getInstance().selectSeFamily(sensingElement);
-                mainApp.getSeFamData().clear();
-                mainApp.getSeFamData().addAll(list);
-            } catch (DAOException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initOwner(mainApp.getPrimaryStage());
-                alert.setTitle("Error during DB interaction");
-                alert.setHeaderText("Error during insert ...");
-                alert.setContentText(e.getMessage());
 
-                alert.showAndWait();
-            }
         }
     }
 
@@ -242,8 +215,8 @@ public class SEOverviewController {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
             alert.setTitle("No Selection");
-            alert.setHeaderText("No SensingElement Selected");
-            alert.setContentText("Please select a SensingElement in the table.");
+            alert.setHeaderText("No Sensing Element Selected");
+            alert.setContentText("Please select a Sensing Element in the table.");
 
             alert.showAndWait();
         }
