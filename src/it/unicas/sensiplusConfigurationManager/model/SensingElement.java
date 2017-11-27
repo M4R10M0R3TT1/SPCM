@@ -1,9 +1,6 @@
 package it.unicas.sensiplusConfigurationManager.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 /**
  * Created by  on 21/11/2017.
@@ -29,11 +26,16 @@ public class SensingElement {
     private StringProperty inPortADC;
     private IntegerProperty nData;
     private StringProperty measureUnit;
-
+    private DoubleProperty rangeMin;
+    private DoubleProperty rangeMax;
+    private DoubleProperty defaultAlarmThreshold;
+    private IntegerProperty multiplier;
+    private StringProperty name;
     //parte family
-    private StringProperty _idFamily;
+    private StringProperty family_id;
     private StringProperty family_Name;
-    private StringProperty se_Port;
+    private StringProperty port_Name;
+    private BooleanProperty port_internal;
 
 
     //Default constructor
@@ -42,27 +44,36 @@ public class SensingElement {
         this(null/*,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null*/);
     }
 
-    public SensingElement(String idSensingElement, Integer rSense, Integer inGain, Integer outGain, String contacts, Integer frequency, String harmonic, Integer dcBias, String modeVI, String measureTechnique, String measureType, Integer filter, String phaseShiftMode, Integer phaseShift, String iq, Integer conversionRate, String inPortADC, Integer nData, String measureUnit){
+    public SensingElement(String idSensingElement, Integer rSense, Integer inGain, Integer outGain, String contacts,
+                          Integer frequency, String harmonic, Integer dcBias, String modeVI, String measureTechnique,
+                          String measureType, Integer filter, String phaseShiftMode, Integer phaseShift, String iq,
+                          Integer conversionRate, String inPortADC, Integer nData, String measureUnit,Double rangeMin,
+                          Double rangeMax, Double defaultAlarmThreshold, Integer multiplier, String name){
+
         this.idSensingElement=new SimpleStringProperty(idSensingElement);
         this.rSense= new SimpleIntegerProperty(rSense.intValue());
-        this.inGain=new SimpleIntegerProperty(inGain.intValue());;
-        this.outGain=new SimpleIntegerProperty(outGain.intValue());;
+        this.inGain=new SimpleIntegerProperty(inGain.intValue());
+        this.outGain=new SimpleIntegerProperty(outGain.intValue());
         this.contacts=new SimpleStringProperty(contacts);
-        this.frequency=new SimpleIntegerProperty(frequency.intValue());;
+        this.frequency=new SimpleIntegerProperty(frequency.intValue());
         this.harmonic=new SimpleStringProperty(harmonic);
-        this.dcBias=new SimpleIntegerProperty(dcBias.intValue());;
+        this.dcBias=new SimpleIntegerProperty(dcBias.intValue());
         this.modeVI=new SimpleStringProperty(modeVI);
         this.measureTechnique=new SimpleStringProperty(measureTechnique);
         this.measureType=new SimpleStringProperty(measureType);
-        this.filter=new SimpleIntegerProperty(filter.intValue());;
+        this.filter=new SimpleIntegerProperty(filter.intValue());
         this.phaseShiftMode=new SimpleStringProperty(phaseShiftMode);
-        this.phaseShift=new SimpleIntegerProperty(phaseShift.intValue());;
+        this.phaseShift=new SimpleIntegerProperty(phaseShift.intValue());
         this.iq=new SimpleStringProperty(iq);
-        this.conversionRate=new SimpleIntegerProperty(conversionRate.intValue());;
+        this.conversionRate=new SimpleIntegerProperty(conversionRate.intValue());
         this.inPortADC=new SimpleStringProperty(inPortADC);
-        this.nData=new SimpleIntegerProperty(nData.intValue());;
+        this.nData=new SimpleIntegerProperty(nData.intValue());
         this.measureUnit=new SimpleStringProperty(measureUnit);
-
+        this.rangeMin=new SimpleDoubleProperty(rangeMin);
+        this.rangeMax=new SimpleDoubleProperty(rangeMax);
+        this.defaultAlarmThreshold=new SimpleDoubleProperty(defaultAlarmThreshold);
+        this.multiplier=new SimpleIntegerProperty(multiplier.intValue());
+        this.name=new SimpleStringProperty(name);
     }
 
     //Constructor for ReadDB
@@ -87,14 +98,20 @@ public class SensingElement {
         this.inPortADC=new SimpleStringProperty("");
         this.nData=null;
         this.measureUnit=new SimpleStringProperty("");
+        this.rangeMin=null;
+        this.rangeMax=null;
+        this.defaultAlarmThreshold=null;
+        this.multiplier=null;
+        this.name=new SimpleStringProperty("");
 
     }
 
     //Constructor for FamilyConfig
-    public SensingElement(String _idFamily, String family_Name, String se_Port){
-        this._idFamily=new SimpleStringProperty(_idFamily);
+    public SensingElement(String family_id, String family_Name, String port_Name, Boolean port_internal){
+        this.family_id=new SimpleStringProperty(family_id);
         this.family_Name=new SimpleStringProperty(family_Name);
-        this.se_Port=new SimpleStringProperty(se_Port);
+        this.port_Name=new SimpleStringProperty(port_Name);
+        this.port_internal=new SimpleBooleanProperty(port_internal);
     }
 
     public String getIdSensingElement() {
@@ -343,16 +360,76 @@ public class SensingElement {
         this.measureUnit.set(measureUnit);
     }
 
-    public String get_idFamily() {
-        return _idFamily.get();
+    public double getRangeMin() {
+        return rangeMin.get();
     }
 
-    public StringProperty _idFamilyProperty() {
-        return _idFamily;
+    public DoubleProperty rangeMinProperty() {
+        return rangeMin;
     }
 
-    public void set_idFamily(String _idFamily) {
-        this._idFamily.set(_idFamily);
+    public void setRangeMin(double rangeMin) {
+        this.rangeMin.set(rangeMin);
+    }
+
+    public double getRangeMax() {
+        return rangeMax.get();
+    }
+
+    public DoubleProperty rangeMaxProperty() {
+        return rangeMax;
+    }
+
+    public void setRangeMax(double rangeMax) {
+        this.rangeMax.set(rangeMax);
+    }
+
+    public double getDefaultAlarmThreshold() {
+        return defaultAlarmThreshold.get();
+    }
+
+    public DoubleProperty defaultAlarmThresholdProperty() {
+        return defaultAlarmThreshold;
+    }
+
+    public void setDefaultAlarmThreshold(double defaultAlarmThreshold) {
+        this.defaultAlarmThreshold.set(defaultAlarmThreshold);
+    }
+
+    public int getMultiplier() {
+        return multiplier.get();
+    }
+
+    public IntegerProperty multiplierProperty() {
+        return multiplier;
+    }
+
+    public void setMultiplier(int multiplier) {
+        this.multiplier.set(multiplier);
+    }
+
+    public String getName() {
+        return name.get();
+    }
+
+    public StringProperty nameProperty() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name.set(name);
+    }
+
+    public String getFamily_id() {
+        return family_id.get();
+    }
+
+    public StringProperty family_idProperty() {
+        return family_id;
+    }
+
+    public void setFamily_id(String family_id) {
+        this.family_id.set(family_id);
     }
 
     public String getFamily_Name() {
@@ -367,16 +444,28 @@ public class SensingElement {
         this.family_Name.set(family_Name);
     }
 
-    public String getSe_Port() {
-        return se_Port.get();
+    public String getPort_Name() {
+        return port_Name.get();
     }
 
-    public StringProperty se_PortProperty() {
-        return se_Port;
+    public StringProperty port_NameProperty() {
+        return port_Name;
     }
 
-    public void setSe_Port(String se_Port) {
-        this.se_Port.set(se_Port);
+    public void setPort_Name(String port_Name) {
+        this.port_Name.set(port_Name);
+    }
+
+    public boolean isPort_internal() {
+        return port_internal.get();
+    }
+
+    public BooleanProperty port_internalProperty() {
+        return port_internal;
+    }
+
+    public void setPort_internal(boolean port_internal) {
+        this.port_internal.set(port_internal);
     }
 
     @Override
