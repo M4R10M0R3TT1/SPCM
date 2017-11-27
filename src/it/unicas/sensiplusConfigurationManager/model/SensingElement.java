@@ -68,12 +68,13 @@ public class SensingElement {
         this.conversionRate=new SimpleIntegerProperty(conversionRate.intValue());
         this.inPortADC=new SimpleStringProperty(inPortADC);
         this.nData=new SimpleIntegerProperty(nData.intValue());
-        this.measureUnit=new SimpleStringProperty(measureUnit);
+        this.name=new SimpleStringProperty(name);
         this.rangeMin=new SimpleDoubleProperty(rangeMin);
         this.rangeMax=new SimpleDoubleProperty(rangeMax);
         this.defaultAlarmThreshold=new SimpleDoubleProperty(defaultAlarmThreshold);
         this.multiplier=new SimpleIntegerProperty(multiplier.intValue());
-        this.name=new SimpleStringProperty(name);
+        this.measureUnit=new SimpleStringProperty(measureUnit);
+
     }
 
     //Constructor for ReadDB
@@ -97,12 +98,12 @@ public class SensingElement {
         this.conversionRate=null;
         this.inPortADC=new SimpleStringProperty("");
         this.nData=null;
-        this.measureUnit=new SimpleStringProperty("");
+        this.name=new SimpleStringProperty("");
         this.rangeMin=null;
         this.rangeMax=null;
         this.defaultAlarmThreshold=null;
         this.multiplier=null;
-        this.name=new SimpleStringProperty("");
+        this.measureUnit=new SimpleStringProperty("");
 
     }
 

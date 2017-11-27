@@ -126,7 +126,7 @@
                                           <TableColumn fx:id="idFamilyColumn" minWidth="84.0" prefWidth="105.0" text="ID Family" />
                                           <TableColumn fx:id="familyNameColumn" minWidth="15.0" prefWidth="172.0" text="Family Name" />
                                           <TableColumn fx:id="portNameColumn" minWidth="0.0" prefWidth="169.0" text="Port Name" />
-                                          <TableColumn fx:id="portTypeColumn" minWidth="69.0" prefWidth="178.0" text="Port Type" />
+                                          <TableColumn fx:id="portTypeColumn" minWidth="69.0" prefWidth="178.0" text="Internal Port" />
                                        </columns>
                                     </TableView>
                                     <ButtonBar layoutX="14.0" layoutY="156.0" prefHeight="27.0" prefWidth="53.0" AnchorPane.bottomAnchor="8.0" />

@@ -111,14 +111,16 @@ public class SEOverviewController {
         seTableView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showSEDetails(newValue));
 
-        idFamilyColumn.setCellValueFactory(cellData -> cellData.getValue()._idFamilyProperty());
+        idFamilyColumn.setCellValueFactory(cellData -> cellData.getValue().family_idProperty());
         familyNameColumn.setCellValueFactory(cellData -> cellData.getValue().family_NameProperty());
-        portNameColumn.setCellValueFactory(cellData -> cellData.getValue().se_PortProperty());
+        portNameColumn.setCellValueFactory(cellData -> cellData.getValue().port_NameProperty());
+        portTypeColumn.setCellValueFactory(cellData -> cellData.getValue().port_internalProperty().asObject().asString());
 
     }
 
     private void showSEDetails(SensingElement sensingElement) {
         if (sensingElement != null) {
+            idSELabel.setText(sensingElement.getIdSensingElement());
             rSenseLabel.setText(sensingElement.getrSense().toString());
             inGainLabel.setText(sensingElement.getInGain().toString());
             outGainLabel.setText(sensingElement.getOutGain().toString());
@@ -136,8 +138,15 @@ public class SEOverviewController {
             conversionRateLabel.setText(sensingElement.getConversionRate().toString());
             inPortADCLabel.setText(sensingElement.getInPortADC());
             nDataLabel.setText(sensingElement.getnData().toString());
+            nameLabel.setText(sensingElement.getName());
+            rangeMinLabel.setText(Double.toString(sensingElement.getRangeMin()));
+            rangeMaxLabel.setText(Double.toString(sensingElement.getRangeMax()));
+            defaultAlarmThresholdLabel.setText(Double.toString(sensingElement.getDefaultAlarmThreshold()));
+            multiplerLabel.setText(Integer.toString(sensingElement.getMultiplier()));
             measureUnitLabel.setText(sensingElement.getMeasureUnit());
-            idSELabel.setText(sensingElement.getIdSensingElement());
+
+
+
 
             //Parte Famiglia
             try {
@@ -211,12 +220,17 @@ public class SEOverviewController {
     @FXML
     private void handleReadDB() {
         // SensingElement tempSe = new SensingElement("");
-        SensingElement tempSe = new SensingElement("", 0, 0, 0, "", 0, "", 0, "", "", "", 0, "", 0, "", 0, "", 0,"");
+        SensingElement tempSe = new SensingElement("",0,0,0,"",
+                0,"",0,"","",
+                "",0,"",0,"",
+                0,"",0,"",0.0,
+                0.0,0.0,0,"");
 
         try {
             List<SensingElement> list = SensingElementDAOMySQLImpl.getInstance().select(tempSe);
             mainApp.getSeData().clear();
             mainApp.getSeData().addAll(list);
+            showSEDetails(null);
 
         } catch (DAOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

@@ -41,11 +41,11 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
 
            // String sql = "SELECT s.*,fc.`_idFamily`,f.family_Name,fc.se_Port FROM SensingElement s,Family f,familyconfig fc WHERE s.IdSensingElement=fc.`_seName` and fc.`_idFamily`=f.IdFamily";
 
-            String sql = "SELECT * FROM SensingElement";
+            String sql = "SELECT * FROM SPSensingElement";
 
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                lista.add(new SensingElement(rs.getString("IdSensingElement"),
+                lista.add(new SensingElement(rs.getString("idSPSensingElement"),
                         rs.getInt("rSense"),
                         rs.getInt("inGain"),
                         rs.getInt("outGain"),
@@ -63,7 +63,13 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
                         rs.getInt("conversionRate"),
                         rs.getString("inPortADC"),
                         rs.getInt("nData"),
-                        rs.getString("measureUnit")));
+                        rs.getString("name"),
+                        rs.getDouble("rangeMin"),
+                        rs.getDouble("rangeMax"),
+                        rs.getDouble("defaultAlarmThreshold"),
+                        rs.getInt("multiplier"),
+                        rs.getString("measureUnit")
+                        ));
             }
             DAOMySQLSettings.closeStatement(st);
 
@@ -82,14 +88,17 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
         try {
             Statement st = DAOMySQLSettings.getStatement();
 
-            String sql = "SELECT fc.`_idFamily`,f.family_Name,fc.se_Port FROM SensingElement s,Family f,familyconfig fc WHERE fc._seName='"+se_selected+"' AND fc.`_seName`=s.IdSensingElement AND fc.`_idFamily`=f.IdFamily";
+            String sql = "SELECT f.id,f.name,p.name,p.internal FROM SPFamilyTemplate ft,SPFamily f,SPPort p,SPSensingElementOnFamily sf\n" +
+                    "WHERE sf.SPSensingElement_idSPSensingElement='"+se_selected+"' AND sf.SPFamilyTemplate_idSPFamilyTemplate=ft.idSPFamilyTemplate AND ft.SPFamily_idSPFamily=f.idSPFamily\n" +
+                    "AND ft.SPPort_idSPPort=p.idSPPort";
 
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
                 lista.add(new SensingElement(
-                        rs.getString("_idFamily"),
-                        rs.getString("family_Name"),
-                        rs.getString("se_Port")));
+                        rs.getString("id"),
+                        rs.getString("f.name"),
+                        rs.getString("p.name"),
+                        rs.getBoolean("internal")));
             }
             DAOMySQLSettings.closeStatement(st);
             //System.out.println("Valore di a: "+se_selected);
