@@ -83,6 +83,7 @@ public class SEOverviewController {
     private TableColumn<SensingElement, String> portTypeColumn;
 
 
+
     // Reference to the main application
     private MainApp mainApp;
 
@@ -115,6 +116,8 @@ public class SEOverviewController {
         familyNameColumn.setCellValueFactory(cellData -> cellData.getValue().family_NameProperty());
         portNameColumn.setCellValueFactory(cellData -> cellData.getValue().port_NameProperty());
         portTypeColumn.setCellValueFactory(cellData -> cellData.getValue().port_internalProperty().asObject().asString());
+
+
 
     }
 
@@ -273,4 +276,6 @@ public class SEOverviewController {
             alert.showAndWait();
         }
     }
+
+
 }

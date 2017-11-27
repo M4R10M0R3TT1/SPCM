@@ -50,6 +50,17 @@ public class SEEditDialogController {
     @FXML
     private TextField measureUnitTextField;
     @FXML
+    private TextField nameTextField;
+    @FXML
+    private TextField rangeMinTextField;
+    @FXML
+    private TextField rangeMaxTextField;
+    @FXML
+    private TextField defaultAlarmThresholdTextField;
+    @FXML
+    private TextField multiplerTextField;
+
+    @FXML
     private Label seNameLabel;
 
     private Stage dialogStage;
@@ -107,6 +118,11 @@ public class SEEditDialogController {
         conversionTextField.setText(Integer.toString(sensingElement.getConversionRate()));
         inPortADCTextField.setText(sensingElement.getInPortADC());
         nDataTextField.setText(Integer.toString(sensingElement.getnData()));
+        nameTextField.setText(sensingElement.getName());
+        rangeMinTextField.setText(Double.toString(sensingElement.getRangeMin()));
+        rangeMaxTextField.setText(Double.toString(sensingElement.getRangeMax()));
+        defaultAlarmThresholdTextField.setText((Double.toString(sensingElement.getDefaultAlarmThreshold())));
+        multiplerTextField.setText(Integer.toString(sensingElement.getMultiplier()));
         measureUnitTextField.setText(sensingElement.getMeasureUnit());
     }
 
@@ -143,6 +159,11 @@ public class SEEditDialogController {
             sensingElement.setConversionRate(Integer.parseInt(conversionTextField.getText()));
             sensingElement.setInPortADC(inPortADCTextField.getText());
             sensingElement.setnData(Integer.parseInt(nDataTextField.getText()));
+            sensingElement.setName(nameTextField.getText());
+            sensingElement.setRangeMin(Double.parseDouble(rangeMinTextField.getText()));
+            sensingElement.setRangeMax(Double.parseDouble(rangeMaxTextField.getText()));
+            sensingElement.setDefaultAlarmThreshold(Double.parseDouble(defaultAlarmThresholdTextField.getText()));
+            sensingElement.setMultiplier(Integer.parseInt(multiplerTextField.getText()));
             sensingElement.setMeasureUnit(measureUnitTextField.getText());
 
             okClicked = true;

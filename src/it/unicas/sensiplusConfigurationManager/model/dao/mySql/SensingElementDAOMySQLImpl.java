@@ -162,7 +162,10 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
         // measureTechnique,measureType, filter, phaseShiftMode, phaseShift, iq, conversionRate, inPortADC, nData, measureUnit
 
         //('OFFCHIP_VOC',500,40,7,'TWO',78125,'FIRST_HARMONIC',0,'VOUT_IIN','EIS','CAPACITANCE',1,'Quadrants',0,'IN_PHASE',50,'IA',1,'%')
-        String sql = "INSERT INTO SensingElement (idSensingElement, rSense, inGain, outGain, contacts, frequency, harmonic, dcBias, modeVI, measureTechnique, measureType, filter, phaseShiftMode, phaseShift, iq, conversionRate, inPortADC, nData, measureUnit) VALUES" +
+        String sql = "INSERT INTO spsensingelement (idSPSensingElement, rSense, inGain," +
+                " outGain, contacts, frequency, harmonic, dcBias, modeVI, measureTechnique," +
+                " measureType, filter, phaseShiftMode, phaseShift, iq, conversionRate," +
+                " inPortADC, nData,name,rangeMin,rangeMax,defaultAlarmThreshold,multiplier, measureUnit,) VALUES" +
                 "  ('" + a.getIdSensingElement() + "', " + a.getrSense() + ", " +
                 a.getInGain() + ", " + a.getOutGain() + ", '" +
                 a.getContacts() + "', " + a.getFrequency() + ", '" +
@@ -172,8 +175,9 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
                 a.getPhaseShiftMode() + "', " + a.getPhaseShift() + ", '" +
                 a.getIq() + "', " + a.getConversionRate() + ", '" +
                 a.getInPortADC() + "', " + a.getnData() + ", '" +
-                a.getMeasureUnit() + "')";
-
+                a.getName()+"',"+ a.getRangeMin() + ", "+
+                a.getRangeMax()+ ","+ a.getDefaultAlarmThreshold() +"," +
+                a.getMultiplier() +",'"+ a.getMeasureUnit() +"')";
 
         logger.info("SQL: " + sql);
 
@@ -190,7 +194,7 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
 
     @Override
     public void delete(SensingElement a) throws DAOException {
-        String sql = "DELETE FROM SensingElement WHERE IdSensingElement='" + a.getIdSensingElement() + "';";
+        String sql = "DELETE FROM spsensingelement WHERE idSPSensingElement='" + a.getIdSensingElement() + "'";
         logger.info("SQL: " + sql);
 
         Statement st = null;

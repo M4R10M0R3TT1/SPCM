@@ -10,24 +10,19 @@ public class Family {
 
     private StringProperty idFamily;
     private StringProperty family_Name;
-    private StringProperty port;
+    //private StringProperty port;
 
     //Default constructor
-    public Family(){this(null);}
+    public Family(){this(null,null);}
 
 
-    public Family(String idFamily,String family_Name,String port){
+    public Family(String idFamily,String family_Name/*,String port*/){
         this.idFamily=new SimpleStringProperty(idFamily);
         this.family_Name=new SimpleStringProperty(family_Name);
-        this.port=new SimpleStringProperty(port);
+       // this.port=new SimpleStringProperty(port);
     }
 
-    public Family(String idFamily){
-        this.idFamily=new SimpleStringProperty(idFamily);
-        this.family_Name=new SimpleStringProperty("");
-        this.port=new SimpleStringProperty("");
 
-    }
 
     public String getIdFamily() {
         return idFamily.get();
@@ -53,7 +48,7 @@ public class Family {
         this.family_Name.set(family_Name);
     }
 
-    public String getPort() {
+    /*public String getPort() {
         return port.get();
     }
 
@@ -63,5 +58,5 @@ public class Family {
 
     public void setPort(String port) {
         this.port.set(port);
-    }
+    }*/
 }

@@ -15,6 +15,24 @@ import java.util.List;
  */
 public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
 
+    @Override
+    public List<Family> select(Family a) throws DAOException {
+        ArrayList<Family> lista = new ArrayList<>();
+        try{
+            Statement st = DAOMySQLSettings.getStatement();
 
+            String sql = "SELECT * FROM family";
+
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                lista.add(new Family(rs.getString("IdFamily"),
+                        rs.getString("family_Name")));
+            }
+            DAOMySQLSettings.closeStatement(st);
+        } catch (SQLException sq) {
+            throw new DAOException("In select(): " + sq.getMessage());
+        }
+        return lista;
+    }
 }
 

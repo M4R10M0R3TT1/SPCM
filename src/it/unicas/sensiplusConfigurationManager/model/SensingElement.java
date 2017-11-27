@@ -47,8 +47,8 @@ public class SensingElement {
     public SensingElement(String idSensingElement, Integer rSense, Integer inGain, Integer outGain, String contacts,
                           Integer frequency, String harmonic, Integer dcBias, String modeVI, String measureTechnique,
                           String measureType, Integer filter, String phaseShiftMode, Integer phaseShift, String iq,
-                          Integer conversionRate, String inPortADC, Integer nData, String measureUnit,Double rangeMin,
-                          Double rangeMax, Double defaultAlarmThreshold, Integer multiplier, String name){
+                          Integer conversionRate, String inPortADC, Integer nData,String name,Double rangeMin,
+                          Double rangeMax, Double defaultAlarmThreshold, Integer multiplier, String measureUnit){
 
         this.idSensingElement=new SimpleStringProperty(idSensingElement);
         this.rSense= new SimpleIntegerProperty(rSense.intValue());
@@ -69,9 +69,9 @@ public class SensingElement {
         this.inPortADC=new SimpleStringProperty(inPortADC);
         this.nData=new SimpleIntegerProperty(nData.intValue());
         this.name=new SimpleStringProperty(name);
-        this.rangeMin=new SimpleDoubleProperty(rangeMin);
-        this.rangeMax=new SimpleDoubleProperty(rangeMax);
-        this.defaultAlarmThreshold=new SimpleDoubleProperty(defaultAlarmThreshold);
+        this.rangeMin=new SimpleDoubleProperty(rangeMin.doubleValue());
+        this.rangeMax=new SimpleDoubleProperty(rangeMax.doubleValue());
+        this.defaultAlarmThreshold=new SimpleDoubleProperty(defaultAlarmThreshold.doubleValue());
         this.multiplier=new SimpleIntegerProperty(multiplier.intValue());
         this.measureUnit=new SimpleStringProperty(measureUnit);
 
@@ -84,26 +84,26 @@ public class SensingElement {
         this.rSense= null;
         this.inGain=null;
         this.outGain=null;
-        this.contacts=new SimpleStringProperty("");
+        this.contacts=new SimpleStringProperty("TWO");
         this.frequency=null;
-        this.harmonic=new SimpleStringProperty("");
+        this.harmonic=new SimpleStringProperty("FIRST_HARMONIC");
         this.dcBias=null;
-        this.modeVI=new SimpleStringProperty("");
-        this.measureTechnique=new SimpleStringProperty("");
-        this.measureType=new SimpleStringProperty("");
+        this.modeVI=new SimpleStringProperty("VOUT_IIN");
+        this.measureTechnique=new SimpleStringProperty("EIS");
+        this.measureType=new SimpleStringProperty("IN_PHASE");
         this.filter=null;
-        this.phaseShiftMode=new SimpleStringProperty("");
+        this.phaseShiftMode=new SimpleStringProperty("QUADRANT");
         this.phaseShift=null;
-        this.iq=new SimpleStringProperty("");
+        this.iq=new SimpleStringProperty("IN_PHASE");
         this.conversionRate=null;
-        this.inPortADC=new SimpleStringProperty("");
+        this.inPortADC=new SimpleStringProperty("IA");
         this.nData=null;
         this.name=new SimpleStringProperty("");
         this.rangeMin=null;
         this.rangeMax=null;
         this.defaultAlarmThreshold=null;
         this.multiplier=null;
-        this.measureUnit=new SimpleStringProperty("");
+        this.measureUnit=new SimpleStringProperty("O");
 
     }
 
@@ -129,7 +129,7 @@ public class SensingElement {
 
     public Integer getrSense() {
         if (rSense == null){
-            rSense = new SimpleIntegerProperty();
+            rSense = new SimpleIntegerProperty(50);
         }
         return rSense.get();
     }
@@ -143,7 +143,7 @@ public class SensingElement {
 
     public Integer getInGain() {
         if (inGain == null){
-            inGain = new SimpleIntegerProperty();
+            inGain = new SimpleIntegerProperty(1);
         }
         return inGain.get();
     }
@@ -183,7 +183,7 @@ public class SensingElement {
 
     public Integer getFrequency() {
         if (frequency == null){
-            frequency = new SimpleIntegerProperty();
+            frequency = new SimpleIntegerProperty(78125);
         }
         return frequency.get();
     }
@@ -259,7 +259,7 @@ public class SensingElement {
 
     public Integer getFilter() {
         if (filter == null){
-            filter = new SimpleIntegerProperty();
+            filter = new SimpleIntegerProperty(1);
         }
         return filter.get();
     }
@@ -311,7 +311,7 @@ public class SensingElement {
 
     public Integer getConversionRate() {
         if (conversionRate == null){
-            conversionRate = new SimpleIntegerProperty();
+            conversionRate = new SimpleIntegerProperty(50);
         }
         return conversionRate.get();
     }
@@ -337,7 +337,7 @@ public class SensingElement {
 
     public Integer getnData() {
         if (nData == null){
-            nData = new SimpleIntegerProperty();
+            nData = new SimpleIntegerProperty(1);
         }
         return nData.get();
     }
@@ -362,6 +362,9 @@ public class SensingElement {
     }
 
     public double getRangeMin() {
+        if(rangeMin==null){
+            rangeMin = new SimpleDoubleProperty();
+        }
         return rangeMin.get();
     }
 
@@ -369,23 +372,36 @@ public class SensingElement {
         return rangeMin;
     }
 
-    public void setRangeMin(double rangeMin) {
+    public void setRangeMin(double rangeMin){
+        if(this.rangeMin==null){
+            this.rangeMin = new SimpleDoubleProperty();
+        }
         this.rangeMin.set(rangeMin);
     }
 
     public double getRangeMax() {
+        if(rangeMax==null){
+            rangeMax= new SimpleDoubleProperty();
+        }
         return rangeMax.get();
     }
 
     public DoubleProperty rangeMaxProperty() {
+
         return rangeMax;
     }
 
     public void setRangeMax(double rangeMax) {
+        if(this.rangeMax==null){
+            this.rangeMax= new SimpleDoubleProperty();
+        }
         this.rangeMax.set(rangeMax);
     }
 
     public double getDefaultAlarmThreshold() {
+        if(defaultAlarmThreshold==null){
+            defaultAlarmThreshold = new SimpleDoubleProperty();
+        }
         return defaultAlarmThreshold.get();
     }
 
@@ -394,10 +410,16 @@ public class SensingElement {
     }
 
     public void setDefaultAlarmThreshold(double defaultAlarmThreshold) {
+        if(this.defaultAlarmThreshold==null){
+            this.defaultAlarmThreshold = new SimpleDoubleProperty();
+        }
         this.defaultAlarmThreshold.set(defaultAlarmThreshold);
     }
 
     public int getMultiplier() {
+        if(multiplier==null){
+            multiplier = new SimpleIntegerProperty();
+        }
         return multiplier.get();
     }
 
@@ -406,6 +428,9 @@ public class SensingElement {
     }
 
     public void setMultiplier(int multiplier) {
+        if(this.multiplier==null){
+            this.multiplier= new SimpleIntegerProperty();
+        }
         this.multiplier.set(multiplier);
     }
 
