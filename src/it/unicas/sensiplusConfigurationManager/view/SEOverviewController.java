@@ -59,6 +59,17 @@ public class SEOverviewController {
     private Label measureUnitLabel;
     @FXML
     private Label idSELabel;
+    @FXML
+    private Label nameLabel;
+    @FXML
+    private Label rangeMinLabel;
+    @FXML
+    private Label rangeMaxLabel;
+    @FXML
+    private Label defaultAlarmThresholdLabel;
+    @FXML
+    private Label multiplerLabel;
+
 
     @FXML
     private TableView familyTableView;

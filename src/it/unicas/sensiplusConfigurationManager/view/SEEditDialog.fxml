@@ -10,20 +10,21 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.SEEditDialogController">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.SEEditDialogController">
    <children>
       <ButtonBar layoutX="386.0" layoutY="760.0" prefHeight="40.0" prefWidth="400.0" AnchorPane.bottomAnchor="4.0" AnchorPane.rightAnchor="20.0">
         <buttons>
-            <Button fx:id="okButton" mnemonicParsing="false" onAction="#handleOk" prefWidth="150.0" text="OK" />
-            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancel" prefWidth="150.0" text="Cancel" />
+            <Button fx:id="okButton" defaultButton="true" mnemonicParsing="false" onAction="#handleOk" prefWidth="150.0" text="OK" />
+            <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" onAction="#handleCancel" prefWidth="150.0" text="Cancel" />
         </buttons>
       </ButtonBar>
-      <GridPane layoutX="81.0" layoutY="69.0" prefHeight="800.0" prefWidth="600.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
+      <GridPane layoutX="81.0" layoutY="69.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
          <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="467.0" minWidth="-Infinity" prefWidth="148.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="541.0" minWidth="0.0" prefWidth="382.0" />
          </columnConstraints>
          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -88,14 +89,16 @@
             <TextField fx:id="measureUnitTextField" GridPane.columnIndex="1" GridPane.rowIndex="18" />
             <Label text="sensingElementName  " />
             <TextField fx:id="sensingElementNameTextField" GridPane.columnIndex="1" />
-            <Label text="rangeMin  " GridPane.rowIndex="19" />
-            <Label text="rangeMax  " GridPane.rowIndex="20" />
-            <Label text="defaultAlarmThreshold  " GridPane.rowIndex="21" />
-            <Label text="multipler  " GridPane.rowIndex="22" />
-            <TextField fx:id="rangeMinTextField" GridPane.columnIndex="1" GridPane.rowIndex="19" />
-            <TextField fx:id="rangeMaxTextField" GridPane.columnIndex="1" GridPane.rowIndex="20" />
-            <TextField fx:id="defaultAlarmThresholdTextField" GridPane.columnIndex="1" GridPane.rowIndex="21" />
-            <TextField fx:id="multiplerTextField" GridPane.columnIndex="1" GridPane.rowIndex="22" />
+            <Label text="rangeMin  " GridPane.rowIndex="20" />
+            <Label text="rangeMax  " GridPane.rowIndex="21" />
+            <Label text="defaultAlarmThreshold  " GridPane.rowIndex="22" />
+            <Label text="multipler  " GridPane.rowIndex="23" />
+            <TextField fx:id="rangeMinTextField" GridPane.columnIndex="1" GridPane.rowIndex="20" />
+            <TextField fx:id="rangeMaxTextField" GridPane.columnIndex="1" GridPane.rowIndex="21" />
+            <TextField fx:id="defaultAlarmThresholdTextField" GridPane.columnIndex="1" GridPane.rowIndex="22" />
+            <TextField fx:id="multiplerTextField" GridPane.columnIndex="1" GridPane.rowIndex="23" />
+            <Label text="name  " GridPane.rowIndex="19" />
+            <TextField fx:id="nameTextField" GridPane.columnIndex="1" GridPane.rowIndex="19" />
          </children>
       </GridPane>
       <Label fx:id="seNameLabel" alignment="CENTER" layoutX="180.0" layoutY="14.0" text="Title">
