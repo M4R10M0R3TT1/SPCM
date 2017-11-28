@@ -1,9 +1,13 @@
 package it.unicas.sensiplusConfigurationManager.view;
 
 import it.unicas.sensiplusConfigurationManager.model.SensingElement;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -61,6 +65,8 @@ public class SEEditDialogController {
     private TextField multiplerTextField;
 
     @FXML
+    private ComboBox rSenseComboBox;
+    @FXML
     private Label seNameLabel;
 
     private Stage dialogStage;
@@ -70,6 +76,9 @@ public class SEEditDialogController {
 
     @FXML
     private void initialize() {
+        rSenseComboBox.getItems().addAll(50,500,5000,50000);
+        rSenseComboBox.setValue(50);
+        rSenseComboBox.valueProperty().addListener((ObservableValue observable,Object oldValue,Object newValue)->newValue.toString());
     }
 
     /**
@@ -101,7 +110,7 @@ public class SEEditDialogController {
         else
             seNameLabel.setText("Insert a new SensingElement");
 
-        rSenseTextField.setText(Integer.toString(sensingElement.getrSense()));
+//        rSenseTextField.setText(Integer.toString(sensingElement.getrSense()));
         inGainTextField.setText(Integer.toString(sensingElement.getInGain()));
         outGainTextField.setText(Integer.toString(sensingElement.getOutGain()));
         contactsTextField.setText(sensingElement.getContacts());
@@ -142,7 +151,8 @@ public class SEEditDialogController {
     private void handleOk() {
         if (isInputValid(verifyLen)) {
             sensingElement.setIdSensingElement(sensingElementNameTextField.getText());
-            sensingElement.setrSense(Integer.parseInt(rSenseTextField.getText()));
+            sensingElement.setrSense(Integer.parseInt(rSenseComboBox.getValue().toString()));
+            //System.out.println("Valore di rsense: "+Integer.parseInt(rSenseComboBox.getValue().toString()));
             sensingElement.setInGain(Integer.parseInt(inGainTextField.getText()));
             sensingElement.setOutGain(Integer.parseInt(outGainTextField.getText()));
             sensingElement.setContacts(contactsTextField.getText());

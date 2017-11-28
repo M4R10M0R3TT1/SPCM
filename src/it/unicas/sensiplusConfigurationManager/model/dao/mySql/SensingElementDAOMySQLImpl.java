@@ -167,11 +167,11 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
         // measureTechnique,measureType, filter, phaseShiftMode, phaseShift, iq, conversionRate, inPortADC, nData, measureUnit
 
         //('OFFCHIP_VOC',500,40,7,'TWO',78125,'FIRST_HARMONIC',0,'VOUT_IIN','EIS','CAPACITANCE',1,'Quadrants',0,'IN_PHASE',50,'IA',1,'%')
-        String sql = "INSERT INTO spsensingelement (idSPSensingElement, rSense, inGain," +
+        String sql = "INSERT INTO SPSensingElement (idSPSensingElement, rSense, inGain," +
                 " outGain, contacts, frequency, harmonic, dcBias, modeVI, measureTechnique," +
                 " measureType, filter, phaseShiftMode, phaseShift, iq, conversionRate," +
                 " inPortADC, nData,name,rangeMin,rangeMax,defaultAlarmThreshold,multiplier, measureUnit) VALUES" +
-                "  ('" + a.getIdSensingElement() + "', " + a.getrSense() + ", " +
+                "('" + a.getIdSensingElement() + "', " + a.getrSense() + ", " +
                 a.getInGain() + ", " + a.getOutGain() + ", '" +
                 a.getContacts() + "', " + a.getFrequency() + ", '" +
                 a.getHarmonic() + "', " + a.getDcBias() + ", '" +
