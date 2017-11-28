@@ -123,7 +123,7 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
             throw new DAOException("In select: any field can be null");
         }*/
 
-        String query = "UPDATE sensingelement SET " +
+        String query = "UPDATE SPSensingElement SET " +
                 "rSense='"+ a.getrSense().intValue() +
                 "', inGain='"+ a.getInGain()+
                 "', outGain='"+ a.getOutGain()+
@@ -141,8 +141,13 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
                 "', conversionRate ='"+ a.getConversionRate()+
                 "', inPortADC ='"+ a.getInPortADC()+
                 "', nData ='"+ a.getnData()+
+                "', name = '"+ a.getName() +
+                "', rangeMin = '"+ a.getRangeMin() +
+                "', rangeMax = '"+ a.getRangeMax() +
+                "', defaultAlarmThreshold = '"+ a.getDefaultAlarmThreshold() +
+                "', multiplier = '"+ a.getMultiplier() +
                 "', measureUnit ='"+ a.getMeasureUnit()+
-                "' WHERE IdSensingElement='"+a.getIdSensingElement()+"'";
+                "' WHERE idSPSensingElement='"+a.getIdSensingElement()+"'";
         try {
             Statement st = DAOMySQLSettings.getStatement();
             int n = st.executeUpdate(query);
@@ -165,7 +170,7 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
         String sql = "INSERT INTO spsensingelement (idSPSensingElement, rSense, inGain," +
                 " outGain, contacts, frequency, harmonic, dcBias, modeVI, measureTechnique," +
                 " measureType, filter, phaseShiftMode, phaseShift, iq, conversionRate," +
-                " inPortADC, nData,name,rangeMin,rangeMax,defaultAlarmThreshold,multiplier, measureUnit,) VALUES" +
+                " inPortADC, nData,name,rangeMin,rangeMax,defaultAlarmThreshold,multiplier, measureUnit) VALUES" +
                 "  ('" + a.getIdSensingElement() + "', " + a.getrSense() + ", " +
                 a.getInGain() + ", " + a.getOutGain() + ", '" +
                 a.getContacts() + "', " + a.getFrequency() + ", '" +
