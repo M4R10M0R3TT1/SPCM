@@ -269,60 +269,29 @@ public class SEEditDialogController {
         if (sensingElementNameTextField.getText() == null || (verifyLen && sensingElementNameTextField.getText().length() == 0)) {
             errorMessage += "No valid Sensing Element Name!\n";
         }
-        /*if (rSenseTextField.getText() == null || (verifyLen && rSenseTextField.getText().length() == 0)) {
-            errorMessage += "No valid last name!\n";
+        if (Double.parseDouble(frequencyTextField.getText()) < 0 || Double.parseDouble(frequencyTextField.getText()) > 5000000) {
+            errorMessage += "No valid frequency! [0,5000000]\n";
+
         }
-        if (inGainTextField.getText() == null || (verifyLen && inGainTextField.getText().length() == 0)) {
-            errorMessage += "No valid street!\n";
+        if(Integer.parseInt(dcBiasTextField.getText()) < -2048 || Integer.parseInt(dcBiasTextField.getText()) > 2048){
+            errorMessage += "No valid dcBias! [-2048,2048]\n";
         }
-        if (outGainTextField.getText() == null || (verifyLen && outGainTextField.getText().length() == 0)) {
-            errorMessage += "No valid postal code!\n";
+        if(Integer.parseInt(filterTextField.getText()) < 1 || Integer.parseInt(filterTextField.getText()) > 256){
+            errorMessage += "No valid filter! [1,256]\n";
         }
-        if (contactsTextField.getText() == null || (verifyLen && contactsTextField.getText().length() == 0)) {
-            errorMessage += "No valid postal code!\n";
+        if(Integer.parseInt(phaseShiftTextField.getText()) < 0 || Integer.parseInt(phaseShiftTextField.getText()) > 360){
+            errorMessage += "No valid phaseShift! [0,360]\n";
         }
-        if (frequencyTextField.getText() == null || (verifyLen && frequencyTextField.getText().length() == 0)) {
-            errorMessage += "No valid postal code!\n";
+        if(Integer.parseInt(conversionTextField.getText()) < 1 || Integer.parseInt(conversionTextField.getText()) > 100000){
+            errorMessage += "No valid conversionRate! [1,100000]\n";
         }
-        if (harmonicTextField.getText() == null || (verifyLen && harmonicTextField.getText().length() == 0)) {
-            errorMessage += "No valid postal code!\n";
+        if(Integer.parseInt(nDataTextField.getText()) < 1 || Integer.parseInt(nDataTextField.getText()) > 16){
+            errorMessage += "No valid nData! [1,16]\n";
         }
-        if (dcBiasTextField.getText() == null || (verifyLen && dcBiasTextField.getText().length() == 0)) {
-            errorMessage += "No valid postal code!\n";
+        if(Integer.parseInt(multiplerTextField.getText()) < -21 || Integer.parseInt(multiplerTextField.getText()) > 21){
+            errorMessage += "No valid multipler! [-21,21]\n";
         }
-        if (modeVITextField.getText() == null || (verifyLen && modeVITextField.getText().length() == 0)) {
-            errorMessage += "No valid postal code!\n";
-        }
-        if (measureTechniqueTextField.getText() == null || (verifyLen && measureTechniqueTextField.getText().length() == 0)) {
-            errorMessage += "No valid postal code!\n";
-        }
-        if (measureTypeTextField.getText() == null || (verifyLen && measureTypeTextField.getText().length() == 0)) {
-            errorMessage += "No valid postal code!\n";
-        }
-        if (filterTextField.getText() == null || (verifyLen && filterTextField.getText().length() == 0)) {
-            errorMessage += "No valid postal code!\n";
-        }
-        if (phaseShiftModeTextField.getText() == null || (verifyLen && phaseShiftModeTextField.getText().length() == 0)) {
-            errorMessage += "No valid postal code!\n";
-        }
-        if (phaseShiftTextField.getText() == null || (verifyLen && phaseShiftTextField.getText().length() == 0)) {
-            errorMessage += "No valid postal code!\n";
-        }
-        if (IQTextField.getText() == null || (verifyLen && IQTextField.getText().length() == 0)) {
-            errorMessage += "No valid postal code!\n";
-        }
-        if (conversionTextField.getText() == null || (verifyLen && conversionTextField.getText().length() == 0)) {
-            errorMessage += "No valid postal code!\n";
-        }
-        if (inPortADCTextField.getText() == null || (verifyLen && inPortADCTextField.getText().length() == 0)) {
-            errorMessage += "No valid postal code!\n";
-        }
-        if (nDataTextField.getText() == null || (verifyLen && nDataTextField.getText().length() == 0)) {
-            errorMessage += "No valid postal code!\n";
-        }
-        if (measureUnitTextField.getText() == null || (verifyLen && measureUnitTextField.getText().length() == 0)) {
-            errorMessage += "No valid postal code!\n";
-        }*/
+
         if (errorMessage.length() == 0) {
             return true;
         } else {
