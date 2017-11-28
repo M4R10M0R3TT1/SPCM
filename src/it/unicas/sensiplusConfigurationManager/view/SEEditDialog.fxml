@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.SEEditDialogController">
+<AnchorPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.SEEditDialogController">
    <children>
       <ButtonBar layoutX="386.0" layoutY="760.0" prefHeight="40.0" prefWidth="400.0" AnchorPane.bottomAnchor="4.0" AnchorPane.rightAnchor="20.0">
         <buttons>
@@ -69,24 +69,13 @@
             <Label text="inPortADC  " GridPane.rowIndex="16" />
             <Label text="nData  " GridPane.rowIndex="17" />
             <Label text="measureUnit  " GridPane.rowIndex="23" />
-            <TextField fx:id="inGainTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="outGainTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="contactsTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="frequencyTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="harmonicTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField fx:id="dcBiasTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="modeVITextField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <TextField fx:id="measureTechniqueTextField" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <TextField fx:id="measureTypeTextField" GridPane.columnIndex="1" GridPane.rowIndex="10" />
             <TextField fx:id="filterTextField" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-            <TextField fx:id="phaseShiftModeTextField" GridPane.columnIndex="1" GridPane.rowIndex="12" />
             <TextField fx:id="phaseShiftTextField" GridPane.columnIndex="1" GridPane.rowIndex="13" />
-            <TextField fx:id="IQTextField" GridPane.columnIndex="1" GridPane.rowIndex="14" />
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="15" />
             <TextField fx:id="conversionTextField" GridPane.columnIndex="1" GridPane.rowIndex="15" />
-            <TextField fx:id="inPortADCTextField" GridPane.columnIndex="1" GridPane.rowIndex="16" />
             <TextField fx:id="nDataTextField" GridPane.columnIndex="1" GridPane.rowIndex="17" />
-            <TextField fx:id="measureUnitTextField" GridPane.columnIndex="1" GridPane.rowIndex="23" />
             <Label text="sensingElementName  " />
             <TextField fx:id="sensingElementNameTextField" GridPane.columnIndex="1" />
             <Label text="rangeMin  " GridPane.rowIndex="19" />
@@ -100,6 +89,17 @@
             <Label text="name  " GridPane.rowIndex="18" />
             <TextField fx:id="nameTextField" GridPane.columnIndex="1" GridPane.rowIndex="18" />
             <ComboBox fx:id="rSenseComboBox" prefHeight="25.0" prefWidth="385.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox fx:id="inGainComboBox" prefHeight="25.0" prefWidth="382.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="outGainComboBox" prefHeight="25.0" prefWidth="388.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ComboBox fx:id="contactsComboBox" prefHeight="25.0" prefWidth="392.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox fx:id="harmonicComboBox" prefHeight="25.0" prefWidth="393.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <ComboBox fx:id="modeVIComboBox" prefHeight="25.0" prefWidth="387.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <ComboBox fx:id="measureTechniqueComboBox" prefHeight="25.0" prefWidth="388.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <ComboBox fx:id="measureTypeComboBox" prefHeight="25.0" prefWidth="389.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <ComboBox fx:id="phaseShiftModeComboBox" prefHeight="25.0" prefWidth="387.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+            <ComboBox fx:id="IQComboBox" prefHeight="25.0" prefWidth="386.0" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+            <ComboBox fx:id="inPortADCComboBox" prefHeight="25.0" prefWidth="399.0" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+            <ComboBox fx:id="measureUnitComboBox" prefHeight="25.0" prefWidth="391.0" GridPane.columnIndex="1" GridPane.rowIndex="23" />
          </children>
       </GridPane>
       <Label fx:id="seNameLabel" alignment="CENTER" layoutX="180.0" layoutY="14.0" text="Title">
