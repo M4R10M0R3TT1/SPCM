@@ -18,41 +18,17 @@ public class SEEditDialogController {
     @FXML
     private TextField sensingElementNameTextField;
     @FXML
-    private TextField rSenseTextField;
-    @FXML
-    private TextField inGainTextField;
-    @FXML
-    private TextField outGainTextField;
-    @FXML
-    private TextField contactsTextField;
-    @FXML
     private TextField frequencyTextField;
-    @FXML
-    private TextField harmonicTextField;
     @FXML
     private TextField dcBiasTextField;
     @FXML
-    private TextField modeVITextField;
-    @FXML
-    private TextField measureTechniqueTextField;
-    @FXML
-    private TextField measureTypeTextField;
-    @FXML
     private TextField filterTextField;
-    @FXML
-    private TextField phaseShiftModeTextField;
     @FXML
     private TextField phaseShiftTextField;
     @FXML
-    private TextField IQTextField;
-    @FXML
     private TextField conversionTextField;
     @FXML
-    private TextField inPortADCTextField;
-    @FXML
     private TextField nDataTextField;
-    @FXML
-    private TextField measureUnitTextField;
     @FXML
     private TextField nameTextField;
     @FXML
@@ -63,7 +39,6 @@ public class SEEditDialogController {
     private TextField defaultAlarmThresholdTextField;
     @FXML
     private TextField multiplerTextField;
-
     @FXML
     private ComboBox rSenseComboBox;
     @FXML
@@ -125,7 +100,7 @@ public class SEEditDialogController {
         modeVIComboBox.valueProperty().addListener((ObservableValue observable,Object oldValue,Object newValue)->newValue.toString());
 
         //measureTechnique ComboBox
-        measureTechniqueComboBox.getItems().addAll("DIRECT, EIS","POT","ENERGY_SPECTROSCOPY","ULTRASOUND");
+        measureTechniqueComboBox.getItems().addAll("DIRECT", "EIS","POT","ENERGY_SPECTROSCOPY","ULTRASOUND");
         measureTechniqueComboBox.valueProperty().addListener((ObservableValue observable,Object oldValue,Object newValue)->newValue.toString());
 
         //measureType ComboBox
@@ -172,13 +147,6 @@ public class SEEditDialogController {
 
         sensingElementNameTextField.setText(sensingElement.getIdSensingElement());
 
-        if(sensingElement.getIdSensingElement()!=null) {
-            seNameLabel.setText("Edit");
-            sensingElementNameTextField.setDisable(true);
-        }
-        else
-            seNameLabel.setText("Insert a new SensingElement");
-
         rSenseComboBox.setValue(sensingElement.getrSense());
         inGainComboBox.setValue(sensingElement.getInGain());
         outGainComboBox.setValue(sensingElement.getOutGain());
@@ -203,6 +171,14 @@ public class SEEditDialogController {
         multiplerTextField.setText(Integer.toString(sensingElement.getMultiplier()));
         measureUnitComboBox.setValue(sensingElement.getMeasureUnit());
 
+        if(sensingElement.getIdSensingElement()!=null) {
+            seNameLabel.setText("Edit");
+            sensingElementNameTextField.setDisable(true);
+            disableParamter();
+        }
+        else
+            seNameLabel.setText("Insert a new SensingElement");
+
     }
 
     /**
@@ -214,6 +190,39 @@ public class SEEditDialogController {
         return okClicked;
     }
 
+    public void disableParamter() {
+
+        if (measureTechniqueComboBox.getValue().toString()=="DIRECT")
+        {
+            rSenseComboBox.setDisable(true);
+            inGainComboBox.setDisable(true);
+            outGainComboBox.setDisable(true);
+            contactsComboBox.setDisable(true);
+            frequencyTextField.setDisable(true);
+            harmonicComboBox.setDisable(true);
+            dcBiasTextField.setDisable(true);
+            modeVIComboBox.setDisable(true);
+            measureTypeComboBox.setDisable(true);
+            phaseShiftModeComboBox.setDisable(true);
+            phaseShiftTextField.setDisable(true);
+            IQComboBox.setDisable(true);
+        }
+        else {
+            rSenseComboBox.setDisable(false);
+            inGainComboBox.setDisable(false);
+            outGainComboBox.setDisable(false);
+            contactsComboBox.setDisable(false);
+            frequencyTextField.setDisable(false);
+            harmonicComboBox.setDisable(false);
+            dcBiasTextField.setDisable(false);
+            modeVIComboBox.setDisable(false);
+            measureTypeComboBox.setDisable(false);
+            phaseShiftModeComboBox.setDisable(false);
+            phaseShiftTextField.setDisable(false);
+            IQComboBox.setDisable(false);
+        }
+
+    }
     /**
      * Called when the user clicks ok.
      */
@@ -271,7 +280,6 @@ public class SEEditDialogController {
         }
         if (Double.parseDouble(frequencyTextField.getText()) < 0 || Double.parseDouble(frequencyTextField.getText()) > 5000000) {
             errorMessage += "No valid frequency! [0,5000000]\n";
-
         }
         if(Integer.parseInt(dcBiasTextField.getText()) < -2048 || Integer.parseInt(dcBiasTextField.getText()) > 2048){
             errorMessage += "No valid dcBias! [-2048,2048]\n";

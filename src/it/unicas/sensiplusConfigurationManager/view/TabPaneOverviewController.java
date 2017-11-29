@@ -16,8 +16,7 @@ public class TabPaneOverviewController {
     private Tab seTab;
     @FXML
     private AnchorPane seAnchorPane;
-    @FXML
-    private Pane sePane;
+
 
     private MainApp mainApp;
 
