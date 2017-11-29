@@ -3,8 +3,10 @@ package it.unicas.sensiplusConfigurationManager.view;
 
 import it.unicas.sensiplusConfigurationManager.MainApp;
 import it.unicas.sensiplusConfigurationManager.model.SensingElement;
+import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.SensingElementDAOMySQLImpl;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
@@ -29,8 +31,8 @@ public class AddSEOnFamilyDialogController {
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-
         addFamilyTableView.setItems(mainApp.getSeData());
+
 
     }
 
@@ -38,7 +40,8 @@ public class AddSEOnFamilyDialogController {
     private void initialize(){
         familyIDColumn.setCellValueFactory(cellData->cellData.getValue().family_idProperty());
         showSEOnFamily(null);
-        addFamilyTableView.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> showSEOnFamily(newValue)));
+        addFamilyTableView.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showSEOnFamily((SensingElement) newValue));
     }
 
 
@@ -50,21 +53,34 @@ public class AddSEOnFamilyDialogController {
 
     }
 
-    private void showSEOnFamily(SensingElement sensingElement){
+    public void showSEOnFamily(SensingElement sensingElement){
         if(sensingElement!=null){
             try{
-                List<SensingElement> list= SensingElementDAOMySQLImpl.getInstance().
+                List<SensingElement> list= SensingElementDAOMySQLImpl.getInstance().selectAddSEOnFamily(sensingElement);
+                mainApp.getAddSeFamData().clear();
+                mainApp.getAddSeFamData().addAll(list);
+
+            } catch (DAOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("Error during DB interaction");
+                alert.setHeaderText("Error during insert ...");
+                alert.setContentText(e.getMessage());
+
+                alert.showAndWait();
             }
         }
     }
 
-    public void setAddFamily(SensingElement sensingElement){
+   public void setAddFamily(SensingElement sensingElement){
          this.sensingElement=sensingElement;
-         addFamilyTableView.setItems();
+
     }
 
     public boolean isOkClicked(){
         return okClicked;
     }
+
+
 
 }

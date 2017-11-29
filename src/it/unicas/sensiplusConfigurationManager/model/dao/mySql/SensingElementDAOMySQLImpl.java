@@ -221,9 +221,15 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
         try{
             Statement st=DAOMySQLSettings.getStatement();
             String sql = "SELECT f.id FROM SPFamily f, SPFamilyTemplate ft, SPSensingElementOnFamily sf WHERE f.idSPFamily=ft.SPFamily_idSPFamily AND sf.SPFamilyTemplate_idSPFamilyTemplate=ft.idSPFamilyTemplate AND sf.SPSensingElement_idSPSensingElement<>'"+seSelected+"' ";
-
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                lista.add(new SensingElement(
+                        rs.getString("id")));
+            }
+            DAOMySQLSettings.closeStatement(st);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return  lista;
     }
 }

@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -278,11 +279,11 @@ public class SEOverviewController {
     }
 
     @FXML
-    private void handleAddFamily() {
+    private void handleAddFamily() throws IOException {
         int selectedIndex = seTableView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             SensingElement sensingElement = seTableView.getItems().get(selectedIndex);
-
+            boolean okClicked = mainApp.showSEOnFamilyDialog(sensingElement,true);
 
         }
     }
