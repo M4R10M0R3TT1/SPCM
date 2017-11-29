@@ -3,11 +3,9 @@ package it.unicas.sensiplusConfigurationManager;
 import it.unicas.sensiplusConfigurationManager.model.SensingElement;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.SensingElementDAOMySQLImpl;
-import it.unicas.sensiplusConfigurationManager.view.RootLayoutController;
-import it.unicas.sensiplusConfigurationManager.view.SEEditDialogController;
-import it.unicas.sensiplusConfigurationManager.view.SEOverviewController;
-import it.unicas.sensiplusConfigurationManager.view.TabPaneOverviewController;
+import it.unicas.sensiplusConfigurationManager.view.*;
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -41,6 +39,7 @@ public class MainApp extends Application {
 
     private ObservableList<SensingElement> seData = FXCollections.observableArrayList();
     private ObservableList<SensingElement> seFamData=FXCollections.observableArrayList();
+    private ObservableList<SensingElement> addSeFamData=FXCollections.observableArrayList();
 
 
     @Override
@@ -68,6 +67,10 @@ public class MainApp extends Application {
     public ObservableList<SensingElement> getSeFamData() {
         return seFamData;
     }
+
+    public ObservableList<SensingElement> getAddSeFamData() {return  addSeFamData;}
+
+
 
     public void initRootLayout(){
         try {
@@ -155,6 +158,39 @@ public class MainApp extends Application {
             return false;
         }
     }
+
+    public boolean showSEOnFamily(SensingElement sensingElement, boolean verifyLen) throws IOException {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/AddSEOnFamilyDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Add Sensing Element on Family");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the sensingElement into the controller.
+            AddSEOnFamilyDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage, verifyLen);
+            controller.setAddFamily(sensingElement);
+
+            dialogStage.showAndWait();
+            return controller.isOkClicked();
+
+        }catch (IOException e){
+            e.printStackTrace();
+            return false;
+        }
+
+
+
+    }
+
 
     public MainApp(){
     }

@@ -213,4 +213,17 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
             throw new DAOException("In delete(): " + e.getMessage());
         }
     }
+
+    @Override
+    public List<SensingElement> selectAddSEOnFamily(SensingElement a)throws DAOException{
+        ArrayList<SensingElement> lista = new ArrayList<>();
+        String seSelected = a.toString();
+        try{
+            Statement st=DAOMySQLSettings.getStatement();
+            String sql = "SELECT f.id FROM SPFamily f, SPFamilyTemplate ft, SPSensingElementOnFamily sf WHERE f.idSPFamily=ft.SPFamily_idSPFamily AND sf.SPFamilyTemplate_idSPFamilyTemplate=ft.idSPFamilyTemplate AND sf.SPSensingElement_idSPSensingElement<>'"+seSelected+"' ";
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

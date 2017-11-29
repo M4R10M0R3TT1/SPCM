@@ -277,5 +277,22 @@ public class SEOverviewController {
         }
     }
 
+    @FXML
+    private void handleAddFamily() {
+        int selectedIndex = seTableView.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            SensingElement sensingElement = seTableView.getItems().get(selectedIndex);
+
+
+        }
+    }
+
+    private void showFamilyList(SensingElement SE){
+
+    }
+
+
+
+
 
 }
