@@ -16,6 +16,8 @@ public class TabPaneOverviewController {
     private Tab seTab;
     @FXML
     private AnchorPane seAnchorPane;
+    @FXML
+    private AnchorPane familyAnchorPane;
 
 
     private MainApp mainApp;
@@ -25,7 +27,7 @@ public class TabPaneOverviewController {
         showSEOverview();
     }
 
-    public void showSEOverview(){
+   public void showSEOverview(){
         try {
             // Load SEOverview.
             FXMLLoader loader = new FXMLLoader();
@@ -41,6 +43,30 @@ public class TabPaneOverviewController {
             // Give the controller access to the main app.
             // SEOverviewController controller = loader.getController();
             SEOverviewController controller=loader.getController();
+            controller.setMainApp(this.mainApp);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public void showFamilyOverview(){
+        try {
+            // Load SEOverview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/FamilyOverview.fxml"));
+            AnchorPane FamilyOverview = (AnchorPane) loader.load();
+
+            // Set SEOverview into the center of root layout.
+            //setCenter(SEOverview);
+            familyAnchorPane.getChildren().add(FamilyOverview);
+
+
+
+            // Give the controller access to the main app.
+            // SEOverviewController controller = loader.getController();
+            FamilyOverviewController controller=loader.getController();
             controller.setMainApp(this.mainApp);
 
 

@@ -285,7 +285,7 @@ public class SEOverviewController {
     @FXML
     private void handleAddFamily() throws IOException {
         int selectedIndex = seTableView.getSelectionModel().getSelectedIndex();
-        if (selectedIndex >= 0) {
+        if (selectedIndex >=0) {
             SensingElement sensingElement = seTableView.getItems().get(selectedIndex);
             boolean okClicked = mainApp.showSEOnFamilyDialog(sensingElement,true);
 

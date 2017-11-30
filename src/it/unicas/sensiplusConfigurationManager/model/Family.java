@@ -1,5 +1,7 @@
 package it.unicas.sensiplusConfigurationManager.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -8,55 +10,115 @@ import javafx.beans.property.StringProperty;
  */
 public class Family {
 
-    private StringProperty idFamily;
-    private StringProperty family_Name;
-    //private StringProperty port;
+    private StringProperty id;
+    private IntegerProperty idSPFamily;
+    private StringProperty name;
+    private StringProperty hwVersion;
+    private StringProperty sysclock;
+    private StringProperty osctrim;
+
 
     //Default constructor
-    public Family(){this(null,null);}
+    public Family(){
+        this(null,null);
+    }
 
+    public Family(Integer idSPFamily,String name,String id,String hwVersion,String sysclock,String osctrim){
+        this.idSPFamily=new SimpleIntegerProperty(idSPFamily);
+        this.name=new SimpleStringProperty(name);
+        this.id=new SimpleStringProperty(id);
+        this.hwVersion=new SimpleStringProperty(hwVersion);
+        this.sysclock=new SimpleStringProperty(sysclock);
+        this.osctrim=new SimpleStringProperty(osctrim);
+    }
 
-    public Family(String idFamily,String family_Name/*,String port*/){
-        this.idFamily=new SimpleStringProperty(idFamily);
-        this.family_Name=new SimpleStringProperty(family_Name);
-       // this.port=new SimpleStringProperty(port);
+    public Family(Integer idSPFamily,String id){
+        this.idSPFamily=new SimpleIntegerProperty(idSPFamily.intValue());
+        this.id=new SimpleStringProperty(id);
+        this.hwVersion=new SimpleStringProperty("");
+        this.sysclock=new SimpleStringProperty("");
+        this.osctrim = new SimpleStringProperty("");
+
     }
 
 
 
-    public String getIdFamily() {
-        return idFamily.get();
+
+    public String getId() {
+        return id.get();
     }
 
-    public StringProperty idFamilyProperty() {
-        return idFamily;
+    public StringProperty idProperty() {
+        return id;
     }
 
-    public void setIdFamily(String idFamily) {
-        this.idFamily.set(idFamily);
+    public void setId(String id) {
+        this.id.set(id);
     }
 
-    public String getFamily_Name() {
-        return family_Name.get();
+    public int getIdSPFamily() {
+        if(idSPFamily==null){
+            idSPFamily=new SimpleIntegerProperty();
+        }
+        return idSPFamily.get();
     }
 
-    public StringProperty family_NameProperty() {
-        return family_Name;
+    public IntegerProperty idSPFamilyProperty() {
+        return idSPFamily;
     }
 
-    public void setFamily_Name(String family_Name) {
-        this.family_Name.set(family_Name);
+    public void setIdSPFamily(int idSPFamily) {
+        if(this.idSPFamily==null){
+            this.idSPFamily=new SimpleIntegerProperty();
+        }
+        this.idSPFamily.set(idSPFamily);
     }
 
-    /*public String getPort() {
-        return port.get();
+    public String getName() {
+        return name.get();
     }
 
-    public StringProperty portProperty() {
-        return port;
+    public StringProperty nameProperty() {
+        return name;
     }
 
-    public void setPort(String port) {
-        this.port.set(port);
-    }*/
+    public void setName(String name) {
+        this.name.set(name);
+    }
+
+    public String getHwVersion() {
+        return hwVersion.get();
+    }
+
+    public StringProperty hwVersionProperty() {
+        return hwVersion;
+    }
+
+    public void setHwVersion(String hwVersion) {
+        this.hwVersion.set(hwVersion);
+    }
+
+    public String getSysclock() {
+        return sysclock.get();
+    }
+
+    public StringProperty sysclockProperty() {
+        return sysclock;
+    }
+
+    public void setSysclock(String sysclock) {
+        this.sysclock.set(sysclock);
+    }
+
+    public String getOsctrim() {
+        return osctrim.get();
+    }
+
+    public StringProperty osctrimProperty() {
+        return osctrim;
+    }
+
+    public void setOsctrim(String osctrim) {
+        this.osctrim.set(osctrim);
+    }
 }
