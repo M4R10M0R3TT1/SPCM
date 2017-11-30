@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -25,23 +26,23 @@ public class AddSEOnFamilyDialogController {
     private MainApp mainApp;
 
     @FXML
-    private TableView addFamilyTableView;
+    private TableView<SensingElement> addFamilyTableView;
     @FXML
     private TableColumn<SensingElement,String> familyIDColumn;
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-        addFamilyTableView.setItems(mainApp.getSeData());
-
+        //showSEOnFamily(sensingElement);
+        //addFamilyTableView.setItems(mainApp.getAddSeFamData());
 
     }
 
     @FXML
     private void initialize(){
         familyIDColumn.setCellValueFactory(cellData->cellData.getValue().family_idProperty());
-        showSEOnFamily(null);
+        /*showSEOnFamily(null);
         addFamilyTableView.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> showSEOnFamily((SensingElement) newValue));
+                (observable, oldValue, newValue) -> showSEOnFamily(newValue));*/
     }
 
 
@@ -49,16 +50,17 @@ public class AddSEOnFamilyDialogController {
     public void setDialogStage(Stage dialogStage, boolean verifylen){
         this.dialogStage=dialogStage;
 
-
-
+        // Set the dialog icon.
+        this.dialogStage.getIcons().add(new Image("file:resources/images/pencil-lapis-128.png"));
     }
 
-    public void showSEOnFamily(SensingElement sensingElement){
+   public void showSEOnFamily(SensingElement sensingElement){
         if(sensingElement!=null){
             try{
                 List<SensingElement> list= SensingElementDAOMySQLImpl.getInstance().selectAddSEOnFamily(sensingElement);
                 mainApp.getAddSeFamData().clear();
                 mainApp.getAddSeFamData().addAll(list);
+                //System.out.println("ADDSEFAMDATA: "+mainApp.getAddSeFamData().toString());
 
             } catch (DAOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -72,10 +74,11 @@ public class AddSEOnFamilyDialogController {
         }
     }
 
-   public void setAddFamily(SensingElement sensingElement){
+  public void setAddFamily(SensingElement sensingElement){
          this.sensingElement=sensingElement;
-
-    }
+         showSEOnFamily(sensingElement);
+         addFamilyTableView.setItems(mainApp.getAddSeFamData());
+   }
 
     public boolean isOkClicked(){
         return okClicked;

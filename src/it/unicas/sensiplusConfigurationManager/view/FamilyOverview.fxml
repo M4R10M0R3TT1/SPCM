@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.FamilyOverviewController">
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.FamilyOverviewController">
    <children>
       <SplitPane dividerPositions="0.29797979797979796" layoutX="145.0" layoutY="107.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -20,7 +19,7 @@
                <children>
                   <TableView layoutX="-13.0" layoutY="37.0" prefHeight="398.0" prefWidth="174.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn fx:id="idLabel" maxWidth="173.0" minWidth="80.0" prefWidth="173.0" text="ID" />
+                      <TableColumn fx:id="idTabelColumn" maxWidth="173.0" minWidth="80.0" prefWidth="173.0" text="ID" />
                     </columns>
                   </TableView>
                </children>
@@ -56,8 +55,10 @@
                               <Label fx:id="idLabel" layoutX="20.0" layoutY="14.0" text="idlabel" />
                               <ButtonBar layoutX="207.0" layoutY="166.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="-6.0" AnchorPane.rightAnchor="7.0">
                                 <buttons>
-                                    <Button mnemonicParsing="false" text="Button" />
-                                  <Button mnemonicParsing="false" text="Button" />
+                                    <Button fx:id="newBotton" mnemonicParsing="false" text="New" />
+                                  <Button fx:id="deleteButton" mnemonicParsing="false" text="Delete" />
+                                    <Button fx:id="editButton" mnemonicParsing="false" text="Edit" />
+                                    <Button fx:id="addButton" mnemonicParsing="false" text="Add/Del Port" />
                                 </buttons>
                               </ButtonBar>
                            </children>
@@ -66,8 +67,8 @@
                            <children>
                               <TableView layoutX="71.0" layoutY="-6.0" prefHeight="188.0" prefWidth="414.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
-                                  <TableColumn fx:id="portNameLabel" prefWidth="139.0" text="Port name" />
-                                  <TableColumn fx:id="portTypeLabel" prefWidth="172.0" text="Port Type" />
+                                  <TableColumn fx:id="portNameTableColumn" prefWidth="139.0" text="Port name" />
+                                  <TableColumn fx:id="portTypeTableColumn" prefWidth="172.0" text="Port Type" />
                                 </columns>
                               </TableView>
                            </children>

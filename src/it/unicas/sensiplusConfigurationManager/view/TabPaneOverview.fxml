@@ -16,6 +16,7 @@
           <Tab text="Family">
             <content>
               <AnchorPane fx:id="familyAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <fx:include source="FamilyOverview.fxml"></fx:include>
             </content>
           </Tab>
         </tabs>

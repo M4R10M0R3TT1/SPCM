@@ -137,6 +137,7 @@ public class SEEditDialogController {
         this.dialogStage.getIcons().add(new Image("file:resources/images/pencil-lapis-128.png"));
     }
 
+
     /**
      * Sets the sensingElement to be edited in the dialog.
      *

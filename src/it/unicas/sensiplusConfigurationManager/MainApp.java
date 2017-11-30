@@ -159,7 +159,7 @@ public class MainApp extends Application {
         }
     }
 
-    public boolean showSEOnFamilyDialog(SensingElement sensingElement, boolean verifyLen) throws IOException {
+    public boolean showSEOnFamilyDialog(SensingElement sensingElement, boolean verifyLen){
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -178,7 +178,7 @@ public class MainApp extends Application {
             AddSEOnFamilyDialogController controller = loader.getController();
             controller.setMainApp(this);
             controller.setDialogStage(dialogStage, verifyLen);
-            controller.showSEOnFamily(sensingElement);
+            controller.setAddFamily(sensingElement);
 
             dialogStage.showAndWait();
             return controller.isOkClicked();

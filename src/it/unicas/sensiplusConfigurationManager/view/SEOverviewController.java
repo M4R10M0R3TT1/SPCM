@@ -85,6 +85,12 @@ public class SEOverviewController {
 
 
 
+
+    @FXML
+    private TableView addFamilyTableView;
+    @FXML
+    private TableColumn<SensingElement,String> familyIDColumn;
+
     // Reference to the main application
     private MainApp mainApp;
 
@@ -117,10 +123,8 @@ public class SEOverviewController {
         familyNameColumn.setCellValueFactory(cellData -> cellData.getValue().family_NameProperty());
         portNameColumn.setCellValueFactory(cellData -> cellData.getValue().port_NameProperty());
         portTypeColumn.setCellValueFactory(cellData -> cellData.getValue().port_internalProperty().asObject().asString());
-
-
-
     }
+
 
     private void showSEDetails(SensingElement sensingElement) {
         if (sensingElement != null) {
