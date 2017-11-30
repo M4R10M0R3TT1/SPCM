@@ -1,5 +1,6 @@
 package it.unicas.sensiplusConfigurationManager;
 
+import it.unicas.sensiplusConfigurationManager.model.Family;
 import it.unicas.sensiplusConfigurationManager.model.SensingElement;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.SensingElementDAOMySQLImpl;
@@ -40,7 +41,7 @@ public class MainApp extends Application {
     private ObservableList<SensingElement> seData = FXCollections.observableArrayList();
     private ObservableList<SensingElement> seFamData=FXCollections.observableArrayList();
     private ObservableList<SensingElement> addSeFamData=FXCollections.observableArrayList();
-
+    private ObservableList<Family> familyData=FXCollections.observableArrayList();
 
     @Override
     public void start(Stage primaryStage) {
@@ -70,7 +71,7 @@ public class MainApp extends Application {
 
     public ObservableList<SensingElement> getAddSeFamData() {return  addSeFamData;}
 
-
+    public ObservableList<Family> getFamilyData() {return familyData;}
 
     public void initRootLayout(){
         try {
