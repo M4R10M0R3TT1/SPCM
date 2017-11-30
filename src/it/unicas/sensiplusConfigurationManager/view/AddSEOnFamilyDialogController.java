@@ -5,6 +5,8 @@ import it.unicas.sensiplusConfigurationManager.MainApp;
 import it.unicas.sensiplusConfigurationManager.model.SensingElement;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.SensingElementDAOMySQLImpl;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
@@ -29,6 +31,8 @@ public class AddSEOnFamilyDialogController {
     private TableView<SensingElement> addFamilyTableView;
     @FXML
     private TableColumn<SensingElement,String> familyIDColumn;
+    @FXML
+    private TableColumn<SensingElement,String> idAutoColumn;
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
@@ -40,9 +44,14 @@ public class AddSEOnFamilyDialogController {
     @FXML
     private void initialize(){
         familyIDColumn.setCellValueFactory(cellData->cellData.getValue().family_idProperty());
+        idAutoColumn.setCellValueFactory(cellData->cellData.getValue().idProperty().asString());
         /*showSEOnFamily(null);
         addFamilyTableView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showSEOnFamily(newValue));*/
+
+        //PROVA PER DEBUG
+        /*addFamilyTableView.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> addfamilyButton(newValue));*/
     }
 
 
@@ -84,6 +93,8 @@ public class AddSEOnFamilyDialogController {
         return okClicked;
     }
 
-
-
+    //PROVA PER DEBUG
+    /*public void addfamilyButton(SensingElement sensingElement){
+        System.out.println("Questo è il contenuto di FamID: "+sensingElement);
+    }*/
 }
