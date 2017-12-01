@@ -55,9 +55,9 @@
                                     <Label fx:id="osctrimLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                  </children>
                               </GridPane>
-                              <Label fx:id="idLabel" layoutX="115.0" layoutY="15.0">
+                              <Label fx:id="idLabel" layoutX="108.0" layoutY="19.0">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font size="20.0" />
                                  </font></Label>
                               <Button fx:id="editButton" layoutX="506.0" layoutY="50.0" mnemonicParsing="false" prefWidth="80.0" text="Edit" AnchorPane.rightAnchor="10.0" />
                             <Button fx:id="deleteButton" layoutX="504.0" layoutY="93.0" mnemonicParsing="false" prefWidth="80.0" text="Delete" AnchorPane.rightAnchor="10.0" />
