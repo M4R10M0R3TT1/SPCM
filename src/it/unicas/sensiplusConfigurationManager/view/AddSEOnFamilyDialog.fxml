@@ -20,14 +20,15 @@
       <Separator layoutX="100.0" layoutY="439.0" prefWidth="200.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <TableView fx:id="addFamilyTableView" layoutX="152.0" layoutY="71.0" prefHeight="368.0" prefWidth="148.0" AnchorPane.bottomAnchor="61.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="71.0">
          <columns>
-            <TableColumn fx:id="idAutoColumn" prefWidth="148.0" text="ID (autoincrement)" />
-            <TableColumn fx:id="familyIDColumn" prefWidth="151.0" text="Family ID" />
+            <TableColumn fx:id="idAutoColumn" prefWidth="33.0" text="ID" />
+            <TableColumn fx:id="familyIDColumn" prefWidth="94.0" text="Family ID" />
+            <TableColumn fx:id="familyNameColumn" prefWidth="171.0" text="Family Name" />
          </columns>
       </TableView>
       <ButtonBar layoutX="89.0" layoutY="446.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="11.0">
         <buttons>
-          <Button fx:id="addButton" mnemonicParsing="false" text="Add" />
-            <Button mnemonicParsing="false" text="Cancel" />
+          <Button mnemonicParsing="false" onAction="#handleAdd" text="Add" />
+            <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
         </buttons>
       </ButtonBar>
    </children>

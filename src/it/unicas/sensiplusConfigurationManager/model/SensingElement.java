@@ -117,9 +117,10 @@ public class SensingElement {
     }
 
     //Constructor for SEonFamily
-    public SensingElement(Integer id, String family_id){
+    public SensingElement(Integer id, String family_id, String family_Name){
         this.id=new SimpleIntegerProperty(id);
         this.family_id=new SimpleStringProperty(family_id);
+        this.family_Name=new SimpleStringProperty(family_Name);
     }
 
     public String getIdSensingElement() {

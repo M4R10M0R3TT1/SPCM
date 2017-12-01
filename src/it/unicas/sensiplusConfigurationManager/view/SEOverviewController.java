@@ -288,7 +288,13 @@ public class SEOverviewController {
         if (selectedIndex >=0) {
             SensingElement sensingElement = seTableView.getItems().get(selectedIndex);
             boolean okClicked = mainApp.showSEOnFamilyDialog(sensingElement,true);
-
+            /*if (okClicked) {
+                try {
+                    SensingElementDAOMySQLImpl.getInstance().insertAddSeOnFamily(selectedIndex);
+                    showSEDetails(sensingElement);
+                } catch (DAOException e) {
+                    e.printStackTrace();
+                }*/
         }
     }
 
