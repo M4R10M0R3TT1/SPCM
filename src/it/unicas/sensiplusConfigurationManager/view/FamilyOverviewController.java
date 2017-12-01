@@ -32,7 +32,6 @@ public class FamilyOverviewController {
     private Label sysclockLabel;
     @FXML
     private Label osctrimLabel;
-
     @FXML
     private TableView<Family> portTableView;
     @FXML

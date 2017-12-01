@@ -63,8 +63,6 @@ public class SEEditDialogController {
     private ComboBox inPortADCComboBox;
     @FXML
     private ComboBox measureUnitComboBox;
-
-
     @FXML
     private Label seNameLabel;
 

@@ -1,14 +1,15 @@
 package it.unicas.sensiplusConfigurationManager.view;
 
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import it.unicas.sensiplusConfigurationManager.MainApp;
+import it.unicas.sensiplusConfigurationManager.model.Family;
 import it.unicas.sensiplusConfigurationManager.model.SensingElement;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.SensingElementDAOMySQLImpl;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
@@ -35,6 +36,16 @@ public class AddSEOnFamilyDialogController {
     private TableColumn<SensingElement,String> idAutoColumn;
     @FXML
     private TableColumn<SensingElement,String> familyNameColumn;
+    @FXML
+    private Label idSensingElementLabel;
+    @FXML
+    private TableView<SensingElement> portTableView;
+    @FXML
+    private TableColumn<SensingElement,String> idPortTableColumn;
+    @FXML
+    private TableColumn<SensingElement,String> portNameTableColumn;
+    @FXML
+    private TableColumn<SensingElement,String> portInternalTableColumn;
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
@@ -48,6 +59,9 @@ public class AddSEOnFamilyDialogController {
         familyIDColumn.setCellValueFactory(cellData->cellData.getValue().family_idProperty());
         idAutoColumn.setCellValueFactory(cellData->cellData.getValue().idProperty().asString());
         familyNameColumn.setCellValueFactory(cellData->cellData.getValue().family_NameProperty());
+        portNameTableColumn.setCellValueFactory(cellData->cellData.getValue().port_NameProperty());
+//        portInternalTableColumn.setCellValueFactory(cellData->cellData.getValue().port_internalProperty().asObject().asString());
+
         /*showSEOnFamily(null);
         addFamilyTableView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showSEOnFamily(newValue));*/
@@ -72,6 +86,7 @@ public class AddSEOnFamilyDialogController {
                 List<SensingElement> list= SensingElementDAOMySQLImpl.getInstance().selectAddSEOnFamily(sensingElement);
                 mainApp.getAddSeFamData().clear();
                 mainApp.getAddSeFamData().addAll(list);
+                idSensingElementLabel.setText(sensingElement.getIdSensingElement());
                 //System.out.println("ADDSEFAMDATA: "+mainApp.getAddSeFamData().toString());
 
             } catch (DAOException e) {
@@ -88,13 +103,16 @@ public class AddSEOnFamilyDialogController {
 
     @FXML
     private void handleAdd() {
-        /*if (sensingElement != null) {
+       System.out.println(addFamilyTableView.getSelectionModel().getSelectedItem().getFamily_Name());
+       /* if (sensingElement != null) {
             SensingElement tempSeOnFam = new SensingElement();
-
-            if (okClicked) {
+            Family tempFamily= new Family();
+           if (okClicked) {
                 try {
                     SensingElementDAOMySQLImpl.getInstance().insertAddSeOnFamily(tempSeOnFam);
                     mainApp.getSeData().add(tempSeOnFam);
+                    System.out.println(addFamilyTableView.getItems());
+
                 } catch (DAOException e) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.initOwner(mainApp.getPrimaryStage());
@@ -105,17 +123,17 @@ public class AddSEOnFamilyDialogController {
                     alert.showAndWait();
                 }
             }
-        }*/
+        }
         System.out.println("Devi prima implementare il metodo handleAdd() che richiama insertAddSeOnFam!");
         okClicked = true;
-        dialogStage.close();
+        dialogStage.close();*/
     }
 
   public void setAddFamily(SensingElement sensingElement){
          this.sensingElement=sensingElement;
          showSEOnFamily(sensingElement);
          addFamilyTableView.setItems(mainApp.getAddSeFamData());
-   }
+  }
 
     /**
      * Called when the user clicks cancel.

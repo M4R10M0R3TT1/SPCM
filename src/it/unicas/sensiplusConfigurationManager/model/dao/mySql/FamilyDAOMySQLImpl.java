@@ -56,13 +56,13 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
     public List<Family> selectPort(Family a) throws DAOException {
         ArrayList<Family> lista = new ArrayList<>();
         Integer id = a.getIdSPFamily();
-        System.out.println("Fam_selected: "+ id.toString());
+
         try{
             Statement st = DAOMySQLSettings.getStatement();
             String sql = "SELECT p.* FROM spport p, spfamilytemplate ft, spfamily f" +
-                    "WHERE f.idSPFamily=ft.SPFamily_idSPFamily" +
-                    "AND ft.SPPort_idSPPort=p.idSPPort" +
-                    "AND f.idSPFamily='"+id+"'";
+                    " WHERE f.idSPFamily=ft.SPFamily_idSPFamily" +
+                    " AND ft.SPPort_idSPPort=p.idSPPort" +
+                    " AND f.idSPFamily='"+id+"'";
 
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()) {

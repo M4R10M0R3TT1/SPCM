@@ -123,6 +123,8 @@ public class SensingElement {
         this.family_Name=new SimpleStringProperty(family_Name);
     }
 
+
+
     public String getIdSensingElement() {
         return idSensingElement.get();
     }

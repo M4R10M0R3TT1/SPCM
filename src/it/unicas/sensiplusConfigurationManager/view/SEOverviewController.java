@@ -70,8 +70,6 @@ public class SEOverviewController {
     private Label defaultAlarmThresholdLabel;
     @FXML
     private Label multiplerLabel;
-
-
     @FXML
     private TableView familyTableView;
     @FXML
