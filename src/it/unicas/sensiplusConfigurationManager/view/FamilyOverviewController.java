@@ -19,7 +19,7 @@ public class FamilyOverviewController {
     @FXML
     private TableColumn<Family,String> idTableColumn;
     @FXML
-    private TableColumn<Family,String> familyColumn;
+    private TableColumn<Family,String> familyTableColumn;
     @FXML
     private Label idLabel;
     @FXML
@@ -35,6 +35,14 @@ public class FamilyOverviewController {
     // Reference to the main application
     private MainApp mainApp;
     public void setMainApp(MainApp mainApp) {
+
+        idTableColumn.setCellValueFactory(cellData->cellData.getValue().idSPFamilyProperty().asString());
+        familyTableColumn.setCellValueFactory(cellData->cellData.getValue().idProperty());
+
+        showFamilyDetails(null);
+        familyTableView.getSelectionModel().selectedItemProperty().addListener(
+                ((observable, oldValue, newValue) -> showFamilyDetails(newValue)) );
+
         this.mainApp = mainApp;
 
         familyTableView.setItems(mainApp.getFamilyData());
@@ -47,8 +55,9 @@ public class FamilyOverviewController {
 
     @FXML
     private void inizialize(){
+
         idTableColumn.setCellValueFactory(cellData->cellData.getValue().idSPFamilyProperty().asString());
-        familyColumn.setCellValueFactory(cellData->cellData.getValue().idProperty());
+        familyTableColumn.setCellValueFactory(cellData->cellData.getValue().idProperty());
 
         showFamilyDetails(null);
         familyTableView.getSelectionModel().selectedItemProperty().addListener(
