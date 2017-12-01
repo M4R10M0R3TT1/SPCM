@@ -32,6 +32,8 @@ public class FamilyOverviewController {
     private Label sysclockLabel;
     @FXML
     private Label osctrimLabel;
+
+    //Parte spPort
     @FXML
     private TableView<Family> portTableView;
     @FXML
@@ -39,6 +41,11 @@ public class FamilyOverviewController {
     @FXML
     private TableColumn<Family,String> portTypeTableColumn;
 
+    //Parte Measure Technique
+    @FXML
+    private TableView<Family> measureTechniqueTableView;
+    @FXML
+    private TableColumn<Family,String> measureTechniqueTableColumn;
 
 
 
@@ -49,6 +56,7 @@ public class FamilyOverviewController {
         this.mainApp = mainApp;
         familyTableView.setItems(mainApp.getFamilyData());
         portTableView.setItems(mainApp.getFamilyPortData());
+        measureTechniqueTableView.setItems(mainApp.getFamilyMeasureTechniqueData());
         handleReadDB();
     }
 
@@ -66,8 +74,12 @@ public class FamilyOverviewController {
         showFamilyDetails(null);
         familyTableView.getSelectionModel().selectedItemProperty().addListener(
                 ((observable, oldValue, newValue) -> showFamilyDetails(newValue)) );
+        //spPort
         portNameTableColumn.setCellValueFactory(cellData->cellData.getValue().portNameProperty());
         portTypeTableColumn.setCellValueFactory(cellData->cellData.getValue().internalProperty().asString());
+        //spMeasureTechnique
+        measureTechniqueTableColumn.setCellValueFactory(cellData->cellData.getValue().typeProperty());
+
 
     }
 
@@ -85,11 +97,28 @@ public class FamilyOverviewController {
                 List<Family> list = FamilyDAOMySQLImpl.getInstance().selectPort(family);
                 mainApp.getFamilyPortData().clear();
                 mainApp.getFamilyPortData().addAll(list);
+
             } catch (DAOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());
                 alert.setTitle("Error during DB interaction");
-                alert.setHeaderText("Error during insert ...");
+                alert.setHeaderText("Error during select ...");
+                alert.setContentText(e.getMessage());
+
+                alert.showAndWait();
+            }
+
+            //parte spMeasureTechnique
+            try{
+                List<Family> list = FamilyDAOMySQLImpl.getInstance().selectMeasureTechnique(family);
+                mainApp.getFamilyMeasureTechniqueData().clear();
+                mainApp.getFamilyMeasureTechniqueData().addAll(list);
+
+            }catch (DAOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("Error during DB interaction");
+                alert.setHeaderText("Error during select ...");
                 alert.setContentText(e.getMessage());
 
                 alert.showAndWait();

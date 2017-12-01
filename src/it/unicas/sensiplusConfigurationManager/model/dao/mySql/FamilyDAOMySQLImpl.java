@@ -62,7 +62,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             String sql = "SELECT p.* FROM spport p, spfamilytemplate ft, spfamily f" +
                     " WHERE f.idSPFamily=ft.SPFamily_idSPFamily" +
                     " AND ft.SPPort_idSPPort=p.idSPPort" +
-                    " AND f.idSPFamily='"+id+"'";
+                    " AND f.idSPFamily="+id;
 
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()) {
@@ -70,6 +70,29 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
                         rs.getInt("idSPPort"),
                         rs.getBoolean("internal"),
                         rs.getString("name")));
+            }
+        } catch (SQLException sq) {
+            throw new DAOException("In select(): " + sq.getMessage());
+        }
+        return lista;
+    }
+
+    @Override
+    public List<Family> selectMeasureTechnique(Family a) throws DAOException {
+        ArrayList<Family> lista = new ArrayList<>();
+        Integer id = a.getIdSPFamily();
+
+        try{
+            Statement st = DAOMySQLSettings.getStatement();
+            String sql = "SELECT m.* FROM spmeasuretechnique m, spfamily_has_spmeasuretechnique fm, spfamily f" +
+                    " WHERE f.idSPFamily=fm.SPFamily_idSPFamily" +
+                    " AND fm.SPMeasureTechnique_idSPMeasureTechnique=m.idSPMeasureTechnique" +
+                    " AND f.idSPFamily="+id;
+
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()) {
+                lista.add(new Family(
+                        rs.getString("type")));
             }
         } catch (SQLException sq) {
             throw new DAOException("In select(): " + sq.getMessage());

@@ -43,6 +43,7 @@ public class MainApp extends Application {
     private ObservableList<SensingElement> addSeFamData=FXCollections.observableArrayList();
     private ObservableList<Family> familyData=FXCollections.observableArrayList();
     private ObservableList<Family> familyPortData=FXCollections.observableArrayList();
+    private ObservableList<Family> familyMeasureTechniqueData=FXCollections.observableArrayList();
 
     @Override
     public void start(Stage primaryStage) {
@@ -75,6 +76,8 @@ public class MainApp extends Application {
     public ObservableList<Family> getFamilyData() {return familyData;}
 
     public ObservableList<Family> getFamilyPortData() {return familyPortData;}
+
+    public ObservableList<Family> getFamilyMeasureTechniqueData(){return familyMeasureTechniqueData;}
 
     public void initRootLayout(){
         try {

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="530.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.FamilyOverviewController">
+<AnchorPane prefHeight="530.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.FamilyOverviewController">
    <children>
       <SplitPane dividerPositions="0.33184855233853006" layoutX="145.0" layoutY="107.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -78,7 +78,7 @@
                                           <TableView fx:id="portTableView" prefHeight="188.0" prefWidth="414.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <columns>
                                               <TableColumn fx:id="portNameTableColumn" prefWidth="139.0" text="Port name" />
-                                              <TableColumn fx:id="portTypeTableColumn" prefWidth="179.0" text="Port Type" />
+                                              <TableColumn fx:id="portTypeTableColumn" prefWidth="179.0" text="Internal" />
                                             </columns>
                                           </TableView>
                                           <ButtonBar layoutX="119.0" layoutY="285.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="3.0">
