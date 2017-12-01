@@ -25,6 +25,7 @@ public class TabPaneOverviewController {
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
         showSEOverview();
+
     }
 
    public void showSEOverview(){

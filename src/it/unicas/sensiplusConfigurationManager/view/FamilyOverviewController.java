@@ -6,6 +6,7 @@ import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.FamilyDAOMySQLImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -19,6 +20,16 @@ public class FamilyOverviewController {
     private TableColumn<Family,String> idTableColumn;
     @FXML
     private TableColumn<Family,String> familyColumn;
+    @FXML
+    private Label idLabel;
+    @FXML
+    private Label nameLabel;
+    @FXML
+    private Label hwVersionLabel;
+    @FXML
+    private Label sysclockLabel;
+    @FXML
+    private Label osctrimLabel;
 
 
     // Reference to the main application
@@ -27,20 +38,44 @@ public class FamilyOverviewController {
         this.mainApp = mainApp;
 
         familyTableView.setItems(mainApp.getFamilyData());
-        familyTableView.setItems(mainApp.getFamilyData());
         handleReadDB();
+    }
+
+    public FamilyOverviewController(){
+
+    }
+
+    @FXML
+    private void inizialize(){
+        idTableColumn.setCellValueFactory(cellData->cellData.getValue().idSPFamilyProperty().asString());
+        familyColumn.setCellValueFactory(cellData->cellData.getValue().idProperty());
+
+        showFamilyDetails(null);
+        familyTableView.getSelectionModel().selectedItemProperty().addListener(
+                ((observable, oldValue, newValue) -> showFamilyDetails(newValue)) );
+
+    }
+
+    private void showFamilyDetails(Family family){
+        if(family!=null){
+            idLabel.setText(family.getId());
+            nameLabel.setText(family.getName());
+            hwVersionLabel.setText(family.getHwVersion());
+            sysclockLabel.setText(family.getSysclock());
+            osctrimLabel.setText(family.getOsctrim());
+        }
     }
 
     @FXML
     private void handleReadDB() {
-        // SensingElement tempSe = new SensingElement("");
-        Family tempSe = new Family(0,"");
+        Family tempFam = new Family(0,"","","","","");
 
         try {
-            List<Family> list = FamilyDAOMySQLImpl.getInstance().select(tempSe);
+            List<Family> list = FamilyDAOMySQLImpl.getInstance().select(tempFam);
             mainApp.getFamilyData().clear();
             mainApp.getFamilyData().addAll(list);
-           // showSEDetails(null);
+            showFamilyDetails(null);
+            System.out.println("famiglie: " +mainApp.getFamilyData().toString());
 
         } catch (DAOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -52,4 +87,6 @@ public class FamilyOverviewController {
             alert.showAndWait();
         }
     }
+
+
 }
