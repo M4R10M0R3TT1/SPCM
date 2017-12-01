@@ -36,14 +36,7 @@ public class FamilyOverviewController {
     private MainApp mainApp;
     public void setMainApp(MainApp mainApp) {
 
-        idTableColumn.setCellValueFactory(cellData->cellData.getValue().idSPFamilyProperty().asString());
-        familyTableColumn.setCellValueFactory(cellData->cellData.getValue().idProperty());
-
-        showFamilyDetails(null);
-        familyTableView.getSelectionModel().selectedItemProperty().addListener(
-                ((observable, oldValue, newValue) -> showFamilyDetails(newValue)) );
-
-        this.mainApp = mainApp;
+                this.mainApp = mainApp;
 
         familyTableView.setItems(mainApp.getFamilyData());
         handleReadDB();
@@ -54,7 +47,7 @@ public class FamilyOverviewController {
     }
 
     @FXML
-    private void inizialize(){
+    private void initialize(){
 
         idTableColumn.setCellValueFactory(cellData->cellData.getValue().idSPFamilyProperty().asString());
         familyTableColumn.setCellValueFactory(cellData->cellData.getValue().idProperty());
@@ -84,7 +77,6 @@ public class FamilyOverviewController {
             mainApp.getFamilyData().clear();
             mainApp.getFamilyData().addAll(list);
             showFamilyDetails(null);
-            System.out.println("famiglie: " +mainApp.getFamilyData().toString());
 
         } catch (DAOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

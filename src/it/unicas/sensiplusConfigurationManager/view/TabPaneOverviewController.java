@@ -4,9 +4,7 @@ import it.unicas.sensiplusConfigurationManager.MainApp;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
@@ -66,7 +64,7 @@ public class TabPaneOverviewController {
 
 
             // Give the controller access to the main app.
-            // SEOverviewController controller = loader.getController();
+
             FamilyOverviewController controller=loader.getController();
             controller.setMainApp(this.mainApp);
 
