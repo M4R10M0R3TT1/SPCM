@@ -14,9 +14,14 @@ public class Family {
     private StringProperty sysclock;
     private StringProperty osctrim;
 
+    //Parte spPort
     private IntegerProperty idSPPort;
     private BooleanProperty internal;
     private StringProperty portName;
+
+    //Parte spMeasureTechnique
+    private StringProperty type;
+
 
 
     //Default constructor
@@ -33,6 +38,7 @@ public class Family {
         this.osctrim=new SimpleStringProperty(osctrim);
     }
 
+    //costruttore select
     public Family(Integer idSPFamily,String id){
         this.idSPFamily=new SimpleIntegerProperty(idSPFamily.intValue());
         this.id=new SimpleStringProperty(id);
@@ -42,12 +48,17 @@ public class Family {
 
     }
 
+    //costruttore spPort
     public Family(Integer idSPPort,Boolean internal,String portName){
         this.idSPPort=new SimpleIntegerProperty(idSPPort.intValue());
         this.internal=new SimpleBooleanProperty(internal);
         this.portName=new SimpleStringProperty(portName);
     }
 
+    //costruttore spMeasureTechnique
+    public Family(String type){
+        this.type=new SimpleStringProperty(type);
+    }
 
 
 
@@ -169,5 +180,17 @@ public class Family {
 
     public void setPortName(String portName) {
         this.portName.set(portName);
+    }
+
+    public String getType() {
+        return type.get();
+    }
+
+    public StringProperty typeProperty() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type.set(type);
     }
 }
