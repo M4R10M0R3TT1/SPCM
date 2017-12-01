@@ -1,9 +1,6 @@
 package it.unicas.sensiplusConfigurationManager.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 /**
  * Created by La Famigghia on 21/11/2017.
@@ -16,6 +13,10 @@ public class Family {
     private StringProperty hwVersion;
     private StringProperty sysclock;
     private StringProperty osctrim;
+
+    private IntegerProperty idSPPort;
+    private BooleanProperty internal;
+    private StringProperty portName;
 
 
     //Default constructor
@@ -39,6 +40,12 @@ public class Family {
         this.sysclock=new SimpleStringProperty("");
         this.osctrim = new SimpleStringProperty("");
 
+    }
+
+    public Family(Integer idSPPort,Boolean internal,String portName){
+        this.idSPPort=new SimpleIntegerProperty(idSPPort.intValue());
+        this.internal=new SimpleBooleanProperty(internal);
+        this.portName=new SimpleStringProperty(portName);
     }
 
 
@@ -120,5 +127,47 @@ public class Family {
 
     public void setOsctrim(String osctrim) {
         this.osctrim.set(osctrim);
+    }
+
+    public int getIdSPPort() {
+        if(idSPPort==null){
+            idSPPort=new SimpleIntegerProperty(0);
+        }
+        return idSPPort.get();
+    }
+
+    public IntegerProperty idSPPortProperty() {
+        return idSPPort;
+    }
+
+    public void setIdSPPort(int idSPPort) {
+        if(this.idSPPort==null){
+            this.idSPPort=new SimpleIntegerProperty();
+        }
+        this.idSPPort.set(idSPPort);
+    }
+
+    public boolean isInternal() {
+        return internal.get();
+    }
+
+    public BooleanProperty internalProperty() {
+        return internal;
+    }
+
+    public void setInternal(boolean internal) {
+        this.internal.set(internal);
+    }
+
+    public String getPortName() {
+        return portName.get();
+    }
+
+    public StringProperty portNameProperty() {
+        return portName;
+    }
+
+    public void setPortName(String portName) {
+        this.portName.set(portName);
     }
 }

@@ -51,5 +51,30 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
         }
         return lista;
     }
+
+    @Override
+    public List<Family> selectPort(Family a) throws DAOException {
+        ArrayList<Family> lista = new ArrayList<>();
+        Integer id = a.getIdSPFamily();
+        System.out.println("Fam_selected: "+ id.toString());
+        try{
+            Statement st = DAOMySQLSettings.getStatement();
+            String sql = "SELECT p.* FROM spport p, spfamilytemplate ft, spfamily f" +
+                    "WHERE f.idSPFamily=ft.SPFamily_idSPFamily" +
+                    "AND ft.SPPort_idSPPort=p.idSPPort" +
+                    "AND f.idSPFamily='"+id+"'";
+
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()) {
+                lista.add(new Family(
+                        rs.getInt("idSPPort"),
+                        rs.getBoolean("internal"),
+                        rs.getString("name")));
+            }
+        } catch (SQLException sq) {
+            throw new DAOException("In select(): " + sq.getMessage());
+        }
+        return lista;
+    }
 }
 
