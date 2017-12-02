@@ -17,8 +17,8 @@
          </font>
       </Label>
       <SplitPane dividerPositions="0.4919678714859438" prefHeight="500.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <items>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <TableView fx:id="addFamilyTableView" prefHeight="398.0" prefWidth="241.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <columns>
@@ -29,20 +29,20 @@
                   </TableView>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="498.0" prefWidth="267.0">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="498.0" prefWidth="267.0">
                <children>
                   <ButtonBar prefHeight="40.0" prefWidth="242.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
-                    <buttons>
-                      <Button mnemonicParsing="false" onAction="#handleAdd" prefHeight="31.0" prefWidth="140.0" text="Add" textAlignment="CENTER" />
+                     <buttons>
+                        <Button mnemonicParsing="false" onAction="#handleAdd" prefHeight="31.0" prefWidth="140.0" text="Add" textAlignment="CENTER" />
                         <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
-                    </buttons>
+                     </buttons>
                   </ButtonBar>
                   <TableView fx:id="portTableView" layoutX="35.0" prefHeight="357.0" prefWidth="249.0" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
-                    <columns>
-                      <TableColumn fx:id="idPortTableColumn" prefWidth="75.0" text="idPort" />
-                      <TableColumn fx:id="portNameTableColumn" prefWidth="95.0" text="Name" />
+                     <columns>
+                        <TableColumn fx:id="idPortTableColumn" prefWidth="75.0" text="idPort" />
+                        <TableColumn fx:id="portNameTableColumn" prefWidth="95.0" text="Name" />
                         <TableColumn fx:id="portIternalTableColumn" text="Internal" />
-                    </columns>
+                     </columns>
                   </TableView>
                   <Label layoutX="46.0" layoutY="1.0" text="Select available Port" wrapText="true">
                      <font>
@@ -51,7 +51,7 @@
                   </Label>
                </children>
             </AnchorPane>
-        </items>
+         </items>
       </SplitPane>
       <Label fx:id="idSensingElementLabel" layoutX="207.0" layoutY="10.0" text="Label">
          <font>
