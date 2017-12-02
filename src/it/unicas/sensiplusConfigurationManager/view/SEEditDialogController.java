@@ -175,7 +175,7 @@ public class SEEditDialogController {
         if(sensingElement.getIdSensingElement()!=null) {
             seNameLabel.setText("Edit");
             sensingElementNameTextField.setDisable(true);
-            disableParamter();
+            disableParameter();
         }
         else
             seNameLabel.setText("Insert a new SensingElement");
@@ -191,7 +191,7 @@ public class SEEditDialogController {
         return okClicked;
     }
 
-    public void disableParamter() {
+    public void disableParameter() {
 
         if (measureTechniqueComboBox.getValue().toString()=="DIRECT")
         {

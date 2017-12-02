@@ -3,30 +3,30 @@ package it.unicas.sensiplusConfigurationManager;
 import it.unicas.sensiplusConfigurationManager.model.Family;
 import it.unicas.sensiplusConfigurationManager.model.SensingElement;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
+import it.unicas.sensiplusConfigurationManager.model.dao.mySql.DAOMySQLSettings;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.SensingElementDAOMySQLImpl;
 import it.unicas.sensiplusConfigurationManager.view.*;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import sun.plugin.javascript.navig.Anchor;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 import static javafx.application.Application.launch;
 
@@ -57,6 +57,7 @@ public class MainApp extends Application {
 
         showTabPaneOverview();
 
+        this.primaryStage.show();
     }
 
     /**
@@ -96,6 +97,12 @@ public class MainApp extends Application {
             controller.setMainApp(this);
 
             primaryStage.show();
+
+            primaryStage.setOnCloseRequest(event -> {
+                event.consume();
+                handleExit();
+            });
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -194,11 +201,69 @@ public class MainApp extends Application {
             e.printStackTrace();
             return false;
         }
-
-
-
     }
 
+
+
+    public boolean showSettingsEditDialog(DAOMySQLSettings daoMySQLSettings){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/SettingsEditDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Database Communication Settings");
+            dialogStage.initModality((Modality.WINDOW_MODAL));
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            SettingsEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setSettings(daoMySQLSettings);
+
+            // Set the dialog icon.
+            dialogStage.getIcons().add(new Image("file:resources/images/edit.png"));
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+
+            return controller.isOkClicked();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Closes the application.
+     */
+    public void handleExit() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Are you sure?");
+        //---To set the image on dialog
+        Image image = new Image("file:resources/images/exit-res.png");
+        ImageView imageView = new ImageView(image);
+        alert.setGraphic(imageView);
+        //---To add an icon to the alert
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("file:resources/images/exit.png"));
+        //---
+        alert.setHeaderText("Confirm Exit");
+        alert.setContentText("Are you sure you want to exit?");
+
+        ButtonType buttonTypeOne = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeOne){
+            System.exit(0);
+        }
+    }
 
     public MainApp(){
     }
