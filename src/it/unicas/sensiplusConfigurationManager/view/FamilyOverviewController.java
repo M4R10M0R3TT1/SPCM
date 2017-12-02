@@ -153,7 +153,14 @@ public class FamilyOverviewController {
         Family selectedFamily=familyTableView.getSelectionModel().getSelectedItem();
         if(selectedFamily!= null){
             boolean okClicked=mainApp.showFamilyEditDialog(selectedFamily,true);
-
+            if (okClicked) {
+                try {
+                    FamilyDAOMySQLImpl.getInstance().update(selectedFamily);
+                    showFamilyDetails(selectedFamily);
+                } catch (DAOException e) {
+                    e.printStackTrace();
+                }
+            }
         }else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -165,6 +172,7 @@ public class FamilyOverviewController {
             alert.showAndWait();
         }
     }
+
 
 
 }

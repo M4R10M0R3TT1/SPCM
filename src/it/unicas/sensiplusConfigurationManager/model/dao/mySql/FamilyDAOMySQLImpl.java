@@ -99,5 +99,25 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
         }
         return lista;
     }
+
+    @Override
+    public void update(Family a) throws DAOException {
+        String query ="UPDATE spFamily SET " +
+                " name = '"+a.getName()+
+                "', hwVersion = '"+a.getHwVersion()+
+                "', sysclock ='"+a.getSysclock()+
+                "', osctrim = '"+a.getOsctrim()+"'" +
+                " WHERE id = '"+a.getId()+
+                "' AND idSPFamily = "+a.getIdSPFamily();
+        try {
+            Statement st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(query);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException sq) {
+            throw new DAOException("In update(): " + sq.getMessage());
+        }
+    }
 }
 

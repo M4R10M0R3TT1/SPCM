@@ -2,6 +2,7 @@ package it.unicas.sensiplusConfigurationManager.view;
 
 import it.unicas.sensiplusConfigurationManager.model.Family;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -83,7 +84,52 @@ public class FamilyEditDialogController {
         return okClicked;
     }
 
+    @FXML
+    private void handleOk(){
+        if(isInputValid(verifyLen)){
+            family.setName(nameTextField.getText());
+            family.setHwVersion(hwVersionTextField.getText());
+            family.setSysclock(sysclockTextField.getText());
+            family.setOsctrim(osctrimTextField.getText());
+
+            okClicked = true;
+            dialogStage.close();
+        }
+    }
 
 
+
+    @FXML
+    private void handleCancel(){dialogStage.close();}
+
+    private boolean isInputValid(boolean verifyLen) {
+        String errorMessage = "";
+        if (nameTextField.getText() == null || verifyLen && nameTextField.getText().length() == 0) {
+            errorMessage += "No valid Family name!\n";
+        }
+        if (hwVersionTextField.getText() == null || verifyLen && hwVersionTextField.getText().length() == 0) {
+            errorMessage += "No valid Family hwVersion!\n";
+        }
+        if (sysclockTextField.getText() == null || verifyLen && sysclockTextField.getText().length() == 0) {
+            errorMessage += "No valid Family sysclock!\n";
+        }
+        if (osctrimTextField.getText() == null || verifyLen && osctrimTextField.getText().length() == 0) {
+            errorMessage += "No valid Family osctrim!\n";
+        }
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            // Show the error message.
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(dialogStage);
+            alert.setTitle("Invalid Fields");
+            alert.setHeaderText("Please correct invalid fields");
+            alert.setContentText(errorMessage);
+
+            alert.showAndWait();
+
+            return false;
+        }
+    }
 
 }

@@ -9,4 +9,5 @@ public interface DAOFamily <T>{
     List<T> select(T a) throws DAOException;
     List<T> selectPort(T a) throws DAOException;
     List<T> selectMeasureTechnique(T a) throws  DAOException;
+    void update(T a) throws DAOException;
 }
