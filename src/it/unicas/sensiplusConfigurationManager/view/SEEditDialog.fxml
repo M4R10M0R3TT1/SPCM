@@ -83,7 +83,7 @@
             <ComboBox fx:id="contactsComboBox" maxHeight="25.0" maxWidth="388.0" prefHeight="25.0" prefWidth="388.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <ComboBox fx:id="harmonicComboBox" maxHeight="25.0" maxWidth="388.0" prefHeight="25.0" prefWidth="388.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <ComboBox fx:id="modeVIComboBox" maxHeight="25.0" maxWidth="388.0" prefHeight="25.0" prefWidth="388.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <ComboBox fx:id="measureTechniqueComboBox" maxHeight="25.0" maxWidth="388.0" onAction="#disableParamter" prefHeight="25.0" prefWidth="388.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <ComboBox fx:id="measureTechniqueComboBox" maxHeight="25.0" maxWidth="388.0" onAction="#disableParameter" prefHeight="25.0" prefWidth="388.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
             <ComboBox fx:id="measureTypeComboBox" maxHeight="25.0" maxWidth="388.0" prefHeight="25.0" prefWidth="388.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
             <ComboBox fx:id="phaseShiftModeComboBox" maxHeight="25.0" maxWidth="388.0" prefHeight="25.0" prefWidth="388.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <ComboBox fx:id="IQComboBox" maxHeight="25.0" maxWidth="388.0" prefHeight="25.0" prefWidth="388.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
