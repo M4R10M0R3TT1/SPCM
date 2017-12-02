@@ -148,5 +148,31 @@ public class FamilyOverviewController {
         }
     }
 
+    @FXML
+    private void handleEditFamily(){
+        Family selectedFamily=familyTableView.getSelectionModel().getSelectedItem();
+        if(selectedFamily!= null){
+            boolean okClicked=mainApp.showFamilyEditDialog(selectedFamily,true);
+            if (okClicked) {
+                try {
+                    FamilyDAOMySQLImpl.getInstance().update(selectedFamily);
+                    showFamilyDetails(selectedFamily);
+                } catch (DAOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Family Selected");
+            alert.setContentText("Please select a Family in the table.");
+
+            alert.showAndWait();
+        }
+    }
+
+
 
 }
