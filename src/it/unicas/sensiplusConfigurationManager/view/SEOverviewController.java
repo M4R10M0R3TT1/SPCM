@@ -5,13 +5,14 @@ import it.unicas.sensiplusConfigurationManager.model.SensingElement;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.SensingElementDAOMySQLImpl;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by  on 23/11/2017.
@@ -205,15 +206,32 @@ public class SEOverviewController {
     private void handleDeleteSensingElement() {
         int selectedIndex = seTableView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Are you sure?");
+            //---To add an icon to the alert
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("file:resources/images/favicon.png"));
+            //---
+            alert.setHeaderText("Confirm Deletion");
+            alert.setContentText("Are you sure you want to delete the selected element?");
 
-            SensingElement sensingElement = seTableView.getItems().get(selectedIndex);
-            try {
-                SensingElementDAOMySQLImpl.getInstance().delete(sensingElement);
-                seTableView.getItems().remove(selectedIndex);
-            } catch (DAOException e) {
-                e.printStackTrace();
+            ButtonType buttonTypeOne = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+            Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == buttonTypeOne){
+                    SensingElement sensingElement = seTableView.getItems().get(selectedIndex);
+                    try {
+                        SensingElementDAOMySQLImpl.getInstance().delete(sensingElement);
+                        seTableView.getItems().remove(selectedIndex);
+                    } catch (DAOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-        } else {
+        else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
@@ -223,6 +241,7 @@ public class SEOverviewController {
 
             alert.showAndWait();
         }
+
     }
 
     @FXML

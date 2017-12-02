@@ -119,5 +119,22 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             throw new DAOException("In update(): " + sq.getMessage());
         }
     }
+
+    @Override
+    public void delete(Family a) throws DAOException{
+        String sql = "DELETE FROM SPFamily WHERE idSPFamily='" + a.getIdSPFamily() + "'";
+        logger.info("SQL: " + sql);
+
+        Statement st = null;
+        try {
+            st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In delete(): " + e.getMessage());
+        }
+    }
 }
 
