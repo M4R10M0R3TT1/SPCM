@@ -204,6 +204,7 @@ public class SEOverviewController {
     private void handleDeleteSensingElement() {
         int selectedIndex = seTableView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
+            //--------DELETION CONFIRMATION DIALOG--------
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Are you sure?");
             //---To add an icon to the alert
@@ -219,6 +220,7 @@ public class SEOverviewController {
             alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
 
             Optional<ButtonType> result = alert.showAndWait();
+            //---------------------------------------------
                 if (result.get() == buttonTypeOne){
                     SensingElement sensingElement = seTableView.getItems().get(selectedIndex);
                     try {

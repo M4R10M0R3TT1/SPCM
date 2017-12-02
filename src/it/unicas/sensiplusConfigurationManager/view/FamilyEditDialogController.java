@@ -61,10 +61,15 @@ public class FamilyEditDialogController {
     public void setFamily(Family family){
         this.family=family;
 
+        familyTextField.setPromptText("0X00");
         familyTextField.setText(family.getId());
+        nameTextField.setPromptText("MEASURING_INSTRUMENTS");
         nameTextField.setText(family.getName());
+        hwVersionTextField.setPromptText("RUN0");
         hwVersionTextField.setText(family.getHwVersion());
+        sysclockTextField.setPromptText("10000000");
         sysclockTextField.setText(family.getSysclock());
+        osctrimTextField.setPromptText("0x00");
         osctrimTextField.setText(family.getOsctrim());
         if(family.getId()!=null){
             titleLabel.setText("Edit "+ family.getId());

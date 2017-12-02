@@ -201,6 +201,7 @@ public class FamilyOverviewController {
     private void handleDeleteFamily() {
         int selectedIndex = familyTableView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
+            //--------DELETION CONFIRMATION DIALOG--------
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Are you sure?");
             //---To add an icon to the alert
@@ -216,6 +217,7 @@ public class FamilyOverviewController {
             alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
 
             Optional<ButtonType> result = alert.showAndWait();
+            //---------------------------------------------
             if (result.get() == buttonTypeOne) {
                 Family family = familyTableView.getItems().get(selectedIndex);
                 try {
