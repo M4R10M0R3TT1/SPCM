@@ -121,6 +121,26 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
     }
 
     @Override
+    public void insert(Family a) throws DAOException {
+
+        String sql = "INSERT INTO spFamily (name,id,hwVersion,sysclock,osctrim) VALUES" +
+                "('"+a.getName()+"','"+a.getId()+"','"+a.getHwVersion()+
+                "','"+a.getSysclock()+"','"+a.getOsctrim()+"')";
+
+        logger.info("SQL: " + sql);
+
+        try {
+            Statement st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In insert(): " + e.getMessage());
+        }
+    }
+
+    @Override
     public void delete(Family a) throws DAOException{
         String sql = "DELETE FROM SPFamily WHERE idSPFamily='" + a.getIdSPFamily() + "'";
         logger.info("SQL: " + sql);

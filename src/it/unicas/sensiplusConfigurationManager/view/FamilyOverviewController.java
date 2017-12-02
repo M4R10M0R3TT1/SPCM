@@ -173,6 +173,27 @@ public class FamilyOverviewController {
         }
     }
 
+    @FXML
+    private void handleNewFamily(){
+        Family tempFam = new Family();
+        boolean okClicked=mainApp.showFamilyEditDialog(tempFam,true);
+
+        if(okClicked)
+            try{
+                FamilyDAOMySQLImpl.getInstance().insert(tempFam);
+                mainApp.getFamilyData().addAll(tempFam);
+
+            }catch (DAOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("Error during DB interaction");
+                alert.setHeaderText("Error during insert ...");
+                alert.setContentText(e.getMessage());
+
+                alert.showAndWait();
+            }
+    }
+
     /**
      * Called when the user clicks on the delete button.
      */
