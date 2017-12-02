@@ -152,7 +152,7 @@ public class FamilyOverviewController {
     private void handleEditFamily(){
         Family selectedFamily=familyTableView.getSelectionModel().getSelectedItem();
         if(selectedFamily!= null){
-            boolean okClicked=mainApp.showFamilyDialog(selectedFamily,true);
+            boolean okClicked=mainApp.showFamilyEditDialog(selectedFamily,true);
 
         }else {
             // Nothing selected.
