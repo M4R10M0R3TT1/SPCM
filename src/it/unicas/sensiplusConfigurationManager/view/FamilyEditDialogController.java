@@ -87,6 +87,7 @@ public class FamilyEditDialogController {
     @FXML
     private void handleOk(){
         if(isInputValid(verifyLen)){
+            family.setId(familyTextField.getText());
             family.setName(nameTextField.getText());
             family.setHwVersion(hwVersionTextField.getText());
             family.setSysclock(sysclockTextField.getText());
@@ -104,6 +105,9 @@ public class FamilyEditDialogController {
 
     private boolean isInputValid(boolean verifyLen) {
         String errorMessage = "";
+        if (familyTextField.getText() == null || verifyLen && familyTextField.getText().length() == 0) {
+            errorMessage += "No valid Family!\n";
+        }
         if (nameTextField.getText() == null || verifyLen && nameTextField.getText().length() == 0) {
             errorMessage += "No valid Family name!\n";
         }

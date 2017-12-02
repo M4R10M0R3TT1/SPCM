@@ -26,7 +26,7 @@ public class Family {
 
     //Default constructor
     public Family(){
-        this(null,null);
+        this(0,null);
     }
 
     public Family(Integer idSPFamily,String name,String id,String hwVersion,String sysclock,String osctrim){
@@ -42,6 +42,7 @@ public class Family {
     public Family(Integer idSPFamily,String id){
         this.idSPFamily=new SimpleIntegerProperty(idSPFamily.intValue());
         this.id=new SimpleStringProperty(id);
+        this.name=new SimpleStringProperty("");
         this.hwVersion=new SimpleStringProperty("");
         this.sysclock=new SimpleStringProperty("");
         this.osctrim = new SimpleStringProperty("");
@@ -142,7 +143,7 @@ public class Family {
 
     public int getIdSPPort() {
         if(idSPPort==null){
-            idSPPort=new SimpleIntegerProperty(0);
+            idSPPort=new SimpleIntegerProperty();
         }
         return idSPPort.get();
     }
