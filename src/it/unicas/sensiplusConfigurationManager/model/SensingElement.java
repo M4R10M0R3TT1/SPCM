@@ -37,6 +37,7 @@ public class SensingElement {
     private StringProperty port_Name;
     private BooleanProperty port_internal;
     private IntegerProperty id;
+    private IntegerProperty portID;
 
 
     //Default constructor
@@ -123,6 +124,10 @@ public class SensingElement {
         this.family_Name=new SimpleStringProperty(family_Name);
     }
 
+    public SensingElement(Integer portID,String port_Name){
+        this.portID=null;
+        this.port_Name=new SimpleStringProperty(port_Name);
+    }
 
 
     public String getIdSensingElement() {
@@ -493,6 +498,9 @@ public class SensingElement {
     }
 
     public boolean isPort_internal() {
+        if(port_internal==null){
+            port_internal=new SimpleBooleanProperty(false);
+        }
         return port_internal.get();
     }
 
@@ -501,6 +509,9 @@ public class SensingElement {
     }
 
     public void setPort_internal(boolean port_internal) {
+        if(this.port_internal==null){
+            this.port_internal=new SimpleBooleanProperty();
+        }
         this.port_internal.set(port_internal);
     }
 
@@ -520,6 +531,25 @@ public class SensingElement {
             this.id = new SimpleIntegerProperty();
         }
         this.id.set(id);
+    }
+
+    public int getPortID() {
+        if(portID==null){
+            portID=new SimpleIntegerProperty(0);
+
+        }
+        return portID.get();
+    }
+
+    public IntegerProperty portIDProperty() {
+        return portID;
+    }
+
+    public void setPortID(int portID) {
+        if(this.portID==null){
+            this.portID=new SimpleIntegerProperty();
+        }
+        this.portID.set(portID);
     }
 
     @Override

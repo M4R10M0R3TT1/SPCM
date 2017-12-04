@@ -1,12 +1,17 @@
 package it.unicas.sensiplusConfigurationManager.view;
 
+
 import it.unicas.sensiplusConfigurationManager.model.Family;
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 /**
  * Created by Antonio on 02/12/2017.
@@ -37,6 +42,7 @@ public class FamilyEditDialogController {
 
 
     private Stage dialogStage;
+    private Stage exStage;
     private Family family;
     private boolean okClicked = false;
     private boolean verifyLen = true;
@@ -110,9 +116,11 @@ public class FamilyEditDialogController {
 
     private boolean isInputValid(boolean verifyLen) {
         String errorMessage = "";
+
         if (familyTextField.getText() == null || verifyLen && familyTextField.getText().length() == 0) {
             errorMessage += "No valid Family!\n";
         }
+
         if (nameTextField.getText() == null || verifyLen && nameTextField.getText().length() == 0) {
             errorMessage += "No valid Family name!\n";
         }
@@ -139,6 +147,9 @@ public class FamilyEditDialogController {
 
             return false;
         }
+
     }
+
+
 
 }

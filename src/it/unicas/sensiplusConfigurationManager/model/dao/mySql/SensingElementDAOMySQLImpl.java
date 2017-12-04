@@ -239,6 +239,33 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
             }
             DAOMySQLSettings.closeStatement(st);
         } catch (SQLException e) {
+            throw new DAOException("In select(): " + e.getMessage());
+        }
+        return  lista;
+    }
+
+    @Override
+    public List<SensingElement> selectPort(SensingElement a) throws DAOException {
+        ArrayList<SensingElement> lista = new ArrayList<>();
+       String famSelected = a.getFamily_id();
+        try{
+            Statement st=DAOMySQLSettings.getStatement();
+
+            String sql="SELECT p.* FROM spport p, spfamilytemplate ft, spfamily f" +
+                    " WHERE f.idSPFamily=ft.SPFamily_idSPFamily" +
+                    " AND ft.SPPort_idSPPort=p.idSPPort" +
+                    " AND f.id="+0X02+";";
+
+
+           ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                lista.add(new SensingElement(
+                        rs.getInt("idSPPort"),
+                        rs.getString("name")));
+            }
+            DAOMySQLSettings.closeStatement(st);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return  lista;
@@ -247,12 +274,12 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
     @Override
     public void insertAddSeOnFamily(SensingElement a) throws DAOException {
         //ArrayList<SensingElement> lista = new ArrayList<>();
-        String famSelected = a.toString();
+        String famSelected = a.getFamily_Name();
 
 
         //String sql = "SELECT f.idSPFamily,f.id FROM SPFamily f, SPFamilyTemplate ft, SPSensingElementOnFamily sf WHERE f.idSPFamily=ft.SPFamily_idSPFamily AND sf.SPFamilyTemplate_idSPFamilyTemplate=ft.idSPFamilyTemplate AND sf.SPSensingElement_idSPSensingElement<>'"+seSelected+"' ";
 
-        String sql="INSERT INTO ";
+        String sql="INSERT INTO spfamilytemplate";
 
         logger.info("SQL: " + sql);
 

@@ -49,6 +49,8 @@ public class AddSEOnFamilyDialogController {
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
+        addFamilyTableView.setItems(mainApp.getAddSeFamData());
+        portTableView.setItems(mainApp.getAddSeFamPortData());
         //showSEOnFamily(sensingElement);
         //addFamilyTableView.setItems(mainApp.getAddSeFamData());
 
@@ -59,19 +61,23 @@ public class AddSEOnFamilyDialogController {
         familyIDColumn.setCellValueFactory(cellData->cellData.getValue().family_idProperty());
         idAutoColumn.setCellValueFactory(cellData->cellData.getValue().idProperty().asString());
         familyNameColumn.setCellValueFactory(cellData->cellData.getValue().family_NameProperty());
+
+
         portNameTableColumn.setCellValueFactory(cellData->cellData.getValue().port_NameProperty());
+        idPortTableColumn.setCellValueFactory(cellData->cellData.getValue().idProperty().asString());
+       // portInternalTableColumn.setCellValueFactory(cellData->cellData.getValue().port_internalProperty().asString());
+
+
 //        portInternalTableColumn.setCellValueFactory(cellData->cellData.getValue().port_internalProperty().asObject().asString());
 
-        /*showSEOnFamily(null);
+        showSEOnFamily(null);
         addFamilyTableView.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> showSEOnFamily(newValue));*/
+                (observable, oldValue, newValue) -> showPort(newValue));
 
-        //PROVA PER DEBUG
+        /*//PROVA PER DEBUG
         /*addFamilyTableView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> addfamilyButton(newValue));*/
     }
-
-
 
     public void setDialogStage(Stage dialogStage, boolean verifylen){
         this.dialogStage=dialogStage;
@@ -79,6 +85,28 @@ public class AddSEOnFamilyDialogController {
         // Set the dialog icon.
         this.dialogStage.getIcons().add(new Image("file:resources/images/pencil-lapis-128.png"));
     }
+
+    public void showPort(SensingElement sensingElement) {
+        if (sensingElement != null)
+            try {
+                List<SensingElement> list = SensingElementDAOMySQLImpl.getInstance().selectPort(sensingElement);
+                mainApp.getAddSeFamPortData().clear();
+                mainApp.getAddSeFamPortData().addAll(list);
+                System.out.println("Port: "+list.toString());
+            } catch (DAOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("Error during DB interaction");
+                alert.setHeaderText("Error during insert ...");
+                alert.setContentText(e.getMessage());
+
+                alert.showAndWait();
+
+            }
+        }
+
+
+
 
    public void showSEOnFamily(SensingElement sensingElement){
         if(sensingElement!=null){
@@ -103,14 +131,15 @@ public class AddSEOnFamilyDialogController {
 
     @FXML
     private void handleAdd() {
-       System.out.println(addFamilyTableView.getSelectionModel().getSelectedItem().getFamily_Name());
-       /* if (sensingElement != null) {
-            SensingElement tempSeOnFam = new SensingElement();
-            Family tempFamily= new Family();
-           if (okClicked) {
-                try {
-                    SensingElementDAOMySQLImpl.getInstance().insertAddSeOnFamily(tempSeOnFam);
-                    mainApp.getSeData().add(tempSeOnFam);
+      SensingElement selection = addFamilyTableView.getSelectionModel().getSelectedItem();
+        if (selection != null) {
+            System.out.println("Hai selezionato: " +selection.getFamily_id()+", "+selection.getFamily_Name());
+            //SensingElement tempSeOnFam = new SensingElement();
+           // Family tempFamily= new Family();
+          // if (okClicked) {
+                /*try {
+                    SensingElementDAOMySQLImpl.getInstance().insertAddSeOnFamily(selection);
+                    mainApp.getSeData().add(selection);
                     System.out.println(addFamilyTableView.getItems());
 
                 } catch (DAOException e) {
@@ -121,18 +150,18 @@ public class AddSEOnFamilyDialogController {
                     alert.setContentText(e.getMessage());
 
                     alert.showAndWait();
-                }
-            }
+                }*/
+            //}
         }
         System.out.println("Devi prima implementare il metodo handleAdd() che richiama insertAddSeOnFam!");
         okClicked = true;
-        dialogStage.close();*/
+        dialogStage.close();
     }
 
   public void setAddFamily(SensingElement sensingElement){
          this.sensingElement=sensingElement;
          showSEOnFamily(sensingElement);
-         addFamilyTableView.setItems(mainApp.getAddSeFamData());
+         //addFamilyTableView.setItems(mainApp.getAddSeFamData());
   }
 
     /**
