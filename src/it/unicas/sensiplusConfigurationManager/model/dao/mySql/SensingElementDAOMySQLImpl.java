@@ -262,7 +262,8 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
             while(rs.next()){
                 lista.add(new SensingElement(
                         rs.getInt("idSPPort"),
-                        rs.getString("name")));
+                        rs.getString("name"),
+                        rs.getBoolean("internal")));
             }
 
             DAOMySQLSettings.closeStatement(st);

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="531.0" prefWidth="503.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.AddSEOnFamilyDialogController">
+<AnchorPane prefHeight="531.0" prefWidth="503.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.AddSEOnFamilyDialogController">
    <children>
       <Label layoutX="16.0" layoutY="10.0" text="Add Family to" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="10.0">
          <font>
@@ -41,7 +41,7 @@
                      <columns>
                         <TableColumn fx:id="idPortTableColumn" prefWidth="75.0" text="idPort" />
                         <TableColumn fx:id="portNameTableColumn" prefWidth="95.0" text="Name" />
-                        <TableColumn fx:id="portIternalTableColumn" text="Internal" />
+                        <TableColumn fx:id="portInternalTableColumn" text="Internal" />
                      </columns>
                   </TableView>
                   <Label layoutX="46.0" layoutY="1.0" text="Select available Port" wrapText="true">

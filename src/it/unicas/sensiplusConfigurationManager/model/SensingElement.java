@@ -125,9 +125,11 @@ public class SensingElement {
         this.family_Name=new SimpleStringProperty(family_Name);
     }
 
-    public SensingElement(Integer portID,String port_Name){
+    //Constructor for Port
+    public SensingElement(Integer portID,String port_Name,Boolean port_internal){
         this.portID=new SimpleIntegerProperty(portID);
         this.port_Name=new SimpleStringProperty(port_Name);
+        this.port_internal=new SimpleBooleanProperty(port_internal);
     }
 
 
