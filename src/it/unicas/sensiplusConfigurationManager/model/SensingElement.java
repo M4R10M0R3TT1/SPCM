@@ -33,10 +33,11 @@ public class SensingElement {
     private StringProperty name;
     //parte family
     private StringProperty family_id;
+    private IntegerProperty id;
     private StringProperty family_Name;
+    //parte port
     private StringProperty port_Name;
     private BooleanProperty port_internal;
-    private IntegerProperty id;
     private IntegerProperty portID;
 
 
@@ -125,7 +126,7 @@ public class SensingElement {
     }
 
     public SensingElement(Integer portID,String port_Name){
-        this.portID=null;
+        this.portID=new SimpleIntegerProperty(portID);
         this.port_Name=new SimpleStringProperty(port_Name);
     }
 

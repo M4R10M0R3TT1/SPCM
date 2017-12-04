@@ -100,6 +100,7 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
                         rs.getString("p.name"),
                         rs.getBoolean("internal")));
             }
+
             DAOMySQLSettings.closeStatement(st);
             //System.out.println("Valore di a: "+se_selected);
             /*for(SensingElement item : lista) {
@@ -254,8 +255,7 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
             String sql="SELECT p.* FROM spport p, spfamilytemplate ft, spfamily f" +
                     " WHERE f.idSPFamily=ft.SPFamily_idSPFamily" +
                     " AND ft.SPPort_idSPPort=p.idSPPort" +
-                    " AND f.id="+0X02+";";
-
+                    " AND f.id='"+famSelected+"'";
 
            ResultSet rs = st.executeQuery(sql);
 
@@ -264,6 +264,7 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
                         rs.getInt("idSPPort"),
                         rs.getString("name")));
             }
+
             DAOMySQLSettings.closeStatement(st);
         } catch (SQLException e) {
             e.printStackTrace();

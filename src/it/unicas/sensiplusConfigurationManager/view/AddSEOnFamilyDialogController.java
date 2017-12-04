@@ -64,7 +64,7 @@ public class AddSEOnFamilyDialogController {
 
 
         portNameTableColumn.setCellValueFactory(cellData->cellData.getValue().port_NameProperty());
-        idPortTableColumn.setCellValueFactory(cellData->cellData.getValue().idProperty().asString());
+        idPortTableColumn.setCellValueFactory(cellData->cellData.getValue().portIDProperty().asString());
        // portInternalTableColumn.setCellValueFactory(cellData->cellData.getValue().port_internalProperty().asString());
 
 
@@ -92,7 +92,7 @@ public class AddSEOnFamilyDialogController {
                 List<SensingElement> list = SensingElementDAOMySQLImpl.getInstance().selectPort(sensingElement);
                 mainApp.getAddSeFamPortData().clear();
                 mainApp.getAddSeFamPortData().addAll(list);
-                System.out.println("Port: "+list.toString());
+
             } catch (DAOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());
