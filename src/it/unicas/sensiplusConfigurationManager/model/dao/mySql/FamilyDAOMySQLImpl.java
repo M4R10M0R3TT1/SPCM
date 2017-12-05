@@ -218,9 +218,11 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
         try{
             Statement st=DAOMySQLSettings.getStatement();
 
-            String sql="SELECT DISTINCT p.* FROM spport p, spfamilytemplate ft, spfamily f" +
-                    " WHERE "+famSelected+"=ft.SPFamily_idSPFamily" +
-                    " AND ft.SPPort_idSPPort=p.idSPPort";
+            String sql="SELECT p.idSPPort,p.name,p.internal FROM SPPort p,SPFamilyTemplate ft " +
+                    "WHERE ft.SPFamily_idSPFamily="+famSelected+" AND ft.idSPFamilyTemplate!=ALL(SELECT ft.idSPFamilyTemplate " +
+                    "FROM SPFamilyTemplate ft,SPSensingElementOnFamily sf " +
+                    "WHERE ft.SPFamily_idSPFamily="+famSelected+" " +
+                    "AND ft.idSPFamilyTemplate=sf.SPFamilyTemplate_idSPFamilyTemplate) AND p.idSPPort=ft.SPPort_idSPPort;";
 
             ResultSet rs = st.executeQuery(sql);
 
