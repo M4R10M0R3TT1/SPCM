@@ -42,13 +42,13 @@ public class AddSEOnFamilyDialogController {
     @FXML
     private Label idSensingElementLabel;
     @FXML
-    private TableView<SensingElement> portTableView;
+    private TableView<Family> portTableView;
     @FXML
-    private TableColumn<SensingElement,String> idPortTableColumn;
+    private TableColumn<Family,String> idPortTableColumn;
     @FXML
-    private TableColumn<SensingElement,String> portNameTableColumn;
+    private TableColumn<Family,String> portNameTableColumn;
     @FXML
-    private TableColumn<SensingElement,String> portInternalTableColumn;
+    private TableColumn<Family,String> portInternalTableColumn;
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
@@ -66,9 +66,9 @@ public class AddSEOnFamilyDialogController {
         familyNameColumn.setCellValueFactory(cellData->cellData.getValue().nameProperty());
 
 
-        portNameTableColumn.setCellValueFactory(cellData->cellData.getValue().port_NameProperty());
-        idPortTableColumn.setCellValueFactory(cellData->cellData.getValue().portIDProperty().asString());
-        portInternalTableColumn.setCellValueFactory(cellData->cellData.getValue().port_internalProperty().asString());
+        portNameTableColumn.setCellValueFactory(cellData->cellData.getValue().portNameProperty());
+        idPortTableColumn.setCellValueFactory(cellData->cellData.getValue().idSPPortProperty().asString());
+        portInternalTableColumn.setCellValueFactory(cellData->cellData.getValue().internalProperty().asString());
 
 
 //        portInternalTableColumn.setCellValueFactory(cellData->cellData.getValue().port_internalProperty().asObject().asString());
@@ -92,7 +92,7 @@ public class AddSEOnFamilyDialogController {
     public void showPort(Family family) {
         if (sensingElement != null)
             try {
-                List<SensingElement> list = SensingElementDAOMySQLImpl.getInstance().selectPort(sensingElement);
+                List<Family> list = FamilyDAOMySQLImpl.getInstance().availablePort(family);
                 mainApp.getAddSeFamPortData().clear();
                 mainApp.getAddSeFamPortData().addAll(list);
 

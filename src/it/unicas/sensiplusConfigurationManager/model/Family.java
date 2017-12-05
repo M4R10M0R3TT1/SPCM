@@ -46,7 +46,6 @@ public class Family {
         this.hwVersion=new SimpleStringProperty("RUN4");
         this.sysclock=new SimpleStringProperty("10000000");
         this.osctrim = new SimpleStringProperty("0x06");
-
     }
 
     //costruttore spPort
@@ -69,6 +68,13 @@ public class Family {
         this.name=new SimpleStringProperty(name);
         this.portName=new SimpleStringProperty(portName);
         this.internal=new SimpleBooleanProperty(internal);
+    }
+
+    //costruttore availablePort
+    public Family(Integer id, String name, Boolean internal){
+        this.idSPPort= new SimpleIntegerProperty(id);
+        this.portName= new SimpleStringProperty(name);
+        this.internal= new SimpleBooleanProperty(internal);
     }
 
     //Constructor for SEonFamily

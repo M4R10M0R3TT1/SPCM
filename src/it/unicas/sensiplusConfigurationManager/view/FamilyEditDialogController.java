@@ -2,13 +2,14 @@ package it.unicas.sensiplusConfigurationManager.view;
 
 
 import it.unicas.sensiplusConfigurationManager.model.Family;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -21,13 +22,7 @@ public class FamilyEditDialogController {
     @FXML
     private Label titleLabel;
     @FXML
-    private Label nameLabel;
-    @FXML
-    private Label hwVersionLabel;
-    @FXML
-    private Label sysclockLabel;
-    @FXML
-    private Label osctrim;
+    private ListView<String> familyListView;
 
     @FXML
     private TextField familyTextField;
@@ -40,7 +35,7 @@ public class FamilyEditDialogController {
     @FXML
     private TextField osctrimTextField;
 
-
+    private ObservableList<String> familylistob;
     private Stage dialogStage;
     private Stage exStage;
     private Family family;
@@ -84,6 +79,7 @@ public class FamilyEditDialogController {
         else{
             titleLabel.setText("Insert a new Family");
         }
+
     }
 
     /**

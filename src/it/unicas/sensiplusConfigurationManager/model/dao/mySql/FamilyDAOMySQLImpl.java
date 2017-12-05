@@ -164,8 +164,8 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
         try{
             Statement st = DAOMySQLSettings.getStatement();
             String sql = "SELECT f.id,f.name,p.name,p.internal FROM SPFamilyTemplate ft,SPFamily f,SPPort p,SPSensingElementOnFamily sf\n" +
-                    "WHERE sf.SPSensingElement_idSPSensingElement='"+a+"' AND sf.SPFamilyTemplate_idSPFamilyTemplate=ft.idSPFamilyTemplate AND ft.SPFamily_idSPFamily=f.idSPFamily\n" +
-                    "AND ft.SPPort_idSPPort=p.idSPPort";
+                    "WHERE sf.SPSensingElement_idSPSensingElement='"+a+"' AND sf.SPFamilyTemplate_idSPFamilyTemplate=ft.idSPFamilyTemplate AND ft.SPFamily_idSPFamily=f.idSPFamily" +
+                    " AND ft.SPPort_idSPPort=p.idSPPort";
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
 
@@ -178,7 +178,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
         }catch (SQLException sq) {
             throw new DAOException("In select(): " + sq.getMessage());
         }
-        return null;
+        return lista;
     }
 
     @Override
@@ -207,6 +207,33 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             DAOMySQLSettings.closeStatement(st);
         } catch (SQLException e) {
             throw new DAOException("In select(): " + e.getMessage());
+        }
+        return  lista;
+    }
+
+    @Override
+    public List<Family> availablePort(Family a) throws DAOException {
+        ArrayList<Family> lista = new ArrayList<>();
+        Integer famSelected = a.getIdSPFamily();
+        try{
+            Statement st=DAOMySQLSettings.getStatement();
+
+            String sql="SELECT DISTINCT p.* FROM spport p, spfamilytemplate ft, spfamily f" +
+                    " WHERE "+famSelected+"=ft.SPFamily_idSPFamily" +
+                    " AND ft.SPPort_idSPPort=p.idSPPort";
+
+            ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                lista.add(new Family(
+                        rs.getInt("idSPPort"),
+                        rs.getString("name"),
+                        rs.getBoolean("internal")));
+            }
+
+            DAOMySQLSettings.closeStatement(st);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return  lista;
     }

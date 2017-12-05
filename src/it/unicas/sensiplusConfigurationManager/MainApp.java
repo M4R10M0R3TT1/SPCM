@@ -46,7 +46,7 @@ public class MainApp extends Application {
     //private ObservableList<SensingElement> addSeFamData=FXCollections.observableArrayList();
     private ObservableList<Family> addSeFamData = FXCollections.observableArrayList();
 
-    private ObservableList<SensingElement> addSeFamPortData=FXCollections.observableArrayList();
+    private ObservableList<Family> addSeFamPortData=FXCollections.observableArrayList();
 
     private ObservableList<Family> familyData=FXCollections.observableArrayList();
     private ObservableList<Family> familyPortData=FXCollections.observableArrayList();
@@ -85,7 +85,7 @@ public class MainApp extends Application {
 
    public  ObservableList<Family> getAddSeFamData(){return addSeFamData;}
 
-    public ObservableList<SensingElement> getAddSeFamPortData() {return  addSeFamPortData;}
+    public ObservableList<Family> getAddSeFamPortData() {return  addSeFamPortData;}
 
     public ObservableList<Family> getFamilyData() {return familyData;}
 

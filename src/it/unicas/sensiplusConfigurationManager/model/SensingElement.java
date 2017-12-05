@@ -32,15 +32,6 @@ public class SensingElement {
     private IntegerProperty multiplier;
     private StringProperty name;
 
-    //parte family
-    private StringProperty family_id;
-    private IntegerProperty id;
-    private StringProperty family_Name;
-    //parte port
-    private StringProperty port_Name;
-    private BooleanProperty port_internal;
-    private IntegerProperty portID;
-
 
     //Default constructor
     public SensingElement(){
@@ -111,27 +102,7 @@ public class SensingElement {
 
     }
 
-    //Constructor for FamilyConfig
-    public SensingElement(String family_id, String family_Name, String port_Name, Boolean port_internal){
-        this.family_id=new SimpleStringProperty(family_id);
-        this.family_Name=new SimpleStringProperty(family_Name);
-        this.port_Name=new SimpleStringProperty(port_Name);
-        this.port_internal=new SimpleBooleanProperty(port_internal);
-    }
 
-    //Constructor for SEonFamily
-    public SensingElement(Integer id, String family_id, String family_Name){
-        this.id=new SimpleIntegerProperty(id);
-        this.family_id=new SimpleStringProperty(family_id);
-        this.family_Name=new SimpleStringProperty(family_Name);
-    }
-
-    //Constructor for Port
-    public SensingElement(Integer portID,String port_Name,Boolean port_internal){
-        this.portID=new SimpleIntegerProperty(portID);
-        this.port_Name=new SimpleStringProperty(port_Name);
-        this.port_internal=new SimpleBooleanProperty(port_internal);
-    }
 
 
     public String getIdSensingElement() {
@@ -463,97 +434,6 @@ public class SensingElement {
 
     public void setName(String name) {
         this.name.set(name);
-    }
-
-    public String getFamily_id() {
-        return family_id.get();
-    }
-
-    public StringProperty family_idProperty() {
-        return family_id;
-    }
-
-    public void setFamily_id(String family_id) {
-        this.family_id.set(family_id);
-    }
-
-    public String getFamily_Name() {
-        return family_Name.get();
-    }
-
-    public StringProperty family_NameProperty() {
-        return family_Name;
-    }
-
-    public void setFamily_Name(String family_Name) {
-        this.family_Name.set(family_Name);
-    }
-
-    public String getPort_Name() {
-        return port_Name.get();
-    }
-
-    public StringProperty port_NameProperty() {
-        return port_Name;
-    }
-
-    public void setPort_Name(String port_Name) {
-        this.port_Name.set(port_Name);
-    }
-
-    public boolean isPort_internal() {
-        if(port_internal==null){
-            port_internal=new SimpleBooleanProperty(false);
-        }
-        return port_internal.get();
-    }
-
-    public BooleanProperty port_internalProperty() {
-        return port_internal;
-    }
-
-    public void setPort_internal(boolean port_internal) {
-        if(this.port_internal==null){
-            this.port_internal=new SimpleBooleanProperty();
-        }
-        this.port_internal.set(port_internal);
-    }
-
-    public int getId() {
-        if (id == null){
-            id = new SimpleIntegerProperty(-1);
-        }
-        return id.get();
-    }
-
-    public IntegerProperty idProperty() {
-        return id;
-    }
-
-    public void setId(int id) {
-        if (this.id == null){
-            this.id = new SimpleIntegerProperty();
-        }
-        this.id.set(id);
-    }
-
-    public int getPortID() {
-        if(portID==null){
-            portID=new SimpleIntegerProperty(0);
-
-        }
-        return portID.get();
-    }
-
-    public IntegerProperty portIDProperty() {
-        return portID;
-    }
-
-    public void setPortID(int portID) {
-        if(this.portID==null){
-            this.portID=new SimpleIntegerProperty();
-        }
-        this.portID.set(portID);
     }
 
     @Override

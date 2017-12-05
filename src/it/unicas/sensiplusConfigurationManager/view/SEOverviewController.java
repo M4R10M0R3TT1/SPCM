@@ -176,9 +176,10 @@ public class SEOverviewController {
                 String seSelected = sensingElement.toString();
                 System.out.println("Selection: "+seSelected);
                // List<SensingElement> list = SensingElementDAOMySQLImpl.getInstance().selectSeFamily(sensingElement);
-                List<Family> list = FamilyDAOMySQLImpl.getInstance().selectFamilyAndPort(seSelected);
+                List<Family> listFamily = FamilyDAOMySQLImpl.getInstance().selectFamilyAndPort(seSelected);
+                System.out.println(listFamily.size());
                 mainApp.getSeFamData().clear();
-                mainApp.getSeFamData().addAll(list);
+                mainApp.getSeFamData().addAll(listFamily);
             } catch (DAOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());
