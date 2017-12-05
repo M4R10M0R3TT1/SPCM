@@ -297,23 +297,5 @@ public class FamilyOverviewController {
             }
 
     }
-    private void handleNewSensingElement() {
-        Family tempFamily = new Family();
-        boolean okClicked = mainApp.showPortOnFamilyDialog(tempFamily, true);
 
-        if (okClicked) {
-            try {
-                FamilyDAOMySQLImpl.getInstance().insert(tempFamily);
-                mainApp.getAddPortFamData().add(tempFamily);
-            } catch (DAOException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initOwner(mainApp.getPrimaryStage());
-                alert.setTitle("Error during DB interaction");
-                alert.setHeaderText("Error during insert ...");
-                alert.setContentText(e.getMessage());
-
-                alert.showAndWait();
-            }
-        }
-    }
 }

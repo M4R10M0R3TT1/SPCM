@@ -118,7 +118,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             DAOMySQLSettings.closeStatement(st);
 
         } catch (SQLException sq) {
-            throw new DAOException("In update(): " + sq.getMessage());
+            throw new DAOException("In update():" + sq.getMessage());
         }
     }
 
@@ -138,7 +138,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             DAOMySQLSettings.closeStatement(st);
 
         } catch (SQLException e) {
-            throw new DAOException("In insert(): " + e.getMessage());
+            throw new DAOException("In insert():" + e.getMessage());
         }
     }
 
@@ -155,7 +155,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             DAOMySQLSettings.closeStatement(st);
 
         } catch (SQLException e) {
-            throw new DAOException("In delete(): " + e.getMessage());
+            throw new DAOException("In delete():" + e.getMessage());
         }
     }
 
@@ -209,7 +209,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             }
             DAOMySQLSettings.closeStatement(st);
         } catch (SQLException e) {
-            throw new DAOException("In select(): " + e.getMessage());
+            throw new DAOException("In selectADDSEOnFamily(): " + e.getMessage());
         }
         return  lista;
     }
@@ -328,6 +328,46 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
                         rs.getInt("idSPPort"),
                         rs.getString("name"),
                         rs.getBoolean("internal")));
+            }
+
+            DAOMySQLSettings.closeStatement(st);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+    @Override
+    public void insertAddPortOnFamily(Integer a, Integer f) throws DAOException {
+        String sql="INSERT INTO spfamilytemplate VALUE (null,"+f+","+a+")";
+        try {
+            Statement st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In insertAddPOrtOnFamily(): " + e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Family> selectADDTechniqueOnFamily(Family a) throws DAOException {
+        ArrayList<Family> lista = new ArrayList<>();
+        Integer famSelected = a.getIdSPFamily();
+        try{
+            Statement st=DAOMySQLSettings.getStatement();
+
+            String sql="SELECT * FROM spmeasuretechnique mt "+
+                    "WHERE mt.idSPMeasureTechnique!=ALL(SELECT fmt.SPMeasureTechnique_idSPMeasureTechnique "+
+                    "FROM spfamily_has_spmeasuretechnique fmt "+" WHERE fmt.SPFamily_idSPFamily="+famSelected+")GROUP BY mt.idSPMeasureTechnique";
+
+            ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                lista.add(new Family(
+                        rs.getString("type"),
+                        rs.getInt("idSPMeasureTechnique")));
             }
 
             DAOMySQLSettings.closeStatement(st);
