@@ -40,17 +40,17 @@ public class MainApp extends Application {
 
     private ObservableList<SensingElement> seData = FXCollections.observableArrayList();
     //private ObservableList<SensingElement> seFamData=FXCollections.observableArrayList();
-
     private ObservableList<Family> seFamData=FXCollections.observableArrayList();
 
     //private ObservableList<SensingElement> addSeFamData=FXCollections.observableArrayList();
     private ObservableList<Family> addSeFamData = FXCollections.observableArrayList();
-
     private ObservableList<Family> addSeFamPortData=FXCollections.observableArrayList();
 
     private ObservableList<Family> familyData=FXCollections.observableArrayList();
     private ObservableList<Family> familyPortData=FXCollections.observableArrayList();
     private ObservableList<Family> familyMeasureTechniqueData=FXCollections.observableArrayList();
+    private ObservableList<Family> addPortFamData=FXCollections.observableArrayList();
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -75,15 +75,10 @@ public class MainApp extends Application {
         return seData;
     }
 
-   /* public ObservableList<SensingElement> getSeFamData() {
-        return seFamData;
-    }*/
 
     public ObservableList<Family> getSeFamData(){ return seFamData;}
 
-   /* public ObservableList<SensingElement> getAddSeFamData() {return  addSeFamData;}*/
-
-   public  ObservableList<Family> getAddSeFamData(){return addSeFamData;}
+    public  ObservableList<Family> getAddSeFamData(){return addSeFamData;}
 
     public ObservableList<Family> getAddSeFamPortData() {return  addSeFamPortData;}
 
@@ -92,6 +87,10 @@ public class MainApp extends Application {
     public ObservableList<Family> getFamilyPortData() {return familyPortData;}
 
     public ObservableList<Family> getFamilyMeasureTechniqueData(){return familyMeasureTechniqueData;}
+
+    public ObservableList<Family> getAddPortFamData(){return addPortFamData;}
+
+
 
     public void initRootLayout(){
         try {
@@ -249,6 +248,36 @@ public class MainApp extends Application {
         }
     }
 
+    public boolean showPortOnFamilyDialog(Family family, boolean verifyLen){
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/AddPortOnFamilyDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Add Port to Family");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the sensingElement into the controller.
+            AddPortOnFamilyDialogController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setDialogStage(dialogStage, verifyLen);
+            //controller.setAddFamily(family);
+
+            dialogStage.showAndWait();
+            return controller.isOkClicked();
+
+        }catch (IOException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 
     public boolean showSettingsEditDialog(DAOMySQLSettings daoMySQLSettings){
@@ -325,4 +354,6 @@ public class MainApp extends Application {
     }
 
     public static void main(String[] args) { launch(args); }
+
+
 }

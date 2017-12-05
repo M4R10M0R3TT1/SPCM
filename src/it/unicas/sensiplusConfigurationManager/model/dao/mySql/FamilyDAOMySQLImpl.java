@@ -309,5 +309,32 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             throw new DAOException("In deleteTechniqueOnFamily(): " + e.getMessage());
         }
     }
+
+    @Override
+    public List<Family> selectAddPortOnFamily(Family a) throws DAOException {
+        ArrayList<Family> lista = new ArrayList<>();
+        Integer famSelected = a.getIdSPFamily();
+        try{
+            Statement st=DAOMySQLSettings.getStatement();
+
+            String sql="SELECT p.idSPPort,p.name,p.internal FROM SPPort p "+
+                       "WHERE p.idSPPort!=ALL(SELECT ft.SPPort_idSPPort FROM SPFamilyTemplate ft "+
+                       "WHERE ft.SPFamily_idSPFamily='"+famSelected+"')GROUP BY p.idSPPort,p.name,p.internal";
+
+            ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                lista.add(new Family(
+                        rs.getInt("idSPPort"),
+                        rs.getString("name"),
+                        rs.getBoolean("internal")));
+            }
+
+            DAOMySQLSettings.closeStatement(st);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
 }
 
