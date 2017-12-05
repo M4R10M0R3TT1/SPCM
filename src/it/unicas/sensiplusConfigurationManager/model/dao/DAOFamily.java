@@ -22,4 +22,6 @@ public interface DAOFamily <T>{
     void update(T a) throws DAOException;
     void insert(T a) throws  DAOException;
     void delete(T a) throws DAOException;
+
+    List<T> selectAddPortOnFamily(T a) throws  DAOException;
 }

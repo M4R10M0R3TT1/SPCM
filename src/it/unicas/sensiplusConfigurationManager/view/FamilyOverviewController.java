@@ -246,6 +246,14 @@ public class FamilyOverviewController {
         }
     }
 
+    @FXML
+    private void handleAddPortOnFamily(){
+        Family selectedFamily = familyTableView.getSelectionModel().getSelectedItem();
+        if(selectedFamily!=null){
+            boolean okClicked=mainApp.showAddPortOnFamily(selectedFamily,true);
+        }
+    }
+
 
     //DELETE Port--- elimina l'associazione tra porta e la famiglia
     @FXML

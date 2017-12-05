@@ -99,7 +99,6 @@ public class AddSEOnFamilyDialogController {
 
 
 
-
    public void showSEOnFamily(SensingElement sensingElement){
         if(sensingElement!=null){
             String selection = sensingElement.getIdSensingElement().toString();
@@ -121,6 +120,11 @@ public class AddSEOnFamilyDialogController {
                 alert.showAndWait();
             }
         }
+    }
+
+    public void setAddFamily(SensingElement sensingElement){
+        this.sensingElement=sensingElement;
+        showSEOnFamily(sensingElement);
     }
 
     @FXML
@@ -145,11 +149,7 @@ public class AddSEOnFamilyDialogController {
 
     }
 
-  public void setAddFamily(SensingElement sensingElement){
-         this.sensingElement=sensingElement;
-         showSEOnFamily(sensingElement);
-         //addFamilyTableView.setItems(mainApp.getAddSeFamData());
-  }
+
 
     /**
      * Called when the user clicks cancel.

@@ -118,10 +118,7 @@ public class SEOverviewController {
         seTableView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showSEDetails(newValue));
 
-        /*idFamilyColumn.setCellValueFactory(cellData -> cellData.getValue().family_idProperty());
-        familyNameColumn.setCellValueFactory(cellData -> cellData.getValue().family_NameProperty());
-        portNameColumn.setCellValueFactory(cellData -> cellData.getValue().port_NameProperty());
-        portTypeColumn.setCellValueFactory(cellData -> cellData.getValue().port_internalProperty().asObject().asString());*/
+
 
         idFamilyColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty());
         familyNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
