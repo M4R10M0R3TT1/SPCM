@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="seAnchorPane" maxHeight="530.0" maxWidth="900.0" minHeight="530.0" minWidth="900.0" prefHeight="530.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.SEOverviewController">
+<AnchorPane fx:id="seAnchorPane" maxHeight="530.0" maxWidth="900.0" minHeight="530.0" minWidth="900.0" prefHeight="530.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.SEOverviewController">
    <children>
       <SplitPane dividerPositions="0.2979942693409742" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
@@ -116,7 +116,7 @@
                                     <Button fx:id="editButton" mnemonicParsing="false" onAction="#handleEditSE" prefHeight="31.0" prefWidth="63.0" text="Edit" />
                                     <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDeleteSensingElement" prefHeight="31.0" prefWidth="66.0" text="Delete" />
                                     <Button fx:id="addButton" mnemonicParsing="false" onAction="#handleAddFamily" prefHeight="31.0" prefWidth="102.0" text="Add Family" />
-                                    <Button fx:id="delButton" mnemonicParsing="false" text="Del Family" />
+                                    <Button fx:id="delButton" mnemonicParsing="false" onAction="#handleDelFamily" text="Del Family" />
                                  </buttons>
                               </ButtonBar>
                               <TableView fx:id="familyTableView" layoutX="24.0" layoutY="-13.0" prefHeight="154.0" prefWidth="625.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -125,6 +125,7 @@
                                     <TableColumn fx:id="familyNameColumn" minWidth="15.0" prefWidth="172.0" text="Family Name" />
                                     <TableColumn fx:id="portNameColumn" minWidth="0.0" prefWidth="169.0" text="Port Name" />
                                     <TableColumn fx:id="portTypeColumn" minWidth="69.0" prefWidth="178.0" text="Internal Port" />
+                                    <TableColumn fx:id="idFamilyTemplate" prefWidth="75.0" text="idTemplate" visible="false" />
                                  </columns>
                               </TableView>
                               <ButtonBar layoutX="14.0" layoutY="156.0" prefHeight="27.0" prefWidth="53.0" AnchorPane.bottomAnchor="8.0" />

@@ -163,7 +163,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
         ArrayList<Family> lista = new ArrayList<>();
         try{
             Statement st = DAOMySQLSettings.getStatement();
-            String sql = "SELECT f.id,f.name,p.name,p.internal FROM SPFamilyTemplate ft,SPFamily f,SPPort p,SPSensingElementOnFamily sf\n" +
+            String sql = "SELECT f.id,f.name,p.name,p.internal, ft.idSPFamilyTemplate FROM SPFamilyTemplate ft,SPFamily f,SPPort p,SPSensingElementOnFamily sf\n" +
                     "WHERE sf.SPSensingElement_idSPSensingElement='"+a+"' AND sf.SPFamilyTemplate_idSPFamilyTemplate=ft.idSPFamilyTemplate AND ft.SPFamily_idSPFamily=f.idSPFamily" +
                     " AND ft.SPPort_idSPPort=p.idSPPort";
             ResultSet rs = st.executeQuery(sql);
@@ -173,7 +173,8 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
                        rs.getString("f.id"),
                         rs.getString("f.name"),
                         rs.getString("p.name"),
-                        rs.getBoolean("internal")));
+                        rs.getBoolean("internal"),
+                        rs.getInt("idSPFamilyTemplate")));
             }
         }catch (SQLException sq) {
             throw new DAOException("In select(): " + sq.getMessage());
@@ -212,6 +213,22 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
     }
 
     @Override
+    public void insertFamilyonSE(int f, int p, String se) throws DAOException {
+        String sql="INSERT into spsensingelementonfamily VALUE (null,'"+se+"',(SELECT FT.idSPFamilyTemplate FROM SPFamilyTemplate as FT"+
+        " WHERE FT.SPPort_idSPPort="+p+" AND FT.SPFamily_idSPFamily="+f+"),'')";
+        try {
+            Statement st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In insert(): " + e.getMessage());
+        }
+
+    }
+
+    @Override
     public List<Family> availablePort(Family a) throws DAOException {
         ArrayList<Family> lista = new ArrayList<>();
         Integer famSelected = a.getIdSPFamily();
@@ -238,6 +255,23 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             e.printStackTrace();
         }
         return  lista;
+
+
+    }
+
+    @Override
+    public void deleteFamilyonSE(int t) throws DAOException {
+        String sql="DELETE FROM SPSensingElementOnFamily WHERE SPFamilyTemplate_idSPFamilyTemplate="+t;
+        Statement st = null;
+        try {
+            st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In delete(): " + e.getMessage());
+        }
     }
 }
 

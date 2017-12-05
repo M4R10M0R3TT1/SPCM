@@ -9,7 +9,6 @@ import it.unicas.sensiplusConfigurationManager.model.dao.mySql.SensingElementDAO
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -74,16 +73,7 @@ public class SEOverviewController {
     @FXML
     private Label multiplerLabel;
     @FXML
-    private TableView familyTableView;
-   /* @FXML
-    private TableColumn<SensingElement, String> idFamilyColumn;
-    @FXML
-    private TableColumn<SensingElement, String> familyNameColumn;
-    @FXML
-    private TableColumn<SensingElement, String> portNameColumn;
-    @FXML
-    private TableColumn<SensingElement, String> portTypeColumn;*/
-
+    private TableView<Family> familyTableView;
     @FXML
     private TableColumn<Family, String> idFamilyColumn;
     @FXML
@@ -327,18 +317,35 @@ public class SEOverviewController {
         if (selectedIndex >=0) {
             SensingElement sensingElement = seTableView.getItems().get(selectedIndex);
             boolean okClicked = mainApp.showSEOnFamilyDialog(sensingElement,true);
-            /*if (okClicked) {
-                try {
-                    SensingElementDAOMySQLImpl.getInstance().insertAddSeOnFamily(selectedIndex);
-                    showSEDetails(sensingElement);
-                } catch (DAOException e) {
-                    e.printStackTrace();
-                }*/
+            if (okClicked) {
+                showSEDetails(sensingElement);
+            }
         }
     }
 
-    private void showFamilyList(SensingElement SE){
+    @FXML
+    private  void handleDelFamily() throws IOException{
+        int selectedIndex=familyTableView.getSelectionModel().getSelectedIndex();
+        Family selected=familyTableView.getSelectionModel().getSelectedItem();
+        if (selected!=null) {
+             try {
+                FamilyDAOMySQLImpl.getInstance().deleteFamilyonSE(selected.getIdSPFamilyTemplate());
+                familyTableView.getItems().remove(selectedIndex);
+             } catch (DAOException e) {
+                e.printStackTrace();
+            }
+        }
 
+        else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No SensingElement Selected");
+            alert.setContentText("Please select a SensingElement in the table.");
+
+            alert.showAndWait();
+        }
     }
 
 

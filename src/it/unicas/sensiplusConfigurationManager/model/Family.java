@@ -22,6 +22,9 @@ public class Family {
     //Parte spMeasureTechnique
     private StringProperty type;
 
+    //parte Template
+    private IntegerProperty idSPFamilyTemplate;
+
 
 
     //Default constructor
@@ -63,11 +66,12 @@ public class Family {
     //Stavano in Sensing Element----------------------------------------
 
     //costruttore Family e Port
-    public Family(String id,String name,String portName,Boolean internal){
+    public Family(String id,String name,String portName,Boolean internal,Integer idFamilyTemplate){
         this.id=new SimpleStringProperty(id);
         this.name=new SimpleStringProperty(name);
         this.portName=new SimpleStringProperty(portName);
         this.internal=new SimpleBooleanProperty(internal);
+        this.idSPFamilyTemplate=new SimpleIntegerProperty(idFamilyTemplate);
     }
 
     //costruttore availablePort
@@ -217,5 +221,17 @@ public class Family {
 
     public void setType(String type) {
         this.type.set(type);
+    }
+
+    public int getIdSPFamilyTemplate() {
+        return idSPFamilyTemplate.get();
+    }
+
+    public IntegerProperty idSPFamilyTemplateProperty() {
+        return idSPFamilyTemplate;
+    }
+
+    public void setIdSPFamilyTemplate(int idSPFamilyTemplate) {
+        this.idSPFamilyTemplate.set(idSPFamilyTemplate);
     }
 }

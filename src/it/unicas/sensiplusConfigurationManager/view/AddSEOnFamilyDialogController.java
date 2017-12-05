@@ -29,7 +29,7 @@ public class AddSEOnFamilyDialogController {
     private boolean okClicked=false;
     private MainApp mainApp;
 
-    //--------Prima erano Sensing Element--------------
+
     @FXML
     private TableView<Family> addFamilyTableView;
     @FXML
@@ -38,7 +38,6 @@ public class AddSEOnFamilyDialogController {
     private TableColumn<Family,String> idAutoColumn;
     @FXML
     private TableColumn<Family,String> familyNameColumn;
-    //-----------------------------------------------
     @FXML
     private Label idSensingElementLabel;
     @FXML
@@ -54,9 +53,6 @@ public class AddSEOnFamilyDialogController {
         this.mainApp = mainApp;
         addFamilyTableView.setItems(mainApp.getAddSeFamData());
         portTableView.setItems(mainApp.getAddSeFamPortData());
-        //showSEOnFamily(sensingElement);
-        //addFamilyTableView.setItems(mainApp.getAddSeFamData());
-
     }
 
     @FXML
@@ -70,16 +66,9 @@ public class AddSEOnFamilyDialogController {
         idPortTableColumn.setCellValueFactory(cellData->cellData.getValue().idSPPortProperty().asString());
         portInternalTableColumn.setCellValueFactory(cellData->cellData.getValue().internalProperty().asString());
 
-
-//        portInternalTableColumn.setCellValueFactory(cellData->cellData.getValue().port_internalProperty().asObject().asString());
-
         showSEOnFamily(null);
         addFamilyTableView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showPort(newValue));
-
-        /*//PROVA PER DEBUG
-        /*addFamilyTableView.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> addfamilyButton(newValue));*/
     }
 
     public void setDialogStage(Stage dialogStage, boolean verifylen){
@@ -121,7 +110,6 @@ public class AddSEOnFamilyDialogController {
                 mainApp.getAddSeFamData().clear();
                 mainApp.getAddSeFamData().addAll(list);
                 idSensingElementLabel.setText(sensingElement.getIdSensingElement());
-                //System.out.println("ADDSEFAMDATA: "+mainApp.getAddSeFamData().toString());
 
             } catch (DAOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -137,31 +125,24 @@ public class AddSEOnFamilyDialogController {
 
     @FXML
     private void handleAdd() {
-      Family selection = addFamilyTableView.getSelectionModel().getSelectedItem();
-        if (selection != null) {
-            //System.out.println("Hai selezionato: " +selection.getFamily_id()+", "+selection.getFamily_Name());
-            //SensingElement tempSeOnFam = new SensingElement();
-           // Family tempFamily= new Family();
-          // if (okClicked) {
-                /*try {
-                    SensingElementDAOMySQLImpl.getInstance().insertAddSeOnFamily(selection);
-                    mainApp.getSeData().add(selection);
-                    System.out.println(addFamilyTableView.getItems());
-
-                } catch (DAOException e) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.initOwner(mainApp.getPrimaryStage());
-                    alert.setTitle("Error during DB interaction");
-                    alert.setHeaderText("Error during insert ...");
-                    alert.setContentText(e.getMessage());
-
-                    alert.showAndWait();
-                }*/
-            //}
+        Family selPort = portTableView.getSelectionModel().getSelectedItem();
+        Family selFamily =addFamilyTableView.getSelectionModel().getSelectedItem();
+        if (selPort != null) {
+            try {
+                FamilyDAOMySQLImpl.getInstance().insertFamilyonSE(selFamily.getIdSPFamily(), selPort.getIdSPPort(), idSensingElementLabel.getText());
+            } catch (DAOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("Error during DB interaction");
+                alert.setHeaderText("Error during insert ...");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
+            okClicked=true;
+            dialogStage.close();
         }
-        System.out.println("Devi prima implementare il metodo handleAdd() che richiama insertAddSeOnFam!");
-        okClicked = true;
-        dialogStage.close();
+
+
     }
 
   public void setAddFamily(SensingElement sensingElement){
