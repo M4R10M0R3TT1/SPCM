@@ -22,7 +22,7 @@ public class Family {
 
     //Parte spMeasureTechnique
     private StringProperty type;
-
+    private IntegerProperty idSPMeasureTechnique;
 
     //parte Template
     private IntegerProperty idSPFamilyTemplate;
@@ -77,11 +77,17 @@ public class Family {
         this.idSPFamilyTemplate=new SimpleIntegerProperty(idFamilyTemplate);
     }
 
-    //costruttore availablePort
+    //costruttore availablePort e AddPortOnFamily
     public Family(Integer id, String name, Boolean internal){
         this.idSPPort= new SimpleIntegerProperty(id);
         this.portName= new SimpleStringProperty(name);
         this.internal= new SimpleBooleanProperty(internal);
+    }
+
+    //costruttore addTechniqueOnFamily
+    public Family(String type,Integer idSPMeasureTechnique){
+        this.idSPMeasureTechnique= new SimpleIntegerProperty(idSPMeasureTechnique);
+        this.type= new SimpleStringProperty(type);
     }
 
     //Constructor for SEonFamily
