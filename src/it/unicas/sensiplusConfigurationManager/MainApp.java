@@ -2,17 +2,11 @@ package it.unicas.sensiplusConfigurationManager;
 
 import it.unicas.sensiplusConfigurationManager.model.Family;
 import it.unicas.sensiplusConfigurationManager.model.SensingElement;
-import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.DAOMySQLSettings;
-import it.unicas.sensiplusConfigurationManager.model.dao.mySql.SensingElementDAOMySQLImpl;
 import it.unicas.sensiplusConfigurationManager.view.*;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -22,8 +16,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import sun.plugin.javascript.navig.Anchor;
 
 import java.io.IOException;
 import java.util.*;
@@ -253,7 +245,7 @@ public class MainApp extends Application {
         try{
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/AddPortOnFamily.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/AddPortOnFamilyDialog.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.
@@ -264,10 +256,10 @@ public class MainApp extends Application {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            AddPortOnFamilyController controller=loader.getController();
+            AddPortOnFamilyDialogController controller=loader.getController();
             controller.setMainApp(this);
             controller.setDialogStage(dialogStage, verifyLen);
-            controller.showPort(family);
+            controller.setPort(family);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
