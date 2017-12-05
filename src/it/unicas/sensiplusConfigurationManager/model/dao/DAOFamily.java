@@ -8,6 +8,10 @@ import java.util.List;
 public interface DAOFamily <T>{
     List<T> select(T a) throws DAOException;
     List<T> selectPort(T a) throws DAOException;
+    //--------------stavano in SensingElement---------------
+    List<T> selectFamilyAndPort(String a) throws DAOException;
+    List<T> selectAddSEOnFamily(String a) throws DAOException;
+    //----------------------------------------------------------
     List<T> selectMeasureTechnique(T a) throws  DAOException;
     void update(T a) throws DAOException;
     void insert(T a) throws  DAOException;

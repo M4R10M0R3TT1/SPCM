@@ -1,8 +1,10 @@
 package it.unicas.sensiplusConfigurationManager.view;
 
 import it.unicas.sensiplusConfigurationManager.MainApp;
+import it.unicas.sensiplusConfigurationManager.model.Family;
 import it.unicas.sensiplusConfigurationManager.model.SensingElement;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
+import it.unicas.sensiplusConfigurationManager.model.dao.mySql.FamilyDAOMySQLImpl;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.SensingElementDAOMySQLImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -73,15 +75,23 @@ public class SEOverviewController {
     private Label multiplerLabel;
     @FXML
     private TableView familyTableView;
-    @FXML
+   /* @FXML
     private TableColumn<SensingElement, String> idFamilyColumn;
     @FXML
     private TableColumn<SensingElement, String> familyNameColumn;
     @FXML
     private TableColumn<SensingElement, String> portNameColumn;
     @FXML
-    private TableColumn<SensingElement, String> portTypeColumn;
+    private TableColumn<SensingElement, String> portTypeColumn;*/
 
+    @FXML
+    private TableColumn<Family, String> idFamilyColumn;
+    @FXML
+    private TableColumn<Family, String> familyNameColumn;
+    @FXML
+    private TableColumn<Family, String> portNameColumn;
+    @FXML
+    private TableColumn<Family, String> portTypeColumn;
 
 
 
@@ -118,10 +128,16 @@ public class SEOverviewController {
         seTableView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showSEDetails(newValue));
 
-        idFamilyColumn.setCellValueFactory(cellData -> cellData.getValue().family_idProperty());
+        /*idFamilyColumn.setCellValueFactory(cellData -> cellData.getValue().family_idProperty());
         familyNameColumn.setCellValueFactory(cellData -> cellData.getValue().family_NameProperty());
         portNameColumn.setCellValueFactory(cellData -> cellData.getValue().port_NameProperty());
-        portTypeColumn.setCellValueFactory(cellData -> cellData.getValue().port_internalProperty().asObject().asString());
+        portTypeColumn.setCellValueFactory(cellData -> cellData.getValue().port_internalProperty().asObject().asString());*/
+
+        idFamilyColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty());
+        familyNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        portNameColumn.setCellValueFactory(cellData -> cellData.getValue().portNameProperty());
+        portTypeColumn.setCellValueFactory(cellData -> cellData.getValue().internalProperty().asString());
+
     }
 
 
@@ -157,7 +173,10 @@ public class SEOverviewController {
 
             //Parte Famiglia
             try {
-                List<SensingElement> list = SensingElementDAOMySQLImpl.getInstance().selectSeFamily(sensingElement);
+                String seSelected = sensingElement.toString();
+                System.out.println("Selection: "+seSelected);
+               // List<SensingElement> list = SensingElementDAOMySQLImpl.getInstance().selectSeFamily(sensingElement);
+                List<Family> list = FamilyDAOMySQLImpl.getInstance().selectFamilyAndPort(seSelected);
                 mainApp.getSeFamData().clear();
                 mainApp.getSeFamData().addAll(list);
             } catch (DAOException e) {

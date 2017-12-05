@@ -6,6 +6,7 @@ import it.unicas.sensiplusConfigurationManager.MainApp;
 import it.unicas.sensiplusConfigurationManager.model.Family;
 import it.unicas.sensiplusConfigurationManager.model.SensingElement;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
+import it.unicas.sensiplusConfigurationManager.model.dao.mySql.FamilyDAOMySQLImpl;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.SensingElementDAOMySQLImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -28,14 +29,16 @@ public class AddSEOnFamilyDialogController {
     private boolean okClicked=false;
     private MainApp mainApp;
 
+    //--------Prima erano Sensing Element--------------
     @FXML
-    private TableView<SensingElement> addFamilyTableView;
+    private TableView<Family> addFamilyTableView;
     @FXML
-    private TableColumn<SensingElement,String> familyIDColumn;
+    private TableColumn<Family,String> familyIDColumn;
     @FXML
-    private TableColumn<SensingElement,String> idAutoColumn;
+    private TableColumn<Family,String> idAutoColumn;
     @FXML
-    private TableColumn<SensingElement,String> familyNameColumn;
+    private TableColumn<Family,String> familyNameColumn;
+    //-----------------------------------------------
     @FXML
     private Label idSensingElementLabel;
     @FXML
@@ -58,9 +61,9 @@ public class AddSEOnFamilyDialogController {
 
     @FXML
     private void initialize(){
-        familyIDColumn.setCellValueFactory(cellData->cellData.getValue().family_idProperty());
-        idAutoColumn.setCellValueFactory(cellData->cellData.getValue().idProperty().asString());
-        familyNameColumn.setCellValueFactory(cellData->cellData.getValue().family_NameProperty());
+        familyIDColumn.setCellValueFactory(cellData->cellData.getValue().idProperty());
+        idAutoColumn.setCellValueFactory(cellData->cellData.getValue().idSPFamilyProperty().asString());
+        familyNameColumn.setCellValueFactory(cellData->cellData.getValue().nameProperty());
 
 
         portNameTableColumn.setCellValueFactory(cellData->cellData.getValue().port_NameProperty());
@@ -86,7 +89,7 @@ public class AddSEOnFamilyDialogController {
         this.dialogStage.getIcons().add(new Image("file:resources/images/pencil-lapis-128.png"));
     }
 
-    public void showPort(SensingElement sensingElement) {
+    public void showPort(Family family) {
         if (sensingElement != null)
             try {
                 List<SensingElement> list = SensingElementDAOMySQLImpl.getInstance().selectPort(sensingElement);
@@ -110,9 +113,11 @@ public class AddSEOnFamilyDialogController {
 
    public void showSEOnFamily(SensingElement sensingElement){
         if(sensingElement!=null){
+            String selection = sensingElement.getIdSensingElement().toString();
+            System.out.println("Selection: "+selection);
             try{
                 mainApp.getAddSeFamPortData().clear();
-                List<SensingElement> list= SensingElementDAOMySQLImpl.getInstance().selectAddSEOnFamily(sensingElement);
+                List<Family> list= FamilyDAOMySQLImpl.getInstance().selectAddSEOnFamily(selection);
                 mainApp.getAddSeFamData().clear();
                 mainApp.getAddSeFamData().addAll(list);
                 idSensingElementLabel.setText(sensingElement.getIdSensingElement());
@@ -132,9 +137,9 @@ public class AddSEOnFamilyDialogController {
 
     @FXML
     private void handleAdd() {
-      SensingElement selection = addFamilyTableView.getSelectionModel().getSelectedItem();
+      Family selection = addFamilyTableView.getSelectionModel().getSelectedItem();
         if (selection != null) {
-            System.out.println("Hai selezionato: " +selection.getFamily_id()+", "+selection.getFamily_Name());
+            //System.out.println("Hai selezionato: " +selection.getFamily_id()+", "+selection.getFamily_Name());
             //SensingElement tempSeOnFam = new SensingElement();
            // Family tempFamily= new Family();
           // if (okClicked) {

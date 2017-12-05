@@ -31,6 +31,7 @@ public class SensingElement {
     private DoubleProperty defaultAlarmThreshold;
     private IntegerProperty multiplier;
     private StringProperty name;
+
     //parte family
     private StringProperty family_id;
     private IntegerProperty id;

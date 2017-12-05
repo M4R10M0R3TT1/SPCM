@@ -156,5 +156,59 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             throw new DAOException("In delete(): " + e.getMessage());
         }
     }
+
+    //----------------Stavano in SensingElement----------------------------------
+    @Override
+    public List<Family> selectFamilyAndPort(String a) throws DAOException {
+        ArrayList<Family> lista = new ArrayList<>();
+        try{
+            Statement st = DAOMySQLSettings.getStatement();
+            String sql = "SELECT f.id,f.name,p.name,p.internal FROM SPFamilyTemplate ft,SPFamily f,SPPort p,SPSensingElementOnFamily sf\n" +
+                    "WHERE sf.SPSensingElement_idSPSensingElement='"+a+"' AND sf.SPFamilyTemplate_idSPFamilyTemplate=ft.idSPFamilyTemplate AND ft.SPFamily_idSPFamily=f.idSPFamily\n" +
+                    "AND ft.SPPort_idSPPort=p.idSPPort";
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+
+                lista.add(new Family(
+                       rs.getString("f.id"),
+                        rs.getString("f.name"),
+                        rs.getString("p.name"),
+                        rs.getBoolean("internal")));
+            }
+        }catch (SQLException sq) {
+            throw new DAOException("In select(): " + sq.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public List<Family> selectAddSEOnFamily(String a) throws DAOException {
+        ArrayList<Family> lista = new ArrayList<>();
+       // String seSelected = a.toString();
+        try{
+            Statement st=DAOMySQLSettings.getStatement();
+
+            String sql="SELECT DISTINCT f.idSPFamily,f.id,f.name FROM SPFamily f INNER JOIN SPFamilyTemplate ft, SPSensingElementOnFamily sf\n" +
+                    "WHERE ft.SPFamily_idSPFamily=ALL(select distinct ft.SPFamily_idSPFamily from spfamily f, spfamilytemplate ft, spsensingelementonfamily sf\n" +
+                    "where sf.SPSensingElement_idSPSensingElement='"+a+"' AND sf.SPFamilyTemplate_idSPFamilyTemplate=ft.idSPFamilyTemplate)\n" +
+                    "\n" +
+                    "AND ft.idSPFamilyTemplate=ALL(select distinct ft.idSPFamilyTemplate from spfamily f, spfamilytemplate ft, spsensingelementonfamily sf\n" +
+                    "where sf.SPSensingElement_idSPSensingElement='"+a+"' AND sf.SPFamilyTemplate_idSPFamilyTemplate=ft.idSPFamilyTemplate)\n" +
+                    "\n" +
+                    "AND f.idSPFamily!=ft.SPFamily_idSPFamily;";
+
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                lista.add(new Family(
+                        rs.getInt("idSPFamily"),
+                        rs.getString("id"),
+                        rs.getString("name")));
+            }
+            DAOMySQLSettings.closeStatement(st);
+        } catch (SQLException e) {
+            throw new DAOException("In select(): " + e.getMessage());
+        }
+        return  lista;
+    }
 }
 

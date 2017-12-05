@@ -39,9 +39,15 @@ public class MainApp extends Application {
     private BorderPane rootLayout;
 
     private ObservableList<SensingElement> seData = FXCollections.observableArrayList();
-    private ObservableList<SensingElement> seFamData=FXCollections.observableArrayList();
-    private ObservableList<SensingElement> addSeFamData=FXCollections.observableArrayList();
+    //private ObservableList<SensingElement> seFamData=FXCollections.observableArrayList();
+
+    private ObservableList<Family> seFamData=FXCollections.observableArrayList();
+
+    //private ObservableList<SensingElement> addSeFamData=FXCollections.observableArrayList();
+    private ObservableList<Family> addSeFamData = FXCollections.observableArrayList();
+
     private ObservableList<SensingElement> addSeFamPortData=FXCollections.observableArrayList();
+
     private ObservableList<Family> familyData=FXCollections.observableArrayList();
     private ObservableList<Family> familyPortData=FXCollections.observableArrayList();
     private ObservableList<Family> familyMeasureTechniqueData=FXCollections.observableArrayList();
@@ -69,11 +75,15 @@ public class MainApp extends Application {
         return seData;
     }
 
-    public ObservableList<SensingElement> getSeFamData() {
+   /* public ObservableList<SensingElement> getSeFamData() {
         return seFamData;
-    }
+    }*/
 
-    public ObservableList<SensingElement> getAddSeFamData() {return  addSeFamData;}
+    public ObservableList<Family> getSeFamData(){ return seFamData;}
+
+   /* public ObservableList<SensingElement> getAddSeFamData() {return  addSeFamData;}*/
+
+   public  ObservableList<Family> getAddSeFamData(){return addSeFamData;}
 
     public ObservableList<SensingElement> getAddSeFamPortData() {return  addSeFamPortData;}
 

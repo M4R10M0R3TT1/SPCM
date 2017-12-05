@@ -61,6 +61,24 @@ public class Family {
         this.type=new SimpleStringProperty(type);
     }
 
+    //Stavano in Sensing Element----------------------------------------
+
+    //costruttore Family e Port
+    public Family(String id,String name,String portName,Boolean internal){
+        this.id=new SimpleStringProperty(id);
+        this.name=new SimpleStringProperty(name);
+        this.portName=new SimpleStringProperty(portName);
+        this.internal=new SimpleBooleanProperty(internal);
+    }
+
+    //Constructor for SEonFamily
+    public Family(Integer id, String family_id, String family_Name){
+        this.idSPFamily=new SimpleIntegerProperty(id);
+        this.id=new SimpleStringProperty(family_id);
+        this.name=new SimpleStringProperty(family_Name);
+    }
+
+    //-------------------------------------------------------------------
 
 
     public String getId() {
