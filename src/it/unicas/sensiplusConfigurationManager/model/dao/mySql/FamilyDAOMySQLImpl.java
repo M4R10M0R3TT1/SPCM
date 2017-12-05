@@ -59,20 +59,22 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
 
         try{
             Statement st = DAOMySQLSettings.getStatement();
-            String sql = "SELECT p.* FROM spport p, spfamilytemplate ft, spfamily f" +
-                    " WHERE f.idSPFamily=ft.SPFamily_idSPFamily" +
-                    " AND ft.SPPort_idSPPort=p.idSPPort" +
-                    " AND f.idSPFamily="+id;
+            String sql = "SELECT p.*, sf.SPSensingElement_idSPSensingElement "+
+                    "FROM spfamily f, spport p, spfamilytemplate ft LEFT JOIN spsensingelementonfamily sf " +
+                    "ON ft.idSPFamilyTemplate=sf.SPFamilyTemplate_idSPFamilyTemplate " +
+                    "WHERE f.idSPFamily=ft.SPFamily_idSPFamily " +
+                    "AND ft.SPPort_idSPPort=p.idSPPort AND f.idSPFamily="+id;
 
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()) {
                 lista.add(new Family(
                         rs.getInt("idSPPort"),
                         rs.getBoolean("internal"),
-                        rs.getString("name")));
+                        rs.getString("name"),
+                        rs.getString("SPSensingElement_idSPSensingElement")));
             }
         } catch (SQLException sq) {
-            throw new DAOException("In select(): " + sq.getMessage());
+            throw new DAOException("In selectPort(): " + sq.getMessage());
         }
         return lista;
     }
@@ -95,7 +97,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
                         rs.getString("type")));
             }
         } catch (SQLException sq) {
-            throw new DAOException("In select(): " + sq.getMessage());
+            throw new DAOException("In selectMeasureTechnique(): " + sq.getMessage());
         }
         return lista;
     }
@@ -157,7 +159,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
         }
     }
 
-    //----------------Stavano in SensingElement----------------------------------
+
     @Override
     public List<Family> selectFamilyAndPort(String a) throws DAOException {
         ArrayList<Family> lista = new ArrayList<>();
@@ -223,7 +225,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             DAOMySQLSettings.closeStatement(st);
 
         } catch (SQLException e) {
-            throw new DAOException("In insert(): " + e.getMessage());
+            throw new DAOException("In insertFamilyonSE(): " + e.getMessage());
         }
 
     }
@@ -270,7 +272,41 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             DAOMySQLSettings.closeStatement(st);
 
         } catch (SQLException e) {
-            throw new DAOException("In delete(): " + e.getMessage());
+            throw new DAOException("In deleteFamilyonSE(): " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void deletePortOnFamily(int p, int f) throws DAOException {
+        String sql="DELETE FROM SPFamilyTemplate WHERE SPFamily_idSPFamily="+f+" AND SPPort_idSPPort="+p;
+        Statement st = null;
+        try {
+            st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In deletePortOnFamily(): " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteTechniqueOnFamily(String mt, int f) throws DAOException {
+        System.out.println(mt + f);
+
+        String sql="DELETE fmt.* "+
+                   "FROM spfamily_has_spmeasuretechnique as fmt,SPMeasureTechnique as mt WHERE fmt.SPFamily_idSPFamily="+f+
+                   " AND fmt.SPMeasureTechnique_idSPMeasureTechnique=mt.idSPMeasureTechnique AND mt.type='"+mt+"'";
+        Statement st = null;
+        try {
+            st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In deleteTechniqueOnFamily(): " + e.getMessage());
         }
     }
 }

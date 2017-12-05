@@ -18,9 +18,11 @@ public class Family {
     private IntegerProperty idSPPort;
     private BooleanProperty internal;
     private StringProperty portName;
+    private StringProperty occupiedBy;
 
     //Parte spMeasureTechnique
     private StringProperty type;
+
 
     //parte Template
     private IntegerProperty idSPFamilyTemplate;
@@ -52,10 +54,11 @@ public class Family {
     }
 
     //costruttore spPort
-    public Family(Integer idSPPort,Boolean internal,String portName){
+    public Family(Integer idSPPort,Boolean internal,String portName, String se){
         this.idSPPort=new SimpleIntegerProperty(idSPPort.intValue());
         this.internal=new SimpleBooleanProperty(internal);
         this.portName=new SimpleStringProperty(portName);
+        this.occupiedBy=new SimpleStringProperty(se);
     }
 
     //costruttore spMeasureTechnique
@@ -233,5 +236,17 @@ public class Family {
 
     public void setIdSPFamilyTemplate(int idSPFamilyTemplate) {
         this.idSPFamilyTemplate.set(idSPFamilyTemplate);
+    }
+
+    public String getOccupiedBy() {
+        return occupiedBy.get();
+    }
+
+    public StringProperty occupiedByProperty() {
+        return occupiedBy;
+    }
+
+    public void setOccupiedBy(String occupiedBy) {
+        this.occupiedBy.set(occupiedBy);
     }
 }

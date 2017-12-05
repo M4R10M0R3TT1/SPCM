@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="530.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.FamilyOverviewController">
+<AnchorPane prefHeight="530.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.FamilyOverviewController">
    <children>
       <SplitPane dividerPositions="0.33184855233853006" layoutX="145.0" layoutY="107.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -71,35 +71,37 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <SplitPane dividerPositions="0.545016077170418" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <SplitPane dividerPositions="0.7027027027027027" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <items>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
                                           <TableView fx:id="portTableView" prefHeight="188.0" prefWidth="414.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <columns>
+                                                <TableColumn fx:id="idPortColumn" prefWidth="75.0" text="idPort" />
                                               <TableColumn fx:id="portNameTableColumn" prefWidth="139.0" text="Port name" />
-                                              <TableColumn fx:id="portTypeTableColumn" prefWidth="179.0" text="Internal" />
+                                              <TableColumn fx:id="portTypeTableColumn" prefWidth="109.0" text="Internal" />
+                                                <TableColumn fx:id="idSEColumn" prefWidth="75.0" text="Occupied by" />
                                             </columns>
                                           </TableView>
                                           <ButtonBar layoutX="119.0" layoutY="285.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="3.0">
                                             <buttons>
                                               <Button fx:id="addPortButton" mnemonicParsing="false" text="Add Port" />
-                                                <Button fx:id="delPortButton" mnemonicParsing="false" text="Del Port" />
+                                                <Button fx:id="delPortButton" mnemonicParsing="false" onAction="#handleDelPortOnFamily" text="Del Port" />
                                             </buttons>
                                           </ButtonBar>
                                        </children>
                                     </AnchorPane>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
-                                          <TableView fx:id="measureTechniqueTableView" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <TableView fx:id="measureTechniqueTableView" layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <columns>
-                                              <TableColumn fx:id="measureTechniqueTableColumn" prefWidth="264.0" text="Measure Technique" />
+                                              <TableColumn fx:id="measureTechniqueTableColumn" prefWidth="170.0" text="Measure Technique" />
                                             </columns>
                                           </TableView>
                                           <ButtonBar layoutX="65.0" layoutY="285.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="3.0">
                                             <buttons>
-                                              <Button fx:id="addMeasureTechniqueButton" mnemonicParsing="false" text="Add Technique" />
-                                                <Button fx:id="delmeasureTechniqueButton" mnemonicParsing="false" text="Del Technique" />
+                                              <Button fx:id="addMeasureTechniqueButton" mnemonicParsing="false" text="Add" />
+                                                <Button fx:id="delmeasureTechniqueButton" mnemonicParsing="false" onAction="#handleDelTechniqueOnFamily" text="Del" />
                                             </buttons>
                                           </ButtonBar>
                                        </children>

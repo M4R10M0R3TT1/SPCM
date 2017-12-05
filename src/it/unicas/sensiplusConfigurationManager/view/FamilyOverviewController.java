@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +41,10 @@ public class FamilyOverviewController {
     private TableColumn<Family,String> portNameTableColumn;
     @FXML
     private TableColumn<Family,String> portTypeTableColumn;
+    @FXML
+    private TableColumn<Family,String> idPortColumn;
+    @FXML
+    private TableColumn<Family,String> idSEColumn;
 
     //Parte Measure Technique
     @FXML
@@ -75,8 +80,10 @@ public class FamilyOverviewController {
         familyTableView.getSelectionModel().selectedItemProperty().addListener(
                 ((observable, oldValue, newValue) -> showFamilyDetails(newValue)) );
         //spPort
+        idPortColumn.setCellValueFactory(cellData->cellData.getValue().idSPPortProperty().asString());
         portNameTableColumn.setCellValueFactory(cellData->cellData.getValue().portNameProperty());
         portTypeTableColumn.setCellValueFactory(cellData->cellData.getValue().internalProperty().asString());
+        idSEColumn.setCellValueFactory(cellData->cellData.getValue().occupiedByProperty());
         //spMeasureTechnique
         measureTechniqueTableColumn.setCellValueFactory(cellData->cellData.getValue().typeProperty());
 
@@ -117,7 +124,7 @@ public class FamilyOverviewController {
             }catch (DAOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());
-                alert.setTitle("Error during DB interaction");
+                alert.setTitle("Error during DB interaction ");
                 alert.setHeaderText("Error during select ...");
                 alert.setContentText(e.getMessage());
 
@@ -141,7 +148,7 @@ public class FamilyOverviewController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(mainApp.getPrimaryStage());
             alert.setTitle("Error during DB interaction");
-            alert.setHeaderText("Error during search ...");
+            alert.setHeaderText("Error during search ... ");
             alert.setContentText(e.getMessage());
 
             alert.showAndWait();
@@ -187,7 +194,7 @@ public class FamilyOverviewController {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());
                 alert.setTitle("Error during DB interaction");
-                alert.setHeaderText("Error during insert ...");
+                alert.setHeaderText("Error during insert  ...");
                 alert.setContentText(e.getMessage());
 
                 alert.showAndWait();
@@ -232,7 +239,7 @@ public class FamilyOverviewController {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
             alert.setTitle("No Selection");
-            alert.setHeaderText("No Family Selected");
+            alert.setHeaderText("No Family Selected ");
             alert.setContentText("Please select a Family in the table.");
 
             alert.showAndWait();
@@ -240,4 +247,54 @@ public class FamilyOverviewController {
     }
 
 
+    //DELETE Port--- elimina l'associazione tra porta e la famiglia
+    @FXML
+    private  void handleDelPortOnFamily() {
+        int selectedIndex = portTableView.getSelectionModel().getSelectedIndex();
+        Family selPort = portTableView.getSelectionModel().getSelectedItem();
+        Family selFamily = familyTableView.getSelectionModel().getSelectedItem();
+        if (selPort != null) {
+            try {
+                FamilyDAOMySQLImpl.getInstance().deletePortOnFamily(selPort.getIdSPPort(), selFamily.getIdSPFamily());
+                familyTableView.getItems().remove(selectedIndex);
+            } catch (DAOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Port Selected");
+            alert.setContentText("Please select a Port in the table.");
+
+            alert.showAndWait();
+        }
+    }
+//DELETE measureTechnique --- elimina l'associazione tra famiglia e measureTechnique
+        @FXML
+        private  void handleDelTechniqueOnFamily() {
+            int selectedIndex = measureTechniqueTableView.getSelectionModel().getSelectedIndex();
+            String selTechnique = measureTechniqueTableView.getSelectionModel().getSelectedItem().getType();
+            Family selFamily = familyTableView.getSelectionModel().getSelectedItem();
+            System.out.println(selFamily.getIdSPFamily());
+            if (selTechnique != null) {
+                try {
+                    FamilyDAOMySQLImpl.getInstance().deleteTechniqueOnFamily(selTechnique,selFamily.getIdSPFamily());
+                    measureTechniqueTableView.getItems().remove(selectedIndex);
+                } catch (DAOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                // Nothing selected.
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("No Selection");
+                alert.setHeaderText("No measureTechnique Selected");
+                alert.setContentText("Please select a measureTechnique in the table.");
+
+                alert.showAndWait();
+            }
+
+    }
 }

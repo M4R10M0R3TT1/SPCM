@@ -36,6 +36,7 @@ public class FamilyEditDialogController {
     private TextField osctrimTextField;
 
     private ObservableList<String> familylistob;
+
     private Stage dialogStage;
     private Stage exStage;
     private Family family;
