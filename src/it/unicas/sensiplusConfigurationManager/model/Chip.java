@@ -1,5 +1,7 @@
 package it.unicas.sensiplusConfigurationManager.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -8,38 +10,38 @@ import javafx.beans.property.StringProperty;
  */
 public class Chip {
 
-    private StringProperty IdSerial; //non dovrebbe essere idSerial?
-    private StringProperty _idFamily;
+    private StringProperty idSPChip;
+    private IntegerProperty idFamily;
 
     //Default constructor
-    public Chip(){this(null,null);}
+    public Chip(){this(null);}
 
-    public Chip(String IdSerial,String _idFamily){
-        this.IdSerial=new SimpleStringProperty(IdSerial);
-        this._idFamily=new SimpleStringProperty(_idFamily);
+    public Chip(String idSPChip){
+        this.idSPChip=new SimpleStringProperty(idSPChip);
+
     }
 
-    public String getIdSerial() {
-        return IdSerial.get();
+    public String getIdSPChip() {
+        return idSPChip.get();
     }
 
-    public StringProperty idSerialProperty() {
-        return IdSerial;
+    public StringProperty idSPChipProperty() {
+        return idSPChip;
     }
 
-    public void setIdSerial(String idSerial) {
-        this.IdSerial.set(idSerial);
+    public void setIdSPChip(String idSPChip) {
+        this.idSPChip.set(idSPChip);
     }
 
-    public String get_idFamily() {
-        return _idFamily.get();
+    public int getIdFamily() {
+        return idFamily.get();
     }
 
-    public StringProperty _idFamilyProperty() {
-        return _idFamily;
+    public IntegerProperty idFamilyProperty() {
+        return idFamily;
     }
 
-    public void set_idFamily(String _idFamily) {
-        this._idFamily.set(_idFamily);
+    public void setIdFamily(int idFamily) {
+        this.idFamily.set(idFamily);
     }
 }

@@ -1,5 +1,6 @@
 package it.unicas.sensiplusConfigurationManager;
 
+import it.unicas.sensiplusConfigurationManager.model.Chip;
 import it.unicas.sensiplusConfigurationManager.model.Family;
 import it.unicas.sensiplusConfigurationManager.model.SensingElement;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.DAOMySQLSettings;
@@ -39,6 +40,8 @@ public class MainApp extends Application {
     private ObservableList<Family> familyPortData=FXCollections.observableArrayList();
     private ObservableList<Family> familyMeasureTechniqueData=FXCollections.observableArrayList();
 
+    private ObservableList<Chip> chipData = FXCollections.observableArrayList();
+
     //Lista osservabile delle porte da poter aggiungere in Family
     private ObservableList<Family> addPortOnFamily=FXCollections.observableArrayList();
 
@@ -74,8 +77,6 @@ public class MainApp extends Application {
 
     public ObservableList<Family> getSeFamData(){ return seFamData;}
 
-   /* public ObservableList<SensingElement> getAddSeFamData() {return  addSeFamData;}*/
-
    public  ObservableList<Family> getAddSeFamData(){return addSeFamData;}
 
     public ObservableList<Family> getAddSeFamPortData() {return  addSeFamPortData;}
@@ -89,6 +90,8 @@ public class MainApp extends Application {
     public ObservableList<Family> getAddPortOnFamily(){return addPortOnFamily;}
 
     public ObservableList<Family> getAddTechniqueOnFamily(){return addTechniqueOnFamily;}
+
+    public ObservableList<Chip> getChipData(){return chipData;}
 
     public void initRootLayout(){
         try {
