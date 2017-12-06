@@ -266,6 +266,26 @@ public class FamilyOverviewController {
         }
     }
 
+    @FXML
+    private void handleAddTechniqueOnFamily(){
+        Family selectedFamily = familyTableView.getSelectionModel().getSelectedItem();
+        if(selectedFamily!=null){
+            boolean okClicked=mainApp.showAddTechniqueOnFamily(selectedFamily,true);
+            if (okClicked)
+                showFamilyDetails(familyTableView.getSelectionModel().getSelectedItem());
+
+        }else{
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Family Selected ");
+            alert.setContentText("Please select a Family in the table. ");
+
+            alert.showAndWait();
+        }
+    }
+
 
     //DELETE Port--- elimina l'associazione tra porta e la famiglia
     @FXML

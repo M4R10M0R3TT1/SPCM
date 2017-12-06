@@ -352,7 +352,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
     }
 
     @Override
-    public List<Family> selectADDTechniqueOnFamily(Family a) throws DAOException {
+    public List<Family> selectAddTechniqueOnFamily(Family a) throws DAOException {
         ArrayList<Family> lista = new ArrayList<>();
         Integer famSelected = a.getIdSPFamily();
         try{

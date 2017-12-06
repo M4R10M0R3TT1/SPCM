@@ -42,6 +42,9 @@ public class MainApp extends Application {
     //Lista osservabile delle porte da poter aggiungere in Family
     private ObservableList<Family> addPortOnFamily=FXCollections.observableArrayList();
 
+    //Lista osservabili delle measureTechnique da aggiungere in family
+    private ObservableList<Family> addTechniqueOnFamily=FXCollections.observableArrayList();
+
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -84,6 +87,8 @@ public class MainApp extends Application {
     public ObservableList<Family> getFamilyMeasureTechniqueData(){return familyMeasureTechniqueData;}
 
     public ObservableList<Family> getAddPortOnFamily(){return addPortOnFamily;}
+
+    public ObservableList<Family> getAddTechniqueOnFamily(){return addTechniqueOnFamily;}
 
     public void initRootLayout(){
         try {
@@ -260,6 +265,37 @@ public class MainApp extends Application {
             controller.setMainApp(this);
             controller.setDialogStage(dialogStage, verifyLen);
             controller.setPort(family);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+
+        }catch (IOException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean showAddTechniqueOnFamily(Family family,boolean verifyLen){
+        try{
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/AddTechniqueOnFamilyDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Measure Technique on Family");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            AddTechniqueOnFamilyDialogController controller=loader.getController();
+            controller.setMainApp(this);
+            controller.setDialogStage(dialogStage, verifyLen);
+            controller.setTechnique(family);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();

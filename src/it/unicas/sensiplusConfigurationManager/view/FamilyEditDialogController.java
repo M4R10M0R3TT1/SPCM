@@ -137,7 +137,7 @@ public class FamilyEditDialogController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(dialogStage);
             alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
+            alert.setHeaderText("Please correct invalid fields ");
             alert.setContentText(errorMessage);
 
             alert.showAndWait();

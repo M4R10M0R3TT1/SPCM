@@ -255,4 +255,16 @@ public class Family {
     public void setOccupiedBy(String occupiedBy) {
         this.occupiedBy.set(occupiedBy);
     }
+
+    public int getIdSPMeasureTechnique() {
+        return idSPMeasureTechnique.get();
+    }
+
+    public IntegerProperty idSPMeasureTechniqueProperty() {
+        return idSPMeasureTechnique;
+    }
+
+    public void setIdSPMeasureTechnique(int idSPMeasureTechnique) {
+        this.idSPMeasureTechnique.set(idSPMeasureTechnique);
+    }
 }
