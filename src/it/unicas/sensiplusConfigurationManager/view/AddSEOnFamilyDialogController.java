@@ -151,6 +151,7 @@ public class AddSEOnFamilyDialogController {
             dialogStage.close();
         }
         else{
+            //*********---INSERIRE ALERT---************
             try {
                 int idMeasure=FamilyDAOMySQLImpl.getInstance().measureSearch(idSensingElementLabel.getText(),selFamily.getIdSPFamily());
                 FamilyDAOMySQLImpl.getInstance().insertMeasure(idMeasure,selFamily.getIdSPFamily());
