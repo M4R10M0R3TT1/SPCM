@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="530.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.ChipOverviewController">
+   <children>
+      <SplitPane dividerPositions="0.20378619153674832" layoutX="178.0" layoutY="129.0" prefHeight="530.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <TableView fx:id="chipTableView" layoutX="14.0" layoutY="54.0" prefHeight="528.0" prefWidth="238.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                      <TableColumn fx:id="chipColumn" prefWidth="178.0" text="Chip" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <SplitPane dividerPositions="0.6102661596958175" layoutX="222.0" layoutY="176.0" orientation="VERTICAL" prefHeight="528.0" prefWidth="708.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <TableView fx:id="portTableView" prefHeight="286.0" prefWidth="541.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="155.0" AnchorPane.topAnchor="30.0">
+                                <columns>
+                                  <TableColumn fx:id="idPortColumn" prefWidth="74.0" text="id Port" />
+                                  <TableColumn fx:id="namePortColumn" prefWidth="135.0" text="Name" />
+                                    <TableColumn fx:id="internalColumn" text="Internal" />
+                                    <TableColumn fx:id="idSensingElementColumn" prefWidth="170.0" text="Sensing Element" />
+                                </columns>
+                              </TableView>
+                              <Button fx:id="newButton" layoutX="585.0" layoutY="66.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="New" AnchorPane.rightAnchor="28.0" />
+                              <Button fx:id="deleteButton" layoutX="585.0" layoutY="110.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="Delete" AnchorPane.rightAnchor="28.0" />
+                              <Button fx:id="deleteFamilyButton" layoutX="585.0" layoutY="154.0" mnemonicParsing="false" text="Del Family?" AnchorPane.rightAnchor="28.0" />
+                              <Button fx:id="addSensingElementButton" layoutX="585.0" layoutY="198.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="Add SE" AnchorPane.rightAnchor="28.0" />
+                              <Button fx:id="deleteSensingElementButton" layoutX="585.0" layoutY="241.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="Del SE" AnchorPane.rightAnchor="28.0" />
+                              <Separator layoutY="29.0" prefHeight="0.0" prefWidth="709.0" />
+                              <Label layoutX="14.0" layoutY="-3.0" text="Chip">
+                                 <font>
+                                    <Font size="23.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="familyLabel" layoutX="336.0" layoutY="-5.0" text="Label">
+                                 <font>
+                                    <Font size="26.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="261.0" layoutY="-3.0" text="Family">
+                                 <font>
+                                    <Font size="23.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="chipLabel" layoutX="69.0" layoutY="-5.0" text="Label">
+                                 <font>
+                                    <Font size="26.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <SplitPane dividerPositions="0.21923620933521923" prefHeight="259.0" prefWidth="725.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <items>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                       <children>
+                                          <TableView fx:id="clusterTable" prefHeight="257.0" prefWidth="343.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columns>
+                                              <TableColumn fx:id="clusterColumn" prefWidth="150.0" text="Cluster" />
+                                            </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                       <children>
+                                          <TableView fx:id="calibrationTableView" prefHeight="199.0" prefWidth="394.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="154.0" AnchorPane.topAnchor="0.0">
+                                            <columns>
+                                              <TableColumn fx:id="idCalibrationColumn" prefWidth="96.0" text="idCalibration" />
+                                              <TableColumn fx:id="nameCalibrationColumn" prefWidth="122.0" text="Calibration" />
+                                                <TableColumn fx:id="mColumn" prefWidth="90.0" text="m" />
+                                                <TableColumn fx:id="nColumn" prefWidth="85.0" text="n" />
+                                            </columns>
+                                          </TableView>
+                                          <Button fx:id="newButton1" layoutX="420.0" layoutY="43.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="New Calibration" AnchorPane.rightAnchor="28.0" />
+                                          <Button fx:id="newButton11" layoutX="420.0" layoutY="85.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="Edit Calibration" AnchorPane.rightAnchor="28.0" />
+                                          <Button fx:id="newButton111" layoutX="420.0" layoutY="126.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="Del Calibration" AnchorPane.rightAnchor="28.0" />
+                                       </children>
+                                    </AnchorPane>
+                                </items>
+                              </SplitPane>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

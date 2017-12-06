@@ -11,11 +11,11 @@ import java.io.IOException;
 public class TabPaneOverviewController {
 
     @FXML
-    private Tab seTab;
-    @FXML
     private AnchorPane seAnchorPane;
     @FXML
     private AnchorPane familyAnchorPane;
+    @FXML
+    private AnchorPane chipAnchorPane;
 
 
     private MainApp mainApp;
@@ -52,13 +52,13 @@ public class TabPaneOverviewController {
     }
     public void showFamilyOverview(){
         try {
-            // Load SEOverview.
+            // Load FamilyOverview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/FamilyOverview.fxml"));
             AnchorPane FamilyOverview = (AnchorPane) loader.load();
 
-            // Set SEOverview into the center of root layout.
-            //setCenter(SEOverview);
+            // Set FamilyOverview into the center of root layout.
+            //setCenter(FamilyOverview);
             familyAnchorPane.getChildren().add(FamilyOverview);
 
 
@@ -66,6 +66,31 @@ public class TabPaneOverviewController {
             // Give the controller access to the main app.
 
             FamilyOverviewController controller=loader.getController();
+            controller.setMainApp(this.mainApp);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void showChipOverview(){
+        try {
+            // Load ChipOverview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/ChipOverview.fxml"));
+            AnchorPane ChipOverview = (AnchorPane) loader.load();
+
+            // Set ChipOverview into the center of root layout.
+            //setCenter(ChipOverview);
+            chipAnchorPane.getChildren().add(ChipOverview);
+
+
+
+            // Give the controller access to the main app.
+
+            ChipOverviewController controller=loader.getController();
             controller.setMainApp(this.mainApp);
 
 

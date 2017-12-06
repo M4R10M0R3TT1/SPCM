@@ -296,7 +296,7 @@ public class FamilyOverviewController {
         if (selPort != null) {
             try {
                 FamilyDAOMySQLImpl.getInstance().deletePortOnFamily(selPort.getIdSPPort(), selFamily.getIdSPFamily());
-                familyTableView.getItems().remove(selectedIndex);
+                portTableView.getItems().remove(selectedIndex);
             } catch (DAOException e) {
                 e.printStackTrace();
             }
