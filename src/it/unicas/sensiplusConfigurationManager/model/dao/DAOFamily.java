@@ -25,6 +25,7 @@ public interface DAOFamily <T>{
     void update(T a) throws DAOException;
     void insert(T a) throws  DAOException;
     void delete(T a) throws DAOException;
-
-
+    boolean measureControl(String se, int f) throws DAOException;
+    public int measureSearch(String se,int f) throws DAOException;
+    void insertMeasure(int m, int f) throws DAOException;
 }

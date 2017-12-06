@@ -130,8 +130,30 @@ public class AddSEOnFamilyDialogController {
     private void handleAdd() {
         Family selPort = portTableView.getSelectionModel().getSelectedItem();
         Family selFamily =addFamilyTableView.getSelectionModel().getSelectedItem();
-        if (selPort != null) {
+        boolean mt=false;
+        try {
+            mt=FamilyDAOMySQLImpl.getInstance().measureControl(idSensingElementLabel.getText(),selFamily.getIdSPFamily());
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        if (selPort != null && mt==true) {
             try {
+                FamilyDAOMySQLImpl.getInstance().insertFamilyonSE(selFamily.getIdSPFamily(), selPort.getIdSPPort(), idSensingElementLabel.getText());
+            } catch (DAOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("Error during DB interaction");
+                alert.setHeaderText("Error during insert ...");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
+            okClicked=true;
+            dialogStage.close();
+        }
+        else{
+            try {
+                int idMeasure=FamilyDAOMySQLImpl.getInstance().measureSearch(idSensingElementLabel.getText(),selFamily.getIdSPFamily());
+                FamilyDAOMySQLImpl.getInstance().insertMeasure(idMeasure,selFamily.getIdSPFamily());
                 FamilyDAOMySQLImpl.getInstance().insertFamilyonSE(selFamily.getIdSPFamily(), selPort.getIdSPPort(), idSensingElementLabel.getText());
             } catch (DAOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
