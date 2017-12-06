@@ -102,7 +102,6 @@ public class AddSEOnFamilyDialogController {
    public void showSEOnFamily(SensingElement sensingElement){
         if(sensingElement!=null){
             String selection = sensingElement.getIdSensingElement().toString();
-            System.out.println("Selection: "+selection);
             try{
                 mainApp.getAddSeFamPortData().clear();
                 List<Family> list= FamilyDAOMySQLImpl.getInstance().selectAddSEOnFamily(selection);

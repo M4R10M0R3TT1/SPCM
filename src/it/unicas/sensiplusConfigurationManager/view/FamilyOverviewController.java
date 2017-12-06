@@ -251,13 +251,16 @@ public class FamilyOverviewController {
         Family selectedFamily = familyTableView.getSelectionModel().getSelectedItem();
         if(selectedFamily!=null){
             boolean okClicked=mainApp.showAddPortOnFamily(selectedFamily,true);
+            if (okClicked)
+                showFamilyDetails(familyTableView.getSelectionModel().getSelectedItem());
+
         }else{
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
             alert.setTitle("No Selection");
             alert.setHeaderText("No Family Selected");
-            alert.setContentText("Please select a Family in the table.");
+            alert.setContentText("Please select a Family in the table. ");
 
             alert.showAndWait();
         }

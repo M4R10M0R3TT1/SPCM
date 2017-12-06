@@ -360,7 +360,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
 
             String sql="SELECT * FROM spmeasuretechnique mt "+
                     "WHERE mt.idSPMeasureTechnique!=ALL(SELECT fmt.SPMeasureTechnique_idSPMeasureTechnique "+
-                    "FROM spfamily_has_spmeasuretechnique fmt "+" WHERE fmt.SPFamily_idSPFamily="+famSelected+")GROUP BY mt.idSPMeasureTechnique";
+                    "FROM spfamily_has_spmeasuretechnique fmt WHERE fmt.SPFamily_idSPFamily="+famSelected+")GROUP BY mt.idSPMeasureTechnique";
 
             ResultSet rs = st.executeQuery(sql);
 
@@ -375,6 +375,19 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             e.printStackTrace();
         }
         return lista;
+    }
+
+    @Override
+    public void insertAddTechniqueOnFamily(Integer t, Integer f) throws DAOException {
+        String sql="INSERT INTO spfamily_has_spmeasuretechnique VALUE ("+f+","+t+")";
+        try {
+            Statement st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In insertAddTechniqueOnFamily(): " + e.getMessage());
+        }
     }
 }
 

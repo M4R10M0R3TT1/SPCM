@@ -6,6 +6,7 @@ import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.FamilyDAOMySQLImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
@@ -29,6 +30,10 @@ public class AddPortOnFamilyDialogController {
     private TableColumn<Family,String> nameColumn;
     @FXML
     private TableColumn<Family,String> internalColumn;
+    @FXML
+    private Label familyLabel;
+    @FXML
+    private Label idFamilyLabel;
 
     public void setMainApp(MainApp mainApp){
         this.mainApp=mainApp;
@@ -51,9 +56,10 @@ public class AddPortOnFamilyDialogController {
         this.dialogStage.getIcons().add(new Image("file:resources/images/pencil-lapis-128.png"));
     }
 
-  private void showPort(Family family){
+    private void showPort(Family family){
         if(family!=null){
-
+            familyLabel.setText(family.getId());
+            idFamilyLabel.setText(Integer.toString(family.getIdSPFamily()));
             try{
                 mainApp.getAddPortOnFamily().clear();
                 List<Family> list = FamilyDAOMySQLImpl.getInstance().selectAddPortOnFamily(family);
@@ -63,11 +69,31 @@ public class AddPortOnFamilyDialogController {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());
                 alert.setTitle("Error during DB interaction");
-                alert.setHeaderText("Error during insert ...");
+                alert.setHeaderText("Error during insert...");
                 alert.setContentText(e.getMessage());
 
                 alert.showAndWait();
             }
+        }
+    }
+
+    @FXML
+    private void handleAdd() {
+        Family selPort = portTableView.getSelectionModel().getSelectedItem();
+        int idfamily=Integer.parseInt(idFamilyLabel.getText());
+        if (selPort != null) {
+            try {
+                FamilyDAOMySQLImpl.getInstance().insertAddPortOnFamily(selPort.getIdSPPort(),idfamily);
+            } catch (DAOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("Error during DB interaction");
+                alert.setHeaderText("Error during insert... ");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
+            okClicked=true;
+            dialogStage.close();
         }
     }
 
@@ -79,4 +105,7 @@ public class AddPortOnFamilyDialogController {
     public boolean isOkClicked(){
         return okClicked;
     }
+
+    @FXML
+    private void handleCancel(){dialogStage.close();}
 }
