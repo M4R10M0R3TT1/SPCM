@@ -25,15 +25,15 @@ public class ChipOverviewController {
     @FXML
     private TableColumn<Chip,String> chipColumn;
     @FXML
-    private TableView<Family> portTableView;
+    private TableView<Chip> portTableView;
     @FXML
-    private TableColumn<Family,Integer> idPortColumn;
+    private TableColumn<Chip,String> idPortColumn;
     @FXML
-    private TableColumn<Family,String> namePortColumn;
+    private TableColumn<Chip,String> namePortColumn;
     @FXML
-    private TableColumn<Family,Boolean> internalPort;
+    private TableColumn<Chip,String> internalColumn;
     @FXML
-    private TableColumn<Family,String> idSensingElementColumn;
+    private TableColumn<Chip,String> idSensingElementColumn;
     @FXML
     private TableView<Chip> calibrationTableView;
     @FXML
@@ -55,6 +55,7 @@ public class ChipOverviewController {
 
         this.mainApp = mainApp;
         chipTableView.setItems(mainApp.getChipData());
+        portTableView.setItems(mainApp.getPortAndSEData());
         handleReadDB();
 
     }
@@ -63,7 +64,20 @@ public class ChipOverviewController {
 
     @FXML
     private void initialize(){
+
         chipColumn.setCellValueFactory(cellData ->cellData.getValue().idSPChipProperty());
+
+        clickOnChip(null);
+        chipTableView.getSelectionModel().selectedItemProperty().addListener(
+                ((observable, oldValue, newValue) -> clickOnChip(newValue)));
+
+        idPortColumn.setCellValueFactory(cellData -> cellData.getValue().idSPPortProperty().asString());
+        namePortColumn.setCellValueFactory(cellData -> cellData.getValue().portNameProperty());
+        internalColumn.setCellValueFactory(cellData -> cellData.getValue().internalProperty().asString());
+        idSensingElementColumn.setCellValueFactory(cellData -> cellData.getValue().sensingElementProperty());
+
+
+
     }
 
     @FXML
@@ -83,4 +97,26 @@ public class ChipOverviewController {
             alert.showAndWait();
         }
     }
+
+    private void clickOnChip(Chip chip) {
+        if (chip != null) {
+            chipLabel.setText(chip.getIdSPChip());
+
+            //Port and SensingElement
+            try {
+                List<Chip> list = ChipDAOMySQLImpl.getInstance().selectPortAndChip(chip);
+                mainApp.getPortAndSEData().clear();
+                mainApp.getPortAndSEData().addAll(list);
+            } catch (DAOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("Error during DB interaction");
+                alert.setHeaderText("Error during select ...");
+                alert.setContentText(e.getMessage());
+
+                alert.showAndWait();
+            }
+        }
+    }
+
 }

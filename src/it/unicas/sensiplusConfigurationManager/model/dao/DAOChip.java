@@ -7,4 +7,5 @@ import java.util.List;
  */
 public interface DAOChip<T>{
     List<T> select (T a) throws  DAOException;
+    List<T> selectPortAndChip(T a) throws DAOException;
 }

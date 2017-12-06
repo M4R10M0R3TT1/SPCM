@@ -42,6 +42,8 @@ public class MainApp extends Application {
 
     private ObservableList<Chip> chipData = FXCollections.observableArrayList();
 
+    private ObservableList<Chip> portAndSEData = FXCollections.observableArrayList();
+
     //Lista osservabile delle porte da poter aggiungere in Family
     private ObservableList<Family> addPortOnFamily=FXCollections.observableArrayList();
 
@@ -92,6 +94,8 @@ public class MainApp extends Application {
     public ObservableList<Family> getAddTechniqueOnFamily(){return addTechniqueOnFamily;}
 
     public ObservableList<Chip> getChipData(){return chipData;}
+
+    public ObservableList<Chip> getPortAndSEData(){return portAndSEData;}
 
     public void initRootLayout(){
         try {
