@@ -9,14 +9,12 @@ import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.FamilyDAOMySQLImpl;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.SensingElementDAOMySQLImpl;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Antonio on 29/11/2017.
@@ -151,21 +149,40 @@ public class AddSEOnFamilyDialogController {
             dialogStage.close();
         }
         else{
-            //*********---INSERIRE ALERT---************
-            try {
-                int idMeasure=FamilyDAOMySQLImpl.getInstance().measureSearch(idSensingElementLabel.getText(),selFamily.getIdSPFamily());
-                FamilyDAOMySQLImpl.getInstance().insertMeasure(idMeasure,selFamily.getIdSPFamily());
-                FamilyDAOMySQLImpl.getInstance().insertFamilyonSE(selFamily.getIdSPFamily(), selPort.getIdSPPort(), idSensingElementLabel.getText());
-            } catch (DAOException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initOwner(mainApp.getPrimaryStage());
-                alert.setTitle("Error during DB interaction");
-                alert.setHeaderText("Error during insert ...");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
+            //--------ADD CONFIRMATION DIALOG--------
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Are you sure?");
+            //---To add an icon to the alert
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("file:resources/images/favicon.png"));
+            //---
+            alert.setHeaderText("WARNING:\n" +
+                    "Read carefully before continue!");
+            alert.setContentText("You are about to automatically add a new measure technique into the selected family, are you sure to continue?");
+
+            ButtonType buttonTypeOne = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            //---------------------------------------------
+            if(result.get()==buttonTypeOne) {
+                try {
+                    int idMeasure = FamilyDAOMySQLImpl.getInstance().measureSearch(idSensingElementLabel.getText(), selFamily.getIdSPFamily());
+                    FamilyDAOMySQLImpl.getInstance().insertMeasure(idMeasure, selFamily.getIdSPFamily());
+                    FamilyDAOMySQLImpl.getInstance().insertFamilyonSE(selFamily.getIdSPFamily(), selPort.getIdSPPort(), idSensingElementLabel.getText());
+                } catch (DAOException e) {
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.initOwner(mainApp.getPrimaryStage());
+                    alert.setTitle("Error during DB interaction");
+                    alert.setHeaderText("Error during insert ...");
+                    alert.setContentText(e.getMessage());
+                    alert.showAndWait();
+                }
+                okClicked = true;
+                dialogStage.close();
             }
-            okClicked=true;
-            dialogStage.close();
         }
 
 

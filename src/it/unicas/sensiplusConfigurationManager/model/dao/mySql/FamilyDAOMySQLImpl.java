@@ -448,7 +448,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             DAOMySQLSettings.closeStatement(st);
 
         } catch (SQLException e) {
-            throw new DAOException("In insertAddTechniqueOnFamily(): " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }

@@ -325,23 +325,42 @@ public class SEOverviewController {
         int selectedIndex=familyTableView.getSelectionModel().getSelectedIndex();
         Family selected=familyTableView.getSelectionModel().getSelectedItem();
         if (selected!=null) {
-             try {
-                FamilyDAOMySQLImpl.getInstance().deleteFamilyonSE(selected.getIdSPFamilyTemplate());
-                familyTableView.getItems().remove(selectedIndex);
-             } catch (DAOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        else {
-            // Nothing selected.
+            //--------DELETION CONFIRMATION DIALOG--------
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No SensingElement Selected");
-            alert.setContentText("Please select a SensingElement in the table.");
+            alert.setTitle("Are you sure?");
+            //---To add an icon to the alert
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("file:resources/images/favicon.png"));
+            //---
+            alert.setHeaderText("WARNING:\n" +
+                    "Read carefully before continue!");
+            alert.setContentText("You are about to eliminate the conjunction of the selected sensing element from the selected family, are you sure to continue?\n" +
+                    "NOTICE: the associated measure technique will NOT be removed from the family.");
 
-            alert.showAndWait();
+            ButtonType buttonTypeOne = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            //---------------------------------------------
+            if (result.get() == buttonTypeOne) {
+                try {
+                    FamilyDAOMySQLImpl.getInstance().deleteFamilyonSE(selected.getIdSPFamilyTemplate());
+                    familyTableView.getItems().remove(selectedIndex);
+                } catch (DAOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                // Nothing selected.
+                alert = new Alert(Alert.AlertType.WARNING);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("No Selection");
+                alert.setHeaderText("No SensingElement Selected");
+                alert.setContentText("Please select a SensingElement in the table.");
+
+                alert.showAndWait();
+            }
         }
     }
 
