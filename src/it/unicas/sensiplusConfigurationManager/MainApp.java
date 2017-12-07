@@ -39,16 +39,15 @@ public class MainApp extends Application {
     private ObservableList<Family> familyData=FXCollections.observableArrayList();
     private ObservableList<Family> familyPortData=FXCollections.observableArrayList();
     private ObservableList<Family> familyMeasureTechniqueData=FXCollections.observableArrayList();
-
     private ObservableList<Chip> chipData = FXCollections.observableArrayList();
-
     private ObservableList<Family> portAndSEData = FXCollections.observableArrayList();
-
     //Lista osservabile delle porte da poter aggiungere in Family
     private ObservableList<Family> addPortOnFamily=FXCollections.observableArrayList();
-
     //Lista osservabili delle measureTechnique da aggiungere in family
     private ObservableList<Family> addTechniqueOnFamily=FXCollections.observableArrayList();
+    private ObservableList<Chip> clusterChip=FXCollections.observableArrayList();
+    private ObservableList<Chip> calibrationChip=FXCollections.observableArrayList();
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -73,13 +72,9 @@ public class MainApp extends Application {
         return seData;
     }
 
-   /* public ObservableList<SensingElement> getSeFamData() {
-        return seFamData;
-    }*/
-
     public ObservableList<Family> getSeFamData(){ return seFamData;}
 
-   public  ObservableList<Family> getAddSeFamData(){return addSeFamData;}
+    public  ObservableList<Family> getAddSeFamData(){return addSeFamData;}
 
     public ObservableList<Family> getAddSeFamPortData() {return  addSeFamPortData;}
 
@@ -96,6 +91,14 @@ public class MainApp extends Application {
     public ObservableList<Chip> getChipData(){return chipData;}
 
     public ObservableList<Family> getPortAndSEData(){return portAndSEData;}
+
+    public ObservableList<Chip> getClusterChip() {
+        return clusterChip;
+    }
+
+    public ObservableList<Chip> getCalibrationChip() {
+        return calibrationChip;
+    }
 
     public void initRootLayout(){
         try {

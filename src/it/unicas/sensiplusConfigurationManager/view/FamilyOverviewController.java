@@ -81,9 +81,11 @@ public class FamilyOverviewController {
         nameTableColumn.setCellValueFactory(cellData->cellData.getValue().nameProperty());
 
         showFamilyDetails(null);
+
         familyTableView.getSelectionModel().selectedItemProperty().addListener(
                 ((observable, oldValue, newValue) -> showFamilyDetails(newValue)) );
         //spPort
+        portTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         idPortColumn.setCellValueFactory(cellData->cellData.getValue().idSPPortProperty().asString());
         portNameTableColumn.setCellValueFactory(cellData->cellData.getValue().portNameProperty());
         portTypeTableColumn.setCellValueFactory(cellData->cellData.getValue().internalProperty().asString());

@@ -67,4 +67,51 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
 
         return family;
     }
+
+    @Override
+    public List<Chip> selectClusterChip(Chip a) throws DAOException {
+        ArrayList<Chip> lista= new ArrayList<>();
+        try{
+            Statement st = DAOMySQLSettings.getStatement();
+            String sql = " SELECT DISTINCT cl.idCluster FROM spsensingelementonchip sc, spcalibration cal, spcluster cl "+
+                    "WHERE cl.SPCalibration_idSPCalibration=cal.idSPCalibration AND cal.idSPCalibration=sc.SPCalibration_idSPCalibration "+
+                    "AND sc.SPChip_idSPChip='"+a.getIdSPChip()+"'";
+
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                lista.add(new Chip(rs.getString("idCluster")));
+            }
+            DAOMySQLSettings.closeStatement(st);
+
+        }catch (SQLException sq) {
+            throw new DAOException("In selectClusterChip(): " + sq.getMessage());
+        }
+
+        return lista;
+    }
+
+    @Override
+    public List<Chip> selectCalibrationChip(Chip a, String se) throws DAOException {
+        ArrayList<Chip> lista= new ArrayList<>();
+        try{
+            Statement st = DAOMySQLSettings.getStatement();
+            String sql = " SELECT c.*, sc.m,sc.n FROM spsensingelementonchip sc, spcalibration c "+
+                    "WHERE sc.SPChip_idSPChip='"+a.getIdSPChip()+"' AND sc.SPSensingElementOnFamily_idSPSensingElementOnFamily='"+
+                    se+"' AND c.idSPCalibration=sc.SPCalibration_idSPCalibration ";
+
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                lista.add(new Chip(rs.getInt("idSPCalibration"),
+                        rs.getString("name"),
+                        rs.getInt("m"),
+                        rs.getInt("n")));
+            }
+            DAOMySQLSettings.closeStatement(st);
+
+        }catch (SQLException sq) {
+            throw new DAOException("In selectCalibrationChip(): " + sq.getMessage());
+        }
+
+        return lista;
+    }
 }

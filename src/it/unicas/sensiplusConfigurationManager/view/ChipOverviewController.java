@@ -38,17 +38,17 @@ public class ChipOverviewController {
     @FXML
     private TableView<Chip> calibrationTableView;
     @FXML
-    private TableColumn<Chip,Integer> idCalibrationColumn;
+    private TableColumn<Chip,String> idCalibrationColumn;
     @FXML
     private TableColumn<Chip,String> nameCalibrationColumn;
     @FXML
-    private TableColumn<Chip,Integer> mColumn;
+    private TableColumn<Chip,String> mColumn;
     @FXML
-    private TableColumn<Chip,Integer> nColumn;
+    private TableColumn<Chip,String> nColumn;
     @FXML
-    private TableView<String> clusterTableView;
+    private TableView<Chip> clusterTableView;
     @FXML
-    private TableColumn<String,String> clusterColumn;
+    private TableColumn<Chip,String> clusterColumn;
 
     // Reference to the main application
     private MainApp mainApp;
@@ -57,6 +57,7 @@ public class ChipOverviewController {
         this.mainApp = mainApp;
         chipTableView.setItems(mainApp.getChipData());
         portTableView.setItems(mainApp.getPortAndSEData());
+        clusterTableView.setItems(mainApp.getClusterChip());
         handleReadDB();
 
     }
@@ -68,15 +69,24 @@ public class ChipOverviewController {
 
         chipColumn.setCellValueFactory(cellData ->cellData.getValue().idSPChipProperty());
 
-        clickOnChip(null);
+        showChipDetails(null);
         chipTableView.getSelectionModel().selectedItemProperty().addListener(
-                ((observable, oldValue, newValue) -> clickOnChip(newValue)));
+                ((observable, oldValue, newValue) -> showChipDetails(newValue)));
 
         idPortColumn.setCellValueFactory(cellData -> cellData.getValue().idSPPortProperty().asString());
         namePortColumn.setCellValueFactory(cellData -> cellData.getValue().portNameProperty());
         internalColumn.setCellValueFactory(cellData -> cellData.getValue().internalProperty().asString());
         idSensingElementColumn.setCellValueFactory(cellData -> cellData.getValue().occupiedByProperty());
 
+        portTableView.getSelectionModel().selectedItemProperty().addListener(
+                ((observable, oldValue, newValue) -> showCalibrationDetails(newValue)));
+
+        clusterColumn.setCellValueFactory(cellData->cellData.getValue().idSPChipProperty());
+
+        idCalibrationColumn.setCellValueFactory(cellData -> cellData.getValue().idCalibrationProperty().asString());
+        nameCalibrationColumn.setCellValueFactory(cellData -> cellData.getValue().nameCalibrationProperty());
+        mColumn.setCellValueFactory(cellData -> cellData.getValue().mProperty().asString());
+        nColumn.setCellValueFactory(cellData -> cellData.getValue().nProperty().asString());
 
 
     }
@@ -99,7 +109,7 @@ public class ChipOverviewController {
         }
     }
 
-    private void clickOnChip(Chip chip) {
+    private void showChipDetails(Chip chip) {
         if (chip != null) {
             chipLabel.setText(chip.getIdSPChip());
             try{
@@ -122,7 +132,42 @@ public class ChipOverviewController {
 
                 alert.showAndWait();
             }
+            try {
+                List<Chip> list = ChipDAOMySQLImpl.getInstance().selectClusterChip(chip);
+                mainApp.getClusterChip().clear();
+                mainApp.getClusterChip().addAll(list);
+            } catch (DAOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("Error during DB interaction");
+                alert.setHeaderText("Error during select ...  ");
+                alert.setContentText(e.getMessage());
+
+                alert.showAndWait();
+            }
         }
     }
+
+    private void showCalibrationDetails(Family family) {
+        Chip selChip=chipTableView.getSelectionModel().getSelectedItem();
+        if (family != null) {
+            try {
+                List<Chip> list = ChipDAOMySQLImpl.getInstance().selectCalibrationChip(selChip,family.getOccupiedBy());
+                mainApp.getCalibrationChip().clear();
+                mainApp.getCalibrationChip().addAll(list);
+            } catch (DAOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("Error during DB interaction ");
+                alert.setHeaderText("Error during select ... ");
+                alert.setContentText(e.getMessage());
+
+                alert.showAndWait();
+            }
+
+        }
+    }
+
+
 
 }

@@ -8,9 +8,12 @@ import javafx.beans.property.*;
 public class Chip {
 
     private StringProperty idSPChip;
-    private StringProperty idFamily;
-
-
+    private IntegerProperty idFamily;
+    private StringProperty cluster;
+    private IntegerProperty m;
+    private IntegerProperty n;
+    private IntegerProperty idCalibration;
+    private StringProperty nameCalibration;
 
     //Default constructor
     public Chip(){this(null);}
@@ -20,6 +23,13 @@ public class Chip {
 
     }
 
+    public Chip(Integer idCalibration, String nameCalibration, Integer m, Integer n){
+        this.idCalibration= new SimpleIntegerProperty(idCalibration);
+        this.nameCalibration= new SimpleStringProperty(nameCalibration);
+        this.m= new SimpleIntegerProperty(m);
+        this.n= new SimpleIntegerProperty(n);
+
+    }
 
     public String getIdSPChip() {
         return idSPChip.get();
@@ -33,17 +43,75 @@ public class Chip {
         this.idSPChip.set(idSPChip);
     }
 
-    public String getIdFamily() {
+    public int getIdFamily() {
         return idFamily.get();
     }
 
-    public StringProperty idFamilyProperty() {
+    public IntegerProperty idFamilyProperty() {
         return idFamily;
     }
 
-    public void setIdFamily(String idFamily) {
+    public void setIdFamily(int idFamily) {
         this.idFamily.set(idFamily);
     }
 
+    public String getCluster() {
+        return cluster.get();
+    }
 
+    public StringProperty clusterProperty() {
+        return cluster;
+    }
+
+    public void setCluster(String cluster) {
+        this.cluster.set(cluster);
+    }
+
+    public int getM() {
+        return m.get();
+    }
+
+    public IntegerProperty mProperty() {
+        return m;
+    }
+
+    public void setM(int m) {
+        this.m.set(m);
+    }
+
+    public int getN() {
+        return n.get();
+    }
+
+    public IntegerProperty nProperty() {
+        return n;
+    }
+
+    public void setN(int n) {
+        this.n.set(n);
+    }
+
+    public Integer getIdCalibration() {
+        return idCalibration.get();
+    }
+
+    public IntegerProperty idCalibrationProperty() {
+        return idCalibration;
+    }
+
+    public void setIdCalibration(Integer idCalibration) {
+        this.idCalibration.set(idCalibration);
+    }
+
+    public String getNameCalibration() {
+        return nameCalibration.get();
+    }
+
+    public StringProperty nameCalibrationProperty() {
+        return nameCalibration;
+    }
+
+    public void setNameCalibration(String nameCalibration) {
+        this.nameCalibration.set(nameCalibration);
+    }
 }
