@@ -315,6 +315,38 @@ public class MainApp extends Application {
         }
     }
 
+    public Boolean showAddSEOnPort(boolean verifyLen){
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/AddSEOnPortDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Measure Technique on Family");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            AddSEOnPortDialogController controller=loader.getController();
+            controller.setMainApp(this);
+            controller.setDialogStage(dialogStage, verifyLen);
+            controller.showSE();
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+
+        }catch (IOException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 
 
     public boolean showSettingsEditDialog(DAOMySQLSettings daoMySQLSettings){

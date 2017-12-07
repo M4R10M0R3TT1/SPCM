@@ -84,6 +84,10 @@ public class FamilyOverviewController {
         portNameTableColumn.setCellValueFactory(cellData->cellData.getValue().portNameProperty());
         portTypeTableColumn.setCellValueFactory(cellData->cellData.getValue().internalProperty().asString());
         idSEColumn.setCellValueFactory(cellData->cellData.getValue().occupiedByProperty());
+
+        /*portTableView.getSelectionModel().selectedItemProperty().addListener(
+                ((observable, oldValue, newValue) -> showFamilyDetails(newValue))
+        );*/
         //spMeasureTechnique
         measureTechniqueTableColumn.setCellValueFactory(cellData->cellData.getValue().typeProperty());
 
@@ -381,6 +385,15 @@ public class FamilyOverviewController {
                     alert.showAndWait();
                 }
             }
+    }
+
+
+
+    @FXML
+    private void handleAddSE(){
+        if(!mainApp.getSeData().isEmpty()){
+            boolean okClicked = mainApp.showAddSEOnPort(true);
+        }
     }
 
 }
