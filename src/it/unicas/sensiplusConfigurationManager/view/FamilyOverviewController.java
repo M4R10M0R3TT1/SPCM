@@ -215,8 +215,9 @@ public class FamilyOverviewController {
             Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
             stage.getIcons().add(new Image("file:resources/images/favicon.png"));
             //---
-            alert.setHeaderText("Confirm Deletion");
-            alert.setContentText("Are you sure you want to delete the selected element?");
+            alert.setHeaderText("WARNING:\n" +
+                    "Read carefully before choosing the action!!!");
+            alert.setContentText("You are about to DELETE a Family with all the associations, are you sure you want to continue?");
 
             ButtonType buttonTypeOne = new ButtonType("Yes", ButtonBar.ButtonData.YES);
             ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -225,7 +226,8 @@ public class FamilyOverviewController {
 
             Optional<ButtonType> result = alert.showAndWait();
             //---------------------------------------------
-            if (result.get() == buttonTypeOne) {
+            if (result.get() == buttonTypeOne){
+
                 Family family = familyTableView.getItems().get(selectedIndex);
                 try {
                     FamilyDAOMySQLImpl.getInstance().delete(family);
@@ -293,22 +295,44 @@ public class FamilyOverviewController {
         int selectedIndex = portTableView.getSelectionModel().getSelectedIndex();
         Family selPort = portTableView.getSelectionModel().getSelectedItem();
         Family selFamily = familyTableView.getSelectionModel().getSelectedItem();
-        if (selPort != null) {
-            try {
-                FamilyDAOMySQLImpl.getInstance().deletePortOnFamily(selPort.getIdSPPort(), selFamily.getIdSPFamily());
-                portTableView.getItems().remove(selectedIndex);
-            } catch (DAOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            // Nothing selected.
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Port Selected");
-            alert.setContentText("Please select a Port in the table.");
 
-            alert.showAndWait();
+        //--------DELETION CONFIRMATION DIALOG--------
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Are you sure?");
+        //---To add an icon to the alert
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("file:resources/images/favicon.png"));
+        //---
+        alert.setHeaderText("WARNING:\n" +
+                "Read carefully before choosing the action!!!");
+        alert.setContentText("You are about to DELETE a Port from the selected Family with all the associations, are you sure you want to continue?");
+
+        ButtonType buttonTypeOne = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        //---------------------------------------------
+        if (result.get() == buttonTypeOne) {
+
+            if (selPort != null) {
+                try {
+                    FamilyDAOMySQLImpl.getInstance().deletePortOnFamily(selPort.getIdSPPort(), selFamily.getIdSPFamily());
+                    portTableView.getItems().remove(selectedIndex);
+                } catch (DAOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                // Nothing selected.
+                alert = new Alert(Alert.AlertType.WARNING);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("No Selection");
+                alert.setHeaderText("No Port Selected");
+                alert.setContentText("Please select a Port in the table.");
+
+                alert.showAndWait();
+            }
         }
     }
 //DELETE measureTechnique --- elimina l'associazione tra famiglia e measureTechnique
@@ -318,24 +342,45 @@ public class FamilyOverviewController {
             String selTechnique = measureTechniqueTableView.getSelectionModel().getSelectedItem().getType();
             Family selFamily = familyTableView.getSelectionModel().getSelectedItem();
             System.out.println(selFamily.getIdSPFamily());
-            if (selTechnique != null) {
-                try {
-                    FamilyDAOMySQLImpl.getInstance().deleteTechniqueOnFamily(selTechnique,selFamily.getIdSPFamily());
-                    measureTechniqueTableView.getItems().remove(selectedIndex);
-                } catch (DAOException e) {
-                    e.printStackTrace();
+
+            //--------DELETION CONFIRMATION DIALOG--------
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Are you sure?");
+            //---To add an icon to the alert
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("file:resources/images/favicon.png"));
+            //---
+            alert.setHeaderText("WARNING:\n" +
+                    "Read carefully before choosing the action!!!");
+            alert.setContentText("You are about to DELETE a MeasureTechnique from the selected Family, are you sure you want to continue?");
+
+            ButtonType buttonTypeOne = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            //---------------------------------------------
+            if (result.get() == buttonTypeOne) {
+
+                if (selTechnique != null) {
+                    try {
+                        FamilyDAOMySQLImpl.getInstance().deleteTechniqueOnFamily(selTechnique, selFamily.getIdSPFamily());
+                        measureTechniqueTableView.getItems().remove(selectedIndex);
+                    } catch (DAOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    // Nothing selected.
+                    alert = new Alert(Alert.AlertType.WARNING);
+                    alert.initOwner(mainApp.getPrimaryStage());
+                    alert.setTitle("No Selection");
+                    alert.setHeaderText("No measureTechnique Selected");
+                    alert.setContentText("Please select a measureTechnique in the table.");
+
+                    alert.showAndWait();
                 }
-            } else {
-                // Nothing selected.
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.initOwner(mainApp.getPrimaryStage());
-                alert.setTitle("No Selection");
-                alert.setHeaderText("No measureTechnique Selected");
-                alert.setContentText("Please select a measureTechnique in the table.");
-
-                alert.showAndWait();
             }
-
     }
 
 }

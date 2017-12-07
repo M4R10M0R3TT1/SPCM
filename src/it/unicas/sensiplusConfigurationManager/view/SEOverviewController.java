@@ -218,8 +218,9 @@ public class SEOverviewController {
             Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
             stage.getIcons().add(new Image("file:resources/images/favicon.png"));
             //---
-            alert.setHeaderText("Confirm Deletion");
-            alert.setContentText("Are you sure you want to delete the selected element?");
+            alert.setHeaderText("WARNING:\n" +
+                    "Read carefully before choosing the action!!!");
+            alert.setContentText("You are about to DELETE a SensingElement with all the associations, are you sure you want to continue?");
 
             ButtonType buttonTypeOne = new ButtonType("Yes", ButtonBar.ButtonData.YES);
             ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -228,27 +229,25 @@ public class SEOverviewController {
 
             Optional<ButtonType> result = alert.showAndWait();
             //---------------------------------------------
-                if (result.get() == buttonTypeOne){
-                    SensingElement sensingElement = seTableView.getItems().get(selectedIndex);
-                    try {
-                        SensingElementDAOMySQLImpl.getInstance().delete(sensingElement);
-                        seTableView.getItems().remove(selectedIndex);
-                    } catch (DAOException e) {
-                        e.printStackTrace();
-                    }
+            if (result.get() == buttonTypeOne) {
+                SensingElement sensingElement = seTableView.getItems().get(selectedIndex);
+                try {
+                    SensingElementDAOMySQLImpl.getInstance().delete(sensingElement);
+                    seTableView.getItems().remove(selectedIndex);
+                } catch (DAOException e) {
+                    e.printStackTrace();
                 }
             }
-        else {
-            // Nothing selected.
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No SensingElement Selected");
-            alert.setContentText("Please select a SensingElement in the table.");
+        }else {
+                // Nothing selected.
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("No Selection");
+                alert.setHeaderText("No SensingElement Selected");
+                alert.setContentText("Please select a SensingElement in the table.");
 
-            alert.showAndWait();
-        }
-
+                alert.showAndWait();
+            }
     }
 
     @FXML
@@ -351,17 +350,17 @@ public class SEOverviewController {
                 } catch (DAOException e) {
                     e.printStackTrace();
                 }
-            } else {
+            }
+        }else {
                 // Nothing selected.
-                alert = new Alert(Alert.AlertType.WARNING);
+                Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.initOwner(mainApp.getPrimaryStage());
                 alert.setTitle("No Selection");
-                alert.setHeaderText("No SensingElement Selected");
-                alert.setContentText("Please select a SensingElement in the table.");
+                alert.setHeaderText("No Family Selected");
+                alert.setContentText("Please select a Family in the table.");
 
                 alert.showAndWait();
             }
-        }
     }
 
 
