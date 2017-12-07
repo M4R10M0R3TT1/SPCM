@@ -102,11 +102,13 @@ public class ChipOverviewController {
         if (chip != null) {
             chipLabel.setText(chip.getIdSPChip());
 
+
             //Port and SensingElement
             try {
                 List<Chip> list = ChipDAOMySQLImpl.getInstance().selectPortAndChip(chip);
                 mainApp.getPortAndSEData().clear();
                 mainApp.getPortAndSEData().addAll(list);
+
             } catch (DAOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());
