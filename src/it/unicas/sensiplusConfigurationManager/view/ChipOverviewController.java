@@ -5,13 +5,14 @@ import it.unicas.sensiplusConfigurationManager.model.Chip;
 import it.unicas.sensiplusConfigurationManager.model.Family;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.ChipDAOMySQLImpl;
+import it.unicas.sensiplusConfigurationManager.model.dao.mySql.FamilyDAOMySQLImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class ChipOverviewController {
@@ -25,15 +26,15 @@ public class ChipOverviewController {
     @FXML
     private TableColumn<Chip,String> chipColumn;
     @FXML
-    private TableView<Chip> portTableView;
+    private TableView<Family> portTableView;
     @FXML
-    private TableColumn<Chip,String> idPortColumn;
+    private TableColumn<Family,String> idPortColumn;
     @FXML
-    private TableColumn<Chip,String> namePortColumn;
+    private TableColumn<Family,String> namePortColumn;
     @FXML
-    private TableColumn<Chip,String> internalColumn;
+    private TableColumn<Family,String> internalColumn;
     @FXML
-    private TableColumn<Chip,String> idSensingElementColumn;
+    private TableColumn<Family,String> idSensingElementColumn;
     @FXML
     private TableView<Chip> calibrationTableView;
     @FXML
@@ -74,7 +75,7 @@ public class ChipOverviewController {
         idPortColumn.setCellValueFactory(cellData -> cellData.getValue().idSPPortProperty().asString());
         namePortColumn.setCellValueFactory(cellData -> cellData.getValue().portNameProperty());
         internalColumn.setCellValueFactory(cellData -> cellData.getValue().internalProperty().asString());
-        idSensingElementColumn.setCellValueFactory(cellData -> cellData.getValue().sensingElementProperty());
+        idSensingElementColumn.setCellValueFactory(cellData -> cellData.getValue().occupiedByProperty());
 
 
 
@@ -91,7 +92,7 @@ public class ChipOverviewController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(mainApp.getPrimaryStage());
             alert.setTitle("Error during DB interaction");
-            alert.setHeaderText("Error during search ... ");
+            alert.setHeaderText("Error during search ...  ");
             alert.setContentText(e.getMessage());
 
             alert.showAndWait();
@@ -101,19 +102,22 @@ public class ChipOverviewController {
     private void clickOnChip(Chip chip) {
         if (chip != null) {
             chipLabel.setText(chip.getIdSPChip());
-
+            try{
+                familyLabel.setText(ChipDAOMySQLImpl.getInstance().selectFamilyofChip(chip));
+            } catch (DAOException e) {
+                e.printStackTrace();
+            }
 
             //Port and SensingElement
             try {
-                List<Chip> list = ChipDAOMySQLImpl.getInstance().selectPortAndChip(chip);
+                List<Family> list = FamilyDAOMySQLImpl.getInstance().selectPortOnChip(chip.getIdSPChip());
                 mainApp.getPortAndSEData().clear();
                 mainApp.getPortAndSEData().addAll(list);
-
             } catch (DAOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());
                 alert.setTitle("Error during DB interaction");
-                alert.setHeaderText("Error during select ...");
+                alert.setHeaderText("Error during select ... ");
                 alert.setContentText(e.getMessage());
 
                 alert.showAndWait();

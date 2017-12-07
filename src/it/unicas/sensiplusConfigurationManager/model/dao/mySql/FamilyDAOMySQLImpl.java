@@ -386,7 +386,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             DAOMySQLSettings.closeStatement(st);
 
         } catch (SQLException e) {
-            throw new DAOException("In insertAddTechniqueOnFamily(): " + e.getMessage());
+            throw new DAOException("In insertAddTechniqueOnFamily():  " + e.getMessage());
         }
     }
 
@@ -448,8 +448,35 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             DAOMySQLSettings.closeStatement(st);
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException("In insertAddTechniqueOnFamily(): " + e.getMessage());
         }
+    }
+
+    @Override
+    public List<Family> selectPortOnChip(String a) throws DAOException {
+        ArrayList<Family> lista = new ArrayList<>();
+        try{
+            Statement st = DAOMySQLSettings.getStatement();
+            String sql = "SELECT p.*, sel.SPSensingElement_idSPSensingElement FROM spfamily f, spchip c, spport p,"+
+                    " spfamilytemplate ft LEFT JOIN (SELECT sf.SPFamilyTemplate_idSPFamilyTemplate, "+
+                    "sf.SPSensingElement_idSPSensingElement FROM  spchip c, spsensingelementonchip sc,spsensingelementonfamily sf "+
+                    "WHERE c.idSPChip=sc.SPChip_idSPChip AND sc.SPSensingElementOnFamily_idSPSensingElementOnFamily=sf.idSPSensingElementOnFamily "+
+                    "AND c.idSPChip='"+a+"') sel ON sel.SPFamilyTemplate_idSPFamilyTemplate=ft.idSPFamilyTemplate "+
+                    "WHERE f.idSPFamily=ft.SPFamily_idSPFamily AND ft.SPPort_idSPPort=p.idSPPort AND f.idSPFamily=c.SPFamily_idSPFamily AND "+
+                    "c.idSPChip='"+a+"'";
+
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()) {
+                lista.add(new Family(
+                        rs.getInt("idSPPort"),
+                        rs.getBoolean("internal"),
+                        rs.getString("name"),
+                        rs.getString("SPSensingElement_idSPSensingElement")));
+            }
+        } catch (SQLException sq) {
+            throw new DAOException("In selectPortonChip(): " + sq.getMessage());
+        }
+        return lista;
     }
 }
 

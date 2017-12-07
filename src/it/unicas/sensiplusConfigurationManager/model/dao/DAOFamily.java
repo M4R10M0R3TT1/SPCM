@@ -16,6 +16,7 @@ public interface DAOFamily <T>{
     List<T> selectMeasureTechnique(T a) throws  DAOException;
     List<T> selectAddPortOnFamily(T a) throws  DAOException;
     List<T> selectAddTechniqueOnFamily(T a) throws DAOException;
+    List<T> selectPortOnChip(String a) throws DAOException;
     void insertAddTechniqueOnFamily(Integer t, Integer f) throws DAOException;
     void insertAddPortOnFamily(Integer a,Integer f) throws DAOException;
     void insertFamilyonSE(int f, int p, String se) throws DAOException;

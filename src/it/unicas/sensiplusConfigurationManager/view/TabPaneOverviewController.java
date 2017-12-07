@@ -23,7 +23,8 @@ public class TabPaneOverviewController {
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
         showSEOverview();
-
+        showFamilyOverview();
+        showChipOverview();
     }
 
    public void showSEOverview(){
