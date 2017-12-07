@@ -47,10 +47,10 @@ public class Family {
     public Family(Integer idSPFamily,String id){
         this.idSPFamily=new SimpleIntegerProperty(idSPFamily.intValue());
         this.id=new SimpleStringProperty(id);
-        this.name=new SimpleStringProperty("MEASURING_INSTRUMENT");
-        this.hwVersion=new SimpleStringProperty("RUN4");
-        this.sysclock=new SimpleStringProperty("10000000");
-        this.osctrim = new SimpleStringProperty("0x06");
+        this.name=new SimpleStringProperty(""/*"MEASURING_INSTRUMENT"*/);
+        this.hwVersion=new SimpleStringProperty(""/*"RUN4"*/);
+        this.sysclock=new SimpleStringProperty(""/*"10000000"*/);
+        this.osctrim = new SimpleStringProperty(""/*"0x06"*/);
     }
 
     //costruttore spPort
