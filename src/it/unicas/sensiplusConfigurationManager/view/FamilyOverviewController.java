@@ -52,6 +52,10 @@ public class FamilyOverviewController {
     @FXML
     private TableColumn<Family,String> measureTechniqueTableColumn;
 
+    @FXML
+    private Button addSEButton;
+    @FXML
+    private Button delSEButton;
 
 
     // Reference to the main application
@@ -85,9 +89,9 @@ public class FamilyOverviewController {
         portTypeTableColumn.setCellValueFactory(cellData->cellData.getValue().internalProperty().asString());
         idSEColumn.setCellValueFactory(cellData->cellData.getValue().occupiedByProperty());
 
-        /*portTableView.getSelectionModel().selectedItemProperty().addListener(
-                ((observable, oldValue, newValue) -> showFamilyDetails(newValue))
-        );*/
+        portTableView.getSelectionModel().selectedItemProperty().addListener(
+                ((observable, oldValue, newValue) -> activationSEButtons(newValue))
+        );
         //spMeasureTechnique
         measureTechniqueTableColumn.setCellValueFactory(cellData->cellData.getValue().typeProperty());
 
@@ -387,13 +391,25 @@ public class FamilyOverviewController {
             }
     }
 
-
+    public void activationSEButtons(Family port){
+        if(port.getOccupiedBy()!=null){
+                addSEButton.setDisable(true);
+                delSEButton.setDisable(false);
+        }
+        else if(port.getOccupiedBy()==null){
+            addSEButton.setDisable(false);
+            delSEButton.setDisable(true);
+        }
+    }
 
     @FXML
     private void handleAddSE(){
-        if(!mainApp.getSeData().isEmpty()){
-            boolean okClicked = mainApp.showAddSEOnPort(true);
-        }
+        Family port=portTableView.getSelectionModel().getSelectedItem();
+        Boolean type=port.isInternal();
+        mainApp.showAddSEOnPort(type,true);
+
+      //  boolean okClicked = mainApp.showAddSEOnPort(true);
+
     }
 
 }

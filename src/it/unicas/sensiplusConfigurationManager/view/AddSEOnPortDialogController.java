@@ -52,9 +52,15 @@ public class AddSEOnPortDialogController {
         this.dialogStage.getIcons().add(new Image("file:resources/images/pencil-lapis-128.png"));
     }
 
-    public void showSE(){
+    public void showSE(boolean type) {
+        try {
+            List<SensingElement> list = SensingElementDAOMySQLImpl.getInstance().selectIntern(type);
+            mainApp.getSeData().clear();
+            mainApp.getSeData().addAll(list);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
 
-        mainApp.getSeData();
     }
 
     public boolean isOkClicked(){

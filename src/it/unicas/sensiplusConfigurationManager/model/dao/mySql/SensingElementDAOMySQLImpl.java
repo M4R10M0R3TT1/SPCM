@@ -183,5 +183,28 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
         }
     }
 
+    @Override
+    public List<SensingElement> selectIntern(Boolean a) throws DAOException {
+        ArrayList<SensingElement> lista = new ArrayList<>();
+        try{
+            String sql;
+            Statement st=DAOMySQLSettings.getStatement();
+            if(a ==true) {
+                sql = " SELECT s.idSPSensingElement FROM spsensingelement s" +
+                        " WHERE s.measureTechnique='DIRECT'";
+            }
+            else{
+                sql = " SELECT s.idSPSensingElement FROM spsensingelement s" +
+                        " WHERE s.measureTechnique!='DIRECT'";
+            }
+            ResultSet rs=st.executeQuery(sql);
+            while (rs.next()){
+                lista.add(new SensingElement(rs.getString("idSPSensingElement")));
+            }
 
+        }catch (SQLException e) {
+            throw new DAOException("In select(): " + e.getMessage());
+        }
+        return lista;
+    }
 }

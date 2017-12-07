@@ -12,4 +12,5 @@ public interface DAOSensingElement <T> {
     void update(T a) throws DAOException;
     void insert(T a) throws DAOException;
     void delete(T a) throws DAOException;
+    List<T> selectIntern(Boolean a) throws  DAOException;
 }
