@@ -81,6 +81,7 @@ public class FamilyOverviewController {
         nameTableColumn.setCellValueFactory(cellData->cellData.getValue().nameProperty());
 
         showFamilyDetails(null);
+        activationSEButtons(null);
 
         familyTableView.getSelectionModel().selectedItemProperty().addListener(
                 ((observable, oldValue, newValue) -> showFamilyDetails(newValue)) );
@@ -90,6 +91,7 @@ public class FamilyOverviewController {
         portNameTableColumn.setCellValueFactory(cellData->cellData.getValue().portNameProperty());
         portTypeTableColumn.setCellValueFactory(cellData->cellData.getValue().internalProperty().asString());
         idSEColumn.setCellValueFactory(cellData->cellData.getValue().occupiedByProperty());
+
 
         portTableView.getSelectionModel().selectedItemProperty().addListener(
                 ((observable, oldValue, newValue) -> activationSEButtons(newValue))
@@ -101,6 +103,8 @@ public class FamilyOverviewController {
     }
 
     private void showFamilyDetails(Family family){
+        addSEButton.setDisable(true);
+        delSEButton.setDisable(true);
         if(family!=null) {
             idLabel.setText(family.getId());
             nameLabel.setText(family.getName());
@@ -394,13 +398,14 @@ public class FamilyOverviewController {
     }
 
     public void activationSEButtons(Family port){
-        if(port.getOccupiedBy()!=null){
+        if(port!= null) {
+            if (port.getOccupiedBy() != null) {
                 addSEButton.setDisable(true);
                 delSEButton.setDisable(false);
-        }
-        else if(port.getOccupiedBy()==null){
-            addSEButton.setDisable(false);
-            delSEButton.setDisable(true);
+            } else if (port.getOccupiedBy() == null) {
+                addSEButton.setDisable(false);
+                delSEButton.setDisable(true);
+            }
         }
     }
 

@@ -32,6 +32,7 @@ public class MainApp extends Application {
     private BorderPane rootLayout;
 
     private ObservableList<SensingElement> seData = FXCollections.observableArrayList();
+    private ObservableList<SensingElement> seOnPort = FXCollections.observableArrayList();
 
     private ObservableList<Family> seFamData=FXCollections.observableArrayList();
     private ObservableList<Family> addSeFamData = FXCollections.observableArrayList();
@@ -71,6 +72,8 @@ public class MainApp extends Application {
     public ObservableList<SensingElement> getSeData() {
         return seData;
     }
+
+    public ObservableList<SensingElement> getSeOnPort(){return seOnPort;}
 
     public ObservableList<Family> getSeFamData(){ return seFamData;}
 

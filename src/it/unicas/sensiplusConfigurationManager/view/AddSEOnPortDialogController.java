@@ -34,7 +34,7 @@ public class AddSEOnPortDialogController {
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-        seTableView.setItems(mainApp.getSeData());
+        seTableView.setItems(mainApp.getSeOnPort());
 
     }
 
@@ -55,8 +55,8 @@ public class AddSEOnPortDialogController {
     public void showSE(boolean type) {
         try {
             List<SensingElement> list = SensingElementDAOMySQLImpl.getInstance().selectIntern(type);
-            mainApp.getSeData().clear();
-            mainApp.getSeData().addAll(list);
+            mainApp.getSeOnPort().clear();
+            mainApp.getSeOnPort().addAll(list);
         } catch (DAOException e) {
             e.printStackTrace();
         }
