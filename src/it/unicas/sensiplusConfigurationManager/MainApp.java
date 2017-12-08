@@ -229,7 +229,7 @@ public class MainApp extends Application {
         }
     }
 
-    public boolean showSEOnFamilyDialog(SensingElement sensingElement, boolean verifyLen){
+   /* public boolean showSEOnFamilyDialog(SensingElement sensingElement, boolean verifyLen){
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -257,6 +257,37 @@ public class MainApp extends Application {
             e.printStackTrace();
             return false;
         }
+    }*/
+
+    public boolean showSEOnFamilyDialog(SensingElement sensingElement, boolean verifyLen){
+
+            try {
+                // Load the fxml file and create a new stage for the popup dialog.
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(MainApp.class.getResource("view/AddSEOnFamilyDialog.fxml"));
+                AnchorPane page = (AnchorPane) loader.load();
+
+                // Create the dialog Stage.
+                Stage dialogStage = new Stage();
+                dialogStage.setTitle("SensingElement on Family");
+                dialogStage.initModality(Modality.WINDOW_MODAL);
+                dialogStage.initOwner(primaryStage);
+                Scene scene = new Scene(page);
+                dialogStage.setScene(scene);
+
+                // Set the sensingElement into the controller.
+                AddSEOnFamilyDialogController controller = loader.getController();
+                controller.setMainApp(this);
+                controller.setDialogStage(dialogStage, verifyLen);
+                controller.setAddFamily(sensingElement);
+
+                dialogStage.showAndWait();
+                return controller.isOkClicked();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
     }
 
     public boolean showAddPortOnFamily(Family family,boolean verifyLen){

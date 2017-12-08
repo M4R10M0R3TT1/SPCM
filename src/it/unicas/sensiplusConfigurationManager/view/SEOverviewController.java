@@ -312,10 +312,37 @@ public class SEOverviewController {
         int selectedIndex = seTableView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >=0) {
             SensingElement sensingElement = seTableView.getItems().get(selectedIndex);
-            boolean okClicked = mainApp.showSEOnFamilyDialog(sensingElement,true);
-            if (okClicked) {
-                showSEDetails(sensingElement);
+            String selected=sensingElement.getIdSensingElement();
+            List<Family> list = null;
+            try{
+                 list= FamilyDAOMySQLImpl.getInstance().selectAddSEOnFamily(selected);
+            }catch(DAOException e){
+                e.printStackTrace();
             }
+            if(list.size()!=0) {
+                boolean okClicked = mainApp.showSEOnFamilyDialog(sensingElement, true);
+                if (okClicked) {
+                    showSEDetails(sensingElement);
+                }
+            }else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("No Family available");
+                alert.setHeaderText("The selected Sensing Element cannot be associated to any Family");
+                alert.setContentText("Try with another Sensing Element");
+
+                alert.showAndWait();
+            }
+        }
+        else{
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No SensingElement Selected");
+            alert.setContentText("Please select a SensingElement in the table.");
+
+            alert.showAndWait();
         }
     }
 
