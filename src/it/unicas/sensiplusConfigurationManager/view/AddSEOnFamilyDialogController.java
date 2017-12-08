@@ -98,17 +98,18 @@ public class AddSEOnFamilyDialogController {
 
 
 
-   public void showSEOnFamily(SensingElement sensingElement){
+   public void showSEOnFamily(List<Family> list,SensingElement sensingElement){
+       this.sensingElement=sensingElement;
         if(sensingElement!=null){
             String selection = sensingElement.getIdSensingElement().toString();
-            try{
+            //try{
                 mainApp.getAddSeFamPortData().clear();
-                List<Family> list= FamilyDAOMySQLImpl.getInstance().selectAddSEOnFamily(selection);
+                //List<Family> list= FamilyDAOMySQLImpl.getInstance().selectAddSEOnFamily(selection);
                 mainApp.getAddSeFamData().clear();
                 mainApp.getAddSeFamData().addAll(list);
                 idSensingElementLabel.setText(sensingElement.getIdSensingElement());
 
-            } catch (DAOException e) {
+           /* } catch (DAOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());
                 alert.setTitle("Error during DB interaction");
@@ -116,14 +117,14 @@ public class AddSEOnFamilyDialogController {
                 alert.setContentText(e.getMessage());
 
                 alert.showAndWait();
-            }
+            }*/
         }
     }
 
-    public void setAddFamily(SensingElement sensingElement){
+   /* public void setAddFamily(List<Family> list,SensingElement sensingElement){
         this.sensingElement=sensingElement;
-        showSEOnFamily(sensingElement);
-    }
+        showSEOnFamily(list,sensingElement);
+    }*/
 
     @FXML
     private void handleAdd() {

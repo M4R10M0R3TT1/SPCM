@@ -320,7 +320,7 @@ public class SEOverviewController {
                 e.printStackTrace();
             }
             if(list.size()!=0) {
-                boolean okClicked = mainApp.showSEOnFamilyDialog(sensingElement, true);
+                boolean okClicked = mainApp.showSEOnFamilyDialog(list, sensingElement, true);
                 if (okClicked) {
                     showSEDetails(sensingElement);
                 }
