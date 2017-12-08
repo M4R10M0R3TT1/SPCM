@@ -58,6 +58,7 @@ public class ChipOverviewController {
         chipTableView.setItems(mainApp.getChipData());
         portTableView.setItems(mainApp.getPortAndSEData());
         clusterTableView.setItems(mainApp.getClusterChip());
+        calibrationTableView.setItems(mainApp.getCalibrationChip());
         handleReadDB();
 
     }
@@ -77,11 +78,9 @@ public class ChipOverviewController {
         namePortColumn.setCellValueFactory(cellData -> cellData.getValue().portNameProperty());
         internalColumn.setCellValueFactory(cellData -> cellData.getValue().internalProperty().asString());
         idSensingElementColumn.setCellValueFactory(cellData -> cellData.getValue().occupiedByProperty());
-
+        clusterColumn.setCellValueFactory(cellData->cellData.getValue().idSPChipProperty());
         portTableView.getSelectionModel().selectedItemProperty().addListener(
                 ((observable, oldValue, newValue) -> showCalibrationDetails(newValue)));
-
-        clusterColumn.setCellValueFactory(cellData->cellData.getValue().idSPChipProperty());
 
         idCalibrationColumn.setCellValueFactory(cellData -> cellData.getValue().idCalibrationProperty().asString());
         nameCalibrationColumn.setCellValueFactory(cellData -> cellData.getValue().nameCalibrationProperty());
@@ -152,7 +151,7 @@ public class ChipOverviewController {
         Chip selChip=chipTableView.getSelectionModel().getSelectedItem();
         if (family != null) {
             try {
-                List<Chip> list = ChipDAOMySQLImpl.getInstance().selectCalibrationChip(selChip,family.getOccupiedBy());
+                List<Chip> list = ChipDAOMySQLImpl.getInstance().selectCalibrationChip(selChip,family);
                 mainApp.getCalibrationChip().clear();
                 mainApp.getCalibrationChip().addAll(list);
             } catch (DAOException e) {

@@ -383,9 +383,6 @@ public class MainApp extends Application {
         }
     }
 
-
-
-
     public boolean showSettingsEditDialog(DAOMySQLSettings daoMySQLSettings){
         try {
             FXMLLoader loader = new FXMLLoader();

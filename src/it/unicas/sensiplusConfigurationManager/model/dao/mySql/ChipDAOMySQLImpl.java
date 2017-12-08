@@ -1,6 +1,7 @@
 package it.unicas.sensiplusConfigurationManager.model.dao.mySql;
 
 import it.unicas.sensiplusConfigurationManager.model.Chip;
+import it.unicas.sensiplusConfigurationManager.model.Family;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOChip;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 
@@ -91,13 +92,16 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
     }
 
     @Override
-    public List<Chip> selectCalibrationChip(Chip a, String se) throws DAOException {
+    public List<Chip> selectCalibrationChip(Chip a, Family b) throws DAOException {
         ArrayList<Chip> lista= new ArrayList<>();
         try{
             Statement st = DAOMySQLSettings.getStatement();
-            String sql = " SELECT c.*, sc.m,sc.n FROM spsensingelementonchip sc, spcalibration c "+
-                    "WHERE sc.SPChip_idSPChip='"+a.getIdSPChip()+"' AND sc.SPSensingElementOnFamily_idSPSensingElementOnFamily='"+
-                    se+"' AND c.idSPCalibration=sc.SPCalibration_idSPCalibration ";
+            String sql = "SELECT DISTINCT * FROM spsensingelementonchip sc, spcalibration cal, spsensingelementonfamily sf\n" +
+                    "WHERE sc.SPChip_idSPChip='"+a.getIdSPChip()+"' AND sc.SPSensingElementOnFamily_idSPSensingElementOnFamily=(SELECT\n" +
+                    "sf.idSPSensingElementOnFamily FROM spfamilytemplate ft, spsensingelementonfamily sf, spchip c, spfamily f\n" +
+                    "WHERE  c.idSPChip='"+a.getIdSPChip()+"'AND c.SPFamily_idSPFamily=f.idSPFamily AND f.idSPFamily=ft.SPFamily_idSPFamily\n" +
+                    "AND ft.SPPort_idSPPort="+b.getIdSPPort()+" AND ft.idSPFamilyTemplate=sf.SPFamilyTemplate_idSPFamilyTemplate)\n" +
+                    "AND sf.SPSensingElement_idSPSensingElement='"+b.getOccupiedBy()+"' AND cal.idSPCalibration=sc.SPCalibration_idSPCalibration";
 
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
