@@ -385,7 +385,7 @@ public class MainApp extends Application {
         }
     }
 
-    public Boolean showAddSEOnPort(boolean type,boolean verifyLen){
+    public Boolean showAddSEOnPort(boolean type,Integer port,Integer family,boolean verifyLen){
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -403,7 +403,7 @@ public class MainApp extends Application {
             AddSEOnPortDialogController controller=loader.getController();
             controller.setMainApp(this);
             controller.setDialogStage(dialogStage, verifyLen);
-            controller.showSE(type);
+            controller.showSE(type,port,family);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -475,6 +475,8 @@ public class MainApp extends Application {
             System.exit(0);
         }
     }
+
+
 
     public MainApp(){
     }

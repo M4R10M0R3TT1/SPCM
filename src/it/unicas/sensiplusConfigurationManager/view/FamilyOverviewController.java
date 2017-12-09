@@ -412,11 +412,19 @@ public class FamilyOverviewController {
     @FXML
     private void handleAddSE(){
         Family port=portTableView.getSelectionModel().getSelectedItem();
-        Boolean type=port.isInternal();
-        mainApp.showAddSEOnPort(type,true);
+        Family family=familyTableView.getSelectionModel().getSelectedItem();
+        Integer portId=port.getIdSPPort();
+        Integer familyId = family.getIdSPFamily();
 
-      //  boolean okClicked = mainApp.showAddSEOnPort(true);
+        Boolean type=port.isInternal();
+
+        boolean okClicked=mainApp.showAddSEOnPort(type,portId,familyId,true);
+
+       if(okClicked){
+            showFamilyDetails(family);
+       }
 
     }
+
 
 }

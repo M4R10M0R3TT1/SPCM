@@ -22,8 +22,8 @@
       </TableView>
       <ButtonBar layoutX="105.0" layoutY="570.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="5.0">
          <buttons>
-            <Button defaultButton="true" mnemonicParsing="false" text="Add" />
-            <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" text="Cancel" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#handleAdd" text="Add" />
+            <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
          </buttons>
       </ButtonBar>
       <Label fx:id="idFamilyLabel" layoutX="60.0" layoutY="43.0" opacity="0.0" text="Label" />

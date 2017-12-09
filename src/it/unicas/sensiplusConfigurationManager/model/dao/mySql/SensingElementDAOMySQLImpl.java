@@ -207,4 +207,19 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
         }
         return lista;
     }
+
+    @Override
+    public void AddSEOnPort(int port,int fam,String se) throws DAOException {
+        String sql="INSERT into spsensingelementonfamily VALUE (null,'"+se+"',(SELECT FT.idSPFamilyTemplate FROM SPFamilyTemplate as FT"+
+                " WHERE FT.SPPort_idSPPort="+port+" AND FT.SPFamily_idSPFamily="+fam+"),'')";
+        try {
+            Statement st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In AddSEOnPort(): " + e.getMessage());
+        }
+    }
 }

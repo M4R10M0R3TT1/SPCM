@@ -23,6 +23,8 @@ public class AddSEOnPortDialogController {
     private boolean verifyLen=true;
     private SensingElement sensingElement;
     private boolean okClicked=false;
+    private Integer familyID,portID;
+
     private MainApp mainApp;
 
     @FXML
@@ -52,7 +54,9 @@ public class AddSEOnPortDialogController {
         this.dialogStage.getIcons().add(new Image("file:resources/images/pencil-lapis-128.png"));
     }
 
-    public void showSE(boolean type) {
+    public void showSE(boolean type,Integer port,Integer family) {
+        portID=port;
+        familyID=family;
         try {
             List<SensingElement> list = SensingElementDAOMySQLImpl.getInstance().selectIntern(type);
             mainApp.getSeOnPort().clear();
@@ -63,8 +67,48 @@ public class AddSEOnPortDialogController {
 
     }
 
+    @FXML
+    private void handleAdd(){
+        SensingElement sensingElement = seTableView.getSelectionModel().getSelectedItem();
+
+        if(sensingElement!=null){
+            String se = sensingElement.getIdSensingElement();
+            try {
+                SensingElementDAOMySQLImpl.getInstance().AddSEOnPort(portID, familyID, se);
+            } catch (DAOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("Error during DB interaction");
+                alert.setHeaderText("Error during insert ...");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
+            okClicked = true;
+            dialogStage.close();
+        }else{
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Sensing Element Selected");
+            alert.setContentText("Please select a Sensing Element in the table.");
+
+            alert.showAndWait();
+        }
+
+
+    }
+
     public boolean isOkClicked(){
         return okClicked;
+    }
+
+    /**
+     * Called when the user clicks cancel.
+     */
+    @FXML
+    private void handleCancel() {
+        dialogStage.close();
     }
 
 }
