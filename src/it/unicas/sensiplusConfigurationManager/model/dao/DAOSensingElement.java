@@ -13,5 +13,6 @@ public interface DAOSensingElement <T> {
     void insert(T a) throws DAOException;
     void delete(T a) throws DAOException;
     void AddSEOnPort(int port,int family,String sensingElement) throws DAOException;
+    void deleteSEonPort(String se) throws DAOException;
     List<T> selectIntern(Boolean a) throws  DAOException;
 }

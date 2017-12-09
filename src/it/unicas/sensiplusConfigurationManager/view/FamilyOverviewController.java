@@ -4,6 +4,7 @@ import it.unicas.sensiplusConfigurationManager.MainApp;
 import it.unicas.sensiplusConfigurationManager.model.Family;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.FamilyDAOMySQLImpl;
+import it.unicas.sensiplusConfigurationManager.model.dao.mySql.SensingElementDAOMySQLImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -423,6 +424,27 @@ public class FamilyOverviewController {
        if(okClicked){
             showFamilyDetails(family);
        }
+
+    }
+
+    @FXML
+    private void handleDeleteSE(){
+        Family sensingElement=portTableView.getSelectionModel().getSelectedItem();
+        String se = sensingElement.getOccupiedBy();
+
+        try{
+            SensingElementDAOMySQLImpl.getInstance().deleteSEonPort(se);
+            mainApp.getFamilyData();
+        }catch (DAOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("Error during DB interaction");
+            alert.setHeaderText("Error during delete  ...");
+            alert.setContentText(e.getMessage());
+
+            alert.showAndWait();
+        }
+
 
     }
 

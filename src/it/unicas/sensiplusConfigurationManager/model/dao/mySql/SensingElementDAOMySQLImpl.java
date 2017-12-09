@@ -222,4 +222,19 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
             throw new DAOException("In AddSEOnPort(): " + e.getMessage());
         }
     }
+
+    @Override
+    public void deleteSEonPort(String se) throws DAOException {
+        String sql="DELETE FROM spsensingelementonfamily WHERE SPSensingElement_idSPSensingElement='"+se+"'";
+        Statement st = null;
+        try {
+            st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In deletePortOnFamily(): " + e.getMessage());
+        }
+    }
 }
