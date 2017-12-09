@@ -1,15 +1,15 @@
 package it.unicas.sensiplusConfigurationManager.model.dao;
 
+import com.sun.corba.se.impl.presentation.rmi.DynamicAccessPermission;
 import it.unicas.sensiplusConfigurationManager.model.Family;
 
 import java.util.List;
 
-/**
- * Created by Antonio on 06/12/2017.
- */
 public interface DAOChip<T>{
     List<T> select (T a) throws  DAOException;
     String selectFamilyofChip (T a) throws DAOException;
     List<T> selectClusterChip (T a) throws DAOException;
     List<T> selectCalibrationChip (T a, Family b) throws DAOException;
+    void insert(T a) throws  DAOException;
+    void delete(T a) throws DAOException;
 }

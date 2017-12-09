@@ -7,13 +7,13 @@ import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.ChipDAOMySQLImpl;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.FamilyDAOMySQLImpl;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 
 import java.util.List;
+import java.util.Optional;
 
 public class ChipOverviewController {
 
@@ -103,6 +103,74 @@ public class ChipOverviewController {
             alert.setTitle("Error during DB interaction");
             alert.setHeaderText("Error during search ...  ");
             alert.setContentText(e.getMessage());
+
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    private void handleNewChip(){
+        Chip tempChip = new Chip();
+        boolean okClicked=mainApp.showChipEditDialog(tempChip,true);
+
+        if(okClicked)
+            try{
+                ChipDAOMySQLImpl.getInstance().insert(tempChip);
+                mainApp.getChipData().addAll(tempChip);
+
+            }catch (DAOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("Error during DB interaction");
+                alert.setHeaderText("Error during insert  ...");
+                alert.setContentText(e.getMessage());
+
+                alert.showAndWait();
+            }
+    }
+
+    /**
+     * Called when the user clicks on the delete button.
+     */
+    @FXML
+    private void handleDeleteChip() {
+        int selectedIndex = chipTableView.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            //--------DELETION CONFIRMATION DIALOG--------
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Are you sure?");
+            //---To add an icon to the alert
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("file:resources/images/favicon.png"));
+            //---
+            alert.setHeaderText("WARNING:\n" +
+                    "Read carefully before choosing the action!!!");
+            alert.setContentText("You are about to DELETE a Chip with all the associations, are you sure you want to continue?");
+
+            ButtonType buttonTypeOne = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            //---------------------------------------------
+            if (result.get() == buttonTypeOne){
+
+                Chip chip = chipTableView.getItems().get(selectedIndex);
+                try {
+                    ChipDAOMySQLImpl.getInstance().delete(chip);
+                    chipTableView.getItems().remove(selectedIndex);
+                } catch (DAOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Family Selected ");
+            alert.setContentText("Please select a Family in the table.");
 
             alert.showAndWait();
         }

@@ -2,13 +2,10 @@ package it.unicas.sensiplusConfigurationManager.model;
 
 import javafx.beans.property.*;
 
-/**
- * Created by  on 21/11/2017.
- */
 public class Chip {
 
     private StringProperty idSPChip;
-    private IntegerProperty idFamily;
+    private StringProperty id; //id of Family table in DB
     private StringProperty cluster;
     private IntegerProperty m;
     private IntegerProperty n;
@@ -16,7 +13,7 @@ public class Chip {
     private StringProperty nameCalibration;
 
     //Default constructor
-    public Chip(){this(null);}
+    public Chip(){this(null,null);}
 
     public Chip(String idSPChip){
         this.idSPChip=new SimpleStringProperty(idSPChip);
@@ -28,6 +25,13 @@ public class Chip {
         this.nameCalibration= new SimpleStringProperty(nameCalibration);
         this.m= new SimpleIntegerProperty(m);
         this.n= new SimpleIntegerProperty(n);
+
+    }
+
+    //Chip NEW Constructor
+    public Chip(String idSPChip, String id){
+        this.idSPChip= new SimpleStringProperty(idSPChip);
+        this.id= new SimpleStringProperty(id);
 
     }
 
@@ -43,16 +47,16 @@ public class Chip {
         this.idSPChip.set(idSPChip);
     }
 
-    public int getIdFamily() {
-        return idFamily.get();
+    public String getId() {
+        return id.get();
     }
 
-    public IntegerProperty idFamilyProperty() {
-        return idFamily;
+    public StringProperty id() {
+        return id;
     }
 
-    public void setIdFamily(int idFamily) {
-        this.idFamily.set(idFamily);
+    public void setId(String id) {
+        this.id.set(id);
     }
 
     public String getCluster() {

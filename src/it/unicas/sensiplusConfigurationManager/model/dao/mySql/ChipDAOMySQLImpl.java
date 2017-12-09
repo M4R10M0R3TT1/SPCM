@@ -12,9 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * Created by Antonio on 06/12/2017.
- */
 public class ChipDAOMySQLImpl implements DAOChip<Chip> {
 
     private ChipDAOMySQLImpl(){}
@@ -47,6 +44,56 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
         }
 
         return lista;
+    }
+
+    @Override
+    public void insert(Chip a) throws  DAOException{
+        int idfam=0;
+        try {
+            Statement st = DAOMySQLSettings.getStatement();
+            String sql0="SELECT f.idSPFamily FROM SPFamily f WHERE f.id='"+a.getId()+"'";
+            ResultSet rs=st.executeQuery(sql0);
+            while(rs.next()){
+                idfam=rs.getInt("idSPFamily");
+            }
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In insert():" + e.getMessage());
+        }
+
+        String sql = "INSERT INTO SPChip (idSPChip,SPFamily_idSPFamily) VALUES" +
+                "('"+a.getIdSPChip()+"',"+idfam+")";
+
+        logger.info("SQL: " + sql);
+
+        try {
+            Statement st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In insert():" + e.getMessage());
+        }
+    }
+
+    @Override
+    public void delete(Chip a) throws DAOException{
+        String sql = "DELETE FROM SPChip WHERE idSPChip='" + a.getIdSPChip() + "'";
+        logger.info("SQL: " + sql);
+
+        Statement st = null;
+        try {
+            st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In delete():" + e.getMessage());
+        }
     }
 
     @Override

@@ -229,6 +229,39 @@ public class MainApp extends Application {
         }
     }
 
+    public boolean showChipEditDialog(Chip chip, boolean verifyLen) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/ChipEditDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Insert a new Chip");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the sensingElement into the controller.
+            ChipEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage, verifyLen);
+            controller.setChip(chip);
+
+            // Set the dialog icon.
+            dialogStage.getIcons().add(new Image("file:resources/images/pencil-lapis-128.png"));
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
    /* public boolean showSEOnFamilyDialog(SensingElement sensingElement, boolean verifyLen){
         try {
             // Load the fxml file and create a new stage for the popup dialog.

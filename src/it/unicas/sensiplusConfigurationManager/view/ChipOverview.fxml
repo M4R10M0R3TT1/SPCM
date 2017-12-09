@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="530.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.ChipOverviewController">
+<AnchorPane prefHeight="530.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.ChipOverviewController">
    <children>
       <SplitPane dividerPositions="0.20378619153674832" layoutX="178.0" layoutY="129.0" prefHeight="530.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -36,9 +36,9 @@
                                     <TableColumn fx:id="idSensingElementColumn" prefWidth="170.0" text="Sensing Element" />
                                 </columns>
                               </TableView>
-                              <Button fx:id="newButton" layoutX="585.0" layoutY="66.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="New" AnchorPane.rightAnchor="28.0" />
-                              <Button fx:id="deleteButton" layoutX="585.0" layoutY="110.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="Delete" AnchorPane.rightAnchor="28.0" />
-                              <Button fx:id="deleteFamilyButton" layoutX="585.0" layoutY="154.0" mnemonicParsing="false" text="Del Family?" AnchorPane.rightAnchor="28.0" />
+                              <Button fx:id="newButton" layoutX="585.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleNewChip" prefHeight="31.0" prefWidth="96.0" text="New" AnchorPane.rightAnchor="28.0" />
+                              <Button fx:id="deleteButton" layoutX="585.0" layoutY="110.0" mnemonicParsing="false" onAction="#handleDeleteChip" prefHeight="31.0" prefWidth="96.0" text="Delete" AnchorPane.rightAnchor="28.0" />
+                              <Button fx:id="deleteFamilyButton" layoutX="585.0" layoutY="154.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="Del Family?" AnchorPane.rightAnchor="28.0" />
                               <Button fx:id="addSensingElementButton" layoutX="585.0" layoutY="198.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="Add SE" AnchorPane.rightAnchor="28.0" />
                               <Button fx:id="deleteSensingElementButton" layoutX="585.0" layoutY="241.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="Del SE" AnchorPane.rightAnchor="28.0" />
                               <Separator layoutY="29.0" prefHeight="0.0" prefWidth="709.0" />
