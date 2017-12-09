@@ -168,6 +168,7 @@ public class FamilyOverviewController {
 
             alert.showAndWait();
         }
+        familyTableView.getSelectionModel().selectFirst();
     }
 
     @FXML
@@ -187,9 +188,9 @@ public class FamilyOverviewController {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("No Selection");
-            alert.setHeaderText("No Family Selected");
-            alert.setContentText("Please select a Family in the table.");
+            alert.setTitle("No Selection ");
+            alert.setHeaderText("No Family Selected ");
+            alert.setContentText("Please select a Family in the table. ");
 
             alert.showAndWait();
         }
@@ -303,7 +304,6 @@ public class FamilyOverviewController {
         }
     }
 
-
     //DELETE Port--- elimina l'associazione tra porta e la famiglia
     @FXML
     private  void handleDelPortOnFamily() {
@@ -350,9 +350,9 @@ public class FamilyOverviewController {
             }
         }
     }
-//DELETE measureTechnique --- elimina l'associazione tra famiglia e measureTechnique
-        @FXML
-        private  void handleDelTechniqueOnFamily() {
+    //DELETE measureTechnique --- elimina l'associazione tra famiglia e measureTechnique
+    @FXML
+    private  void handleDelTechniqueOnFamily() {
             int selectedIndex = measureTechniqueTableView.getSelectionModel().getSelectedIndex();
             String selTechnique = measureTechniqueTableView.getSelectionModel().getSelectedItem().getType();
             Family selFamily = familyTableView.getSelectionModel().getSelectedItem();

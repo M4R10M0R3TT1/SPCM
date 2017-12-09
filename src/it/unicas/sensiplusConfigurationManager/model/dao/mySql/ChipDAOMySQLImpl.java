@@ -221,4 +221,23 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
             throw new DAOException("In insertSEOnChip(): " + e.getMessage());
         }
     }
+
+    @Override
+    public void removeSEOnChip(Chip a, String se) throws DAOException {
+        String sql = "DELETE sc.* FROM spsensingelementonchip sc, spsensingelementonfamily sf WHERE sc.SPChip_idSPChip='"+a.getIdSPChip()+
+                "' AND sf.idSPSensingElementOnFamily=sc.SPSensingElementOnFamily_idSPSensingElementOnFamily "+
+                "AND sf.SPSensingElement_idSPSensingElement='"+se+"'";
+        logger.info("SQL: " + sql);
+
+        Statement st = null;
+        try {
+            st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In removeSEOnChip():" + e.getMessage());
+        }
+    }
 }

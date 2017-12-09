@@ -120,6 +120,7 @@ public class ChipOverviewController {
 
             alert.showAndWait();
         }
+        chipTableView.getSelectionModel().selectFirst();
     }
 
     @FXML
@@ -235,6 +236,7 @@ public class ChipOverviewController {
                 alert.showAndWait();
             }
         }
+        portTableView.getSelectionModel().selectFirst();
     }
 
     private void showCalibrationDetails(Family family) {
@@ -274,6 +276,7 @@ public class ChipOverviewController {
     private void handleAddSEOnChip(){
         Chip selChip=chipTableView.getSelectionModel().getSelectedItem();
         Family selPort=portTableView.getSelectionModel().getSelectedItem();
+        int selIndex=portTableView.getSelectionModel().getSelectedIndex();
         if (selPort.getOccupiedBy()==null) {
             try {
                 Family family = FamilyDAOMySQLImpl.getInstance().selectSEOnPort(selPort, familyLabel.getText());
@@ -297,7 +300,56 @@ public class ChipOverviewController {
                 e.printStackTrace();
             }
         }
+        portTableView.getSelectionModel().select(selIndex);
     }
+
+    @FXML
+    private void handleDelSEOnChip(){
+        int selectedIndex = portTableView.getSelectionModel().getSelectedIndex();
+        Family selPort= portTableView.getSelectionModel().getSelectedItem();
+        if (selectedIndex >= 0) {
+            //--------DELETION CONFIRMATION DIALOG--------
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Are you sure?");
+            //---To add an icon to the alert
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("file:resources/images/favicon.png"));
+            //---
+            alert.setHeaderText("WARNING:\n" +
+                    "Read carefully before choosing the action!!!");
+            alert.setContentText("If you remove the SE from the chip all the relevant calibrations will be lost, are you sure you want to continue?");
+
+            ButtonType buttonTypeOne = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            //---------------------------------------------
+            if (result.get() == buttonTypeOne){
+
+                Chip chip = chipTableView.getSelectionModel().getSelectedItem();
+                try {
+                    ChipDAOMySQLImpl.getInstance().removeSEOnChip(chip,selPort.getOccupiedBy());
+                    showChipDetails(chip);
+                    showCalibrationDetails(null);
+                    portTableView.getSelectionModel().select(selectedIndex);
+                } catch (DAOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No port Selected ");
+            alert.setContentText("Please select a port in the table.");
+
+            alert.showAndWait();
+        }
+    }
+
 
     private void setCalibrationButtons(Chip chip){
         if (chip!=null){

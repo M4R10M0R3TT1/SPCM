@@ -171,7 +171,7 @@ public class SEOverviewController {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());
                 alert.setTitle("Error during DB interaction");
-                alert.setHeaderText("Error during insert ...");
+                alert.setHeaderText("Error during insert ... ");
                 alert.setContentText(e.getMessage());
 
                 alert.showAndWait();
@@ -195,7 +195,7 @@ public class SEOverviewController {
             } catch (DAOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());
-                alert.setTitle("Error during DB interaction");
+                alert.setTitle("Error during DB interaction ");
                 alert.setHeaderText("Error during insert ...");
                 alert.setContentText(e.getMessage());
 
@@ -243,7 +243,7 @@ public class SEOverviewController {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.initOwner(mainApp.getPrimaryStage());
                 alert.setTitle("No Selection");
-                alert.setHeaderText("No SensingElement Selected");
+                alert.setHeaderText("No SensingElement Selected  ");
                 alert.setContentText("Please select a SensingElement in the table.");
 
                 alert.showAndWait();
@@ -274,8 +274,9 @@ public class SEOverviewController {
 
             alert.showAndWait();
         }
+        seTableView.getSelectionModel().selectFirst();
     }
-    // }
+
 
     /**
      * Called when the user clicks the edit button. Opens a dialog to edit
@@ -301,7 +302,7 @@ public class SEOverviewController {
             alert.initOwner(mainApp.getPrimaryStage());
             alert.setTitle("No Selection");
             alert.setHeaderText("No SensingElement Selected");
-            alert.setContentText("Please select a SensingElement in the table.");
+            alert.setContentText("Please select a SensingElement in the table. ");
 
             alert.showAndWait();
         }
@@ -339,7 +340,7 @@ public class SEOverviewController {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
             alert.setTitle("No Selection");
-            alert.setHeaderText("No SensingElement Selected");
+            alert.setHeaderText("No SensingElement Selected ");
             alert.setContentText("Please select a SensingElement in the table.");
 
             alert.showAndWait();
@@ -382,7 +383,7 @@ public class SEOverviewController {
                 // Nothing selected.
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.initOwner(mainApp.getPrimaryStage());
-                alert.setTitle("No Selection");
+                alert.setTitle("No Selection ");
                 alert.setHeaderText("No Family Selected");
                 alert.setContentText("Please select a Family in the table.");
 
