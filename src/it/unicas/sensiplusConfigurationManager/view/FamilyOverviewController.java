@@ -429,12 +429,13 @@ public class FamilyOverviewController {
 
     @FXML
     private void handleDeleteSE(){
+        Family fam=familyTableView.getSelectionModel().getSelectedItem();
         Family sensingElement=portTableView.getSelectionModel().getSelectedItem();
         String se = sensingElement.getOccupiedBy();
 
         try{
             SensingElementDAOMySQLImpl.getInstance().deleteSEonPort(se);
-            mainApp.getFamilyData();
+            showFamilyDetails(fam);
         }catch (DAOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(mainApp.getPrimaryStage());
