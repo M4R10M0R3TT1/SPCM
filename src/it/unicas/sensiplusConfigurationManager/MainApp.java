@@ -3,6 +3,7 @@ package it.unicas.sensiplusConfigurationManager;
 import it.unicas.sensiplusConfigurationManager.model.Chip;
 import it.unicas.sensiplusConfigurationManager.model.Family;
 import it.unicas.sensiplusConfigurationManager.model.SensingElement;
+import it.unicas.sensiplusConfigurationManager.model.dao.mySql.ChipDAOMySQLImpl;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.DAOMySQLSettings;
 import it.unicas.sensiplusConfigurationManager.view.*;
 import javafx.application.Application;
@@ -49,6 +50,8 @@ public class MainApp extends Application {
     private ObservableList<Chip> clusterChip=FXCollections.observableArrayList();
     private ObservableList<Chip> calibrationChip=FXCollections.observableArrayList();
 
+    //Observable List for NEW Dialog of Chip
+    private ObservableList<Chip> fam = FXCollections.observableArrayList();
 
     @Override
     public void start(Stage primaryStage) {
@@ -101,6 +104,10 @@ public class MainApp extends Application {
 
     public ObservableList<Chip> getCalibrationChip() {
         return calibrationChip;
+    }
+
+    public ObservableList<Chip> getFam() {
+        return fam;
     }
 
     public void initRootLayout(){

@@ -3,6 +3,7 @@ package it.unicas.sensiplusConfigurationManager.model.dao;
 import com.sun.corba.se.impl.presentation.rmi.DynamicAccessPermission;
 import it.unicas.sensiplusConfigurationManager.model.Family;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface DAOChip<T>{
@@ -12,4 +13,5 @@ public interface DAOChip<T>{
     List<T> selectCalibrationChip (T a, Family b) throws DAOException;
     void insert(T a) throws  DAOException;
     void delete(T a) throws DAOException;
+    List<String> selectFam() throws  DAOException;
 }

@@ -165,4 +165,23 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
 
         return lista;
     }
+
+    @Override
+    public List<String> selectFam() throws DAOException{
+        ArrayList<String> list=new ArrayList<>();
+        try{
+            Statement st = DAOMySQLSettings.getStatement();
+            String sql = "SELECT f.id FROM SPFamily f";
+
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                list.add(new String(rs.getString("id")));
+            }
+            DAOMySQLSettings.closeStatement(st);
+
+        }catch (SQLException sq) {
+            throw new DAOException("In selectFamily(): " + sq.getMessage());
+        }
+        return list;
+    }
 }

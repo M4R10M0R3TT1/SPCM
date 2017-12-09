@@ -35,6 +35,7 @@ public class Chip {
 
     }
 
+
     public String getIdSPChip() {
         return idSPChip.get();
     }

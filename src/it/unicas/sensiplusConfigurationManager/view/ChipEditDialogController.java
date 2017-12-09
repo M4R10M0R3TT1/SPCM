@@ -1,12 +1,24 @@
 package it.unicas.sensiplusConfigurationManager.view;
 
+import com.sun.xml.internal.ws.client.SenderException;
+import it.unicas.sensiplusConfigurationManager.MainApp;
 import it.unicas.sensiplusConfigurationManager.model.Chip;
+import it.unicas.sensiplusConfigurationManager.model.Family;
+import it.unicas.sensiplusConfigurationManager.model.SensingElement;
+import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
+import it.unicas.sensiplusConfigurationManager.model.dao.mySql.ChipDAOMySQLImpl;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 public class ChipEditDialogController {
     @FXML
@@ -15,12 +27,29 @@ public class ChipEditDialogController {
     @FXML
     private TextField idChipTextField;
     @FXML
-    private TextField familyTextField;
+    private ComboBox familyComboBox;
 
     private Stage dialogStage;
     private Chip chip;
     private boolean okClicked = false;
     private boolean verifyLen = true;
+
+    // Reference to the main application
+    private MainApp mainApp;
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
+
+    }
+
+    @FXML
+    private void initialize(){
+
+        //familyComboBox.getItems().addAll();
+        familyComboBox.valueProperty().addListener((ObservableValue observable, Object oldValue, Object newValue)->newValue.toString());
+
+
+    }
+
 
     /**
      * Sets the stage of this dialog.
@@ -42,16 +71,17 @@ public class ChipEditDialogController {
     public void setChip(Chip chip) {
         this.chip = chip;
 
-        idChipTextField.setPromptText("0X0123456789");
-        //idChipTextField.setText(chip.getIdSPChip());
-        familyTextField.setPromptText("0X00");
-        //familyTextField.setText(chip.getId());
-        /*if (chip.getIdSPChip() != null) {
-            titleLabel.setText("Edit " + chip.getIdSPChip());
-            idChipTextField.setDisable(true);
-        } else {*/
+        List<String> list = null;
+        try {
+            list = ChipDAOMySQLImpl.getInstance().selectFam();
+
+            idChipTextField.setPromptText("0X0123456789");
+            familyComboBox.getItems().addAll(list);
+            familyComboBox.setValue(list.get(0));
             titleLabel.setText("Insert a new Chip");
-        //}
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -68,7 +98,7 @@ public class ChipEditDialogController {
     private void handleOk() {
         if (isInputValid(verifyLen)) {
             chip.setIdSPChip(idChipTextField.getText());
-            chip.setId(familyTextField.getText());
+            chip.setId(familyComboBox.getValue().toString());
 
             okClicked = true;
             dialogStage.close();
@@ -87,9 +117,6 @@ public class ChipEditDialogController {
         if (idChipTextField.getText() == null || verifyLen && idChipTextField.getText().length() == 0) {
             errorMessage += "No valid Chip!\n";
         }
-        /*if (familyTextField.getText() == null || verifyLen && familyTextField.getText().length() == 0) {
-            errorMessage += "No valid Family ID!\n";
-        }*/
         if (errorMessage.length() == 0) {
             return true;
         }
