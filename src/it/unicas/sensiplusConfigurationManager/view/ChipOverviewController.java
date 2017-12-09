@@ -49,6 +49,17 @@ public class ChipOverviewController {
     private TableView<Chip> clusterTableView;
     @FXML
     private TableColumn<Chip,String> clusterColumn;
+    @FXML
+    private Button addSensingElementButton;
+    @FXML
+    private Button deleteSensingElementButton;
+    @FXML
+    private Button newCalibrationButton;
+    @FXML
+    private Button editCalibrationButton;
+    @FXML
+    private Button deleteCalibrationButton;
+
 
     // Reference to the main application
     private MainApp mainApp;
@@ -70,7 +81,6 @@ public class ChipOverviewController {
 
         chipColumn.setCellValueFactory(cellData ->cellData.getValue().idSPChipProperty());
 
-        showChipDetails(null);
         chipTableView.getSelectionModel().selectedItemProperty().addListener(
                 ((observable, oldValue, newValue) -> showChipDetails(newValue)));
 
@@ -79,6 +89,7 @@ public class ChipOverviewController {
         internalColumn.setCellValueFactory(cellData -> cellData.getValue().internalProperty().asString());
         idSensingElementColumn.setCellValueFactory(cellData -> cellData.getValue().occupiedByProperty());
         clusterColumn.setCellValueFactory(cellData->cellData.getValue().idSPChipProperty());
+
         portTableView.getSelectionModel().selectedItemProperty().addListener(
                 ((observable, oldValue, newValue) -> showCalibrationDetails(newValue)));
 
@@ -86,6 +97,9 @@ public class ChipOverviewController {
         nameCalibrationColumn.setCellValueFactory(cellData -> cellData.getValue().nameCalibrationProperty());
         mColumn.setCellValueFactory(cellData -> cellData.getValue().mProperty().asString());
         nColumn.setCellValueFactory(cellData -> cellData.getValue().nProperty().asString());
+
+        calibrationTableView.getSelectionModel().selectedItemProperty().addListener(
+                ((observable, oldValue, newValue) -> setCalibrationButtons(newValue)));
 
 
     }
@@ -122,7 +136,7 @@ public class ChipOverviewController {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());
                 alert.setTitle("Error during DB interaction");
-                alert.setHeaderText("Error during insert  ...");
+                alert.setHeaderText("Error during insert...  ");
                 alert.setContentText(e.getMessage());
 
                 alert.showAndWait();
@@ -169,8 +183,8 @@ public class ChipOverviewController {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
             alert.setTitle("No Selection");
-            alert.setHeaderText("No Family Selected ");
-            alert.setContentText("Please select a Family in the table.");
+            alert.setHeaderText("No Chip Selected ");
+            alert.setContentText("Please select a Chip in the table.");
 
             alert.showAndWait();
         }
@@ -178,6 +192,14 @@ public class ChipOverviewController {
 
     private void showChipDetails(Chip chip) {
         if (chip != null) {
+
+            //set button
+            addSensingElementButton.setDisable(true);
+            deleteSensingElementButton.setDisable(true);
+            newCalibrationButton.setDisable(true);
+            setCalibrationButtons(null);
+
+            mainApp.getCalibrationChip().clear();
             chipLabel.setText(chip.getIdSPChip());
             try{
                 familyLabel.setText(ChipDAOMySQLImpl.getInstance().selectFamilyofChip(chip));
@@ -217,11 +239,24 @@ public class ChipOverviewController {
 
     private void showCalibrationDetails(Family family) {
         Chip selChip=chipTableView.getSelectionModel().getSelectedItem();
+
         if (family != null) {
             try {
                 List<Chip> list = ChipDAOMySQLImpl.getInstance().selectCalibrationChip(selChip,family);
                 mainApp.getCalibrationChip().clear();
                 mainApp.getCalibrationChip().addAll(list);
+                if (list.size()==0){
+                    addSensingElementButton.setDisable(false);
+                    deleteSensingElementButton.setDisable(true);
+                    newCalibrationButton.setDisable(true);
+                    setCalibrationButtons(null);
+                }
+                else{
+                    addSensingElementButton.setDisable(true);
+                    deleteSensingElementButton.setDisable(false);
+                    newCalibrationButton.setDisable(false);
+                    setCalibrationButtons(null);
+                }
             } catch (DAOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());
@@ -235,6 +270,40 @@ public class ChipOverviewController {
         }
     }
 
+    @FXML
+    private void handleAddSEOnChip(){
+        Chip selChip=chipTableView.getSelectionModel().getSelectedItem();
+        Family selPort=portTableView.getSelectionModel().getSelectedItem();
+        if (selPort.getOccupiedBy()==null) {
+            try {
+                Family family = FamilyDAOMySQLImpl.getInstance().selectSEOnPort(selPort, familyLabel.getText());
+                if (family != null) {
+                    boolean okClicked = false;
+                    if (selPort != null) {
+                        okClicked = mainApp.showAddSEOnChipDialog(selPort, familyLabel.getText(), selChip.getIdSPChip(), true);
+                    }
+                    if (okClicked) {
+                        showChipDetails(selChip);
+                    }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.initOwner(mainApp.getPrimaryStage());
+                    alert.setTitle("No Sensing Element on Family ");
+                    alert.setHeaderText("No Sending Element is available for this Port.");
+                    alert.showAndWait();
+                }
 
+            } catch (DAOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void setCalibrationButtons(Chip chip){
+        if (chip!=null){
+            editCalibrationButton.setDisable(false);
+            deleteCalibrationButton.setDisable(false);
+        }
+    }
 
 }

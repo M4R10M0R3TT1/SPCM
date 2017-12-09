@@ -17,7 +17,12 @@ public class Chip {
 
     public Chip(String idSPChip){
         this.idSPChip=new SimpleStringProperty(idSPChip);
-
+        this.id=new SimpleStringProperty(null);
+        this.cluster=new SimpleStringProperty(null);
+        this.m=new SimpleIntegerProperty(0);
+        this.n=new SimpleIntegerProperty(0);
+        this.idCalibration=new SimpleIntegerProperty(0);
+        this.nameCalibration=new SimpleStringProperty(null);
     }
 
     public Chip(Integer idCalibration, String nameCalibration, Integer m, Integer n){

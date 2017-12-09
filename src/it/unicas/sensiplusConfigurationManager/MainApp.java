@@ -52,6 +52,8 @@ public class MainApp extends Application {
 
     //Observable List for NEW Dialog of Chip
     private ObservableList<Chip> fam = FXCollections.observableArrayList();
+    private ObservableList<String> addCalibrationOnChip=FXCollections.observableArrayList();
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -110,6 +112,10 @@ public class MainApp extends Application {
         return fam;
     }
 
+    public ObservableList<String> getAddCalibrationOnChip() {
+        return addCalibrationOnChip;
+    }
+
     public void initRootLayout(){
         try {
             // Load root layout from fxml file.
@@ -137,7 +143,6 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
-
 
     public void showTabPaneOverview(){
         try {
@@ -269,36 +274,6 @@ public class MainApp extends Application {
         }
     }
 
-   /* public boolean showSEOnFamilyDialog(SensingElement sensingElement, boolean verifyLen){
-        try {
-            // Load the fxml file and create a new stage for the popup dialog.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/AddSEOnFamilyDialog.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
-
-            // Create the dialog Stage.
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("SensingElement on Family");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            // Set the sensingElement into the controller.
-            AddSEOnFamilyDialogController controller = loader.getController();
-            controller.setMainApp(this);
-            controller.setDialogStage(dialogStage, verifyLen);
-            controller.setAddFamily(sensingElement);
-
-            dialogStage.showAndWait();
-            return controller.isOkClicked();
-
-        }catch (IOException e){
-            e.printStackTrace();
-            return false;
-        }
-    }*/
-
     public boolean showSEOnFamilyDialog(List<Family> list, SensingElement sensingElement, boolean verifyLen){
 
             try {
@@ -392,7 +367,7 @@ public class MainApp extends Application {
         }
     }
 
-    public Boolean showAddSEOnPort(boolean type,Integer port,Integer family,boolean verifyLen){
+    public boolean showAddSEOnPort(boolean type,Integer port,Integer family,boolean verifyLen){
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -450,6 +425,37 @@ public class MainApp extends Application {
             return controller.isOkClicked();
 
         } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean showAddSEOnChipDialog(Family f,String id,String idChip, boolean verifyLen){
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/AddSEOnChipDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Measure Technique on Family");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            AddSEOnChipDialogController controller=loader.getController();
+            controller.setMainApp(this);
+            controller.setDialogStage(dialogStage, verifyLen);
+            controller.showSE(f, id, idChip);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+
+        }catch (IOException e){
             e.printStackTrace();
             return false;
         }

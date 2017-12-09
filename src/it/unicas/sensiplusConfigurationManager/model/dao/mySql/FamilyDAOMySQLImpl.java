@@ -134,11 +134,9 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
         try {
             Statement st = DAOMySQLSettings.getStatement();
             int n = st.executeUpdate(sql);
-
             DAOMySQLSettings.closeStatement(st);
-
         } catch (SQLException e) {
-            throw new DAOException("In insert():" + e.getMessage());
+            throw new DAOException("In insert():  " + e.getMessage());
         }
     }
 
@@ -155,10 +153,9 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             DAOMySQLSettings.closeStatement(st);
 
         } catch (SQLException e) {
-            throw new DAOException("In delete():" + e.getMessage());
+            throw new DAOException("In delete():  " + e.getMessage());
         }
     }
-
 
     @Override
     public List<Family> selectFamilyAndPort(String a) throws DAOException {
@@ -283,11 +280,9 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
         try {
             st = DAOMySQLSettings.getStatement();
             int n = st.executeUpdate(sql);
-
             DAOMySQLSettings.closeStatement(st);
-
         } catch (SQLException e) {
-            throw new DAOException("In deletePortOnFamily(): " + e.getMessage());
+            throw new DAOException("In deletePortOnFamily():  " + e.getMessage());
         }
     }
 
@@ -477,6 +472,30 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             throw new DAOException("In selectPortonChip(): " + sq.getMessage());
         }
         return lista;
+    }
+
+    @Override
+    public Family selectSEOnPort(Family a, String id) throws DAOException {
+        Family f = null;
+        try{
+            Statement st = DAOMySQLSettings.getStatement();
+            String sql = "SELECT sf.SPSensingElement_idSPSensingElement, sf.idSPSensingElementOnFamily "+
+                    "FROM spfamilytemplate ft, spsensingelementonfamily sf, spfamily f " +
+                    "WHERE ft.idSPFamilyTemplate=sf.SPFamilyTemplate_idSPFamilyTemplate "+
+                    "AND f.idSPFamily=ft.SPFamily_idSPFamily AND ft.SPPort_idSPPort="+a.getIdSPPort()+
+                    " AND f.id='"+id+"'";
+
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()) {
+                f= new Family(rs.getInt("idSPSensingElementOnFamily"),
+                        Boolean.FALSE,
+                        null,
+                        rs.getString("SPSensingElement_idSPSensingElement"));
+            }
+        } catch (SQLException sq) {
+            throw new DAOException("In selectSEOnPort(): " + sq.getMessage());
+        }
+        return f;
     }
 }
 

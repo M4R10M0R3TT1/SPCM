@@ -143,7 +143,7 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
         ArrayList<Chip> lista= new ArrayList<>();
         try{
             Statement st = DAOMySQLSettings.getStatement();
-            String sql = "SELECT DISTINCT * FROM spsensingelementonchip sc, spcalibration cal, spsensingelementonfamily sf\n" +
+            String sql = "SELECT DISTINCT cal.idSPCalibration,cal.name,sc.m,sc.n FROM spsensingelementonchip sc, spcalibration cal, spsensingelementonfamily sf\n" +
                     "WHERE sc.SPChip_idSPChip='"+a.getIdSPChip()+"' AND sc.SPSensingElementOnFamily_idSPSensingElementOnFamily=(SELECT\n" +
                     "sf.idSPSensingElementOnFamily FROM spfamilytemplate ft, spsensingelementonfamily sf, spchip c, spfamily f\n" +
                     "WHERE  c.idSPChip='"+a.getIdSPChip()+"'AND c.SPFamily_idSPFamily=f.idSPFamily AND f.idSPFamily=ft.SPFamily_idSPFamily\n" +
@@ -183,5 +183,42 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
             throw new DAOException("In selectFamily(): " + sq.getMessage());
         }
         return list;
+    }
+
+    @Override
+    public List<String> selectAddCalibrationOnChip(String a) throws DAOException {
+        ArrayList<String> lista = new ArrayList<>();
+        if (a == null) {
+            try {
+                Statement st = DAOMySQLSettings.getStatement();
+                String sql = "SELECT cal.name FROM spcalibration cal";
+
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
+                    //  lista.add(new Chip(rs.getInt("idSPCalibration"),
+                    //        rs.getString("name")));
+                    lista.add(rs.getString("name"));
+                }
+                DAOMySQLSettings.closeStatement(st);
+
+            } catch (SQLException sq) {
+                throw new DAOException("In selectAddCalibrationOnChip(): " + sq.getMessage());
+            }
+        }
+        return lista;
+    }
+
+    @Override
+    public void insertSEOnChip(Chip a, Integer idSF) throws DAOException {
+        String sql="INSERT INTO spsensingelementonchip  VALUE ('"+a.getIdSPChip()+"',"+a.getM()+","+a.getN()+
+                ","+idSF+",(SELECT c.idSPCalibration FROM spcalibration c WHERE c.name='"+a.getNameCalibration()+"'))";
+        try {
+            Statement st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In insertSEOnChip(): " + e.getMessage());
+        }
     }
 }
