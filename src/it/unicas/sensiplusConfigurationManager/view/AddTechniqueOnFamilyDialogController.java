@@ -4,10 +4,7 @@ import it.unicas.sensiplusConfigurationManager.model.Family;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.FamilyDAOMySQLImpl;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -29,6 +26,8 @@ public class AddTechniqueOnFamilyDialogController {
         private TableColumn<Family,String> typeColumn;
         @FXML
         private Label idFamilyLabel;
+        @FXML
+        private Button addButton;
 
         public void setMainApp(MainApp mainApp){
             this.mainApp=mainApp;
@@ -40,6 +39,10 @@ public class AddTechniqueOnFamilyDialogController {
             idMeasureTechniqueColumn.setCellValueFactory(cellData -> cellData.getValue().idSPMeasureTechniqueProperty().asString());
             typeColumn.setCellValueFactory(cellData -> cellData.getValue().typeProperty());
             showMeasureTechnique(null);
+            activationButton(null);
+            measureTechniqueTableView.getSelectionModel().selectedItemProperty().addListener(
+                    ((observable, oldValue, newValue) -> activationButton(newValue))
+            );
 
         }
 
@@ -50,9 +53,13 @@ public class AddTechniqueOnFamilyDialogController {
             this.dialogStage.getIcons().add(new Image("file:resources/images/pencil-lapis-128.png"));
         }
 
+        public void activationButton(Family tec){
+            if(tec!=null)
+                addButton.setDisable(false);
+        }
+
         private void showMeasureTechnique(Family family){
             if(family!=null){
-
                 try{
                     idFamilyLabel.setText(Integer.toString(family.getIdSPFamily()));
                     List<Family> list = FamilyDAOMySQLImpl.getInstance().selectAddTechniqueOnFamily(family);

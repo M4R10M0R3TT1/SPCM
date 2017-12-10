@@ -86,7 +86,7 @@
                                           <ButtonBar layoutX="7.0" layoutY="281.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-15.0">
                                             <buttons>
                                               <Button fx:id="addPortButton" mnemonicParsing="false" onAction="#handleAddPortOnFamily" text="Add Port" />
-                                                <Button fx:id="delPortButton" mnemonicParsing="false" onAction="#handleDelPortOnFamily" text="Del Port" />
+                                                <Button fx:id="delPortButton" disable="true" mnemonicParsing="false" onAction="#handleDelPortOnFamily" text="Del Port" />
                                             </buttons>
                                           </ButtonBar>
                                           <Button fx:id="addSEButton" disable="true" layoutX="249.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleAddSE" prefHeight="25.0" prefWidth="75.0" text="Add SE" AnchorPane.bottomAnchor="6.0" AnchorPane.rightAnchor="90.0" />
@@ -103,7 +103,7 @@
                                           <ButtonBar layoutX="65.0" layoutY="285.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="3.0">
                                             <buttons>
                                               <Button fx:id="addMeasureTechniqueButton" mnemonicParsing="false" onAction="#handleAddTechniqueOnFamily" text="Add" />
-                                                <Button fx:id="delmeasureTechniqueButton" mnemonicParsing="false" onAction="#handleDelTechniqueOnFamily" text="Del" />
+                                                <Button fx:id="delmeasureTechniqueButton" disable="true" mnemonicParsing="false" onAction="#handleDelTechniqueOnFamily" text="Del" />
                                             </buttons>
                                           </ButtonBar>
                                        </children>

@@ -5,10 +5,7 @@ import it.unicas.sensiplusConfigurationManager.model.Family;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.FamilyDAOMySQLImpl;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -34,6 +31,8 @@ public class AddPortOnFamilyDialogController {
     private Label familyLabel;
     @FXML
     private Label idFamilyLabel;
+    @FXML
+    private Button addButton;
 
     public void setMainApp(MainApp mainApp){
         this.mainApp=mainApp;
@@ -46,6 +45,10 @@ public class AddPortOnFamilyDialogController {
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().portNameProperty());
         internalColumn.setCellValueFactory(cellData -> cellData.getValue().internalProperty().asString());
         showPort(null);
+        activationButton(null);
+        portTableView.getSelectionModel().selectedItemProperty().addListener(
+                ((observable, oldValue, newValue) -> activationButton(newValue))
+        );
 
     }
 
@@ -54,6 +57,12 @@ public class AddPortOnFamilyDialogController {
 
         // Set the dialog icon.
         this.dialogStage.getIcons().add(new Image("file:resources/images/pencil-lapis-128.png"));
+    }
+
+    public void activationButton(Family port){
+        if(port!=null){
+            addButton.setDisable(false);
+        }
     }
 
     private void showPort(Family family){

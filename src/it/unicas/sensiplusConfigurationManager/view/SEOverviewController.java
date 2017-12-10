@@ -129,7 +129,7 @@ public class SEOverviewController {
         portTypeColumn.setCellValueFactory(cellData -> cellData.getValue().internalProperty().asString());
 
         activationDelButton(null);
-        familyTableView.getSelectionModel().selectedItemProperty().addListener(
+       familyTableView.getSelectionModel().selectedItemProperty().addListener(
                 ((observable, oldValue, newValue) -> activationDelButton(newValue)));
     }
 
@@ -355,10 +355,10 @@ public class SEOverviewController {
     }
 
     public void activationDelButton(Family family){
-        if(family!=null) {
-            if(family.getId()!=null)
+        family = familyTableView.getSelectionModel().getSelectedItem();
+            if(family!=null)
             delButton.setDisable(false);
-        }
+
 
     }
 
@@ -366,7 +366,7 @@ public class SEOverviewController {
     private  void handleDelFamily() throws IOException{
         int selectedIndex=familyTableView.getSelectionModel().getSelectedIndex();
         Family selected=familyTableView.getSelectionModel().getSelectedItem();
-       // if (selected!=null) {
+        if (selected!=null) {
             //--------DELETION CONFIRMATION DIALOG--------
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Are you sure?");
@@ -390,11 +390,12 @@ public class SEOverviewController {
                 try {
                     FamilyDAOMySQLImpl.getInstance().deleteFamilyonSE(selected.getIdSPFamilyTemplate());
                     familyTableView.getItems().remove(selectedIndex);
+
                 } catch (DAOException e) {
                     e.printStackTrace();
                 }
             }
-        /*}else {
+        }else {
                 // Nothing selected.
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.initOwner(mainApp.getPrimaryStage());
@@ -403,7 +404,7 @@ public class SEOverviewController {
                 alert.setContentText("Please select a Family in the table.");
 
                 alert.showAndWait();
-            }*/
+            }
     }
 
 

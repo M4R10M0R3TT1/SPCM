@@ -57,7 +57,10 @@ public class FamilyOverviewController {
     private Button addSEButton;
     @FXML
     private Button delSEButton;
-
+    @FXML
+    private Button delPortButton;
+    @FXML
+    private Button delmeasureTechniqueButton;
 
     // Reference to the main application
     private MainApp mainApp;
@@ -82,7 +85,7 @@ public class FamilyOverviewController {
         nameTableColumn.setCellValueFactory(cellData->cellData.getValue().nameProperty());
 
         showFamilyDetails(null);
-        activationSEButtons(null);
+        activationButtons(null);
 
         familyTableView.getSelectionModel().selectedItemProperty().addListener(
                 ((observable, oldValue, newValue) -> showFamilyDetails(newValue)) );
@@ -95,24 +98,28 @@ public class FamilyOverviewController {
 
 
         portTableView.getSelectionModel().selectedItemProperty().addListener(
-                ((observable, oldValue, newValue) -> activationSEButtons(newValue))
+                ((observable, oldValue, newValue) -> activationButtons(newValue))
         );
+
         //spMeasureTechnique
         measureTechniqueTableColumn.setCellValueFactory(cellData->cellData.getValue().typeProperty());
-
+        measureTechniqueTableView.getSelectionModel().selectedItemProperty().addListener(
+                ((observable, oldValue, newValue) -> activationDelMeasureTechniqueButton(newValue))
+        );
 
     }
 
     private void showFamilyDetails(Family family){
         addSEButton.setDisable(true);
         delSEButton.setDisable(true);
+        delPortButton.setDisable(true);
+        delmeasureTechniqueButton.setDisable(true);
         if(family!=null) {
             idLabel.setText(family.getId());
             nameLabel.setText(family.getName());
             hwVersionLabel.setText(family.getHwVersion());
             sysclockLabel.setText(family.getSysclock());
             osctrimLabel.setText(family.getOsctrim());
-
 
             //parte spPort
             try {
@@ -310,6 +317,7 @@ public class FamilyOverviewController {
         int selectedIndex = portTableView.getSelectionModel().getSelectedIndex();
         Family selPort = portTableView.getSelectionModel().getSelectedItem();
         Family selFamily = familyTableView.getSelectionModel().getSelectedItem();
+        if (selPort != null) {
 
         //--------DELETION CONFIRMATION DIALOG--------
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -331,10 +339,11 @@ public class FamilyOverviewController {
         //---------------------------------------------
         if (result.get() == buttonTypeOne) {
 
-            if (selPort != null) {
+
                 try {
                     FamilyDAOMySQLImpl.getInstance().deletePortOnFamily(selPort.getIdSPPort(), selFamily.getIdSPFamily());
                     portTableView.getItems().remove(selectedIndex);
+
                 } catch (DAOException e) {
                     e.printStackTrace();
                 }
@@ -398,17 +407,31 @@ public class FamilyOverviewController {
             }
     }
 
-    public void activationSEButtons(Family port){
-        if(port!= null) {
+    public void activationButtons(Family port) {
+        if (port != null) {
             if (port.getOccupiedBy() != null) {
                 addSEButton.setDisable(true);
                 delSEButton.setDisable(false);
+                delPortButton.setDisable(false);
             } else if (port.getOccupiedBy() == null) {
                 addSEButton.setDisable(false);
                 delSEButton.setDisable(true);
+                delPortButton.setDisable(false);
+            }
+
+        }
+    }
+
+    public void activationDelMeasureTechniqueButton(Family technique){
+        if(technique!=null){
+            if(technique.getType()!=null){
+                delmeasureTechniqueButton.setDisable(false);
             }
         }
     }
+
+
+
 
     @FXML
     private void handleAddSE(){

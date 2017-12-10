@@ -46,6 +46,8 @@ public class AddSEOnFamilyDialogController {
     private TableColumn<Family,String> portNameTableColumn;
     @FXML
     private TableColumn<Family,String> portInternalTableColumn;
+    @FXML
+    private Button addButton;
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
@@ -66,8 +68,13 @@ public class AddSEOnFamilyDialogController {
 
 
         showPort(null);
+        activationAddButton(null);
         addFamilyTableView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showPort(newValue));
+        portTableView.getSelectionModel().selectedItemProperty().addListener(
+                ((observable, oldValue, newValue) -> activationAddButton(newValue)));
+
+
     }
 
     public void setDialogStage(Stage dialogStage, boolean verifylen){
@@ -78,6 +85,7 @@ public class AddSEOnFamilyDialogController {
     }
 
     public void showPort(Family family) {
+        addButton.setDisable(true);
         if (sensingElement != null)
             try {
                 List<Family> list = FamilyDAOMySQLImpl.getInstance().availablePort(family);
@@ -93,6 +101,14 @@ public class AddSEOnFamilyDialogController {
 
                 alert.showAndWait();
 
+            }
+        }
+
+        public void activationAddButton(Family family){
+            if(family!=null){
+                if(family.getIdSPPort()>=0){
+                    addButton.setDisable(false);
+                }
             }
         }
 

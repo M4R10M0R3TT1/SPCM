@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.AddTechniqueOnFamilyDialogController">
+<AnchorPane prefHeight="600.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.AddTechniqueOnFamilyDialogController">
    <children>
       <Label layoutX="15.0" layoutY="24.0" text="Add Measure Technique" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="18.0">
          <font>
@@ -24,7 +23,7 @@
       </TableView>
       <ButtonBar layoutX="105.0" layoutY="570.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="5.0">
          <buttons>
-            <Button fx:id="addButton" defaultButton="true" mnemonicParsing="false" onAction="#handleAdd" text="Add" />
+            <Button fx:id="addButton" defaultButton="true" disable="true" mnemonicParsing="false" onAction="#handleAdd" text="Add" />
             <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
          </buttons>
       </ButtonBar>
