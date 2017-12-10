@@ -186,7 +186,7 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
     }
 
     @Override
-    public List<String> selectAddCalibrationOnChip(String a) throws DAOException {
+    public List<String> selectAddCalibrationOnChip(Chip a, Family b) throws DAOException {
         ArrayList<String> lista = new ArrayList<>();
         if (a == null) {
             try {
@@ -195,8 +195,27 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
 
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
-                    //  lista.add(new Chip(rs.getInt("idSPCalibration"),
-                    //        rs.getString("name")));
+                    lista.add(rs.getString("name"));
+                }
+                DAOMySQLSettings.closeStatement(st);
+
+            } catch (SQLException sq) {
+                throw new DAOException("In selectAddCalibrationOnChip [AddSEOnChip](): " + sq.getMessage());
+            }
+        }else{
+            try {
+                Statement st = DAOMySQLSettings.getStatement();
+                String sql = "SELECT cal.name FROM spcalibration cal, "+
+                        "(SELECT DISTINCT cal.idSPCalibration FROM spsensingelementonchip sc, spcalibration cal, spsensingelementonfamily sf " +
+                        "WHERE sc.SPChip_idSPChip='"+a.getIdSPChip()+"' AND sc.SPSensingElementOnFamily_idSPSensingElementOnFamily=(SELECT " +
+                        "sf.idSPSensingElementOnFamily FROM spfamilytemplate ft, spsensingelementonfamily sf, spchip c, spfamily f " +
+                        "WHERE  c.idSPChip='"+a.getIdSPChip()+"'AND c.SPFamily_idSPFamily=f.idSPFamily AND f.idSPFamily=ft.SPFamily_idSPFamily " +
+                        "AND ft.SPPort_idSPPort="+b.getIdSPPort()+" AND ft.idSPFamilyTemplate=sf.SPFamilyTemplate_idSPFamilyTemplate) " +
+                        "AND sf.SPSensingElement_idSPSensingElement='"+b.getOccupiedBy()+"' AND cal.idSPCalibration=sc.SPCalibration_idSPCalibration) AS c "+
+                        "WHERE cal.idSPCalibration!=c.idSPCalibration";
+
+                ResultSet rs = st.executeQuery(sql);
+                while (rs.next()) {
                     lista.add(rs.getString("name"));
                 }
                 DAOMySQLSettings.closeStatement(st);
@@ -238,6 +257,26 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
 
         } catch (SQLException e) {
             throw new DAOException("In removeSEOnChip():" + e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteCalibrationOnChip(Chip a, String idChip, int idPort) throws DAOException {
+        String sql = "DELETE sc.* FROM spsensingelementonchip sc, spChip c, spfamilytemplate ft,spsensingelementonfamily sf  WHERE sc.SPChip_idSPChip='"+idChip+
+                "' AND sc.m="+a.getM()+" AND sc.n="+a.getN()+" AND sc.SPCalibration_idSPCalibration="+a.getIdCalibration()+
+                " AND c.idSPChip=sc.SPChip_idSPChip AND ft.spFamily_idSPFamily=c.spFamily_idSPFamily AND ft.SPPort_idSPPort="+idPort+
+                " AND ft.idSPFamilyTemplate=sf.SPFamilyTemplate_idSPFamilyTemplate AND sf.idSPSensingElementOnFamily=sc.SPSensingElementOnFamily_idSPSensingElementOnFamily;";
+        logger.info("SQL: " + sql);
+
+        Statement st = null;
+        try {
+            st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In deleteCalibrationOnChip():" + e.getMessage());
         }
     }
 }

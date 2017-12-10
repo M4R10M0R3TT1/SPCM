@@ -124,7 +124,7 @@ public class ChipEditDialogController {
             // Show the error message.
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(dialogStage);
-            alert.setTitle("Invalid Fields");
+            alert.setTitle("Invalid Fields ");
             alert.setHeaderText("Please correct invalid fields ");
             alert.setContentText(errorMessage);
 

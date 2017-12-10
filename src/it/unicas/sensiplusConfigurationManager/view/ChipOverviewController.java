@@ -121,6 +121,8 @@ public class ChipOverviewController {
             alert.showAndWait();
         }
         chipTableView.getSelectionModel().selectFirst();
+        portTableView.getSelectionModel().selectFirst();
+       // calibrationTableView.getSelectionModel().selectFirst();
     }
 
     @FXML
@@ -179,6 +181,9 @@ public class ChipOverviewController {
                     e.printStackTrace();
                 }
             }
+            chipTableView.getSelectionModel().selectFirst();
+            portTableView.getSelectionModel().selectFirst();
+            //calibrationTableView.getSelectionModel().selectFirst();
         } else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -237,6 +242,7 @@ public class ChipOverviewController {
             }
         }
         portTableView.getSelectionModel().selectFirst();
+
     }
 
     private void showCalibrationDetails(Family family) {
@@ -304,6 +310,19 @@ public class ChipOverviewController {
     }
 
     @FXML
+    private void handleAddCalibrationOnChip() {
+        Chip selChip = chipTableView.getSelectionModel().getSelectedItem();
+        Family selPort = portTableView.getSelectionModel().getSelectedItem();
+        boolean okClicked = false;
+        if (selPort != null) {
+            okClicked = mainApp.showAddCalibrationOnChipDialog(selPort, familyLabel.getText(), selChip,familyLabel.getText(), true);
+        }
+        if (okClicked) {
+            showChipDetails(selChip);
+        }
+    }
+
+    @FXML
     private void handleDelSEOnChip(){
         int selectedIndex = portTableView.getSelectionModel().getSelectedIndex();
         Family selPort= portTableView.getSelectionModel().getSelectedItem();
@@ -350,11 +369,62 @@ public class ChipOverviewController {
         }
     }
 
+    @FXML
+    private void handleDeleteCalibrationOnChip(){
+        int selectedIndex = portTableView.getSelectionModel().getSelectedIndex();
+        Chip calibration = calibrationTableView.getSelectionModel().getSelectedItem();
+        Chip chip=chipTableView.getSelectionModel().getSelectedItem();
+        int idPort=portTableView.getSelectionModel().getSelectedItem().getIdSPPort();
 
+        if (selectedIndex >= 0) {
+            //--------DELETION CONFIRMATION DIALOG--------
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Are you sure?");
+            //---To add an icon to the alert
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("file:resources/images/favicon.png"));
+            //---
+            alert.setHeaderText("WARNING:\n" +
+                    "Read carefully before choosing the action!!!");
+            alert.setContentText("This calibrations will be lost, are you sure you want to continue?");
+
+            ButtonType buttonTypeOne = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            //---------------------------------------------
+            if (result.get() == buttonTypeOne){
+
+                try {
+                    ChipDAOMySQLImpl.getInstance().deleteCalibrationOnChip(calibration,chip.getIdSPChip(),idPort);
+                    showChipDetails(chip);
+                    portTableView.getSelectionModel().select(selectedIndex);
+                    portTableView.getSelectionModel().selectFirst();
+                    calibrationTableView.getSelectionModel().selectFirst();
+                } catch (DAOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Calibration Selected ");
+            alert.setContentText("Please select a Calibration in the table.");
+
+            alert.showAndWait();
+        }
+    }
     private void setCalibrationButtons(Chip chip){
         if (chip!=null){
             editCalibrationButton.setDisable(false);
             deleteCalibrationButton.setDisable(false);
+        }else{
+            editCalibrationButton.setDisable(true);
+            deleteCalibrationButton.setDisable(true);
         }
     }
 

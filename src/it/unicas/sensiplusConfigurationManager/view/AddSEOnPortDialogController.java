@@ -79,7 +79,7 @@ public class AddSEOnPortDialogController {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());
                 alert.setTitle("Error during DB interaction");
-                alert.setHeaderText("Error during insert ...");
+                alert.setHeaderText("Error during insert ...  ");
                 alert.setContentText(e.getMessage());
                 alert.showAndWait();
             }

@@ -108,10 +108,6 @@ public class MainApp extends Application {
         return calibrationChip;
     }
 
-    public ObservableList<Chip> getFam() {
-        return fam;
-    }
-
     public ObservableList<String> getAddCalibrationOnChip() {
         return addCalibrationOnChip;
     }
@@ -439,7 +435,7 @@ public class MainApp extends Application {
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Measure Technique on Family");
+            dialogStage.setTitle("Add SE on Chip");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
@@ -448,7 +444,38 @@ public class MainApp extends Application {
             AddSEOnChipDialogController controller=loader.getController();
             controller.setMainApp(this);
             controller.setDialogStage(dialogStage, verifyLen);
-            controller.showSE(f, id, idChip);
+            controller.showAddSEOnChip(f, id, idChip);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+
+        }catch (IOException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean showAddCalibrationOnChipDialog(Family port,String id,Chip chip, String idFamily,  boolean verifyLen){
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/AddSEOnChipDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Add Calibration");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            AddSEOnChipDialogController controller=loader.getController();
+            controller.setMainApp(this);
+            controller.setDialogStage(dialogStage, verifyLen);
+            controller.showAddCalibration(port, id, chip);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();

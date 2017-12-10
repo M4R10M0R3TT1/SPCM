@@ -14,8 +14,8 @@ public interface DAOChip<T>{
     void insert(T a) throws  DAOException;
     void delete(T a) throws DAOException;
     List<String> selectFam() throws  DAOException;
-    List<String> selectAddCalibrationOnChip (String a) throws DAOException;
+    List<String> selectAddCalibrationOnChip (T a, Family b) throws DAOException;
     void insertSEOnChip(T a,Integer idSF)throws DAOException;
     void removeSEOnChip(T a, String se) throws DAOException;
-
+    void deleteCalibrationOnChip(T a, String idChip,int idPort) throws DAOException;
 }

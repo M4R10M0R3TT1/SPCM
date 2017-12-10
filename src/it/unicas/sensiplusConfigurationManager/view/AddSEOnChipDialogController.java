@@ -58,7 +58,7 @@ public class AddSEOnChipDialogController {
         nTextField.setText("0");
     }
 
-    public void showSE(Family f,String id, String idChip) {
+    public void showAddSEOnChip(Family f,String id, String idChip) {
         Family family=null;
         try {
             family=FamilyDAOMySQLImpl.getInstance().selectSEOnPort(f,id);
@@ -69,13 +69,37 @@ public class AddSEOnChipDialogController {
             e.printStackTrace();
         }
         try {
-            List<String> list = ChipDAOMySQLImpl.getInstance().selectAddCalibrationOnChip(null);
+            List<String> list = ChipDAOMySQLImpl.getInstance().selectAddCalibrationOnChip(null,null);
             mainApp.getAddCalibrationOnChip().clear();
             mainApp.getAddCalibrationOnChip().addAll(list);
         } catch (DAOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(mainApp.getPrimaryStage());
             alert.setTitle("Error during DB interaction");
+            alert.setHeaderText("Error during select... ");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
+    }
+
+    public void showAddCalibration(Family port,String id, Chip chip) {
+        Family family=null;
+        try {
+            family=FamilyDAOMySQLImpl.getInstance().selectSEOnPort(port,id);
+            idSEOnFamilyLabel.setText(Integer.toString(family.getIdSPPort()));
+            seTextField.setText(family.getOccupiedBy());
+            idChipLabel.setText(chip.getIdSPChip());
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        try {
+            List<String> list = ChipDAOMySQLImpl.getInstance().selectAddCalibrationOnChip(chip,port);
+            mainApp.getAddCalibrationOnChip().clear();
+            mainApp.getAddCalibrationOnChip().addAll(list);
+        } catch (DAOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("Error during DB interaction ");
             alert.setHeaderText("Error during select... ");
             alert.setContentText(e.getMessage());
             alert.showAndWait();
@@ -121,7 +145,6 @@ public class AddSEOnChipDialogController {
 
             try{
                 ChipDAOMySQLImpl.getInstance().insertSEOnChip(chip, Integer.parseInt(idSEOnFamilyLabel.getText()));
-                //  mainApp.getFamilyData().addAll();
 
             }catch (DAOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
