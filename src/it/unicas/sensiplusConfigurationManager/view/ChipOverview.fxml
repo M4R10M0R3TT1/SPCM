@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="530.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.ChipOverviewController">
+<AnchorPane prefHeight="530.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.ChipOverviewController">
    <children>
       <SplitPane dividerPositions="0.20378619153674832" layoutX="178.0" layoutY="129.0" prefHeight="530.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -43,7 +43,7 @@
                                     <TableColumn fx:id="idSensingElementColumn" prefWidth="170.0" text="Sensing Element" />
                                 </columns>
                               </TableView>
-                              <Button fx:id="deleteFamilyButton" layoutX="586.0" layoutY="112.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="Del Family?" AnchorPane.rightAnchor="28.0" />
+                              <Button fx:id="deleteFamilyButton" layoutX="563.0" layoutY="1.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="142.0" text="Del Chip from Family" AnchorPane.rightAnchor="5.0" />
                               <Button fx:id="addSensingElementButton" disable="true" layoutX="586.0" layoutY="156.0" mnemonicParsing="false" onAction="#handleAddSEOnChip" prefHeight="31.0" prefWidth="96.0" text="Add SE" AnchorPane.rightAnchor="28.0" />
                               <Button fx:id="deleteSensingElementButton" disable="true" layoutX="586.0" layoutY="199.0" mnemonicParsing="false" onAction="#handleDelSEOnChip" prefHeight="31.0" prefWidth="96.0" text="Del SE" AnchorPane.rightAnchor="28.0" />
                               <Separator layoutY="29.0" prefHeight="0.0" prefWidth="709.0" />
