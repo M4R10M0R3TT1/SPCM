@@ -366,7 +366,8 @@ public class SEOverviewController {
     private  void handleDelFamily() throws IOException{
         int selectedIndex=familyTableView.getSelectionModel().getSelectedIndex();
         Family selected=familyTableView.getSelectionModel().getSelectedItem();
-        if (selected!=null) {
+        SensingElement se=seTableView.getSelectionModel().getSelectedItem();
+       // if (selected!=null) {
             //--------DELETION CONFIRMATION DIALOG--------
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Are you sure?");
@@ -389,13 +390,14 @@ public class SEOverviewController {
             if (result.get() == buttonTypeOne) {
                 try {
                     FamilyDAOMySQLImpl.getInstance().deleteFamilyonSE(selected.getIdSPFamilyTemplate());
-                    familyTableView.getItems().remove(selectedIndex);
+                    //familyTableView.getItems().remove(selectedIndex);
+                    showSEDetails(se);
 
                 } catch (DAOException e) {
                     e.printStackTrace();
                 }
             }
-        }else {
+        /*}else {
                 // Nothing selected.
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.initOwner(mainApp.getPrimaryStage());
@@ -404,7 +406,7 @@ public class SEOverviewController {
                 alert.setContentText("Please select a Family in the table.");
 
                 alert.showAndWait();
-            }
+            }*/
     }
 
 
