@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="sensiDB@localhost" uuid="f8c85b4a-9a2f-481b-ab52-ea8c3cc942cd">
+    <data-source source="LOCAL" name="sensiDB@localhost" uuid="032a0035-12b7-4501-ad3f-5e58e58167de">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
