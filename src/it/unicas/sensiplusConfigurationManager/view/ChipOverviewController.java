@@ -243,6 +243,14 @@ public class ChipOverviewController {
 
                 alert.showAndWait();
             }
+            if(familyLabel.getText()!=null){
+                deleteFamilyButton.setText("Change Family");
+                famLabel.setVisible(true);
+            }
+            else{
+                deleteFamilyButton.setText("Select Family");
+                famLabel.setVisible(false);
+            }
         }
         portTableView.getSelectionModel().selectFirst();
 
