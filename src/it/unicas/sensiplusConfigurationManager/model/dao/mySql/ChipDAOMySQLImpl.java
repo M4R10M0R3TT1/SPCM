@@ -93,7 +93,7 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
             DAOMySQLSettings.closeStatement(st);
 
         } catch (SQLException e) {
-            throw new DAOException("In insert():" + e.getMessage());
+            e.getStackTrace();
         }
 
         String sql=" UPDATE spchip SET " +
