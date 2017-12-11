@@ -212,6 +212,7 @@ public class FamilyOverviewController {
             try{
                 FamilyDAOMySQLImpl.getInstance().insert(tempFam);
                 mainApp.getFamilyData().addAll(tempFam);
+                handleReadDB();
 
             }catch (DAOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
