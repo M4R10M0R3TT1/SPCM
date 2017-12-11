@@ -428,4 +428,24 @@ public class ChipOverviewController {
         }
     }
 
+    @FXML
+    private void handleDeassociateChip(){
+        Chip chip=chipTableView.getSelectionModel().getSelectedItem();
+        if(chip!=null){
+            boolean okClicked = mainApp.showChipEditDialog(chip,true);
+            try {
+                ChipDAOMySQLImpl.getInstance().deassociate(chip);
+                mainApp.getChipData().addAll(chip);
+            } catch (DAOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("Error during DB interaction");
+                alert.setHeaderText("Error during insert...  ");
+                alert.setContentText(e.getMessage());
+
+                alert.showAndWait();
+            }
+        }
+    }
+
 }

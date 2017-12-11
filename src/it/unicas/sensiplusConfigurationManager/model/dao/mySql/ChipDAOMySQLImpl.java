@@ -80,6 +80,38 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
     }
 
     @Override
+    public void deassociate(Chip a) throws DAOException {
+        int idfam=0;
+        try {
+            Statement st = DAOMySQLSettings.getStatement();
+            String sql0="SELECT f.idSPFamily FROM SPFamily f WHERE f.id='"+a.getId()+"'";
+            ResultSet rs=st.executeQuery(sql0);
+            while(rs.next()){
+                idfam = rs.getInt("idSPFamily");
+            }
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In insert():" + e.getMessage());
+        }
+
+        String sql=" UPDATE spchip SET " +
+                "idSPChip='"+a.getIdSPChip()+
+                "',SPFamily_idSPFamily="+idfam+"";
+
+        try {
+            Statement st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In update(): " + e.getMessage());
+        }
+    }
+
+    @Override
     public void delete(Chip a) throws DAOException{
         String sql = "DELETE FROM SPChip WHERE idSPChip='" + a.getIdSPChip() + "'";
         logger.info("SQL: " + sql);
@@ -279,4 +311,5 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
             throw new DAOException("In deleteCalibrationOnChip():" + e.getMessage());
         }
     }
+
 }

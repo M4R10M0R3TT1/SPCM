@@ -74,15 +74,21 @@ public class ChipEditDialogController {
         List<String> list = null;
         try {
             list = ChipDAOMySQLImpl.getInstance().selectFam();
-
-            idChipTextField.setPromptText("0X0123456789");
             familyComboBox.getItems().addAll(list);
             familyComboBox.setValue(list.get(0));
-            titleLabel.setText("Insert a new Chip");
+
         } catch (DAOException e) {
             e.printStackTrace();
         }
 
+        if (chip.getIdSPChip() != null) {
+            titleLabel.setText("Select a new Family");
+            idChipTextField.setText(chip.getIdSPChip());
+            idChipTextField.setDisable(true);
+        }else {
+            idChipTextField.setPromptText("0X0123456789");
+            titleLabel.setText("Insert a new Chip");
+        }
     }
 
     /**
