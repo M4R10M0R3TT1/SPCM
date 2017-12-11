@@ -463,7 +463,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
         ArrayList<Family> lista = new ArrayList<>();
         try{
             Statement st = DAOMySQLSettings.getStatement();
-            String sql = "SELECT p.*, sel.SPSensingElement_idSPSensingElement FROM spfamily f, spchip c, spport p,"+
+            String sql = "SELECT DISTINCT p.*, sel.SPSensingElement_idSPSensingElement FROM spfamily f, spchip c, spport p,"+
                     " spfamilytemplate ft LEFT JOIN (SELECT sf.SPFamilyTemplate_idSPFamilyTemplate, "+
                     "sf.SPSensingElement_idSPSensingElement FROM  spchip c, spsensingelementonchip sc,spsensingelementonfamily sf "+
                     "WHERE c.idSPChip=sc.SPChip_idSPChip AND sc.SPSensingElementOnFamily_idSPSensingElementOnFamily=sf.idSPSensingElementOnFamily "+

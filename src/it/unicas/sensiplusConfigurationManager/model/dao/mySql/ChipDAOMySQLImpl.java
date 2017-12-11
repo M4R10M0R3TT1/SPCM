@@ -322,7 +322,26 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
             DAOMySQLSettings.closeStatement(st);
 
         } catch (SQLException e) {
-            throw new DAOException("In deleteCalibrationOnChip():" + e.getMessage());
+            throw new DAOException("In deleteCalibrationOnChip(): " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void editCalibrationOnChip(Chip a, String idChip, int idSEonFam) throws DAOException {
+        Statement st = null;
+        try {
+        String sql = "UPDATE spsensingelementonchip SET m="+a.getM()+", n="+a.getN()+" " +
+                     "WHERE SPChip_idSPChip='"+idChip+"' AND SPCalibration_idSPCalibration=(Select DISTINCT  c.idspcalibration From SPCalibration c WHERE c.name='"+a.getNameCalibration()+"') " +
+                     "AND SPSensingElementOnFamily_idSPSensingElementOnFamily="+idSEonFam+"";
+            logger.info("SQL: " + sql);
+
+            st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In editCalibrationOnChip():" + e.getMessage());
         }
     }
 

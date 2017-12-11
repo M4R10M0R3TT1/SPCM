@@ -9,10 +9,7 @@ import it.unicas.sensiplusConfigurationManager.model.dao.mySql.ChipDAOMySQLImpl;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.FamilyDAOMySQLImpl;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -37,7 +34,10 @@ public class AddSEOnChipDialogController {
     private Label idSEOnFamilyLabel;
     @FXML
     private Label idChipLabel;
-
+    @FXML
+    private Label titleLabel;
+    @FXML
+    private Button addButton;
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
@@ -89,6 +89,7 @@ public class AddSEOnChipDialogController {
             idSEOnFamilyLabel.setText(Integer.toString(family.getIdSPPort()));
             seTextField.setText(family.getOccupiedBy());
             idChipLabel.setText(chip.getIdSPChip());
+            titleLabel.setText("Add calibration");
         } catch (DAOException e) {
             e.printStackTrace();
         }
@@ -104,6 +105,26 @@ public class AddSEOnChipDialogController {
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
+    }
+
+    public void showEditCalibration(Family port,String id, Chip chip,Chip calibration) {
+        Family family=null;
+        try {
+            family=FamilyDAOMySQLImpl.getInstance().selectSEOnPort(port,id);
+            idSEOnFamilyLabel.setText(Integer.toString(family.getIdSPPort()));
+            seTextField.setText(family.getOccupiedBy());
+            idChipLabel.setText(chip.getIdSPChip());
+            titleLabel.setText("Edit calibration");
+            addButton.setText("Edit");
+            calibrationComboBox.setValue(calibration.getNameCalibration());
+            calibrationComboBox.setDisable(true);
+            mTextField.setText(Integer.toString(calibration.getM()));
+            nTextField.setText(Integer.toString(calibration.getN()));
+
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private boolean isInputValid(boolean verifyLen) {
@@ -142,18 +163,29 @@ public class AddSEOnChipDialogController {
             chip.setN(Integer.parseInt(nTextField.getText()));
             chip.setNameCalibration(calibrationComboBox.getValue());
             chip.setIdSPChip(idChipLabel.getText());
+            if(addButton.getText()!="Edit") {
+                try {
+                    ChipDAOMySQLImpl.getInstance().insertSEOnChip(chip, Integer.parseInt(idSEOnFamilyLabel.getText()));
 
-            try{
-                ChipDAOMySQLImpl.getInstance().insertSEOnChip(chip, Integer.parseInt(idSEOnFamilyLabel.getText()));
-
-            }catch (DAOException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initOwner(mainApp.getPrimaryStage());
-                alert.setTitle("Error during DB interaction ");
-                alert.setHeaderText("Error during insert  ...");
-                alert.setContentText(e.getMessage());
-
-                alert.showAndWait();
+                } catch (DAOException e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.initOwner(mainApp.getPrimaryStage());
+                    alert.setTitle("Error during DB interaction ");
+                    alert.setHeaderText("Error during insert  ...");
+                    alert.setContentText(e.getMessage());
+                    alert.showAndWait();
+                }
+            }else{
+                try {
+                    ChipDAOMySQLImpl.getInstance().editCalibrationOnChip(chip, idChipLabel.getText(),Integer.parseInt(idSEOnFamilyLabel.getText()));
+                } catch (DAOException e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.initOwner(mainApp.getPrimaryStage());
+                    alert.setTitle("Error during DB interaction  ");
+                    alert.setHeaderText("Error during insert  ...");
+                    alert.setContentText(e.getMessage());
+                    alert.showAndWait();
+                }
             }
             okClicked = true;
             dialogStage.close();

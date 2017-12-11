@@ -457,7 +457,7 @@ public class MainApp extends Application {
         }
     }
 
-    public boolean showAddCalibrationOnChipDialog(Family port,String id,Chip chip, String idFamily,  boolean verifyLen){
+    public boolean showAddCalibrationOnChipDialog(Family port,String id,Chip chip, boolean verifyLen){
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -476,6 +476,37 @@ public class MainApp extends Application {
             controller.setMainApp(this);
             controller.setDialogStage(dialogStage, verifyLen);
             controller.showAddCalibration(port, id, chip);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+
+        }catch (IOException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean showEditCalibrationOnChipDialog(Family port,String id,Chip chip,Chip calibration,  boolean verifyLen){
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/AddSEOnChipDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Calibration");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            AddSEOnChipDialogController controller=loader.getController();
+            controller.setMainApp(this);
+            controller.setDialogStage(dialogStage, verifyLen);
+            controller.showEditCalibration(port, id, chip,calibration);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();

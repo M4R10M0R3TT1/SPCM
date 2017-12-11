@@ -243,15 +243,6 @@ public class ChipOverviewController {
 
                 alert.showAndWait();
             }
-
-            if(familyLabel.getText()!=null){
-                deleteFamilyButton.setText("Change Family");
-                famLabel.setVisible(true);
-            }
-            else{
-                deleteFamilyButton.setText("Select Family");
-                famLabel.setVisible(false);
-            }
         }
         portTableView.getSelectionModel().selectFirst();
 
@@ -327,13 +318,24 @@ public class ChipOverviewController {
         Family selPort = portTableView.getSelectionModel().getSelectedItem();
         boolean okClicked = false;
         if (selPort != null) {
-            okClicked = mainApp.showAddCalibrationOnChipDialog(selPort, familyLabel.getText(), selChip,familyLabel.getText(), true);
+            okClicked = mainApp.showAddCalibrationOnChipDialog(selPort, familyLabel.getText(), selChip, true);
         }
         if (okClicked) {
             showChipDetails(selChip);
         }
     }
-
+    @FXML
+    private void handleEditCalibrationOnChip() {
+        Chip selChip = chipTableView.getSelectionModel().getSelectedItem();
+        Family selPort = portTableView.getSelectionModel().getSelectedItem();
+        boolean okClicked = false;
+        if (selPort != null) {
+            okClicked = mainApp.showEditCalibrationOnChipDialog(selPort, familyLabel.getText(), selChip, calibrationTableView.getSelectionModel().getSelectedItem(), true);
+        }
+        if (okClicked) {
+            showChipDetails(selChip);
+        }
+    }
     @FXML
     private void handleDelSEOnChip(){
         int selectedIndex = portTableView.getSelectionModel().getSelectedIndex();
@@ -447,22 +449,26 @@ public class ChipOverviewController {
         if(chip!=null){
             boolean okClicked = mainApp.showChipEditDialog(chip,true);
             if(okClicked)
-            try {
-                ChipDAOMySQLImpl.getInstance().deassociate(chip);
-                mainApp.getChipData().addAll(chip);
-                handleReadDB();
+                try {
+                    ChipDAOMySQLImpl.getInstance().deassociate(chip);
+                    mainApp.getChipData().addAll(chip);
+                    handleReadDB();
 
 
-            } catch (DAOException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initOwner(mainApp.getPrimaryStage());
-                alert.setTitle("Error during DB interaction");
-                alert.setHeaderText("Error during insert...  ");
-                alert.setContentText(e.getMessage());
+                } catch (DAOException e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.initOwner(mainApp.getPrimaryStage());
+                    alert.setTitle("Error during DB interaction  ");
+                    alert.setHeaderText("Error during insert...  ");
+                    alert.setContentText(e.getMessage());
 
-                alert.showAndWait();
-            }
+                    alert.showAndWait();
+                }
         }
     }
+
+
+
+
 
 }
