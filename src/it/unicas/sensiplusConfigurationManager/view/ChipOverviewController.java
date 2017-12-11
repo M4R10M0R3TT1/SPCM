@@ -431,11 +431,16 @@ public class ChipOverviewController {
     @FXML
     private void handleDeassociateChip(){
         Chip chip=chipTableView.getSelectionModel().getSelectedItem();
+        int selindex=chipTableView.getSelectionModel().getSelectedIndex();
         if(chip!=null){
             boolean okClicked = mainApp.showChipEditDialog(chip,true);
+            if(okClicked)
             try {
                 ChipDAOMySQLImpl.getInstance().deassociate(chip);
                 mainApp.getChipData().addAll(chip);
+                handleReadDB();
+
+
             } catch (DAOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());

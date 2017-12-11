@@ -97,8 +97,7 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
         }
 
         String sql=" UPDATE spchip SET " +
-                "idSPChip='"+a.getIdSPChip()+
-                "',SPFamily_idSPFamily="+idfam+"";
+                "SPFamily_idSPFamily="+idfam+" WHERE idSPChip='"+a.getIdSPChip()+"'";
 
         try {
             Statement st = DAOMySQLSettings.getStatement();
@@ -106,8 +105,8 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
 
             DAOMySQLSettings.closeStatement(st);
 
-        } catch (SQLException e) {
-            throw new DAOException("In update(): " + e.getMessage());
+        } catch (SQLException sq) {
+            throw new DAOException("In update(): " + sq.getMessage());
         }
     }
 

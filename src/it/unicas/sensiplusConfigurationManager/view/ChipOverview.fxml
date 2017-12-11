@@ -37,13 +37,13 @@
                            <children>
                               <TableView fx:id="portTableView" prefHeight="286.0" prefWidth="541.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="155.0" AnchorPane.topAnchor="30.0">
                                 <columns>
-                                  <TableColumn fx:id="idPortColumn" prefWidth="74.0" text="id Port" />
+                                  <TableColumn fx:id="idPortColumn" prefWidth="74.0" text="id Port" visible="false" />
                                   <TableColumn fx:id="namePortColumn" prefWidth="135.0" text="Name" />
                                     <TableColumn fx:id="internalColumn" text="Internal" />
                                     <TableColumn fx:id="idSensingElementColumn" prefWidth="170.0" text="Sensing Element" />
                                 </columns>
                               </TableView>
-                              <Button fx:id="deleteFamilyButton" layoutX="563.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleDeassociateChip" prefHeight="27.0" prefWidth="142.0" text="Deassociate Chip" AnchorPane.rightAnchor="5.0" />
+                              <Button fx:id="deleteFamilyButton" layoutX="563.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleDeassociateChip" prefHeight="27.0" prefWidth="142.0" text="Change Family" AnchorPane.rightAnchor="5.0" />
                               <Button fx:id="addSensingElementButton" disable="true" layoutX="586.0" layoutY="156.0" mnemonicParsing="false" onAction="#handleAddSEOnChip" prefHeight="31.0" prefWidth="96.0" text="Add SE" AnchorPane.rightAnchor="28.0" />
                               <Button fx:id="deleteSensingElementButton" disable="true" layoutX="586.0" layoutY="199.0" mnemonicParsing="false" onAction="#handleDelSEOnChip" prefHeight="31.0" prefWidth="96.0" text="Del SE" AnchorPane.rightAnchor="28.0" />
                               <Separator layoutY="29.0" prefHeight="0.0" prefWidth="709.0" />
@@ -86,15 +86,15 @@
                                        <children>
                                           <TableView fx:id="calibrationTableView" prefHeight="199.0" prefWidth="394.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="154.0" AnchorPane.topAnchor="0.0">
                                             <columns>
-                                              <TableColumn fx:id="idCalibrationColumn" prefWidth="96.0" text="idCalibration" />
+                                              <TableColumn fx:id="idCalibrationColumn" prefWidth="96.0" text="idCalibration" visible="false" />
                                               <TableColumn fx:id="nameCalibrationColumn" prefWidth="122.0" text="Calibration" />
                                                 <TableColumn fx:id="mColumn" prefWidth="90.0" text="m" />
                                                 <TableColumn fx:id="nColumn" prefWidth="85.0" text="n" />
                                             </columns>
                                           </TableView>
-                                          <Button fx:id="newCalibrationButton" disable="true" layoutX="426.0" layoutY="46.0" mnemonicParsing="false" onAction="#handleAddCalibrationOnChip" prefHeight="31.0" prefWidth="96.0" text="New Calibration" AnchorPane.rightAnchor="28.0" />
-                                          <Button fx:id="editCalibrationButton" disable="true" layoutX="426.0" layoutY="88.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="Edit Calibration" AnchorPane.rightAnchor="28.0" />
-                                          <Button fx:id="deleteCalibrationButton" disable="true" layoutX="426.0" layoutY="129.0" mnemonicParsing="false" onAction="#handleDeleteCalibrationOnChip" prefHeight="31.0" prefWidth="96.0" text="Del Calibration" AnchorPane.rightAnchor="28.0" />
+                                          <Button fx:id="newCalibrationButton" disable="true" layoutX="426.0" layoutY="46.0" mnemonicParsing="false" onAction="#handleAddCalibrationOnChip" prefHeight="31.0" prefWidth="103.0" text="New Calibration" AnchorPane.rightAnchor="28.0" />
+                                          <Button fx:id="editCalibrationButton" disable="true" layoutX="426.0" layoutY="88.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="103.0" text="Edit Calibration" AnchorPane.rightAnchor="28.0" />
+                                          <Button fx:id="deleteCalibrationButton" disable="true" layoutX="426.0" layoutY="129.0" mnemonicParsing="false" onAction="#handleDeleteCalibrationOnChip" prefHeight="31.0" prefWidth="103.0" text="Del Calibration" AnchorPane.rightAnchor="28.0" />
                                        </children>
                                     </AnchorPane>
                                 </items>
