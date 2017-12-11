@@ -59,7 +59,10 @@ public class ChipOverviewController {
     private Button editCalibrationButton;
     @FXML
     private Button deleteCalibrationButton;
-
+    @FXML
+    private Button deleteFamilyButton;
+    @FXML
+    private Label famLabel;
 
     // Reference to the main application
     private MainApp mainApp;
@@ -239,6 +242,15 @@ public class ChipOverviewController {
                 alert.setContentText(e.getMessage());
 
                 alert.showAndWait();
+            }
+
+            if(familyLabel.getText()!=null){
+                deleteFamilyButton.setText("Change Family");
+                famLabel.setVisible(true);
+            }
+            else{
+                deleteFamilyButton.setText("Select Family");
+                famLabel.setVisible(false);
             }
         }
         portTableView.getSelectionModel().selectFirst();

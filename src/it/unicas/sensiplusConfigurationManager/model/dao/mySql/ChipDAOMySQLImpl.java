@@ -60,11 +60,19 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
             DAOMySQLSettings.closeStatement(st);
 
         } catch (SQLException e) {
-            throw new DAOException("In insert():" + e.getMessage());
+            e.getStackTrace();
         }
 
-        String sql = "INSERT INTO SPChip (idSPChip,SPFamily_idSPFamily) VALUES" +
-                "('"+a.getIdSPChip()+"',"+idfam+")";
+        String sql=null;
+
+        if(a.getId()=="No Family Associated") {
+            sql = "INSERT INTO SPChip (idSPChip,SPFamily_idSPFamily) VALUES" +
+                    "('" + a.getIdSPChip() + "',null)";
+        }
+        else {
+            sql = "INSERT INTO SPChip (idSPChip,SPFamily_idSPFamily) VALUES" +
+                    "('" + a.getIdSPChip() + "'," + idfam + ")";
+        }
 
         logger.info("SQL: " + sql);
 
@@ -96,9 +104,16 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
             e.getStackTrace();
         }
 
-        String sql=" UPDATE spchip SET " +
-                "SPFamily_idSPFamily="+idfam+" WHERE idSPChip='"+a.getIdSPChip()+"'";
+        String sql=null;
 
+        if(a.getId()=="No Family Associated") {
+            sql=" UPDATE spchip SET " +
+                    "SPFamily_idSPFamily=null WHERE idSPChip='"+a.getIdSPChip()+"'";
+        }
+        else {
+            sql = " UPDATE spchip SET " +
+                    "SPFamily_idSPFamily=" + idfam + " WHERE idSPChip='" + a.getIdSPChip() + "'";
+        }
         try {
             Statement st = DAOMySQLSettings.getStatement();
             int n = st.executeUpdate(sql);

@@ -44,7 +44,7 @@ public class ChipEditDialogController {
     @FXML
     private void initialize(){
 
-        //familyComboBox.getItems().addAll();
+        familyComboBox.getItems().addAll("No Family Associated");
         familyComboBox.valueProperty().addListener((ObservableValue observable, Object oldValue, Object newValue)->newValue.toString());
 
 
