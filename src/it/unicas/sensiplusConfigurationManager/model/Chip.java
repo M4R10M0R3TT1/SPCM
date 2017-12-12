@@ -37,7 +37,6 @@ public class Chip {
     public Chip(String idSPChip, String id){
         this.idSPChip= new SimpleStringProperty(idSPChip);
         this.id= new SimpleStringProperty(id);
-
     }
 
 

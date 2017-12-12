@@ -20,4 +20,5 @@ public interface DAOChip<T>{
     void deleteCalibrationOnChip(T a, String idChip,int idPort) throws DAOException;
     void deassociate(T a) throws DAOException;
     void editCalibrationOnChip(T a, String idChip, int s) throws DAOException;
+    List<T> selectCalibration()throws DAOException;
 }

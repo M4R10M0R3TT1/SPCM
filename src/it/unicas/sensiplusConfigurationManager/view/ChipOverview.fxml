@@ -92,9 +92,10 @@
                                                 <TableColumn fx:id="nColumn" prefWidth="85.0" text="n" />
                                             </columns>
                                           </TableView>
-                                          <Button fx:id="newCalibrationButton" disable="true" layoutX="426.0" layoutY="46.0" mnemonicParsing="false" onAction="#handleAddCalibrationOnChip" prefHeight="31.0" prefWidth="103.0" text="New Calibration" AnchorPane.rightAnchor="28.0" />
-                                          <Button fx:id="editCalibrationButton" disable="true" layoutX="426.0" layoutY="88.0" mnemonicParsing="false" onAction="#handleEditCalibrationOnChip" prefHeight="31.0" prefWidth="103.0" text="Edit Calibration" AnchorPane.rightAnchor="28.0" />
-                                          <Button fx:id="deleteCalibrationButton" disable="true" layoutX="426.0" layoutY="129.0" mnemonicParsing="false" onAction="#handleDeleteCalibrationOnChip" prefHeight="31.0" prefWidth="103.0" text="Del Calibration" AnchorPane.rightAnchor="28.0" />
+                                          <Button fx:id="newCalibrationButton" disable="true" layoutX="417.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddCalibrationOnChip" prefHeight="31.0" prefWidth="103.0" text="New Calibration" AnchorPane.rightAnchor="28.0" />
+                                          <Button fx:id="editCalibrationButton" disable="true" layoutX="417.0" layoutY="56.0" mnemonicParsing="false" onAction="#handleEditCalibrationOnChip" prefHeight="31.0" prefWidth="103.0" text="Edit Calibration" AnchorPane.rightAnchor="28.0" />
+                                          <Button fx:id="deleteCalibrationButton" disable="true" layoutX="417.0" layoutY="97.0" mnemonicParsing="false" onAction="#handleDeleteCalibrationOnChip" prefHeight="31.0" prefWidth="103.0" text="Del Calibration" AnchorPane.rightAnchor="28.0" />
+                                          <Button layoutX="417.0" layoutY="154.0" mnemonicParsing="false" onAction="#handleShowCalibrationManagement" prefHeight="31.0" prefWidth="103.0" text="Calibration " />
                                        </children>
                                     </AnchorPane>
                                 </items>

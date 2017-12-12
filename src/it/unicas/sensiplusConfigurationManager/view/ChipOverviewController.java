@@ -390,7 +390,6 @@ public class ChipOverviewController {
             alert.showAndWait();
         }
     }
-
     @FXML
     private void handleDeleteCalibrationOnChip(){
         int selectedIndex = portTableView.getSelectionModel().getSelectedIndex();
@@ -440,16 +439,6 @@ public class ChipOverviewController {
             alert.showAndWait();
         }
     }
-    private void setCalibrationButtons(Chip chip){
-        if (chip!=null){
-            editCalibrationButton.setDisable(false);
-            deleteCalibrationButton.setDisable(false);
-        }else{
-            editCalibrationButton.setDisable(true);
-            deleteCalibrationButton.setDisable(true);
-        }
-    }
-
     @FXML
     private void handleDeassociateChip(){
         Chip chip=chipTableView.getSelectionModel().getSelectedItem();
@@ -474,8 +463,23 @@ public class ChipOverviewController {
                 }
         }
     }
+    @FXML
+    private void handleShowCalibrationManagement(){
+        boolean okClicked = mainApp.showCalibrationManagementDialog();
+        if (okClicked){
+            showCalibrationDetails(portTableView.getSelectionModel().getSelectedItem());
+        }
+    }
 
-
+    private void setCalibrationButtons(Chip chip){
+        if (chip!=null){
+            editCalibrationButton.setDisable(false);
+            deleteCalibrationButton.setDisable(false);
+        }else{
+            editCalibrationButton.setDisable(true);
+            deleteCalibrationButton.setDisable(true);
+        }
+    }
 
 
 

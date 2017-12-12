@@ -345,4 +345,24 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
         }
     }
 
+    @Override
+    public List<Chip> selectCalibration() throws DAOException {
+        ArrayList<Chip> lista= new ArrayList<>();
+        try{
+            Statement st = DAOMySQLSettings.getStatement();
+            String sql = "SELECT * FROM spcalibration";
+
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                lista.add(new Chip(rs.getString("idSPCalibration"),
+                        rs.getString("name")));
+            }
+            DAOMySQLSettings.closeStatement(st);
+
+        }catch (SQLException sq) {
+            throw new DAOException("In selectClusterChip(): " + sq.getMessage());
+        }
+
+        return lista;
+    }
 }

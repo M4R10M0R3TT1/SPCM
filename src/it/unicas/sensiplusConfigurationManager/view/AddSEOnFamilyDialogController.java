@@ -95,8 +95,8 @@ public class AddSEOnFamilyDialogController {
             } catch (DAOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());
-                alert.setTitle("Error during DB interaction");
-                alert.setHeaderText("Error during insert ...");
+                alert.setTitle("Error during DB interaction ");
+                alert.setHeaderText("Error during insert ... ");
                 alert.setContentText(e.getMessage());
 
                 alert.showAndWait();
@@ -239,36 +239,4 @@ public class AddSEOnFamilyDialogController {
         return okClicked;
     }
 
-    //PROVA PER DEBUG
-    /*public void addfamilyButton(SensingElement sensingElement){
-        System.out.println("Questo è il contenuto di FamID: "+sensingElement);
-    }*/
-
-    /**
-     * Validates the user input in the text fields.
-     *
-     * @return true if the input is valid
-     */
-    /*private boolean isInputValid(boolean verifyLen) {
-        String errorMessage = "";
-
-        if (idAutoColumn.getText() == null || (verifyLen && idAutoColumn.getText().length() == 0)) {
-            errorMessage += "No valid Sensing Element Name!\n";
-        }
-
-        if (errorMessage.length() == 0) {
-            return true;
-        } else {
-            // Show the error message.
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initOwner(dialogStage);
-            alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
-            alert.setContentText(errorMessage);
-
-            alert.showAndWait();
-
-            return false;
-        }
-    }*/
 }

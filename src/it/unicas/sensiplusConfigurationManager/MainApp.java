@@ -51,9 +51,9 @@ public class MainApp extends Application {
     private ObservableList<Chip> calibrationChip=FXCollections.observableArrayList();
 
     //Observable List for NEW Dialog of Chip
-    private ObservableList<Chip> fam = FXCollections.observableArrayList();
     private ObservableList<String> addCalibrationOnChip=FXCollections.observableArrayList();
-
+    //Observable List for new Calibration
+    private ObservableList<Chip> calibration=FXCollections.observableArrayList();
 
     @Override
     public void start(Stage primaryStage) {
@@ -110,6 +110,10 @@ public class MainApp extends Application {
 
     public ObservableList<String> getAddCalibrationOnChip() {
         return addCalibrationOnChip;
+    }
+
+    public ObservableList<Chip> getCalibration() {
+        return calibration;
     }
 
     public void initRootLayout(){
@@ -518,6 +522,38 @@ public class MainApp extends Application {
             return false;
         }
     }
+
+    public boolean showCalibrationManagementDialog(){
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/CalibrationDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Calibration");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            CalibrationDialogController controller=loader.getController();
+            controller.setMainApp(this);
+            controller.setDialogStage(dialogStage);
+            controller.showCalibration();
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+            return controller.isOkClicked();
+
+        }catch (IOException e){
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
 
     /**
      * Closes the application.
