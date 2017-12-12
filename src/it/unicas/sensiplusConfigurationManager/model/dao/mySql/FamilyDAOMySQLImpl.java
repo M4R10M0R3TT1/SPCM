@@ -4,6 +4,7 @@ import it.unicas.sensiplusConfigurationManager.model.Family;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOFamily;
 
+import javax.xml.transform.Result;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -271,17 +272,55 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
 
     @Override
     public void deleteFamilyonSE(int t) throws DAOException {
-        String sql="DELETE FROM SPSensingElementOnFamily WHERE SPFamilyTemplate_idSPFamilyTemplate="+t;
         Statement st = null;
-        try {
+        String mt=null;
+        int i=0;
+        try{
+            String sql0="SELECT DISTINCT s.measureTechnique FROM spsensingelement s, spsensingelementonfamily sf " +
+                    "WHERE sf.SPSensingElement_idSPSensingElement=s.idSPSensingElement " +
+                    "AND sf.SPFamilyTemplate_idSPFamilyTemplate='"+t+"'";
             st = DAOMySQLSettings.getStatement();
-            int n = st.executeUpdate(sql);
+            ResultSet rs0=st.executeQuery(sql0);
+            while(rs0.next()){
+                mt=rs0.getString("measureTechnique");
+            }
+            st=null;
+            String sql1="SELECT sf.SPSensingElement_idSPSensingElement FROM spsensingelement s, spsensingelementonfamily sf, " +
+                    "spfamilytemplate ft, spfamily f, spfamily_has_spmeasuretechnique fm, spmeasuretechnique m " +
+                    "WHERE m.type='"+mt+"' AND m.idSPMeasureTechnique=fm.SPMeasureTechnique_idSPMeasureTechnique " +
+                    "AND fm.SPFamily_idSPFamily=f.idSPFamily AND ft.SPFamily_idSPFamily=f.idSPFamily " +
+                    "AND ft.idSPFamilyTemplate=sf.SPFamilyTemplate_idSPFamilyTemplate AND s.measureTechnique=m.type " +
+                    "AND s.idSPSensingElement=sf.SPSensingElement_idSPSensingElement";
 
+            st = DAOMySQLSettings.getStatement();
+            ResultSet rs1=st.executeQuery(sql1);
+            while(rs1.next()){
+                rs1.getString("SPSensingElement_idSPSensingElement");
+                i++;
+            }
+
+            if(i==1) {
+                String sql2="DELETE fm.* FROM spfamily_has_spmeasuretechnique fm, spfamily f, spsensingelementonfamily sf, spfamilytemplate ft, spmeasuretechnique m " +
+                        "WHERE ft.idSPFamilyTemplate="+t+" AND f.idSPFamily=ft.SPFamily_idSPFamily AND f.idSPFamily=fm.SPFamily_idSPFamily " +
+                        "AND fm.SPMeasureTechnique_idSPMeasureTechnique=m.idSPMeasureTechnique AND m.type='"+mt+"'";
+                st = DAOMySQLSettings.getStatement();
+                st.executeUpdate(sql2);
+
+                String sql = "DELETE FROM SPSensingElementOnFamily WHERE SPFamilyTemplate_idSPFamilyTemplate=" + t;
+                st = DAOMySQLSettings.getStatement();
+                st.executeUpdate(sql);
+            }
+            else{
+                String sql = "DELETE FROM SPSensingElementOnFamily WHERE SPFamilyTemplate_idSPFamilyTemplate=" + t;
+                st = DAOMySQLSettings.getStatement();
+                st.executeUpdate(sql);
+            }
             DAOMySQLSettings.closeStatement(st);
 
         } catch (SQLException e) {
-            throw new DAOException("In deleteFamilyonSE(): " + e.getMessage());
+            e.getStackTrace();
         }
+
     }
 
     @Override
@@ -294,25 +333,6 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             DAOMySQLSettings.closeStatement(st);
         } catch (SQLException e) {
             throw new DAOException("In deletePortOnFamily():  " + e.getMessage());
-        }
-    }
-
-    @Override
-    public void deleteTechniqueOnFamily(String mt, int f) throws DAOException {
-        System.out.println(mt + f);
-
-        String sql="DELETE fmt.* "+
-                   "FROM spfamily_has_spmeasuretechnique as fmt,SPMeasureTechnique as mt WHERE fmt.SPFamily_idSPFamily="+f+
-                   " AND fmt.SPMeasureTechnique_idSPMeasureTechnique=mt.idSPMeasureTechnique AND mt.type='"+mt+"'";
-        Statement st = null;
-        try {
-            st = DAOMySQLSettings.getStatement();
-            int n = st.executeUpdate(sql);
-
-            DAOMySQLSettings.closeStatement(st);
-
-        } catch (SQLException e) {
-            throw new DAOException("In deleteTechniqueOnFamily(): " + e.getMessage());
         }
     }
 
@@ -381,19 +401,6 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             e.printStackTrace();
         }
         return lista;
-    }
-
-    @Override
-    public void insertAddTechniqueOnFamily(Integer t, Integer f) throws DAOException {
-        String sql="INSERT INTO spfamily_has_spmeasuretechnique VALUE ("+f+","+t+")";
-        try {
-            Statement st = DAOMySQLSettings.getStatement();
-            int n = st.executeUpdate(sql);
-            DAOMySQLSettings.closeStatement(st);
-
-        } catch (SQLException e) {
-            throw new DAOException("In insertAddTechniqueOnFamily():  " + e.getMessage());
-        }
     }
 
     @Override

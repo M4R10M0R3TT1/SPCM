@@ -309,7 +309,7 @@ public class ChipOverviewController {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.initOwner(mainApp.getPrimaryStage());
                     alert.setTitle("No Sensing Element on Family ");
-                    alert.setHeaderText("No Sending Element is available for this Port.");
+                    alert.setHeaderText("No Sensing Element is available for this Port.");
                     alert.showAndWait();
                 }
 

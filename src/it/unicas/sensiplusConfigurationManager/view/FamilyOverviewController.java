@@ -59,8 +59,6 @@ public class FamilyOverviewController {
     private Button delSEButton;
     @FXML
     private Button delPortButton;
-    @FXML
-    private Button delmeasureTechniqueButton;
 
     // Reference to the main application
     private MainApp mainApp;
@@ -103,9 +101,6 @@ public class FamilyOverviewController {
 
         //spMeasureTechnique
         measureTechniqueTableColumn.setCellValueFactory(cellData->cellData.getValue().typeProperty());
-        measureTechniqueTableView.getSelectionModel().selectedItemProperty().addListener(
-                ((observable, oldValue, newValue) -> activationDelMeasureTechniqueButton(newValue))
-        );
 
     }
 
@@ -113,7 +108,7 @@ public class FamilyOverviewController {
         addSEButton.setDisable(true);
         delSEButton.setDisable(true);
         delPortButton.setDisable(true);
-        delmeasureTechniqueButton.setDisable(true);
+
         if(family!=null) {
             idLabel.setText(family.getId());
             nameLabel.setText(family.getName());
@@ -361,55 +356,6 @@ public class FamilyOverviewController {
             }*/
         }
     }
-    //DELETE measureTechnique --- elimina l'associazione tra famiglia e measureTechnique
-    @FXML
-    private  void handleDelTechniqueOnFamily() {
-            int selectedIndex = measureTechniqueTableView.getSelectionModel().getSelectedIndex();
-            String selTechnique = measureTechniqueTableView.getSelectionModel().getSelectedItem().getType();
-            Family selFamily = familyTableView.getSelectionModel().getSelectedItem();
-
-            //System.out.println(selFamily.getIdSPFamily());
-           // if(selTechnique!=null){
-            //--------DELETION CONFIRMATION DIALOG--------
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Are you sure?");
-            //---To add an icon to the alert
-            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-            stage.getIcons().add(new Image("file:resources/images/favicon.png"));
-            //---
-            alert.setHeaderText("WARNING:\n" +
-                    "Read carefully before choosing the action!!!");
-            alert.setContentText("You are about to DELETE a MeasureTechnique from the selected Family, are you sure you want to continue?");
-
-            ButtonType buttonTypeOne = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-            alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
-
-            Optional<ButtonType> result = alert.showAndWait();
-            //---------------------------------------------
-            if (result.get() == buttonTypeOne) {
-
-                    try {
-                        FamilyDAOMySQLImpl.getInstance().deleteTechniqueOnFamily(selTechnique, selFamily.getIdSPFamily());
-                        //measureTechniqueTableView.getItems().remove(selectedIndex);
-                        showFamilyDetails(selFamily);
-                    } catch (DAOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            /*}else {
-                // Nothing selected.
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-
-                alert.initOwner(mainApp.getPrimaryStage());
-                alert.setTitle("No Selection");
-                alert.setHeaderText("No measureTechnique Selected");
-                alert.setContentText("Please select a measureTechnique in the table.");
-
-                alert.showAndWait();
-            }*/
-    }
 
     public void activationButtons(Family port) {
         if (port != null) {
@@ -423,14 +369,6 @@ public class FamilyOverviewController {
                 delPortButton.setDisable(false);
             }
 
-        }
-    }
-
-    public void activationDelMeasureTechniqueButton(Family technique){
-        if(technique!=null){
-            if(technique.getType()!=null){
-                delmeasureTechniqueButton.setDisable(false);
-            }
         }
     }
 

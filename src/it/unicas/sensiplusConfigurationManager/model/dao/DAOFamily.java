@@ -17,12 +17,10 @@ public interface DAOFamily <T>{
     List<T> selectAddPortOnFamily(T a) throws  DAOException;
     List<T> selectAddTechniqueOnFamily(T a) throws DAOException;
     List<T> selectPortOnChip(String a) throws DAOException;
-    void insertAddTechniqueOnFamily(Integer t, Integer f) throws DAOException;
     void insertAddPortOnFamily(Integer a,Integer f) throws DAOException;
     void insertFamilyonSE(int f, int p, String se) throws DAOException;
     void deleteFamilyonSE(int t) throws DAOException;
     void deletePortOnFamily(int p, int f) throws  DAOException;
-    void deleteTechniqueOnFamily(String mt,int f) throws DAOException;
     void update(T a) throws DAOException;
     void insert(T a) throws  DAOException;
     void delete(T a) throws DAOException;

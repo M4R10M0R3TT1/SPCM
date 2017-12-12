@@ -77,26 +77,6 @@ public class AddTechniqueOnFamilyDialogController {
             }
         }
 
-        @FXML
-        private void handleAdd() {
-            Family selMeasureTechnique = measureTechniqueTableView.getSelectionModel().getSelectedItem();
-            int idfamily=Integer.parseInt(idFamilyLabel.getText());
-            if (selMeasureTechnique != null) {
-                try {
-                    FamilyDAOMySQLImpl.getInstance().insertAddTechniqueOnFamily(selMeasureTechnique.getIdSPMeasureTechnique(),idfamily);
-                } catch (DAOException e) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.initOwner(mainApp.getPrimaryStage());
-                    alert.setTitle("Error during DB interaction ");
-                    alert.setHeaderText("Error during insert...  ");
-                    alert.setContentText(e.getMessage());
-                    alert.showAndWait();
-                }
-                okClicked=true;
-                dialogStage.close();
-            }
-        }
-
         public void setTechnique(Family family){
             this.family=family;
             showMeasureTechnique(family);
