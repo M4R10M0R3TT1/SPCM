@@ -365,4 +365,33 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
 
         return lista;
     }
+
+    @Override
+    public void insertCalibration(String a) throws DAOException {
+
+        try {
+            Statement st = DAOMySQLSettings.getStatement();
+            String sql="INSERT INTO spcalibration VALUES (null,'"+a+"')";
+            int n = st.executeUpdate(sql);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In insertCalibration():" + e.getMessage());
+        }
+    }
+
+    @Override
+    public void updateCalibration(String a, Integer b) throws DAOException {
+        try {
+            Statement st = DAOMySQLSettings.getStatement();
+            String sql="Update  spcalibration SET name='"+a+"' WHERE idSPCalibration="+b+"";
+            int n = st.executeUpdate(sql);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In updateCalibration():" + e.getMessage());
+        }
+    }
 }

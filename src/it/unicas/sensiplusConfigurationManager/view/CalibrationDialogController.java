@@ -61,6 +61,7 @@ public class CalibrationDialogController {
             List<Chip> list = ChipDAOMySQLImpl.getInstance().selectCalibration();
             mainApp.getCalibration().clear();
             mainApp.getCalibration().addAll(list);
+            calibrationTableView.getSelectionModel().selectFirst();
 
         } catch (DAOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -72,7 +73,77 @@ public class CalibrationDialogController {
             alert.showAndWait();
 
         }
+
     }
 
+    @FXML
+    private void handleTextFieldControl(){
+        if (calibrationTextField.getLength()==0)
+        {
+            newButton.setDisable(true);
+        }else{
+            newButton.setDisable(false);
+        }
+    }
+    @FXML
+    private void handleNew(){
+
+        if(newButton.getText()=="Confirm"){
+            try {
+                ChipDAOMySQLImpl.getInstance().updateCalibration(calibrationTextField.getText(),Integer.parseInt(calibrationTableView.getSelectionModel().getSelectedItem().getIdSPChip()));
+            } catch (DAOException e) {
+                e.printStackTrace();
+            }
+            calibrationTextField.setText(null);
+            calibrationTextField.setDisable(true);
+            newButton.setText("New");
+            editButton.setText("Edit");
+            deleteButton.setDisable(false);
+            calibrationTableView.setDisable(false);
+            showCalibration();
+        }else if(newButton.getText()=="Add"){
+            try {
+                ChipDAOMySQLImpl.getInstance().insertCalibration(calibrationTextField.getText());
+            } catch (DAOException e) {
+                e.printStackTrace();
+            }
+            calibrationTextField.setText(null);
+            calibrationTextField.setDisable(true);
+            newButton.setText("New");
+            editButton.setText("Edit");
+            deleteButton.setDisable(false);
+            calibrationTableView.setDisable(false);
+            newButton.setDisable(true);
+            showCalibration();
+        }else{
+            calibrationTextField.setDisable(false);
+            newButton.setText("Add");
+            editButton.setText("Cancel");
+            deleteButton.setDisable(true);
+            calibrationTableView.setDisable(true);
+            newButton.setDisable(true);
+        }
+    }
+
+    @FXML
+    private void handleEdit() {
+        if (editButton.getText() == "Cancel") {
+            calibrationTextField.setText(null);
+            calibrationTextField.setDisable(true);
+            newButton.setText("New");
+            editButton.setText("Edit");
+            deleteButton.setDisable(false);
+            calibrationTableView.setDisable(false);
+            newButton.setDisable(false);
+        } else {
+            calibrationTextField.setText(calibrationTableView.getSelectionModel().getSelectedItem().getId());
+            calibrationTextField.setDisable(false);
+            newButton.setText("Confirm");
+            editButton.setText("Cancel");
+            deleteButton.setDisable(true);
+            calibrationTableView.setDisable(true);
+        }
+
+    }
 
 }

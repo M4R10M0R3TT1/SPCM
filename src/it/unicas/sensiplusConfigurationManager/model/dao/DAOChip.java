@@ -21,4 +21,6 @@ public interface DAOChip<T>{
     void deassociate(T a) throws DAOException;
     void editCalibrationOnChip(T a, String idChip, int s) throws DAOException;
     List<T> selectCalibration()throws DAOException;
+    void insertCalibration(String a)throws DAOException;
+    void updateCalibration(String a, Integer b)throws DAOException;
 }
