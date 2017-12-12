@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public class CalibrationDialogController {
@@ -48,8 +49,8 @@ public class CalibrationDialogController {
 
     @FXML
     private void initialize(){
-        idColumn.setCellValueFactory(cellData->cellData.getValue().idSPChipProperty());
-        calibrationColumn.setCellValueFactory((cellDeta->cellDeta.getValue().id()));
+        idColumn.setCellValueFactory(cellData->cellData.getValue().idCalibrationProperty().asString());
+        calibrationColumn.setCellValueFactory((cellDeta->cellDeta.getValue().nameCalibrationProperty()));
     }
 
     public boolean isOkClicked(){
@@ -90,7 +91,7 @@ public class CalibrationDialogController {
 
         if(newButton.getText()=="Confirm"){
             try {
-                ChipDAOMySQLImpl.getInstance().updateCalibration(calibrationTextField.getText(),Integer.parseInt(calibrationTableView.getSelectionModel().getSelectedItem().getIdSPChip()));
+                ChipDAOMySQLImpl.getInstance().updateCalibration(calibrationTextField.getText(),calibrationTableView.getSelectionModel().getSelectedItem().getIdCalibration());
             } catch (DAOException e) {
                 e.printStackTrace();
             }
@@ -101,6 +102,7 @@ public class CalibrationDialogController {
             deleteButton.setDisable(false);
             calibrationTableView.setDisable(false);
             showCalibration();
+            okClicked=true;
         }else if(newButton.getText()=="Add"){
             try {
                 ChipDAOMySQLImpl.getInstance().insertCalibration(calibrationTextField.getText());
@@ -113,8 +115,9 @@ public class CalibrationDialogController {
             editButton.setText("Edit");
             deleteButton.setDisable(false);
             calibrationTableView.setDisable(false);
-            newButton.setDisable(true);
+            newButton.setDisable(false);
             showCalibration();
+            okClicked=true;
         }else{
             calibrationTextField.setDisable(false);
             newButton.setText("Add");
@@ -136,7 +139,7 @@ public class CalibrationDialogController {
             calibrationTableView.setDisable(false);
             newButton.setDisable(false);
         } else {
-            calibrationTextField.setText(calibrationTableView.getSelectionModel().getSelectedItem().getId());
+            calibrationTextField.setText(calibrationTableView.getSelectionModel().getSelectedItem().getNameCalibration());
             calibrationTextField.setDisable(false);
             newButton.setText("Confirm");
             editButton.setText("Cancel");
@@ -144,6 +147,39 @@ public class CalibrationDialogController {
             calibrationTableView.setDisable(true);
         }
 
+
+    }
+
+    @FXML
+    private void handleDelete() {
+        Integer id = calibrationTableView.getSelectionModel().getSelectedItem().getIdCalibration();
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Are you sure?");
+        //---To add an icon to the alert
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("file:resources/images/favicon.png"));
+        //---
+        alert.setHeaderText("WARNING:\n" +
+                "Read carefully before choosing the action!!!");
+        alert.setContentText("This calibrations will be lost, are you sure you want to continue?");
+
+        ButtonType buttonTypeOne = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        //---------------------------------------------
+        if (result.get() == buttonTypeOne) {
+
+            try {
+                ChipDAOMySQLImpl.getInstance().deleteCalibration(id);
+            } catch (DAOException e) {
+                e.printStackTrace();
+            }
+            showCalibration();
+            okClicked=true;
+        }
     }
 
 }

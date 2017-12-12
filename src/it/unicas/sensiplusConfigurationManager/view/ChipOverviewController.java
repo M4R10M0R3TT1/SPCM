@@ -467,7 +467,7 @@ public class ChipOverviewController {
     private void handleShowCalibrationManagement(){
         boolean okClicked = mainApp.showCalibrationManagementDialog();
         if (okClicked){
-            showCalibrationDetails(portTableView.getSelectionModel().getSelectedItem());
+            showChipDetails(chipTableView.getSelectionModel().getSelectedItem());
         }
     }
 

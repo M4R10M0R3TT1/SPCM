@@ -23,4 +23,5 @@ public interface DAOChip<T>{
     List<T> selectCalibration()throws DAOException;
     void insertCalibration(String a)throws DAOException;
     void updateCalibration(String a, Integer b)throws DAOException;
+    void deleteCalibration(Integer id) throws DAOException;
 }

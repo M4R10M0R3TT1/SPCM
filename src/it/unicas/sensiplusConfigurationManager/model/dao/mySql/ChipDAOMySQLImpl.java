@@ -354,8 +354,9 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
 
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                lista.add(new Chip(rs.getString("idSPCalibration"),
-                        rs.getString("name")));
+                lista.add(new Chip(rs.getInt("idSPCalibration"),
+                        rs.getString("name"),
+                        0,0));
             }
             DAOMySQLSettings.closeStatement(st);
 
@@ -393,5 +394,23 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
         } catch (SQLException e) {
             throw new DAOException("In updateCalibration():" + e.getMessage());
         }
+    }
+
+    @Override
+    public void deleteCalibration(Integer id) throws DAOException {
+        String sql = "DELETE FROM spcalibration WHERE idSPCalibration = "+id+"";
+
+        Statement st = null;
+        try {
+            st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In deleteCalibration(): " + e.getMessage());
+        }
+
+
     }
 }
