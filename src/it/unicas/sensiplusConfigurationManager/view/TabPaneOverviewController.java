@@ -16,6 +16,8 @@ public class TabPaneOverviewController {
     private AnchorPane familyAnchorPane;
     @FXML
     private AnchorPane chipAnchorPane;
+    @FXML
+    private AnchorPane clusterAnchorPane;
 
 
     private MainApp mainApp;
@@ -25,9 +27,10 @@ public class TabPaneOverviewController {
         showSEOverview();
         showFamilyOverview();
         showChipOverview();
+        showClusterOverview();
     }
 
-   public void showSEOverview(){
+    public void showSEOverview(){
         try {
             // Load SEOverview.
             FXMLLoader loader = new FXMLLoader();
@@ -38,18 +41,13 @@ public class TabPaneOverviewController {
             //setCenter(SEOverview);
             seAnchorPane.getChildren().add(SEOverview);
 
-
-
             // Give the controller access to the main app.
-            // SEOverviewController controller = loader.getController();
             SEOverviewController controller=loader.getController();
             controller.setMainApp(this.mainApp);
-
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
     public void showFamilyOverview(){
         try {
@@ -62,18 +60,13 @@ public class TabPaneOverviewController {
             //setCenter(FamilyOverview);
             familyAnchorPane.getChildren().add(FamilyOverview);
 
-
-
             // Give the controller access to the main app.
-
             FamilyOverviewController controller=loader.getController();
             controller.setMainApp(this.mainApp);
-
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public void showChipOverview(){
@@ -87,13 +80,29 @@ public class TabPaneOverviewController {
             //setCenter(ChipOverview);
             chipAnchorPane.getChildren().add(ChipOverview);
 
-
-
             // Give the controller access to the main app.
-
             ChipOverviewController controller=loader.getController();
             controller.setMainApp(this.mainApp);
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public void showClusterOverview(){
+        try {
+            // Load ClusterOverview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/ClusterOverview.fxml"));
+            AnchorPane ClusterOverview = (AnchorPane) loader.load();
+
+            // Set ClusterOverview into the center of root layout.
+            //setCenter(ClusterOverview);
+            clusterAnchorPane.getChildren().add(ClusterOverview);
+
+            // Give the controller access to the main app.
+            ClusterOverviewController controller=loader.getController();
+            controller.setMainApp(this.mainApp);
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -5,14 +5,13 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="530.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.ClusterOverview">
+<AnchorPane prefHeight="530.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.ClusterOverviewController">
    <children>
       <SplitPane dividerPositions="0.24276169265033407" prefHeight="530.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TableView prefHeight="528.0" prefWidth="205.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="clusterTableView" prefHeight="528.0" prefWidth="205.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                       <TableColumn fx:id="clusterColumn" prefWidth="108.0" text="Cluster" />
                       <TableColumn fx:id="calibrationColumn" prefWidth="106.0" text="Calibration" />
@@ -22,24 +21,53 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="528.0" prefWidth="653.0">
                <children>
-                  <SplitPane dividerPositions="0.5798479087452472" orientation="VERTICAL" prefHeight="528.0" prefWidth="677.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <SplitPane dividerPositions="0.42585551330798477" orientation="VERTICAL" prefHeight="528.0" prefWidth="677.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <TableView prefHeight="239.0" prefWidth="675.0" AnchorPane.bottomAnchor="63.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TableView fx:id="configurationTableView" prefHeight="217.0" prefWidth="674.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
-                                  <TableColumn prefWidth="88.0" text="Configuration" />
-                                  <TableColumn prefWidth="71.0" text="Driver" />
-                                    <TableColumn prefWidth="102.0" text="Host Controller" />
-                                    <TableColumn prefWidth="83.0" text="Api Owner" />
-                                    <TableColumn prefWidth="70.0" text="MCU" />
-                                    <TableColumn prefWidth="73.0" text="Protocol" />
-                                    <TableColumn prefWidth="187.0" text="Address Type" />
+                                  <TableColumn fx:id="idConfigurationColumn" prefWidth="88.0" text="Configuration" />
+                                  <TableColumn fx:id="driverColumn" prefWidth="71.0" text="Driver" />
+                                    <TableColumn fx:id="hostControllerColumn" prefWidth="93.0" text="Host Controller" />
+                                    <TableColumn fx:id="apiOwnerColumn" prefWidth="92.0" text="Api Owner" />
+                                    <TableColumn fx:id="MCUColumn" prefWidth="70.0" text="MCU" />
+                                    <TableColumn fx:id="protocolColumn" prefWidth="73.0" text="Protocol" />
+                                    <TableColumn fx:id="addressTypeColumn" prefWidth="187.0" text="Address Type" />
                                 </columns>
                               </TableView>
                            </children>
                         </AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="224.0" prefWidth="675.0" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="224.0" prefWidth="675.0">
+                           <children>
+                              <SplitPane dividerPositions="0.29797979797979796" layoutX="237.0" layoutY="69.0" prefHeight="298.0" prefWidth="674.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <items>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                       <children>
+                                          <TableView fx:id="chipTableView" layoutX="-2.0" layoutY="36.0" prefHeight="296.0" prefWidth="196.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columns>
+                                              <TableColumn fx:id="chipColumn" prefWidth="97.0" text="Chip" />
+                                              <TableColumn fx:id="familyColumn" prefWidth="98.0" text="Family" />
+                                            </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                       <children>
+                                          <TableView fx:id="portTableView" layoutX="56.0" prefHeight="296.0" prefWidth="468.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columns>
+                                              <TableColumn fx:id="portColumn" prefWidth="75.0" text="Port" />
+                                              <TableColumn fx:id="occupiedbyColumn" prefWidth="110.0" text="Occupied By" />
+                                                <TableColumn fx:id="mColumn" prefWidth="63.0" text="m" />
+                                                <TableColumn fx:id="nColumn" prefWidth="74.0" text="n" />
+                                                <TableColumn fx:id="measureTechniqueColumn" prefWidth="145.0" text="Measure Technique" />
+                                            </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                </items>
+                              </SplitPane>
+                           </children></AnchorPane>
                     </items>
                   </SplitPane>
                </children>
