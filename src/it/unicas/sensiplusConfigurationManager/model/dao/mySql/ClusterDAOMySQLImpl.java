@@ -13,8 +13,9 @@ import java.util.List;
 import java.util.logging.Logger;
 
 /**
- * Created by Antonio on 13/12/2017.
+ * Created by Fernando e Damiano entrambi Di Tano on 13/12/2017.
  */
+
 public class ClusterDAOMySQLImpl implements DAOCluster<Cluster> {
     private ClusterDAOMySQLImpl(){
     }
@@ -58,5 +59,32 @@ public class ClusterDAOMySQLImpl implements DAOCluster<Cluster> {
         return lista;
     }
 
+    @Override
+    public List<Cluster> selectConfiguration(Cluster a) throws DAOException {
+        ArrayList<Cluster> lista = new ArrayList<>();
+        try{
+            Statement st = DAOMySQLSettings.getStatement();
+            String sql ="SELECT conf.* FROM spcluster c, spconfiguration conf WHERE c.idCluster=conf.idCluster";
 
+            ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                lista.add(new Cluster(null,
+                        0,
+                        null,
+                        rs.getInt("idSPConfiguration"),
+                        rs.getString("driver"),
+                        rs.getString("hostController"),
+                        rs.getString("apiOwner"),
+                        rs.getString("mcu"),
+                        rs.getString("protocol"),
+                        rs.getString("addressingType")));
+            }
+            DAOMySQLSettings.closeStatement(st);
+
+        }catch (SQLException sq) {
+            throw new DAOException("In selectConfiguration(Cluster a): " + sq.getMessage());
+        }
+        return lista;
+    }
 }

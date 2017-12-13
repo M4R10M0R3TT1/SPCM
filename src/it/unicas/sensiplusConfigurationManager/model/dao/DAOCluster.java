@@ -7,4 +7,5 @@ import java.util.List;
  */
 public interface DAOCluster<T> {
     List<T> select(T a) throws DAOException;
+    List<T> selectConfiguration(T a) throws DAOException;
 }
