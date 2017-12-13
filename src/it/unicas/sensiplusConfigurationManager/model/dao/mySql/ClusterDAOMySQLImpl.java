@@ -144,4 +144,21 @@ public class ClusterDAOMySQLImpl implements DAOCluster<Cluster> {
         }
         return lista;
     }
+
+    @Override
+    public void delete(Cluster c) throws DAOException{
+        String sql = "DELETE FROM spcluster WHERE idCluster='" + c.getIdCluster() + "'";
+        logger.info("SQL: " + sql);
+
+        Statement st = null;
+        try {
+            st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In delete(): " + e.getMessage());
+        }
+    }
 }
