@@ -229,7 +229,7 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
         int t = 0;
         try {
             String sql0 = "SELECT sf.SPFamilyTemplate_idSPFamilyTemplate FROM spsensingelementonfamily sf " +
-                    "WHERE sf.SPSensingElement_idSPSensingElement='OFFCHIP_VOC1'";
+                    "WHERE sf.SPSensingElement_idSPSensingElement='"+se+"'";
             st = DAOMySQLSettings.getStatement();
             ResultSet rs0 = st.executeQuery(sql0);
             while (rs0.next()) {
