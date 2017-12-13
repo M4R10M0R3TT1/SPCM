@@ -25,6 +25,7 @@ public class Cluster {
     private StringProperty b;
 
 
+
     //Default constructor
     public Cluster(){this(null,0,null,0,null,null,null,null,null,null);}
 
@@ -46,6 +47,8 @@ public class Cluster {
         this.a=new SimpleStringProperty(a);
         this.b=new SimpleStringProperty(b);
     }
+
+
 
     public String getIdCluster() {
         return idCluster.get();

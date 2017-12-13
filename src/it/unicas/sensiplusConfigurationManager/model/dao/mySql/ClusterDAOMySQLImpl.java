@@ -35,7 +35,7 @@ public class ClusterDAOMySQLImpl implements DAOCluster<Cluster> {
         ArrayList<Cluster> lista = new ArrayList<>();
         try{
             Statement st = DAOMySQLSettings.getStatement();
-            String sql ="SELECT * FROM spcluster ";
+            String sql ="SELECT DISTINCT idCluster FROM spcluster ";
 
             ResultSet rs = st.executeQuery(sql);
 
@@ -64,7 +64,7 @@ public class ClusterDAOMySQLImpl implements DAOCluster<Cluster> {
         ArrayList<Cluster> lista = new ArrayList<>();
         try{
             Statement st = DAOMySQLSettings.getStatement();
-            String sql ="SELECT conf.* FROM spcluster c, spconfiguration conf WHERE c.idCluster=conf.idCluster" +
+            String sql ="SELECT DISTINCT conf.* FROM spcluster c, spconfiguration conf WHERE c.idCluster=conf.idCluster" +
                     " AND c.idCluster='"+a.getIdCluster()+"'";
 
             ResultSet rs = st.executeQuery(sql);
@@ -105,6 +105,37 @@ public class ClusterDAOMySQLImpl implements DAOCluster<Cluster> {
                 lista.add(new Cluster(rs.getString("idSPChip"),
                         rs.getString("id"))
                         );
+            }
+            DAOMySQLSettings.closeStatement(st);
+
+        }catch (SQLException sq) {
+            throw new DAOException("In selectChip(Cluster a): " + sq.getMessage());
+        }
+        return lista;
+    }
+
+    @Override
+    public List<Cluster> selectCalibration(Cluster a) throws DAOException {
+        ArrayList<Cluster> lista = new ArrayList<>();
+        try{
+            Statement st = DAOMySQLSettings.getStatement();
+            String sql ="SELECT cal.* FROM  spcalibration cal, spcluster c" +
+                    " WHERE c.SPCalibration_idSPCalibration=cal.idSPCalibration AND c.idCluster='"+a.getIdCluster()+"'";
+
+            ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                lista.add(new Cluster(null,
+                        rs.getInt("idSPCalibration"),
+                        rs.getString("name"),
+                        0,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null)
+                );
             }
             DAOMySQLSettings.closeStatement(st);
 
