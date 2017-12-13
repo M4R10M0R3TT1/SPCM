@@ -64,7 +64,8 @@ public class ClusterDAOMySQLImpl implements DAOCluster<Cluster> {
         ArrayList<Cluster> lista = new ArrayList<>();
         try{
             Statement st = DAOMySQLSettings.getStatement();
-            String sql ="SELECT conf.* FROM spcluster c, spconfiguration conf WHERE c.idCluster=conf.idCluster";
+            String sql ="SELECT conf.* FROM spcluster c, spconfiguration conf WHERE c.idCluster=conf.idCluster" +
+                    " AND c.idCluster='"+a.getIdCluster()+"'";
 
             ResultSet rs = st.executeQuery(sql);
 
@@ -86,5 +87,10 @@ public class ClusterDAOMySQLImpl implements DAOCluster<Cluster> {
             throw new DAOException("In selectConfiguration(Cluster a): " + sq.getMessage());
         }
         return lista;
+    }
+
+    @Override
+    public List<Cluster> selectChip(Cluster a) throws DAOException {
+        return null;
     }
 }
