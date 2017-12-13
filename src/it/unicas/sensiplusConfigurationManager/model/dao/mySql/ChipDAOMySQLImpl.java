@@ -35,7 +35,8 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
 
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                lista.add(new Chip(rs.getString("idSPChip")));
+                lista.add(new Chip(rs.getString("idSPChip"),
+                        null));
             }
             DAOMySQLSettings.closeStatement(st);
 
@@ -173,7 +174,8 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
 
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                lista.add(new Chip(rs.getString("idCluster")));
+                lista.add(new Chip(rs.getString("idCluster"),
+                        null));
             }
             DAOMySQLSettings.closeStatement(st);
 

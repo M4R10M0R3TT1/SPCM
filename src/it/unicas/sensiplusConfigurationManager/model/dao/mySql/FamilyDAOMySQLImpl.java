@@ -95,7 +95,8 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()) {
                 lista.add(new Family(
-                        rs.getString("type")));
+                        rs.getString("type"),
+                        0));
             }
         } catch (SQLException sq) {
             throw new DAOException("In selectMeasureTechnique(): " + sq.getMessage());
@@ -200,7 +201,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
         try{
             Statement st=DAOMySQLSettings.getStatement();
 
-            String sql="SELECT DISTINCT f.idSPFamily,f.id,f.name FROM SPFamily f INNER JOIN SPFamilyTemplate ft, SPSensingElementOnFamily sf\n" +
+            String sql="SELECT DISTINCT f.idSPFamily,f.name,f.id FROM SPFamily f INNER JOIN SPFamilyTemplate ft, SPSensingElementOnFamily sf\n" +
                     "WHERE ft.SPFamily_idSPFamily=ALL(select distinct ft.SPFamily_idSPFamily from spfamily f, spfamilytemplate ft, spsensingelementonfamily sf\n" +
                     "where sf.SPSensingElement_idSPSensingElement='"+a+"' AND sf.SPFamilyTemplate_idSPFamilyTemplate=ft.idSPFamilyTemplate)\n" +
                     "\n" +
@@ -213,8 +214,12 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             while(rs.next()){
                 lista.add(new Family(
                         rs.getInt("idSPFamily"),
+                        rs.getString("name"),
                         rs.getString("id"),
-                        rs.getString("name")));
+                        null,
+                        null,
+                        null
+                       ));
             }
             DAOMySQLSettings.closeStatement(st);
         } catch (SQLException e) {
@@ -246,7 +251,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
         try{
             Statement st=DAOMySQLSettings.getStatement();
 
-            String sql="SELECT p.idSPPort,p.name,p.internal FROM SPPort p,SPFamilyTemplate ft " +
+            String sql="SELECT p.idSPPort,p.internal,p.name FROM SPPort p,SPFamilyTemplate ft " +
                     "WHERE ft.SPFamily_idSPFamily="+famSelected+" AND ft.idSPFamilyTemplate!=ALL(SELECT ft.idSPFamilyTemplate " +
                     "FROM SPFamilyTemplate ft,SPSensingElementOnFamily sf " +
                     "WHERE ft.SPFamily_idSPFamily="+famSelected+" " +
@@ -257,8 +262,9 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             while(rs.next()){
                 lista.add(new Family(
                         rs.getInt("idSPPort"),
+                        rs.getBoolean("internal"),
                         rs.getString("name"),
-                        rs.getBoolean("internal")));
+                        null));
             }
 
             DAOMySQLSettings.closeStatement(st);
@@ -343,7 +349,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
         try{
             Statement st=DAOMySQLSettings.getStatement();
 
-            String sql="SELECT p.idSPPort,p.name,p.internal FROM SPPort p "+
+            String sql="SELECT p.idSPPort,p.internal,p.name FROM SPPort p "+
                        "WHERE p.idSPPort!=ALL(SELECT ft.SPPort_idSPPort FROM SPFamilyTemplate ft "+
                        "WHERE ft.SPFamily_idSPFamily='"+famSelected+"')GROUP BY p.idSPPort,p.name,p.internal";
 
@@ -352,8 +358,10 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             while(rs.next()){
                 lista.add(new Family(
                         rs.getInt("idSPPort"),
+                        rs.getBoolean("internal"),
                         rs.getString("name"),
-                        rs.getBoolean("internal")));
+                        null
+                        ));
             }
 
             DAOMySQLSettings.closeStatement(st);

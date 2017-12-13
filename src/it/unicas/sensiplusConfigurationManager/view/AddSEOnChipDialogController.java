@@ -20,7 +20,7 @@ public class AddSEOnChipDialogController {
     private boolean verifyLen=true;
     private boolean okClicked=false;
     private MainApp mainApp;
-    private Chip chip=new Chip(null);
+    private Chip chip=new Chip(null,null);
 
     @FXML
     private TextField seTextField;

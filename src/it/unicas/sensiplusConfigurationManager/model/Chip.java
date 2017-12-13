@@ -15,9 +15,9 @@ public class Chip {
     //Default constructor
     public Chip(){this(null,null);}
 
-    public Chip(String idSPChip){
+    public Chip(String idSPChip,String id){
         this.idSPChip=new SimpleStringProperty(idSPChip);
-        this.id=new SimpleStringProperty(null);
+        this.id=new SimpleStringProperty(id);
         this.cluster=new SimpleStringProperty(null);
         this.m=new SimpleIntegerProperty(0);
         this.n=new SimpleIntegerProperty(0);
@@ -33,11 +33,11 @@ public class Chip {
 
     }
 
-    //Chip NEW Constructor
+    /*//Chip NEW Constructor
     public Chip(String idSPChip, String id){
         this.idSPChip= new SimpleStringProperty(idSPChip);
         this.id= new SimpleStringProperty(id);
-    }
+    }*/
 
 
     public String getIdSPChip() {

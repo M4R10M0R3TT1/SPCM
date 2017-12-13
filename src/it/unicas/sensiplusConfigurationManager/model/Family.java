@@ -31,8 +31,7 @@ public class Family {
 
     //Default constructor
     public Family(){
-        this(0,null);
-    }
+        this(0,null,null,null,null,null);  }
 
     public Family(Integer idSPFamily,String name,String id,String hwVersion,String sysclock,String osctrim){
         this.idSPFamily=new SimpleIntegerProperty(idSPFamily);
@@ -44,14 +43,14 @@ public class Family {
     }
 
     //costruttore select
-    public Family(Integer idSPFamily,String id){
+  /*  public Family(Integer idSPFamily,String id){
         this.idSPFamily=new SimpleIntegerProperty(idSPFamily.intValue());
         this.id=new SimpleStringProperty(id);
         this.name=new SimpleStringProperty("");
         this.hwVersion=new SimpleStringProperty("");
         this.sysclock=new SimpleStringProperty("");
         this.osctrim = new SimpleStringProperty("");
-    }
+    }*/
 
     //costruttore spPort
     public Family(Integer idSPPort,Boolean internal,String portName, String se){
@@ -62,9 +61,9 @@ public class Family {
     }
 
     //costruttore spMeasureTechnique
-    public Family(String type){
+   /* public Family(String type){
         this.type=new SimpleStringProperty(type);
-    }
+    }*/
 
     //Stavano in Sensing Element----------------------------------------
 
@@ -78,11 +77,11 @@ public class Family {
     }
 
     //costruttore availablePort e AddPortOnFamily
-    public Family(Integer id, String name, Boolean internal){
+   /* public Family(Integer id, String name, Boolean internal){
         this.idSPPort= new SimpleIntegerProperty(id);
         this.portName= new SimpleStringProperty(name);
         this.internal= new SimpleBooleanProperty(internal);
-    }
+    }*/
 
     //costruttore addTechniqueOnFamily
     public Family(String type,Integer idSPMeasureTechnique){
@@ -91,11 +90,12 @@ public class Family {
     }
 
     //Constructor for SEonFamily
-    public Family(Integer id, String family_id, String family_Name){
+   /* public Family(Integer id, String family_Name, String family_id){
         this.idSPFamily=new SimpleIntegerProperty(id);
-        this.id=new SimpleStringProperty(family_id);
         this.name=new SimpleStringProperty(family_Name);
-    }
+        this.id=new SimpleStringProperty(family_id);
+
+    }*/
 
     //-------------------------------------------------------------------
 

@@ -109,7 +109,7 @@ public class ChipOverviewController {
 
     @FXML
     private void handleReadDB(){
-        Chip tempChip = new Chip("");
+        Chip tempChip = new Chip("","");
         try{
             List<Chip> list = ChipDAOMySQLImpl.getInstance().select(tempChip);
             mainApp.getChipData().clear();
