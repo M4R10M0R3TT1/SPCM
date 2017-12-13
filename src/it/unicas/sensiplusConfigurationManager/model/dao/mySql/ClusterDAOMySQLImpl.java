@@ -34,14 +34,14 @@ public class ClusterDAOMySQLImpl implements DAOCluster<Cluster> {
         ArrayList<Cluster> lista = new ArrayList<>();
         try{
             Statement st = DAOMySQLSettings.getStatement();
-            String sql ="SELECT * FROM spcluster";
+            String sql ="SELECT c.*,cal.* FROM spcluster c, spcalibration cal WHERE c.SPCalibration_idSPCalibration=cal.idSPCalibration";
 
             ResultSet rs = st.executeQuery(sql);
 
             while(rs.next()){
                 lista.add(new Cluster(rs.getString("idCluster"),
                         rs.getInt("SPCalibration_idSPCalibration"),
-                        null,
+                        rs.getString("name"),
                         0,
                         null,
                         null,
@@ -57,4 +57,6 @@ public class ClusterDAOMySQLImpl implements DAOCluster<Cluster> {
         }
         return lista;
     }
+
+
 }
