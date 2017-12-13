@@ -239,7 +239,7 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
         if (a == null) {
             try {
                 Statement st = DAOMySQLSettings.getStatement();
-                String sql = "SELECT cal.name FROM spcalibration cal";
+                String sql = "SELECT DISTINCT cal.name FROM spcalibration cal";
 
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
@@ -253,14 +253,13 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
         }else{
             try {
                 Statement st = DAOMySQLSettings.getStatement();
-                String sql = "SELECT cal.name FROM spcalibration cal, "+
-                        "(SELECT DISTINCT cal.idSPCalibration FROM spsensingelementonchip sc, spcalibration cal, spsensingelementonfamily sf " +
+                String sql = "SELECT DISTINCT cal.name FROM spcalibration cal "+
+                        "WHERE cal.idSPCalibration!=ALL(SELECT DISTINCT cal.idSPCalibration FROM spsensingelementonchip sc, spcalibration cal, spsensingelementonfamily sf " +
                         "WHERE sc.SPChip_idSPChip='"+a.getIdSPChip()+"' AND sc.SPSensingElementOnFamily_idSPSensingElementOnFamily=(SELECT " +
                         "sf.idSPSensingElementOnFamily FROM spfamilytemplate ft, spsensingelementonfamily sf, spchip c, spfamily f " +
                         "WHERE  c.idSPChip='"+a.getIdSPChip()+"'AND c.SPFamily_idSPFamily=f.idSPFamily AND f.idSPFamily=ft.SPFamily_idSPFamily " +
                         "AND ft.SPPort_idSPPort="+b.getIdSPPort()+" AND ft.idSPFamilyTemplate=sf.SPFamilyTemplate_idSPFamilyTemplate) " +
-                        "AND sf.SPSensingElement_idSPSensingElement='"+b.getOccupiedBy()+"' AND cal.idSPCalibration=sc.SPCalibration_idSPCalibration) AS c "+
-                        "WHERE cal.idSPCalibration!=c.idSPCalibration";
+                        "AND sf.SPSensingElement_idSPSensingElement='"+b.getOccupiedBy()+"' AND cal.idSPCalibration=sc.SPCalibration_idSPCalibration)";
 
                 ResultSet rs = st.executeQuery(sql);
                 while (rs.next()) {
