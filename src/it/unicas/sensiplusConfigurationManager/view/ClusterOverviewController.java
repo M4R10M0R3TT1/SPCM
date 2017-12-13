@@ -8,11 +8,12 @@ import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.ClusterDAOMySQLImpl;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.FamilyDAOMySQLImpl;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public class ClusterOverviewController {
@@ -59,6 +60,14 @@ public class ClusterOverviewController {
     private TableColumn<Family,String> mColumn;
     @FXML
     private TableColumn<Family,String> nColumn;
+    @FXML
+    private Button addConfigurationButton;
+    @FXML
+    private Button editConfigurationButton;
+    @FXML
+    private Button deleteConfigurationButton;
+    @FXML
+    private Button deleteClusterButton;
 
 
     private MainApp mainApp;
@@ -72,6 +81,7 @@ public class ClusterOverviewController {
         showCluster();
 
     }
+
     @FXML
     private void initialize(){
         clusterColumn.setCellValueFactory(cellData->cellData.getValue().idClusterProperty());
@@ -95,12 +105,90 @@ public class ClusterOverviewController {
         MCUColumn.setCellValueFactory(cellData->cellData.getValue().mcuProperty());
         protocolColumn.setCellValueFactory(cellData->cellData.getValue().protocolProperty());
         addressTypeColumn.setCellValueFactory(cellData->cellData.getValue().protocolProperty());
+        configurationTableView.getSelectionModel().selectedItemProperty().addListener(
+                ((observable, oldValue, newValue) -> setButtonCalibration(newValue)));
 
         portColumn.setCellValueFactory(cellData->cellData.getValue().portNameProperty());
         occupiedByColumn.setCellValueFactory(cellData->cellData.getValue().occupiedByProperty());
         nColumn.setCellValueFactory(cellData->cellData.getValue().aProperty().asString());
         mColumn.setCellValueFactory(celldata->celldata.getValue().bProperty().asString());
 
+    }
+    @FXML
+    private void handleNewConfiguration() {
+        Cluster tempCluster = new Cluster();
+        tempCluster.setIdCluster(clusterTableView.getSelectionModel().getSelectedItem().getIdCluster());
+        boolean okClicked = mainApp.showNewConfigurationDialog(tempCluster);
+
+        if (okClicked) {
+            try {
+                ClusterDAOMySQLImpl.getInstance().insertConfiguration(tempCluster);
+                mainApp.getConfigurationOnClusterData().add(tempCluster);
+                showClusterDetails(clusterTableView.getSelectionModel().getSelectedItem());
+            } catch (DAOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("Error during DB interaction ");
+                alert.setHeaderText(" Error during insert ... ");
+                alert.setContentText(e.getMessage());
+
+                alert.showAndWait();
+            }
+        }
+        configurationTableView.getSelectionModel().select(tempCluster);
+    }
+    @FXML
+    private void handleEditConfiguration() {
+        Cluster tempCluster=configurationTableView.getSelectionModel().getSelectedItem();
+        int selIndex=mainApp.getConfigurationOnClusterData().indexOf(tempCluster);
+        boolean okClicked = mainApp.showEditConfigurationDialog(tempCluster);
+        if (okClicked) {
+            try {
+                ClusterDAOMySQLImpl.getInstance().updateConfiguration(tempCluster);
+                mainApp.getConfigurationOnClusterData().set(selIndex,tempCluster);
+                showClusterDetails(clusterTableView.getSelectionModel().getSelectedItem());
+            } catch (DAOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("Error during DB interaction ");
+                alert.setHeaderText("Error during update...");
+                alert.setContentText(e.getMessage());
+
+                alert.showAndWait();
+            }
+        }
+    }
+    @FXML
+    private void handleDeleteConfiguration(){
+        Cluster tempCluster=configurationTableView.getSelectionModel().getSelectedItem();
+        int selIndex=configurationTableView.getSelectionModel().getSelectedIndex();
+        if (selIndex >= 0) {
+            //--------DELETION CONFIRMATION DIALOG--------
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Are you sure?");
+            //---To add an icon to the alert
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("file:resources/images/favicon.png"));
+            //---
+            alert.setHeaderText("WARNING:\n");
+            alert.setContentText("DELETE a Cluster configuration?");
+
+            ButtonType buttonTypeOne = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            //---------------------------------------------
+            if (result.get() == buttonTypeOne) {
+                try {
+                    ClusterDAOMySQLImpl.getInstance().deleteConfiguration(tempCluster);
+                    configurationTableView.getItems().remove(selIndex);
+                } catch (DAOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     private void showCluster(){
@@ -109,8 +197,7 @@ public class ClusterOverviewController {
             List<Cluster> list = ClusterDAOMySQLImpl.getInstance().select(tempCluster);
             mainApp.getClusterData().clear();
             mainApp.getClusterData().addAll(list);
-           // showClusterDetails(null);
-
+            // showClusterDetails(null);
         } catch (DAOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(mainApp.getPrimaryStage());
@@ -121,10 +208,12 @@ public class ClusterOverviewController {
             alert.showAndWait();
         }
         clusterTableView.getSelectionModel().selectFirst();
+        configurationTableView.getSelectionModel().selectFirst();
     }
 
     private void showClusterDetails(Cluster cluster){
         if(cluster!=null){
+
             try {
                 List<Cluster> lista = ClusterDAOMySQLImpl.getInstance().selectConfiguration(cluster);
                 mainApp.getConfigurationOnClusterData().clear();
@@ -151,7 +240,14 @@ public class ClusterOverviewController {
 
                 alert.showAndWait();
             }
+            addConfigurationButton.setDisable(false);
+        }else{
+            addConfigurationButton.setDisable(true);
+            deleteClusterButton.setDisable(true);
         }
+        configurationTableView.getSelectionModel().selectFirst();
+        portTableView.getItems().clear();
+        chipTableView.getItems().clear();
     }
 
     private void showChipDetailsOnCluster(Cluster calibration){
@@ -171,8 +267,8 @@ public class ClusterOverviewController {
             }
         }
     }
-    private void showPort(Integer idCalibration, String idChip)
-    {
+
+    private void showPort(Integer idCalibration, String idChip){
         if(idCalibration!=null){
             List<Family> lista= null;
             try {
@@ -185,26 +281,13 @@ public class ClusterOverviewController {
         }
     }
 
-    @FXML
-    private void handleNewConfiguration() {
-        Cluster tempCluster = new Cluster();
-        tempCluster.setIdCluster(clusterTableView.getSelectionModel().getSelectedItem().getIdCluster());
-        boolean okClicked = mainApp.showConfigurationDialog(tempCluster);
-
-        if (okClicked) {
-           try {
-                ClusterDAOMySQLImpl.getInstance().insertConfiguration(tempCluster);
-                mainApp.getConfigurationOnClusterData().add(tempCluster);
-                showClusterDetails(clusterTableView.getSelectionModel().getSelectedItem());
-            } catch (DAOException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initOwner(mainApp.getPrimaryStage());
-                alert.setTitle("Error during DB interaction ");
-                alert.setHeaderText(" Error during insert ... ");
-                alert.setContentText(e.getMessage());
-
-                alert.showAndWait();
-            }
+    private void setButtonCalibration(Cluster configuration){
+        if(configuration!=null){
+            editConfigurationButton.setDisable(false);
+            deleteConfigurationButton.setDisable(false);
+        }else{
+            editConfigurationButton.setDisable(true);
+            deleteConfigurationButton.setDisable(true);
         }
     }
 }

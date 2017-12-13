@@ -386,7 +386,6 @@ public class ChipOverviewController {
             alert.setTitle("No Selection");
             alert.setHeaderText("No port Selected ");
             alert.setContentText("Please select a port in the table.");
-
             alert.showAndWait();
         }
     }

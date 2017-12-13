@@ -174,4 +174,35 @@ public class ClusterDAOMySQLImpl implements DAOCluster<Cluster> {
             throw new DAOException("In insertConfiguration(): " + e.getMessage());
         }
     }
+
+    @Override
+    public void updateConfiguration(Cluster a) throws DAOException {
+        try {
+            Statement st = DAOMySQLSettings.getStatement();
+            String sql="Update  spconfiguration SET driver='"+a.getDriver()+"', hostController='"+a.getHostController()+
+                    "', apiOwner='"+a.getApiOwner()+"', mcu='"+a.getMcu()+"', protocol='"+a.getProtocol()+
+                    "', addressingType='"+a.getAddressingType()+"' WHERE idSPConfiguration="+a.getIdConfiguration()+"";
+            int n = st.executeUpdate(sql);
+
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In updateConfiguration():" + e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteConfiguration(Cluster a) throws DAOException {
+        String sql = "DELETE FROM spconfiguration WHERE idSPConfiguration='" + a.getIdConfiguration() + "'";
+        logger.info("SQL: " + sql);
+
+        Statement st = null;
+        try {
+            st = DAOMySQLSettings.getStatement();
+            st.executeUpdate(sql);
+            DAOMySQLSettings.closeStatement(st);
+        } catch (SQLException e) {
+            throw new DAOException("In deleteConfiguration() : " + e.getMessage());
+        }
+    }
 }

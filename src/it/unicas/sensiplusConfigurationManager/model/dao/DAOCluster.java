@@ -12,4 +12,6 @@ public interface DAOCluster<T> {
     List<T> selectCalibration(T a) throws DAOException;
     void delete(T a) throws DAOException;
     void insertConfiguration(T a) throws DAOException;
+    void updateConfiguration(T a) throws DAOException;
+    void deleteConfiguration(T a) throws DAOException;
 }

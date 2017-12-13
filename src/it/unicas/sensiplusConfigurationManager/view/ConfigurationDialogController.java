@@ -44,10 +44,21 @@ public class ConfigurationDialogController {
         // Set the dialog icon.
         this.dialogStage.getIcons().add(new Image("file:resources/images/pencil-lapis-128.png"));
     }
-
+        //for add new configuration
     public void setCluster(Cluster cluster){
         this.cluster=cluster;
     }
+        //for edit configuration
+    public void setObject(Cluster cluster){
+            this.cluster=cluster;
+            driverTextField.setText(cluster.getDriver());
+            hostControllerTextField.setText(cluster.getHostController());
+            apiOwnerTextField.setText(cluster.getApiOwner());
+            mcuTextField.setText(cluster.getMcu());
+            protocolTextField.setText(cluster.getProtocol());
+            addressTypeTextField.setText(cluster.getAddressingType());
+            addButton.setText("Confirm");
+        }
 
     @FXML
     private void handleAdd(){
