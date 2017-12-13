@@ -378,7 +378,7 @@ public class SEOverviewController {
             alert.setHeaderText("WARNING:\n" +
                     "Read carefully before continue!");
             alert.setContentText("You are about to eliminate the conjunction of the selected sensing element from the selected family, are you sure to continue?\n" +
-                    "NOTICE: the associated measure technique will NOT be removed from the family.");
+                    "NOTICE: the associated measure technique WILL BE REMOVED if there are no more sensing elements for the same kind of measure technique!!!");
 
             ButtonType buttonTypeOne = new ButtonType("Yes", ButtonBar.ButtonData.YES);
             ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);

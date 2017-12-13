@@ -453,7 +453,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
     }
 
     @Override
-    public int measureSearch(String seSelected,int f) throws DAOException {
+    public int measureSearch(String seSelected) throws DAOException {
         int m=0;
         try{
             Statement st=DAOMySQLSettings.getStatement();

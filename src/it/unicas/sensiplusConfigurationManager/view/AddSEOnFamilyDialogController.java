@@ -187,7 +187,7 @@ public class AddSEOnFamilyDialogController {
                 //---------------------------------------------
                 if (result.get() == buttonTypeOne) {
                     try {
-                        int idMeasure = FamilyDAOMySQLImpl.getInstance().measureSearch(idSensingElementLabel.getText(), selFamily.getIdSPFamily());
+                        int idMeasure = FamilyDAOMySQLImpl.getInstance().measureSearch(idSensingElementLabel.getText());
                         FamilyDAOMySQLImpl.getInstance().insertMeasure(idMeasure, selFamily.getIdSPFamily());
                         FamilyDAOMySQLImpl.getInstance().insertFamilyonSE(selFamily.getIdSPFamily(), selPort.getIdSPPort(), idSensingElementLabel.getText());
                     } catch (DAOException e) {

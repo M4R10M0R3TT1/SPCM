@@ -398,19 +398,39 @@ public class FamilyOverviewController {
         Family sensingElement=portTableView.getSelectionModel().getSelectedItem();
         String se = sensingElement.getOccupiedBy();
 
-        try{
-            SensingElementDAOMySQLImpl.getInstance().deleteSEonPort(se);
-            showFamilyDetails(fam);
-        }catch (DAOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("Error during DB interaction");
-            alert.setHeaderText("Error during delete  ...");
-            alert.setContentText(e.getMessage());
+        //--------DELETION CONFIRMATION DIALOG--------
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Are you sure?");
+        //---To add an icon to the alert
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("file:resources/images/favicon.png"));
+        //---
+        alert.setHeaderText("WARNING:\n" +
+                "Read carefully before continue!");
+        alert.setContentText("You are about to eliminate the conjunction of the selected sensing element from the selected family, are you sure to continue?\n" +
+                "NOTICE: the associated measure technique WILL BE REMOVED if there are no more sensing elements for the same kind of measure technique!!!");
 
-            alert.showAndWait();
+        ButtonType buttonTypeOne = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        //---------------------------------------------
+        if (result.get() == buttonTypeOne) {
+            try {
+                SensingElementDAOMySQLImpl.getInstance().deleteSEonPort(se);
+                showFamilyDetails(fam);
+            } catch (DAOException e) {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("Error during DB interaction");
+                alert.setHeaderText("Error during delete  ...");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
+
         }
-
 
     }
 

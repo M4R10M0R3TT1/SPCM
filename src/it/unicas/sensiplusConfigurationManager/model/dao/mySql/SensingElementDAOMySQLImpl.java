@@ -224,6 +224,69 @@ public class SensingElementDAOMySQLImpl implements DAOSensingElement<SensingElem
     }
 
     @Override
+    public boolean measureControl(String seSelected, int f) throws DAOException {
+        int idMeas=0;
+        try{
+            Statement st=DAOMySQLSettings.getStatement();
+
+            String sql="SELECT DISTINCT mt.idSPMeasureTechnique, mt.type from SPSensingElement s,SPFamily f, SPFamily_has_SPMeasuretechnique fm, SPMeasuretechnique mt " +
+                    "where f.idSPFamily="+f+" and fm.SPFamily_idSPFamily=f.idSPFamily and mt.idSPMeasureTechnique=fm.SPMeasureTechnique_idSPMeasureTechnique " +
+                    "and mt.type=(select s.measureTechnique from spsensingelement s where s.idSPSensingElement='"+seSelected+"')";
+
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                idMeas=rs.getInt("idSPMeasureTechnique");
+                rs.getString("type");
+            }
+            if(idMeas!=0){
+                return true;
+            }
+
+            DAOMySQLSettings.closeStatement(st);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public int measureSearch(String seSelected) throws DAOException {
+        int m=0;
+        try{
+            Statement st=DAOMySQLSettings.getStatement();
+
+            String sql="SELECT DISTINCT mt.idSPMeasureTechnique from spmeasuretechnique mt " +
+                    "where mt.type=(select s.measureTechnique from spsensingelement s where s.idSPSensingElement='"+seSelected+"')";
+
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                m=rs.getInt("idSPMeasureTechnique");
+            }
+
+            DAOMySQLSettings.closeStatement(st);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return m;
+    }
+
+    @Override
+    public void insertMeasure(int meas,int f) throws DAOException {
+
+        String sql="INSERT INTO spfamily_has_spmeasuretechnique VALUE ("+f+","+meas+")";
+        try {
+            Statement st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch (SQLException e) {
+            throw new DAOException("In insertAddTechniqueOnFamily(): " + e.getMessage());
+        }
+    }
+
+
+    @Override
     public void deleteSEonPort(String se) throws DAOException {
         Statement st = null;
         int t = 0;
