@@ -21,6 +21,9 @@ public class Cluster {
     private StringProperty protocol;
     private StringProperty addressingType;
 
+    private StringProperty a;
+    private StringProperty b;
+
 
     //Default constructor
     public Cluster(){this(null,0,null,0,null,null,null,null,null,null);}
@@ -37,6 +40,11 @@ public class Cluster {
         this.mcu=new SimpleStringProperty(mcu);
         this.protocol=new SimpleStringProperty(protocol);
         this.addressingType=new SimpleStringProperty(addressingType);
+    }
+
+    public Cluster(String a,String b){
+        this.a=new SimpleStringProperty(a);
+        this.b=new SimpleStringProperty(b);
     }
 
     public String getIdCluster() {

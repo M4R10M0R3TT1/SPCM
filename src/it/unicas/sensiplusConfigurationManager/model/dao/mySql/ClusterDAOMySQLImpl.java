@@ -91,6 +91,26 @@ public class ClusterDAOMySQLImpl implements DAOCluster<Cluster> {
 
     @Override
     public List<Cluster> selectChip(Cluster a) throws DAOException {
-        return null;
+        ArrayList<Cluster> lista = new ArrayList<>();
+        try{
+            Statement st = DAOMySQLSettings.getStatement();
+            String sql ="SELECT c.idSPChip, f.id FROM spchip c, spfamily f, spsensingelementonchip sc, spcalibration cal" +
+                    " WHERE cal.idSPCalibration=sc.SPCalibration_idSPCalibration AND cal.idSPCalibration ="+a.getIdCalibration()+" " +
+                    " AND sc.SPChip_idSPChip = c.idSPChip" +
+                    " AND c.SPFamily_idSPFamily=f.idSPFamily;";
+
+            ResultSet rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                lista.add(new Cluster(rs.getString("idSPChip"),
+                        rs.getString("id"))
+                        );
+            }
+            DAOMySQLSettings.closeStatement(st);
+
+        }catch (SQLException sq) {
+            throw new DAOException("In selectChip(Cluster a): " + sq.getMessage());
+        }
+        return lista;
     }
 }
