@@ -59,8 +59,6 @@ public class ClusterOverviewController {
     private TableColumn<Family,String> mColumn;
     @FXML
     private TableColumn<Family,String> nColumn;
-    @FXML
-    private TableColumn<Family,String> measureTechniqueColumn;
 
 
     private MainApp mainApp;
@@ -184,7 +182,29 @@ public class ClusterOverviewController {
             } catch (DAOException e) {
                 e.printStackTrace();
             }
+        }
+    }
 
+    @FXML
+    private void handleNewConfiguration() {
+        Cluster tempCluster = new Cluster();
+        tempCluster.setIdCluster(clusterTableView.getSelectionModel().getSelectedItem().getIdCluster());
+        boolean okClicked = mainApp.showConfigurationDialog(tempCluster);
+
+        if (okClicked) {
+           try {
+                ClusterDAOMySQLImpl.getInstance().insertConfiguration(tempCluster);
+                mainApp.getConfigurationOnClusterData().add(tempCluster);
+                showClusterDetails(clusterTableView.getSelectionModel().getSelectedItem());
+            } catch (DAOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("Error during DB interaction ");
+                alert.setHeaderText(" Error during insert ... ");
+                alert.setContentText(e.getMessage());
+
+                alert.showAndWait();
+            }
         }
     }
 }
