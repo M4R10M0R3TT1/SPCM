@@ -315,6 +315,11 @@ public class SEEditDialogController {
         }
     }
 
+    @FXML
+    private void writeNameTextField(){
+        nameTextField.setText(sensingElementNameTextField.getText());
+    }
+
 
 
 

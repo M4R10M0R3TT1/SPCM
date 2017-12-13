@@ -4,7 +4,6 @@ import it.unicas.sensiplusConfigurationManager.MainApp;
 import it.unicas.sensiplusConfigurationManager.model.Chip;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.ChipDAOMySQLImpl;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -33,8 +32,8 @@ public class CalibrationDialogController {
 
     private Stage dialogStage;
     private Boolean okClicked=false;
-
     private MainApp mainApp;
+
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
         calibrationTableView.setItems(mainApp.getCalibration());

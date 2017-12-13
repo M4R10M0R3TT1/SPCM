@@ -19,7 +19,7 @@
             <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" onAction="#handleCancel" prefWidth="150.0" text="Cancel" />
         </buttons>
       </ButtonBar>
-      <GridPane layoutX="40.0" layoutY="45.0" AnchorPane.bottomAnchor="95.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="45.0">
+      <GridPane layoutX="40.0" layoutY="45.0" prefHeight="403.0" prefWidth="780.0" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="45.0">
          <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="467.0" minWidth="-Infinity" prefWidth="130.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="541.0" minWidth="50.0" prefWidth="197.0" />
@@ -66,7 +66,7 @@
             <TextField fx:id="conversionTextField" maxHeight="25.0" maxWidth="388.0" prefHeight="25.0" prefWidth="388.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
             <TextField fx:id="nDataTextField" maxHeight="25.0" maxWidth="388.0" prefHeight="25.0" prefWidth="388.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
             <Label text="sensingElementName  " />
-            <TextField fx:id="sensingElementNameTextField" maxHeight="25.0" maxWidth="388.0" prefHeight="25.0" prefWidth="388.0" GridPane.columnIndex="1" />
+            <TextField fx:id="sensingElementNameTextField" maxHeight="25.0" maxWidth="388.0" onKeyReleased="#writeNameTextField" prefHeight="25.0" prefWidth="388.0" GridPane.columnIndex="1" />
             <Label text=" rangeMin  " GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
             <Label text=" rangeMax  " GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
             <Label text=" defaultAlarmThreshold  " GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="9" />
@@ -91,7 +91,7 @@
             <ComboBox fx:id="measureUnitComboBox" maxHeight="25.0" maxWidth="388.0" prefHeight="25.0" prefWidth="388.0" GridPane.columnIndex="3" GridPane.rowIndex="11" />
          </children>
       </GridPane>
-      <Label fx:id="seNameLabel" alignment="CENTER" layoutX="180.0" layoutY="14.0" text="Title">
+      <Label fx:id="seNameLabel" alignment="CENTER" layoutX="160.0" layoutY="14.0" text="Title">
          <font>
             <Font size="21.0" />
          </font>
