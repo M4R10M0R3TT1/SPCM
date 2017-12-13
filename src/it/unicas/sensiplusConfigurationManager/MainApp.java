@@ -1,6 +1,7 @@
 package it.unicas.sensiplusConfigurationManager;
 
 import it.unicas.sensiplusConfigurationManager.model.Chip;
+import it.unicas.sensiplusConfigurationManager.model.Cluster;
 import it.unicas.sensiplusConfigurationManager.model.Family;
 import it.unicas.sensiplusConfigurationManager.model.SensingElement;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.ChipDAOMySQLImpl;
@@ -54,6 +55,13 @@ public class MainApp extends Application {
     private ObservableList<String> addCalibrationOnChip=FXCollections.observableArrayList();
     //Observable List for new Calibration
     private ObservableList<Chip> calibration=FXCollections.observableArrayList();
+
+    //observable List for show Cluster in cluster OverView
+    private ObservableList<Cluster> clusterData=FXCollections.observableArrayList();
+    //Observable List for show Configuration in Cluster
+    private ObservableList<Cluster> configurationOnClusterData=FXCollections.observableArrayList();
+    //Observable List for show Calibration of cluster
+    private ObservableList<Cluster> calibrationOnClusterData=FXCollections.observableArrayList();
 
     @Override
     public void start(Stage primaryStage) {
@@ -114,6 +122,18 @@ public class MainApp extends Application {
 
     public ObservableList<Chip> getCalibration() {
         return calibration;
+    }
+
+    public ObservableList<Cluster> getClusterData() {
+        return clusterData;
+    }
+
+    public ObservableList<Cluster> getConfigurationOnClusterData() {
+        return configurationOnClusterData;
+    }
+
+    public ObservableList<Cluster> getCalibrationOnClusterData() {
+        return calibrationOnClusterData;
     }
 
     public void initRootLayout(){
