@@ -30,7 +30,6 @@ public class Chip {
         this.nameCalibration= new SimpleStringProperty(nameCalibration);
         this.m= new SimpleIntegerProperty(m);
         this.n= new SimpleIntegerProperty(n);
-
     }
 
     /*//Chip NEW Constructor
@@ -123,4 +122,5 @@ public class Chip {
     public void setNameCalibration(String nameCalibration) {
         this.nameCalibration.set(nameCalibration);
     }
+
 }

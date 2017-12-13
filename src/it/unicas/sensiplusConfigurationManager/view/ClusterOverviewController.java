@@ -6,6 +6,7 @@ import it.unicas.sensiplusConfigurationManager.model.Cluster;
 import it.unicas.sensiplusConfigurationManager.model.Family;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.ClusterDAOMySQLImpl;
+import it.unicas.sensiplusConfigurationManager.model.dao.mySql.FamilyDAOMySQLImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
@@ -43,11 +44,11 @@ public class ClusterOverviewController {
     @FXML
     private TableColumn<Cluster,String> addressTypeColumn;
     @FXML
-    private TableView<Chip>  chipTableView;
+    private TableView<Cluster>  chipTableView;
     @FXML
-    private TableColumn<Chip,String> chipColumn;
+    private TableColumn<Cluster,String> chipColumn;
     @FXML
-    private TableColumn<Chip,String> familyColumn;
+    private TableColumn<Cluster,String> familyColumn;
     @FXML
     private TableView<Family> portTableView;
     @FXML
@@ -68,18 +69,26 @@ public class ClusterOverviewController {
         clusterTableView.setItems(mainApp.getClusterData());
         configurationTableView.setItems(mainApp.getConfigurationOnClusterData());
         calibrationTableView.setItems(mainApp.getCalibrationOnClusterData());
+        chipTableView.setItems(mainApp.getChipOfCalibrationOnCLusterData());
+        portTableView.setItems(mainApp.getChipDetailsOnClusterData());
         showCluster();
 
     }
     @FXML
     private void initialize(){
         clusterColumn.setCellValueFactory(cellData->cellData.getValue().idClusterProperty());
-        clusterTableView.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> showClusterDetails(newValue)));
+        clusterTableView.getSelectionModel().selectedItemProperty().addListener(
+                ((observable, oldValue, newValue) -> showClusterDetails(newValue)));
 
         calibrationColumn.setCellValueFactory(cellData->cellData.getValue().nameCalibrationProperty());
         idCalibrationColumn.setCellValueFactory(cellData->cellData.getValue().idCalibrationProperty().asString());
+        calibrationTableView.getSelectionModel().selectedItemProperty().addListener(
+                ((observable, oldValue, newValue) -> showChipDetailsOnCluster(newValue)));
 
-
+        chipColumn.setCellValueFactory(cellData->cellData.getValue().aProperty());
+        familyColumn.setCellValueFactory(cellData->cellData.getValue().bProperty());
+        chipTableView.getSelectionModel().selectedItemProperty().addListener(
+                ((observable, oldValue, newValue) -> showPort(calibrationTableView.getSelectionModel().getSelectedItem().getIdCalibration(),newValue.getA())));
 
         idConfigurationColumn.setCellValueFactory(cellData->cellData.getValue().idConfigurationProperty().asString());
         driverColumn.setCellValueFactory(cellData->cellData.getValue().driverProperty());
@@ -88,6 +97,11 @@ public class ClusterOverviewController {
         MCUColumn.setCellValueFactory(cellData->cellData.getValue().mcuProperty());
         protocolColumn.setCellValueFactory(cellData->cellData.getValue().protocolProperty());
         addressTypeColumn.setCellValueFactory(cellData->cellData.getValue().protocolProperty());
+
+        portColumn.setCellValueFactory(cellData->cellData.getValue().portNameProperty());
+        occupiedByColumn.setCellValueFactory(cellData->cellData.getValue().occupiedByProperty());
+        nColumn.setCellValueFactory(cellData->cellData.getValue().aProperty().asString());
+        mColumn.setCellValueFactory(celldata->celldata.getValue().bProperty().asString());
 
     }
 
@@ -114,9 +128,9 @@ public class ClusterOverviewController {
     private void showClusterDetails(Cluster cluster){
         if(cluster!=null){
             try {
-                List<Cluster> list = ClusterDAOMySQLImpl.getInstance().selectConfiguration(cluster);
+                List<Cluster> lista = ClusterDAOMySQLImpl.getInstance().selectConfiguration(cluster);
                 mainApp.getConfigurationOnClusterData().clear();
-                mainApp.getConfigurationOnClusterData().addAll(list);
+                mainApp.getConfigurationOnClusterData().addAll(lista);
             } catch (DAOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());
@@ -127,9 +141,9 @@ public class ClusterOverviewController {
                 alert.showAndWait();
             }
             try {
-                List<Cluster> list = ClusterDAOMySQLImpl.getInstance().selectCalibration(cluster);
-                mainApp.getConfigurationOnClusterData().clear();
-                mainApp.getConfigurationOnClusterData().addAll(list);
+                List<Cluster> lista = ClusterDAOMySQLImpl.getInstance().selectCalibration(cluster);
+                mainApp.getCalibrationOnClusterData().clear();
+                mainApp.getCalibrationOnClusterData().addAll(lista);
             } catch (DAOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());
@@ -140,7 +154,38 @@ public class ClusterOverviewController {
                 alert.showAndWait();
             }
         }
-       // clusterTableView.getSelectionModel().selectFirst();
+    }
+
+    private void showChipDetailsOnCluster(Cluster calibration){
+        if(calibration!=null){
+            try {
+                List<Cluster> lista=ClusterDAOMySQLImpl.getInstance().selectChip(calibration);
+                mainApp.getChipOfCalibrationOnCLusterData().clear();
+                mainApp.getChipOfCalibrationOnCLusterData().addAll(lista);
+            } catch (DAOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle(" Error during DB interaction  ");
+                alert.setHeaderText(" Error during search ... ");
+                alert.setContentText(e.getMessage());
+
+                alert.showAndWait();
+            }
+        }
+    }
+    private void showPort(Integer idCalibration, String idChip)
+    {
+        if(idCalibration!=null){
+            List<Family> lista= null;
+            try {
+                lista = FamilyDAOMySQLImpl.getInstance().selectPortOfChipOnCluster(idCalibration,idChip);
+                mainApp.getChipDetailsOnClusterData().clear();
+                mainApp.getChipDetailsOnClusterData().addAll(lista);
+            } catch (DAOException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 }
 

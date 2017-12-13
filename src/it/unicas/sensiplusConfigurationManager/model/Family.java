@@ -70,7 +70,6 @@ public class Family {
         this.type=new SimpleStringProperty(type);
     }*/
 
-    //Stavano in Sensing Element----------------------------------------
 
     //costruttore Family e Port
     public Family(String id,String name,String portName,Boolean internal,Integer idFamilyTemplate){

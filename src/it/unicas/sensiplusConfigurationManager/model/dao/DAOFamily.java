@@ -29,5 +29,5 @@ public interface DAOFamily <T>{
     int measureSearch(String se) throws DAOException;
     void insertMeasure(int m, int f) throws DAOException;
     Family selectSEOnPort(T a, String id) throws DAOException;
-    List<T> selectPortOfChipOnCluster(Cluster a) throws DAOException;
+    List<T> selectPortOfChipOnCluster(Integer a,String idChip) throws DAOException;
 }

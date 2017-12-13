@@ -547,25 +547,23 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
     }
 
     @Override
-    public List<Family> selectPortOfChipOnCluster(Cluster a) throws DAOException {
+    public List<Family> selectPortOfChipOnCluster(Integer a, String idChip) throws DAOException {
         ArrayList<Family> lista = new ArrayList<>();
             try {
                 Statement st = DAOMySQLSettings.getStatement();
                 String sql = "SELECT DISTINCT  p.name, sf.SPSensingElement_idSPSensingElement,sc.m,sc.n FROM spport p, spsensingelementonfamily sf, spsensingelementonchip sc, spchip c, spfamilytemplate ft" +
-                        "WHERE sc.SPCalibration_idSPCalibration="+a.getIdCalibration()+" AND sf.idSPSensingElementOnFamily=sc.SPSensingElementOnFamily_idSPSensingElementOnFamily" +
-                        "AND sf.SPFamilyTemplate_idSPFamilyTemplate=ft.idSPFamilyTemplate" +
-                        "AND ft.SPPort_idSPPort=p.idSPPort";
+                        " WHERE sc.SPCalibration_idSPCalibration="+a+" AND sf.idSPSensingElementOnFamily=sc.SPSensingElementOnFamily_idSPSensingElementOnFamily" +
+                        " AND sf.SPFamilyTemplate_idSPFamilyTemplate=ft.idSPFamilyTemplate" +
+                        " AND ft.SPPort_idSPPort=p.idSPPort AND sc.SPChip_idSPChip='"+idChip+"'";
                 ResultSet rs = st.executeQuery(sql);
 
                 while (rs.next()) {
                     lista.add(new Family(0,
-                            null,
+                            true,
                             rs.getString("name"),
                             rs.getString("SPSensingElement_idSPSensingElement"),
                             rs.getInt("m"),
-                            rs.getInt("n"))
-
-                    );
+                            rs.getInt("n")));
                 }
                 DAOMySQLSettings.closeStatement(st);
 

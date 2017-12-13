@@ -64,13 +64,12 @@ public class ClusterDAOMySQLImpl implements DAOCluster<Cluster> {
         ArrayList<Cluster> lista = new ArrayList<>();
         try{
             Statement st = DAOMySQLSettings.getStatement();
-            String sql ="SELECT DISTINCT conf.* FROM spcluster c, spconfiguration conf WHERE c.idCluster=conf.idCluster" +
-                    " AND c.idCluster='"+a.getIdCluster()+"'";
+            String sql ="SELECT DISTINCT conf.* FROM  spconfiguration conf WHERE conf.idCluster='"+a.getIdCluster()+"'";
 
             ResultSet rs = st.executeQuery(sql);
 
             while(rs.next()){
-                lista.add(new Cluster(null,
+                lista.add(new Cluster(rs.getString("IdCluster"),
                         0,
                         null,
                         rs.getInt("idSPConfiguration"),
@@ -94,7 +93,7 @@ public class ClusterDAOMySQLImpl implements DAOCluster<Cluster> {
         ArrayList<Cluster> lista = new ArrayList<>();
         try{
             Statement st = DAOMySQLSettings.getStatement();
-            String sql ="SELECT c.idSPChip, f.id FROM spchip c, spfamily f, spsensingelementonchip sc, spcalibration cal" +
+            String sql ="SELECT DISTINCT c.idSPChip, f.id FROM spchip c, spfamily f, spsensingelementonchip sc, spcalibration cal" +
                     " WHERE cal.idSPCalibration=sc.SPCalibration_idSPCalibration AND cal.idSPCalibration ="+a.getIdCalibration()+" " +
                     " AND sc.SPChip_idSPChip = c.idSPChip" +
                     " AND c.SPFamily_idSPFamily=f.idSPFamily;";
