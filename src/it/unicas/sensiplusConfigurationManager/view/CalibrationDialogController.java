@@ -100,7 +100,9 @@ public class CalibrationDialogController {
             editButton.setText("Edit");
             deleteButton.setDisable(false);
             calibrationTableView.setDisable(false);
+            int selIndex=calibrationTableView.getSelectionModel().getSelectedIndex();
             showCalibration();
+            calibrationTableView.getSelectionModel().select(selIndex);
             okClicked=true;
         }else if(newButton.getText()=="Add"){
             try {
@@ -116,6 +118,7 @@ public class CalibrationDialogController {
             calibrationTableView.setDisable(false);
             newButton.setDisable(false);
             showCalibration();
+            calibrationTableView.getSelectionModel().selectLast();
             okClicked=true;
         }else{
             calibrationTextField.setDisable(false);
