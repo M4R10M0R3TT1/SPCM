@@ -1,5 +1,6 @@
 package it.unicas.sensiplusConfigurationManager.model.dao.mySql;
 
+import it.unicas.sensiplusConfigurationManager.model.Cluster;
 import it.unicas.sensiplusConfigurationManager.model.Family;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOFamily;
@@ -72,7 +73,9 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
                         rs.getInt("idSPPort"),
                         rs.getBoolean("internal"),
                         rs.getString("name"),
-                        rs.getString("SPSensingElement_idSPSensingElement")));
+                        rs.getString("SPSensingElement_idSPSensingElement"),
+                        0,
+                        0));
             }
         } catch (SQLException sq) {
             throw new DAOException("In selectPort(): " + sq.getMessage());
@@ -279,7 +282,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
                         rs.getInt("idSPPort"),
                         rs.getBoolean("internal"),
                         rs.getString("name"),
-                        null));
+                        null,0,0));
             }
 
             DAOMySQLSettings.closeStatement(st);
@@ -375,7 +378,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
                         rs.getInt("idSPPort"),
                         rs.getBoolean("internal"),
                         rs.getString("name"),
-                        null
+                        null,0,0
                         ));
             }
 
@@ -507,7 +510,9 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
                         rs.getInt("idSPPort"),
                         rs.getBoolean("internal"),
                         rs.getString("name"),
-                        rs.getString("SPSensingElement_idSPSensingElement")));
+                        rs.getString("SPSensingElement_idSPSensingElement"),
+                        0,
+                        0));
             }
         } catch (SQLException sq) {
             throw new DAOException("In selectPortonChip(): " + sq.getMessage());
@@ -531,12 +536,47 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
                 f= new Family(rs.getInt("idSPSensingElementOnFamily"),
                         Boolean.FALSE,
                         null,
-                        rs.getString("SPSensingElement_idSPSensingElement"));
+                        rs.getString("SPSensingElement_idSPSensingElement"),
+                        0,
+                        0);
             }
         } catch (SQLException sq) {
             throw new DAOException("In selectSEOnPort(): " + sq.getMessage());
         }
         return f;
     }
+
+    @Override
+    public List<Family> selectPortOfChipOnCluster(Cluster a) throws DAOException {
+        ArrayList<Family> lista = new ArrayList<>();
+            try {
+                Statement st = DAOMySQLSettings.getStatement();
+                String sql = "SELECT DISTINCT  p.name, sf.SPSensingElement_idSPSensingElement,sc.m,sc.n FROM spport p, spsensingelementonfamily sf, spsensingelementonchip sc, spchip c, spfamilytemplate ft" +
+                        "WHERE sc.SPCalibration_idSPCalibration="+a.getIdCalibration()+" AND sf.idSPSensingElementOnFamily=sc.SPSensingElementOnFamily_idSPSensingElementOnFamily" +
+                        "AND sf.SPFamilyTemplate_idSPFamilyTemplate=ft.idSPFamilyTemplate" +
+                        "AND ft.SPPort_idSPPort=p.idSPPort";
+                ResultSet rs = st.executeQuery(sql);
+
+                while (rs.next()) {
+                    lista.add(new Family(0,
+                            null,
+                            rs.getString("name"),
+                            rs.getString("SPSensingElement_idSPSensingElement"),
+                            rs.getInt("m"),
+                            rs.getInt("n"))
+
+                    );
+                }
+                DAOMySQLSettings.closeStatement(st);
+
+            } catch (SQLException sq) {
+                throw new DAOException("In selectChip(Cluster a): " + sq.getMessage());
+            }
+            return lista;
+        }
+
+
+
+
 }
 

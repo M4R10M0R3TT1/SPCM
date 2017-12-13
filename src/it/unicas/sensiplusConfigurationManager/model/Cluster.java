@@ -169,4 +169,28 @@ public class Cluster {
     public void setAddressingType(String addressingType) {
         this.addressingType.set(addressingType);
     }
+
+    public String getA() {
+        return a.get();
+    }
+
+    public StringProperty aProperty() {
+        return a;
+    }
+
+    public void setA(String a) {
+        this.a.set(a);
+    }
+
+    public String getB() {
+        return b.get();
+    }
+
+    public StringProperty bProperty() {
+        return b;
+    }
+
+    public void setB(String b) {
+        this.b.set(b);
+    }
 }

@@ -1,5 +1,6 @@
 package it.unicas.sensiplusConfigurationManager.model.dao;
 
+import it.unicas.sensiplusConfigurationManager.model.Cluster;
 import it.unicas.sensiplusConfigurationManager.model.Family;
 
 import java.util.List;
@@ -28,4 +29,5 @@ public interface DAOFamily <T>{
     int measureSearch(String se) throws DAOException;
     void insertMeasure(int m, int f) throws DAOException;
     Family selectSEOnPort(T a, String id) throws DAOException;
+    List<T> selectPortOfChipOnCluster(Cluster a) throws DAOException;
 }

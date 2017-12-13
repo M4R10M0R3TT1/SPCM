@@ -27,11 +27,14 @@ public class Family {
     //parte Template
     private IntegerProperty idSPFamilyTemplate;
 
+    //parte per Cluster
+    private IntegerProperty a;
+    private IntegerProperty b;
 
 
     //Default constructor
     public Family(){
-        this(0,null,null,null,null,null);  }
+        this(null,null,null,null,null);  }
 
     public Family(Integer idSPFamily,String name,String id,String hwVersion,String sysclock,String osctrim){
         this.idSPFamily=new SimpleIntegerProperty(idSPFamily);
@@ -53,11 +56,13 @@ public class Family {
     }*/
 
     //costruttore spPort
-    public Family(Integer idSPPort,Boolean internal,String portName, String se){
+    public Family(Integer idSPPort,Boolean internal,String portName, String se,Integer m,Integer n){
         this.idSPPort=new SimpleIntegerProperty(idSPPort.intValue());
         this.internal=new SimpleBooleanProperty(internal);
         this.portName=new SimpleStringProperty(portName);
         this.occupiedBy=new SimpleStringProperty(se);
+        this.a=new SimpleIntegerProperty(m);
+        this.b=new SimpleIntegerProperty(n);
     }
 
     //costruttore spMeasureTechnique
@@ -266,5 +271,29 @@ public class Family {
 
     public void setIdSPMeasureTechnique(int idSPMeasureTechnique) {
         this.idSPMeasureTechnique.set(idSPMeasureTechnique);
+    }
+
+    public int getA() {
+        return a.get();
+    }
+
+    public IntegerProperty aProperty() {
+        return a;
+    }
+
+    public void setA(int a) {
+        this.a.set(a);
+    }
+
+    public int getB() {
+        return b.get();
+    }
+
+    public IntegerProperty bProperty() {
+        return b;
+    }
+
+    public void setB(int b) {
+        this.b.set(b);
     }
 }
