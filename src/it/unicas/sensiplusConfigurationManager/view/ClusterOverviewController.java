@@ -92,7 +92,7 @@ public class ClusterOverviewController {
         chipColumn.setCellValueFactory(cellData->cellData.getValue().aProperty());
         familyColumn.setCellValueFactory(cellData->cellData.getValue().bProperty());
         chipTableView.getSelectionModel().selectedItemProperty().addListener(
-                ((observable, oldValue, newValue) -> showPort(clusterTableView.getSelectionModel().getSelectedItem().getIdCalibration(),newValue.getA())));
+                ((observable, oldValue, newValue) -> showPort(newValue)));
 
         idConfigurationColumn.setCellValueFactory(cellData->cellData.getValue().idConfigurationProperty().asString());
         driverColumn.setCellValueFactory(cellData->cellData.getValue().driverProperty());
@@ -283,11 +283,12 @@ public class ClusterOverviewController {
         chipTableView.getSelectionModel().selectFirst();
     }
 
-    private void showPort(Integer idCalibration, String idChip){
-        if(idCalibration!=null){
+    private void showPort(Cluster chip){
+        int  idCalibration=clusterTableView.getSelectionModel().getSelectedItem().getIdCalibration();
+        if(chip!=null){
             List<Family> lista= null;
             try {
-                lista = FamilyDAOMySQLImpl.getInstance().selectPortOfChipOnCluster(idCalibration,idChip);
+                lista = FamilyDAOMySQLImpl.getInstance().selectPortOfChipOnCluster(idCalibration,chip.getA());
                 mainApp.getChipDetailsOnClusterData().clear();
                 mainApp.getChipDetailsOnClusterData().addAll(lista);
             } catch (DAOException e) {
