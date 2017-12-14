@@ -115,6 +115,38 @@ public class ClusterOverviewController {
 
     }
     @FXML
+    private void handleDeleteCluster(){
+        Cluster tempCluster=clusterTableView.getSelectionModel().getSelectedItem();
+        int selIndex=clusterTableView.getSelectionModel().getSelectedIndex();
+        if (selIndex >= 0) {
+            //--------DELETION CONFIRMATION DIALOG--------
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Are you sure?");
+            //---To add an icon to the alert
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("file:resources/images/favicon.png"));
+            //---
+            alert.setHeaderText("WARNING:\n");
+            alert.setContentText("DELETE the Cluster and the relative details?");
+
+            ButtonType buttonTypeOne = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            //---------------------------------------------
+            if (result.get() == buttonTypeOne) {
+                try {
+                    ClusterDAOMySQLImpl.getInstance().delete(tempCluster);
+                    clusterTableView.getItems().remove(selIndex);
+                } catch (DAOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    @FXML
     private void handleNewConfiguration() {
         Cluster tempCluster = new Cluster();
         tempCluster.setIdCluster(clusterTableView.getSelectionModel().getSelectedItem().getIdCluster());
@@ -171,7 +203,7 @@ public class ClusterOverviewController {
             stage.getIcons().add(new Image("file:resources/images/favicon.png"));
             //---
             alert.setHeaderText("WARNING:\n");
-            alert.setContentText("DELETE a Cluster configuration?");
+            alert.setContentText("DELETE the Cluster configuration?");
 
             ButtonType buttonTypeOne = new ButtonType("Yes", ButtonBar.ButtonData.YES);
             ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
