@@ -1,5 +1,6 @@
 package it.unicas.sensiplusConfigurationManager.model.dao.mySql;
 
+import com.mysql.cj.api.mysqla.result.Resultset;
 import it.unicas.sensiplusConfigurationManager.model.Cluster;
 import it.unicas.sensiplusConfigurationManager.model.Family;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
@@ -225,23 +226,34 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
                        ));
             }
             if(lista.size()==0) {
-                Statement st1 = DAOMySQLSettings.getStatement();
-                String sql1 = "SELECT DISTINCT f.idSPFamily,f.id,f.name FROM SPFamily f";
+                int vacant=0;
+                String sql0="SELECT DISTINCT idSPSensingElementOnFamily FROM SPSensingElementOnFamily";
+                Statement st0=DAOMySQLSettings.getStatement();
+                ResultSet rs0=st0.executeQuery(sql0);
+                while(rs0.next()){
+                    vacant=rs0.getInt("idSPSensingElementOnFamily");
+                }
 
-                ResultSet rs1 = st1.executeQuery(sql1);
-                while (rs1.next()) {
-                    lista.add(new Family(
-                            rs1.getInt("idSPFamily"),
-                            rs1.getString("id"),
-                            rs1.getString("name"),
-                            null,
-                            null,
-                            null));
+                if(vacant==0) {
+                    Statement st1 = DAOMySQLSettings.getStatement();
+                    String sql1 = "SELECT DISTINCT ft.SPFamily_idSPFamily,f.id,f.name FROM SPFamily f, spfamilytemplate ft " +
+                                  "WHERE f.idSPFamily=ft.SPFamily_idSPFamily";
+
+                    ResultSet rs1 = st1.executeQuery(sql1);
+                    while (rs1.next()) {
+                        lista.add(new Family(
+                                rs1.getInt("SPFamily_idSPFamily"),
+                                rs1.getString("id"),
+                                rs1.getString("name"),
+                                null,
+                                null,
+                                null));
+                    }
                 }
             }
             DAOMySQLSettings.closeStatement(st);
         } catch (SQLException e) {
-            throw new DAOException("In selectADDSEOnFamily(): " + e.getMessage());
+            e.getStackTrace();
         }
         return  lista;
     }
