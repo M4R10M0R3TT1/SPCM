@@ -66,9 +66,11 @@ public class ClusterOverviewController {
     private Button deleteConfigurationButton;
     @FXML
     private Button deleteClusterButton;
-
+    @FXML
+    private Button calibrationButton;
 
     private MainApp mainApp;
+
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
         clusterTableView.setItems(mainApp.getClusterData());
@@ -76,7 +78,6 @@ public class ClusterOverviewController {
         chipTableView.setItems(mainApp.getChipOnClusterData());
         portTableView.setItems(mainApp.getChipDetailsOnClusterData());
         showCluster();
-
     }
 
     @FXML
@@ -121,7 +122,8 @@ public class ClusterOverviewController {
             } catch (DAOException e) {
                 e.printStackTrace();
             }
-            showCluster();
+            temp.setNameCalibration(null);
+            clusterTableView.getItems().add(temp);
             clusterTableView.getSelectionModel().selectLast();
         }
     }
@@ -233,6 +235,23 @@ public class ClusterOverviewController {
             }
         }
     }
+    @FXML
+    private void handleCalibrationButton(){
+        Cluster cluster=clusterTableView.getSelectionModel().getSelectedItem();
+        int selIndex=clusterTableView.getSelectionModel().getFocusedIndex();
+        if(cluster.getNameCalibration()!=null){
+            try {
+                ClusterDAOMySQLImpl.getInstance().removeCalibrationOnCluster(cluster);
+                showCluster();
+                clusterTableView.getSelectionModel().select(selIndex);
+                showPort(null);
+            } catch (DAOException e) {
+                e.printStackTrace();
+            }
+        }else {
+
+        }
+    }
 
     private void showCluster(){
         Cluster tempCluster = new Cluster();
@@ -252,14 +271,10 @@ public class ClusterOverviewController {
         }
         clusterTableView.getSelectionModel().selectFirst();
         configurationTableView.getSelectionModel().selectFirst();
-        if(clusterTableView.getSelectionModel().getSelectedIndex()!=0){
-            deleteClusterButton.setDisable(true);
-        }
     }
 
     private void showClusterDetails(Cluster cluster){
         if(cluster!=null){
-
             try {
                 List<Cluster> lista = ClusterDAOMySQLImpl.getInstance().selectConfiguration(cluster);
                 mainApp.getConfigurationOnClusterData().clear();
@@ -267,6 +282,7 @@ public class ClusterOverviewController {
             } catch (DAOException e) {
               e.getStackTrace();
             }
+
             try {
                 List<Cluster> lista=ClusterDAOMySQLImpl.getInstance().selectChip(cluster);
                 mainApp.getChipOnClusterData().clear();
@@ -274,10 +290,19 @@ public class ClusterOverviewController {
             } catch (DAOException e) {
                 e.getStackTrace();
             }
+            deleteClusterButton.setDisable(false);
+            calibrationButton.setDisable(false);
             addConfigurationButton.setDisable(false);
+            if(cluster.getNameCalibration()==null){
+                calibrationButton.setText("Add Calibration");
+            }else{
+                calibrationButton.setText("Remove Calibration");
+            }
         }else{
             addConfigurationButton.setDisable(true);
             deleteConfigurationButton.setDisable(true);
+            deleteClusterButton.setDisable(true);
+            calibrationButton.setDisable(true);
         }
         configurationTableView.getSelectionModel().selectFirst();
         chipTableView.getSelectionModel().selectFirst();
@@ -294,6 +319,8 @@ public class ClusterOverviewController {
             } catch (DAOException e) {
                 e.printStackTrace();
             }
+        }else{
+            mainApp.getChipDetailsOnClusterData().clear();
         }
     }
 
