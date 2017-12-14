@@ -35,14 +35,14 @@ public class ClusterDAOMySQLImpl implements DAOCluster<Cluster> {
         ArrayList<Cluster> lista = new ArrayList<>();
         try{
             Statement st = DAOMySQLSettings.getStatement();
-            String sql ="SELECT DISTINCT idCluster FROM spcluster ORDER BY idCluster ";
+            String sql ="SELECT DISTINCT c.idCluster, cal.* FROM spcluster c LEFT JOIN spcalibration cal ON c.SPCalibration_idSPCalibration=cal.idSPCalibration ORDER BY idCluster ";
 
             ResultSet rs = st.executeQuery(sql);
 
             while(rs.next()){
                 lista.add(new Cluster(rs.getString("idCluster"),
-                        0,
-                        null,
+                        rs.getInt("idSPCalibration"),
+                        rs.getString("name"),
                         0,
                         null,
                         null,
@@ -94,9 +94,8 @@ public class ClusterDAOMySQLImpl implements DAOCluster<Cluster> {
         try{
             Statement st = DAOMySQLSettings.getStatement();
             String sql ="SELECT DISTINCT c.idSPChip, f.id FROM spchip c, spfamily f, spsensingelementonchip sc, spcalibration cal" +
-                    " WHERE cal.idSPCalibration=sc.SPCalibration_idSPCalibration AND cal.idSPCalibration ="+a.getIdCalibration()+" " +
-                    " AND sc.SPChip_idSPChip = c.idSPChip" +
-                    " AND c.SPFamily_idSPFamily=f.idSPFamily;";
+                    " WHERE cal.idSPCalibration=sc.SPCalibration_idSPCalibration AND cal.idSPCalibration ="+a.getIdCalibration()+
+                    " AND sc.SPChip_idSPChip = c.idSPChip AND c.SPFamily_idSPFamily=f.idSPFamily ORDER BY c.idSPChip";
 
             ResultSet rs = st.executeQuery(sql);
 

@@ -11,22 +11,25 @@
 
 <AnchorPane prefHeight="530.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.ClusterOverviewController">
    <children>
-      <SplitPane dividerPositions="0.16369710467706014" prefHeight="530.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.22717149220489977" prefHeight="530.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="528.0" prefWidth="185.0">
                <children>
-                  <TableView fx:id="clusterTableView" accessibleRole="TABLE_CELL" prefHeight="528.0" prefWidth="205.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="clusterTableView" accessibleRole="TABLE_CELL" prefHeight="428.0" prefWidth="203.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn fx:id="clusterColumn" prefWidth="139.0" text="Cluster" />
+                      <TableColumn fx:id="clusterColumn" prefWidth="106.0" text="Cluster" />
+                      <TableColumn fx:id="calibrationColumn" prefWidth="90.0" text="Calibration" />
+                        <TableColumn fx:id="idCalibrationColumn" prefWidth="75.0" text="idCalibration" visible="false" />
                     </columns>
                   </TableView>
-                  <Button layoutX="39.0" layoutY="458.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="75.0" text="New" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                  <Button fx:id="deleteClusterButton" layoutX="39.0" layoutY="499.0" mnemonicParsing="false" onAction="#handleDeleteCluster" text="Delete" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Button layoutY="428.0" mnemonicParsing="false" onAction="#handleNewCluster" prefHeight="31.0" prefWidth="200.0" text="New" AnchorPane.bottomAnchor="69.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Button fx:id="deleteClusterButton" layoutY="461.0" mnemonicParsing="false" onAction="#handleDeleteCluster" prefWidth="68.0" text="Delete" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Button layoutY="492.0" mnemonicParsing="false" text="Calibration" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="528.0" prefWidth="653.0">
                <children>
-                  <SplitPane dividerPositions="0.42585551330798477" orientation="VERTICAL" prefHeight="528.0" prefWidth="677.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <SplitPane dividerPositions="0.4524714828897338" orientation="VERTICAL" prefHeight="528.0" prefWidth="677.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
@@ -34,21 +37,21 @@
                                 <columns>
                                   <TableColumn fx:id="idConfigurationColumn" prefWidth="87.0" text="Configuration" />
                                   <TableColumn fx:id="driverColumn" prefWidth="109.0" text="Driver" />
-                                    <TableColumn fx:id="hostControllerColumn" prefWidth="131.0" text="Host Controller" />
-                                    <TableColumn fx:id="apiOwnerColumn" prefWidth="94.0" text="Api Owner" />
-                                    <TableColumn fx:id="MCUColumn" prefWidth="93.0" text="MCU" />
-                                    <TableColumn fx:id="protocolColumn" prefWidth="118.0" text="Protocol" />
-                                    <TableColumn fx:id="addressTypeColumn" prefWidth="115.0" text="Address Type" />
+                                    <TableColumn fx:id="hostControllerColumn" prefWidth="118.0" text="Host Controller" />
+                                    <TableColumn fx:id="apiOwnerColumn" prefWidth="107.0" text="Api Owner" />
+                                    <TableColumn fx:id="MCUColumn" prefWidth="68.0" text="MCU" />
+                                    <TableColumn fx:id="protocolColumn" prefWidth="72.0" text="Protocol" />
+                                    <TableColumn fx:id="addressTypeColumn" prefWidth="126.0" text="Address Type" />
                                 </columns>
                               </TableView>
-                              <ButtonBar layoutX="480.0" prefHeight="40.0" prefWidth="200.0">
+                              <ButtonBar layoutX="480.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.rightAnchor="3.0">
                                  <buttons>
                                     <Button fx:id="addConfigurationButton" disable="true" mnemonicParsing="false" onAction="#handleNewConfiguration" text="New" />
                                     <Button fx:id="editConfigurationButton" disable="true" mnemonicParsing="false" onAction="#handleEditConfiguration" text="Edit" />
                                     <Button fx:id="deleteConfigurationButton" disable="true" mnemonicParsing="false" onAction="#handleDeleteConfiguration" text="Delete" />
                                  </buttons>
                               </ButtonBar>
-                              <Label layoutY="3.0" text="Cluster Configuration details">
+                              <Label layoutY="3.0" text="Cluster configuration details" AnchorPane.leftAnchor="3.0">
                                  <font>
                                     <Font size="23.0" />
                                  </font>
@@ -57,48 +60,28 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="224.0" prefWidth="675.0">
                            <children>
-                              <SplitPane dividerPositions="0.1742627345844504" prefHeight="298.0" prefWidth="748.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <SplitPane dividerPositions="0.2915451895043732" prefHeight="298.0" prefWidth="748.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <items>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
-                                          <TableView fx:id="calibrationTableView" layoutX="-15.0" prefHeight="296.0" prefWidth="218.0" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <TableView fx:id="chipTableView" layoutX="-2.0" layoutY="36.0" prefHeight="296.0" prefWidth="196.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <columns>
-                                              <TableColumn fx:id="calibrationColumn" prefWidth="121.0" text="Calibration" />
-                                                <TableColumn fx:id="idCalibrationColumn" prefWidth="75.0" text="idCalibration" visible="false" />
+                                                <TableColumn fx:id="chipColumn" prefWidth="97.0" text="Chip" />
+                                                <TableColumn fx:id="familyColumn" prefWidth="98.0" text="Family" />
                                              </columns>
                                           </TableView>
-                                          <Button layoutX="30.0" layoutY="235.0" mnemonicParsing="false" text="Add" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                          <Button layoutX="14.0" layoutY="259.0" mnemonicParsing="false" text="Remove" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                                        </children>
                                     </AnchorPane>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
-                                          <SplitPane dividerPositions="0.3257328990228013" prefHeight="298.0" prefWidth="616.0">
-                                             <items>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                                   <children>
-                                                      <TableView fx:id="chipTableView" layoutX="-2.0" layoutY="36.0" prefHeight="296.0" prefWidth="196.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                         <columns>
-                                                            <TableColumn fx:id="chipColumn" prefWidth="97.0" text="Chip" />
-                                                            <TableColumn fx:id="familyColumn" prefWidth="98.0" text="Family" />
-                                                         </columns>
-                                                      </TableView>
-                                                   </children>
-                                                </AnchorPane>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                                                   <children>
-                                                      <TableView fx:id="portTableView" layoutX="56.0" prefHeight="296.0" prefWidth="468.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                         <columns>
-                                                            <TableColumn fx:id="portColumn" prefWidth="100.0" text="Port" />
-                                                            <TableColumn fx:id="occupiedByColumn" prefWidth="137.0" text="Occupied By" />
-                                                            <TableColumn fx:id="mColumn" prefWidth="69.0" text="m" />
-                                                            <TableColumn fx:id="nColumn" prefWidth="66.0" text="n" />
-                                                         </columns>
-                                                      </TableView>
-                                                   </children>
-                                                </AnchorPane>
-                                             </items>
-                                          </SplitPane>
+                                          <TableView fx:id="portTableView" layoutX="56.0" prefHeight="296.0" prefWidth="468.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <columns>
+                                                <TableColumn fx:id="portColumn" prefWidth="118.0" text="Port" />
+                                                <TableColumn fx:id="occupiedByColumn" prefWidth="164.0" text="Occupied By" />
+                                                <TableColumn fx:id="mColumn" prefWidth="93.0" text="m" />
+                                                <TableColumn fx:id="nColumn" prefWidth="76.0" text="n" />
+                                             </columns>
+                                          </TableView>
                                        </children>
                                     </AnchorPane>
                                 </items>

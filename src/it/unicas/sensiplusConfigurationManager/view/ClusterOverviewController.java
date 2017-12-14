@@ -23,8 +23,6 @@ public class ClusterOverviewController {
     @FXML
     private TableColumn<Cluster,String> clusterColumn;
     @FXML
-    private TableView<Cluster> calibrationTableView;
-    @FXML
     private TableColumn<Cluster,String> calibrationColumn;
     @FXML
     private TableColumn<Cluster,String> idCalibrationColumn;
@@ -75,8 +73,7 @@ public class ClusterOverviewController {
         this.mainApp = mainApp;
         clusterTableView.setItems(mainApp.getClusterData());
         configurationTableView.setItems(mainApp.getConfigurationOnClusterData());
-        calibrationTableView.setItems(mainApp.getCalibrationOnClusterData());
-        chipTableView.setItems(mainApp.getChipOfCalibrationOnCLusterData());
+        chipTableView.setItems(mainApp.getChipOnClusterData());
         portTableView.setItems(mainApp.getChipDetailsOnClusterData());
         showCluster();
 
@@ -85,18 +82,17 @@ public class ClusterOverviewController {
     @FXML
     private void initialize(){
         clusterColumn.setCellValueFactory(cellData->cellData.getValue().idClusterProperty());
+        calibrationColumn.setCellValueFactory(cellData->cellData.getValue().nameCalibrationProperty());
+        idCalibrationColumn.setCellValueFactory(cellData->cellData.getValue().idCalibrationProperty().asString());
         clusterTableView.getSelectionModel().selectedItemProperty().addListener(
                 ((observable, oldValue, newValue) -> showClusterDetails(newValue)));
 
-        calibrationColumn.setCellValueFactory(cellData->cellData.getValue().nameCalibrationProperty());
-        idCalibrationColumn.setCellValueFactory(cellData->cellData.getValue().idCalibrationProperty().asString());
-        calibrationTableView.getSelectionModel().selectedItemProperty().addListener(
-                ((observable, oldValue, newValue) -> showChipDetailsOnCluster(newValue)));
+
 
         chipColumn.setCellValueFactory(cellData->cellData.getValue().aProperty());
         familyColumn.setCellValueFactory(cellData->cellData.getValue().bProperty());
         chipTableView.getSelectionModel().selectedItemProperty().addListener(
-                ((observable, oldValue, newValue) -> showPort(calibrationTableView.getSelectionModel().getSelectedItem().getIdCalibration(),newValue.getA())));
+                ((observable, oldValue, newValue) -> showPort(clusterTableView.getSelectionModel().getSelectedItem().getIdCalibration(),newValue.getA())));
 
         idConfigurationColumn.setCellValueFactory(cellData->cellData.getValue().idConfigurationProperty().asString());
         driverColumn.setCellValueFactory(cellData->cellData.getValue().driverProperty());
@@ -106,7 +102,7 @@ public class ClusterOverviewController {
         protocolColumn.setCellValueFactory(cellData->cellData.getValue().protocolProperty());
         addressTypeColumn.setCellValueFactory(cellData->cellData.getValue().protocolProperty());
         configurationTableView.getSelectionModel().selectedItemProperty().addListener(
-                ((observable, oldValue, newValue) -> setButtonCalibration(newValue)));
+                ((observable, oldValue, newValue) -> setButtonConfiguration(newValue)));
 
         portColumn.setCellValueFactory(cellData->cellData.getValue().portNameProperty());
         occupiedByColumn.setCellValueFactory(cellData->cellData.getValue().occupiedByProperty());
@@ -115,6 +111,20 @@ public class ClusterOverviewController {
 
     }
 
+    @FXML
+    private void handleNewCluster(){
+        Cluster temp= new Cluster();
+        boolean okClicked=mainApp.showNewClusterDialog(temp);
+        if(okClicked){
+            try {
+                ClusterDAOMySQLImpl.getInstance().insertCluster(temp);
+            } catch (DAOException e) {
+                e.printStackTrace();
+            }
+            showCluster();
+            clusterTableView.getSelectionModel().selectLast();
+        }
+    }
     @FXML
     private void handleDeleteCluster(){
         Cluster tempCluster=clusterTableView.getSelectionModel().getSelectedItem();
@@ -242,6 +252,9 @@ public class ClusterOverviewController {
         }
         clusterTableView.getSelectionModel().selectFirst();
         configurationTableView.getSelectionModel().selectFirst();
+        if(clusterTableView.getSelectionModel().getSelectedIndex()!=0){
+            deleteClusterButton.setDisable(true);
+        }
     }
 
     private void showClusterDetails(Cluster cluster){
@@ -252,53 +265,22 @@ public class ClusterOverviewController {
                 mainApp.getConfigurationOnClusterData().clear();
                 mainApp.getConfigurationOnClusterData().addAll(lista);
             } catch (DAOException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initOwner(mainApp.getPrimaryStage());
-                alert.setTitle("Error during DB interaction  ");
-                alert.setHeaderText("Error during search ... ");
-                alert.setContentText(e.getMessage());
-
-                alert.showAndWait();
+              e.getStackTrace();
             }
             try {
-                List<Cluster> lista = ClusterDAOMySQLImpl.getInstance().selectCalibration(cluster);
-                mainApp.getCalibrationOnClusterData().clear();
-                mainApp.getCalibrationOnClusterData().addAll(lista);
+                List<Cluster> lista=ClusterDAOMySQLImpl.getInstance().selectChip(cluster);
+                mainApp.getChipOnClusterData().clear();
+                mainApp.getChipOnClusterData().addAll(lista);
             } catch (DAOException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initOwner(mainApp.getPrimaryStage());
-                alert.setTitle(" Error during DB interaction  ");
-                alert.setHeaderText("Error during search ... ");
-                alert.setContentText(e.getMessage());
-
-                alert.showAndWait();
+                e.getStackTrace();
             }
             addConfigurationButton.setDisable(false);
         }else{
             addConfigurationButton.setDisable(true);
-            deleteClusterButton.setDisable(true);
+            deleteConfigurationButton.setDisable(true);
         }
         configurationTableView.getSelectionModel().selectFirst();
-        portTableView.getItems().clear();
-        chipTableView.getItems().clear();
-    }
-
-    private void showChipDetailsOnCluster(Cluster calibration){
-        if(calibration!=null){
-            try {
-                List<Cluster> lista=ClusterDAOMySQLImpl.getInstance().selectChip(calibration);
-                mainApp.getChipOfCalibrationOnCLusterData().clear();
-                mainApp.getChipOfCalibrationOnCLusterData().addAll(lista);
-            } catch (DAOException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initOwner(mainApp.getPrimaryStage());
-                alert.setTitle(" Error during DB interaction  ");
-                alert.setHeaderText(" Error during search ... ");
-                alert.setContentText(e.getMessage());
-
-                alert.showAndWait();
-            }
-        }
+        chipTableView.getSelectionModel().selectFirst();
     }
 
     private void showPort(Integer idCalibration, String idChip){
@@ -314,7 +296,7 @@ public class ClusterOverviewController {
         }
     }
 
-    private void setButtonCalibration(Cluster configuration){
+    private void setButtonConfiguration(Cluster configuration){
         if(configuration!=null){
             editConfigurationButton.setDisable(false);
             deleteConfigurationButton.setDisable(false);
@@ -324,19 +306,6 @@ public class ClusterOverviewController {
         }
     }
 
-    @FXML
-    private void handleNewCluster(){
-        Cluster temp= new Cluster();
-        boolean okClicked=mainApp.showNewClusterDialog(temp);
-        if(okClicked){
-            try {
-                ClusterDAOMySQLImpl.getInstance().insertCluster(temp);
-            } catch (DAOException e) {
-                e.printStackTrace();
-            }
-            showCluster();
-            clusterTableView.getSelectionModel().selectLast();
-        }
-    }
+
 }
 
