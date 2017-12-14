@@ -34,7 +34,7 @@ public class Family {
 
     //Default constructor
     public Family(){
-        this(null,null,null,null,null);  }
+        this(0,null);  }
 
     public Family(Integer idSPFamily,String name,String id,String hwVersion,String sysclock,String osctrim){
         this.idSPFamily=new SimpleIntegerProperty(idSPFamily);
@@ -46,14 +46,14 @@ public class Family {
     }
 
     //costruttore select
-  /*  public Family(Integer idSPFamily,String id){
+    public Family(Integer idSPFamily,String id){
         this.idSPFamily=new SimpleIntegerProperty(idSPFamily.intValue());
         this.id=new SimpleStringProperty(id);
         this.name=new SimpleStringProperty("");
         this.hwVersion=new SimpleStringProperty("");
         this.sysclock=new SimpleStringProperty("");
         this.osctrim = new SimpleStringProperty("");
-    }*/
+    }
 
     //costruttore spPort
     public Family(Integer idSPPort,Boolean internal,String portName, String se,Integer m,Integer n){
@@ -272,7 +272,7 @@ public class Family {
         this.idSPMeasureTechnique.set(idSPMeasureTechnique);
     }
 
-    public int getA() {
+    public Integer getA() {
         return a.get();
     }
 
@@ -280,11 +280,11 @@ public class Family {
         return a;
     }
 
-    public void setA(int a) {
+    public void setA(Integer a) {
         this.a.set(a);
     }
 
-    public int getB() {
+    public Integer getB() {
         return b.get();
     }
 
@@ -292,7 +292,7 @@ public class Family {
         return b;
     }
 
-    public void setB(int b) {
+    public void setB(Integer b) {
         this.b.set(b);
     }
 }

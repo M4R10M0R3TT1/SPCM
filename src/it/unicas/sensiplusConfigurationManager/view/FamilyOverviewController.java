@@ -153,7 +153,7 @@ public class FamilyOverviewController {
 
     @FXML
     private void handleReadDB() {
-        Family tempFam = new Family(0,"","","","","");
+        Family tempFam = new Family(0,"");
 
         try {
             List<Family> list = FamilyDAOMySQLImpl.getInstance().select(tempFam);
@@ -286,6 +286,8 @@ public class FamilyOverviewController {
             alert.showAndWait();
         }
     }
+
+
 
     @FXML
     private void handleAddTechniqueOnFamily(){
@@ -432,6 +434,15 @@ public class FamilyOverviewController {
 
         }
 
+    }
+
+    @FXML
+    private void handleNewPort(){
+        Family temp=new Family("","","",true,0);
+        boolean okClicked = mainApp.showNewPortDialog(temp);
+        if(okClicked){
+            System.out.println("Internal: "+temp.isInternal());
+        }
     }
 
 

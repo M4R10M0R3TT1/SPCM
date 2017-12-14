@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="530.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.FamilyOverviewController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="530.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.FamilyOverviewController">
    <children>
       <SplitPane dividerPositions="0.33184855233853006" layoutX="145.0" layoutY="107.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -96,18 +96,19 @@
                                                 <TableColumn fx:id="idSEColumn" prefWidth="159.0" text="Occupied by" />
                                             </columns>
                                           </TableView>
-                                          <ButtonBar layoutY="280.0" prefHeight="40.0" prefWidth="180.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                                          <ButtonBar layoutX="-16.0" layoutY="218.0" prefHeight="40.0" prefWidth="180.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-16.0">
                                             <buttons>
                                               <Button fx:id="addPortButton" mnemonicParsing="false" onAction="#handleAddPortOnFamily" text="Add Port" />
                                                 <Button fx:id="delPortButton" disable="true" mnemonicParsing="false" onAction="#handleDelPortOnFamily" text="Del Port" />
                                             </buttons>
                                           </ButtonBar>
-                                          <ButtonBar layoutX="212.0" layoutY="217.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.rightAnchor="5.0">
+                                          <ButtonBar layoutX="231.0" layoutY="217.0" prefHeight="40.0" prefWidth="173.0" AnchorPane.rightAnchor="3.0">
                                             <buttons>
                                                 <Button fx:id="addSEButton" disable="true" mnemonicParsing="false" onAction="#handleAddSE" prefHeight="25.0" prefWidth="75.0" text="Add SE" />
                                                 <Button fx:id="delSEButton" disable="true" mnemonicParsing="false" onAction="#handleDeleteSE" prefHeight="25.0" prefWidth="75.0" text="Del SE" />
                                             </buttons>
                                           </ButtonBar>
+                                          <Button layoutX="170.0" layoutY="226.0" mnemonicParsing="false" onAction="#handleNewPort" prefHeight="25.0" prefWidth="75.0" text="New Port" />
                                        </children>
                                     </AnchorPane>
                                 </items>

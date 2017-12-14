@@ -42,7 +42,7 @@ public class NewClusterDialogController {
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-        //calibrationComboBox.setItems(mainApp.getCalibration());
+
     }
 
     public void setDialogStage(Stage dialogStage) {
@@ -93,6 +93,8 @@ public class NewClusterDialogController {
             addButton.setDisable(false);
         }
     }
+
+
 
 
 }
