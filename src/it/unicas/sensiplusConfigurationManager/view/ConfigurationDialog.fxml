@@ -33,6 +33,11 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
+            <TextField fx:id="driverTextField" onKeyReleased="#textFieldEmpty" prefWidth="202.0" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </TextField>
             <TextField fx:id="hostControllerTextField" onKeyReleased="#textFieldEmpty" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" />
@@ -58,11 +63,6 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="driverTextField" onKeyReleased="#textFieldEmpty" prefWidth="202.0" GridPane.columnIndex="1">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </TextField>
             <Label text="Driver" />
             <Label text="Api Owner" GridPane.rowIndex="2" />
             <Label text="Protocol" GridPane.rowIndex="4" />
@@ -71,7 +71,7 @@
             <Label text="Address Type" GridPane.rowIndex="5" />
          </children>
       </GridPane>
-      <ButtonBar layoutX="87.0" layoutY="414.0" prefHeight="40.0" prefWidth="164.0">
+      <ButtonBar layoutX="87.0" layoutY="414.0" prefHeight="40.0" prefWidth="164.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="87.0" AnchorPane.rightAnchor="97.0">
         <buttons>
           <Button fx:id="addButton" disable="true" mnemonicParsing="false" onAction="#handleAdd" text="Add" />
             <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
