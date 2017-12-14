@@ -114,6 +114,7 @@ public class ClusterOverviewController {
         mColumn.setCellValueFactory(celldata->celldata.getValue().bProperty().asString());
 
     }
+
     @FXML
     private void handleDeleteCluster(){
         Cluster tempCluster=clusterTableView.getSelectionModel().getSelectedItem();

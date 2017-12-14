@@ -21,7 +21,7 @@
                     </columns>
                   </TableView>
                   <Button layoutX="39.0" layoutY="458.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="75.0" text="New" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                  <Button fx:id="deleteClusterButton" layoutX="39.0" layoutY="499.0" mnemonicParsing="false" text="Delete" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Button fx:id="deleteClusterButton" layoutX="39.0" layoutY="499.0" mnemonicParsing="false" onAction="#handleDeleteCluster" text="Delete" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="528.0" prefWidth="653.0">

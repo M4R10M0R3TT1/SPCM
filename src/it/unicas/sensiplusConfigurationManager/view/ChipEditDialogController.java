@@ -46,8 +46,6 @@ public class ChipEditDialogController {
 
         familyComboBox.getItems().addAll("No Family Associated");
         familyComboBox.valueProperty().addListener((ObservableValue observable, Object oldValue, Object newValue)->newValue.toString());
-
-
     }
 
 
@@ -58,7 +56,6 @@ public class ChipEditDialogController {
      */
     public void setDialogStage(Stage dialogStage, boolean verifyLen) {
         this.dialogStage = dialogStage;
-
         // Set the dialog icon.
         this.dialogStage.getIcons().add(new Image("file:resources/images/pencil-lapis-128.png"));
     }

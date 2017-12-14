@@ -46,7 +46,7 @@ public class MainApp extends Application {
     private ObservableList<Family> portAndSEData = FXCollections.observableArrayList();
     //Lista osservabile delle porte da poter aggiungere in Family
     private ObservableList<Family> addPortOnFamily=FXCollections.observableArrayList();
-    //Lista osservabili delle measureTechnique da aggiungere in family
+    //Lista osservabile delle measureTechnique da aggiungere in family
     private ObservableList<Family> addTechniqueOnFamily=FXCollections.observableArrayList();
     private ObservableList<Chip> clusterChip=FXCollections.observableArrayList();
     private ObservableList<Chip> calibrationChip=FXCollections.observableArrayList();
