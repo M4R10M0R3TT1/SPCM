@@ -323,5 +323,20 @@ public class ClusterOverviewController {
             deleteConfigurationButton.setDisable(true);
         }
     }
+
+    @FXML
+    private void handleNewCluster(){
+        Cluster temp= new Cluster();
+        boolean okClicked=mainApp.showNewClusterDialog(temp);
+        if(okClicked){
+            try {
+                ClusterDAOMySQLImpl.getInstance().insertCluster(temp);
+            } catch (DAOException e) {
+                e.printStackTrace();
+            }
+            showCluster();
+            clusterTableView.getSelectionModel().selectLast();
+        }
+    }
 }
 

@@ -35,7 +35,7 @@ public class ClusterDAOMySQLImpl implements DAOCluster<Cluster> {
         ArrayList<Cluster> lista = new ArrayList<>();
         try{
             Statement st = DAOMySQLSettings.getStatement();
-            String sql ="SELECT DISTINCT idCluster FROM spcluster ";
+            String sql ="SELECT DISTINCT idCluster FROM spcluster ORDER BY idCluster ";
 
             ResultSet rs = st.executeQuery(sql);
 
@@ -205,4 +205,41 @@ public class ClusterDAOMySQLImpl implements DAOCluster<Cluster> {
             throw new DAOException("In deleteConfiguration() : " + e.getMessage());
         }
     }
+
+    @Override
+    public List<String> selectCalInDialog() throws DAOException {
+       ArrayList<String> list = new ArrayList<>();
+       try{
+           Statement st = DAOMySQLSettings.getStatement();
+           String sql = "SELECT name FROM spcalibration";
+           ResultSet rs = st.executeQuery(sql);
+           while(rs.next()){
+               list.add(new String(rs.getString("name")));
+           }
+           DAOMySQLSettings.closeStatement(st);
+       }catch (SQLException e){
+           e.getStackTrace();
+       }
+        return list;
+    }
+
+    @Override
+    public void insertCluster(Cluster a) throws DAOException {
+
+
+       // String sql0 = "SELECT idCalibration FROM spcalibration WHERE name='"+a.getNameCalibration()+"'";
+        //if(a.getNameCalibration()!="No Calibration")
+            String sql = "INSERT INTO spcluster VALUES ('" + a.getIdCluster() + "',(SELECT c.idSPCalibration FROM spcalibration c WHERE c.name='" + a.getNameCalibration() + "'))";
+            try {
+                Statement st = DAOMySQLSettings.getStatement();
+                int n = st.executeUpdate(sql);
+                DAOMySQLSettings.closeStatement(st);
+
+            } catch (SQLException e) {
+                throw new DAOException("In insertCluster(): " + e.getMessage());
+            }
+
+
+        }
+
 }

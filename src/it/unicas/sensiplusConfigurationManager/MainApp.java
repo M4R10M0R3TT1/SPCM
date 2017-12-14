@@ -671,6 +671,39 @@ public class MainApp extends Application {
         }
     }
 
+    public boolean showNewClusterDialog(Cluster c){
+        try{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApp.class.getResource("view/NewClusterDialog.fxml"));
+        AnchorPane page = (AnchorPane) loader.load();
+
+        // Create the dialog Stage.
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("New Cluster");
+        dialogStage.setResizable(false);
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.initOwner(primaryStage);
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
+
+        NewClusterDialogController controller = loader.getController();
+        controller.setMainApp(this);
+        controller.setDialogStage(dialogStage);
+        controller.setCluster(c);
+        controller.showCalibration();
+
+
+        // Show the dialog and wait until the user closes it
+        dialogStage.showAndWait();
+        return controller.isOkClicked();
+
+         } catch (IOException e) {
+             e.printStackTrace();
+             return false;
+         }
+
+    }
+
 
 
     public MainApp(){

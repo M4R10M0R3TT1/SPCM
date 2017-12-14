@@ -14,4 +14,6 @@ public interface DAOCluster<T> {
     void insertConfiguration(T a) throws DAOException;
     void updateConfiguration(T a) throws DAOException;
     void deleteConfiguration(T a) throws DAOException;
+    List<String> selectCalInDialog() throws  DAOException;
+    void insertCluster(T a) throws DAOException;
 }
