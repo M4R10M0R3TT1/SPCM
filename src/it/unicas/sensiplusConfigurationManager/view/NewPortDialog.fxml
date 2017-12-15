@@ -38,14 +38,14 @@
                         <Font size="15.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="portTextField" layoutX="58.0" layoutY="100.0" onKeyReleased="#activationButton" prefHeight="25.0" prefWidth="173.0" AnchorPane.leftAnchor="58.0" AnchorPane.topAnchor="100.0" />
+                  <TextField fx:id="portTextField" layoutX="58.0" layoutY="100.0" onKeyReleased="#activationButton" onMouseClicked="#showTextField" prefHeight="25.0" prefWidth="173.0" AnchorPane.leftAnchor="58.0" AnchorPane.topAnchor="100.0" />
                   <CheckBox fx:id="internalCheckBox" layoutX="106.0" layoutY="138.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Internal" AnchorPane.leftAnchor="106.0" AnchorPane.topAnchor="138.0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </CheckBox>
                   <Button fx:id="createButton" disable="true" layoutX="61.0" layoutY="197.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="32.0" prefWidth="73.0" text="Create" AnchorPane.topAnchor="197.0" />
-                  <Button layoutX="161.0" layoutY="194.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="32.0" prefWidth="73.0" text="Cancel" />
+                  <Button layoutX="161.0" layoutY="194.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="32.0" prefWidth="73.0" text="Cancel" AnchorPane.topAnchor="197.0" />
                </children>
             </AnchorPane>
         </items>

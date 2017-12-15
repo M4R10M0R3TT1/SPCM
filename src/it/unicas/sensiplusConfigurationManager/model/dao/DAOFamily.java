@@ -33,4 +33,5 @@ public interface DAOFamily <T>{
     List<T> selectPortOfChipOnCluster(Integer a,String idChip) throws DAOException;
     void insertPort(T a) throws DAOException;
     List<T> selectAllPort(T a) throws DAOException;
+    void deletePort(T a) throws DAOException;
 }

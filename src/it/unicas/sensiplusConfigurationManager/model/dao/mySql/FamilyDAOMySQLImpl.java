@@ -422,6 +422,19 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
     }
 
     @Override
+    public void deletePort(Family a) throws DAOException {
+        String sql="DELETE FROM spport WHERE idSPPort = "+a.getIdSPPort();
+        Statement st = null;
+        try {
+            st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+            DAOMySQLSettings.closeStatement(st);
+        } catch (SQLException e) {
+            throw new DAOException("In deletePort():  " + e.getMessage());
+        }
+    }
+
+    @Override
     public List<Family> selectAddPortOnFamily(Family a) throws DAOException {
         ArrayList<Family> lista = new ArrayList<>();
         Integer famSelected = a.getIdSPFamily();

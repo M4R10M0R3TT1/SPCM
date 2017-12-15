@@ -441,12 +441,7 @@ public class FamilyOverviewController {
         Family temp=new Family(0,true,"","",0,0);
         boolean okClicked = mainApp.showNewPortDialog(temp);
         if(okClicked){
-            try {
-                FamilyDAOMySQLImpl.getInstance().insertPort(temp);
-
-            } catch (DAOException e) {
-                e.printStackTrace();
-            }
+           handleReadDB();
         }
     }
 
