@@ -66,6 +66,9 @@ public class NewClusterDialogController {
         dialogStage.close();
     }
 
+    @FXML
+    private void handleCancel(){dialogStage.close();}
+
     public void showCalibration(){
         try {
             List<String> list = ClusterDAOMySQLImpl.getInstance().selectCalInDialog();
