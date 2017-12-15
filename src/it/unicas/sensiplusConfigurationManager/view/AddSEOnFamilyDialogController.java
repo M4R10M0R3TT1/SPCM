@@ -88,7 +88,7 @@ public class AddSEOnFamilyDialogController {
         addButton.setDisable(true);
         if (sensingElement != null)
             try {
-                List<Family> list = FamilyDAOMySQLImpl.getInstance().availablePort(family);
+                List<Family> list = FamilyDAOMySQLImpl.getInstance().availablePort(family,sensingElement.getIdSensingElement().toString());
                 mainApp.getAddSeFamPortData().clear();
                 mainApp.getAddSeFamPortData().addAll(list);
 

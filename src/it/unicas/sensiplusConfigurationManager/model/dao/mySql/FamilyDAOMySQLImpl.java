@@ -3,6 +3,7 @@ package it.unicas.sensiplusConfigurationManager.model.dao.mySql;
 import com.mysql.cj.api.mysqla.result.Resultset;
 import it.unicas.sensiplusConfigurationManager.model.Cluster;
 import it.unicas.sensiplusConfigurationManager.model.Family;
+import it.unicas.sensiplusConfigurationManager.model.SensingElement;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOFamily;
 
@@ -300,18 +301,40 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
     }
 
     @Override
-    public List<Family> availablePort(Family a) throws DAOException {
+    public List<Family> availablePort(Family a,String se) throws DAOException {
         ArrayList<Family> lista = new ArrayList<>();
         Integer famSelected = a.getIdSPFamily();
+        String mt=null;
+
         try{
             Statement st=DAOMySQLSettings.getStatement();
+            //MEASURE CONTROL
+            String sql0="SELECT s.measureTechnique FROM spsensingelement s " +
+                    "WHERE s.idSPSensingElement='"+se+"'";
+            ResultSet rs0=st.executeQuery(sql0);
+            while(rs0.next()) {
+                mt = rs0.getString("measureTechnique");
+            }
+            //DAOMySQLSettings.closeStatement(st0);
 
-            String sql="SELECT p.idSPPort,p.internal,p.name FROM SPPort p,SPFamilyTemplate ft " +
-                    "WHERE ft.SPFamily_idSPFamily="+famSelected+" AND ft.idSPFamilyTemplate!=ALL(SELECT ft.idSPFamilyTemplate " +
-                    "FROM SPFamilyTemplate ft,SPSensingElementOnFamily sf " +
-                    "WHERE ft.SPFamily_idSPFamily="+famSelected+" " +
-                    "AND ft.idSPFamilyTemplate=sf.SPFamilyTemplate_idSPFamilyTemplate) AND p.idSPPort=ft.SPPort_idSPPort;";
-
+            st=DAOMySQLSettings.getStatement();
+            String sql=null;
+            if(mt.equals("DIRECT")) {
+                sql = "SELECT DISTINCT p.idSPPort,p.internal,p.name FROM SPPort p,SPFamilyTemplate ft, spsensingelement s, spsensingelementonfamily sf " +
+                        "WHERE ft.SPFamily_idSPFamily=" + famSelected + " AND ft.idSPFamilyTemplate!=ALL(SELECT ft.idSPFamilyTemplate " +
+                        "FROM SPFamilyTemplate ft,SPSensingElementOnFamily sf " +
+                        "WHERE ft.SPFamily_idSPFamily=" + famSelected + " " +
+                        "AND ft.idSPFamilyTemplate=sf.SPFamilyTemplate_idSPFamilyTemplate) AND p.idSPPort=ft.SPPort_idSPPort " +
+                        "AND p.internal=true";
+            }
+            else{
+                sql = "SELECT DISTINCT p.idSPPort,p.internal,p.name FROM SPPort p,SPFamilyTemplate ft " +
+                        "WHERE ft.SPFamily_idSPFamily=" + famSelected + " AND ft.idSPFamilyTemplate!=ALL(SELECT ft.idSPFamilyTemplate " +
+                        "FROM SPFamilyTemplate ft,SPSensingElementOnFamily sf " +
+                        "WHERE ft.SPFamily_idSPFamily=" + famSelected + " " +
+                        "AND ft.idSPFamilyTemplate=sf.SPFamilyTemplate_idSPFamilyTemplate) AND p.idSPPort=ft.SPPort_idSPPort " +
+                        "AND p.internal!=true";
+            }
             ResultSet rs = st.executeQuery(sql);
 
             while(rs.next()){
@@ -321,7 +344,8 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
                         rs.getString("name"),
                         null,0,0));
             }
-
+            if(lista.size()==0)
+                lista.add(null);
             DAOMySQLSettings.closeStatement(st);
         } catch (SQLException e) {
             e.printStackTrace();

@@ -2,6 +2,7 @@ package it.unicas.sensiplusConfigurationManager.model.dao;
 
 import it.unicas.sensiplusConfigurationManager.model.Cluster;
 import it.unicas.sensiplusConfigurationManager.model.Family;
+import it.unicas.sensiplusConfigurationManager.model.SensingElement;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface DAOFamily <T>{
     List<T> selectPort(T a) throws DAOException;   //return list Port in FamilyOverview
     List<T> selectFamilyAndPort(String a) throws DAOException;
     List<T> selectAddSEOnFamily(String a) throws DAOException;
-    List<T> availablePort(T a) throws DAOException;
+    List<T> availablePort(T a,String s) throws DAOException;
     List<T> selectMeasureTechnique(T a) throws  DAOException;
     List<T> selectAddPortOnFamily(T a) throws  DAOException;
     List<T> selectAddTechniqueOnFamily(T a) throws DAOException;
