@@ -18,4 +18,5 @@ public interface DAOCluster<T> {
     List<String> selectCalInDialog() throws  DAOException;
     void insertCluster(T a) throws DAOException;
     void removeCalibrationOnCluster(T a) throws DAOException;
+    void addCalibrationOnCluster (T a) throws DAOException;
 }

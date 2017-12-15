@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="408.0" prefWidth="226.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.AddCalibrationOnClusterDialogController">
+   <children>
+      <TableView fx:id="calibrationTableView" layoutX="36.0" layoutY="72.0" prefHeight="424.0" prefWidth="236.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+        <columns>
+          <TableColumn fx:id="calibrationColumn" prefWidth="222.0" text="Calibration" />
+          <TableColumn fx:id="idColumn" minWidth="0.0" prefWidth="0.0" text="Id" visible="false" />
+        </columns>
+      </TableView>
+      <Label contentDisplay="CENTER" layoutX="10.0" layoutY="5.0" prefHeight="65.0" prefWidth="208.0" text="Add Calibration on Cluster" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Button cancelButton="true" layoutX="130.0" layoutY="490.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="107.0" text="Cancel" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+      <Button defaultButton="true" layoutX="14.0" layoutY="490.0" mnemonicParsing="false" onAction="#handleAddButton" prefHeight="31.0" prefWidth="107.0" text="Add" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" />
+   </children>
+</AnchorPane>

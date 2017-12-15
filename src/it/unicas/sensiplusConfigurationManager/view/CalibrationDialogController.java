@@ -45,17 +45,9 @@ public class CalibrationDialogController {
         // Set the dialog icon.
         this.dialogStage.getIcons().add(new Image("file:resources/images/pencil-lapis-128.png"));
     }
-
-    @FXML
-    private void initialize(){
-        idColumn.setCellValueFactory(cellData->cellData.getValue().idCalibrationProperty().asString());
-        calibrationColumn.setCellValueFactory((cellDeta->cellDeta.getValue().nameCalibrationProperty()));
-    }
-
     public boolean isOkClicked(){
         return okClicked;
     }
-
     public void showCalibration(){
         try {
             List<Chip> list = ChipDAOMySQLImpl.getInstance().selectCalibration();
@@ -76,6 +68,12 @@ public class CalibrationDialogController {
 
     }
 
+
+    @FXML
+    private void initialize(){
+        idColumn.setCellValueFactory(cellData->cellData.getValue().idCalibrationProperty().asString());
+        calibrationColumn.setCellValueFactory((cellDeta->cellDeta.getValue().nameCalibrationProperty()));
+    }
     @FXML
     private void handleTextFieldControl(){
         if (calibrationTextField.getLength()==0)
@@ -129,7 +127,6 @@ public class CalibrationDialogController {
             newButton.setDisable(true);
         }
     }
-
     @FXML
     private void handleEdit() {
         if (editButton.getText() == "Cancel") {
@@ -151,7 +148,6 @@ public class CalibrationDialogController {
 
 
     }
-
     @FXML
     private void handleDelete() {
         Integer id = calibrationTableView.getSelectionModel().getSelectedItem().getIdCalibration();

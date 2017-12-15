@@ -237,11 +237,11 @@ public class ClusterOverviewController {
     }
     @FXML
     private void handleCalibrationButton(){
-        Cluster cluster=clusterTableView.getSelectionModel().getSelectedItem();
+        Cluster selCluster=clusterTableView.getSelectionModel().getSelectedItem();
         int selIndex=clusterTableView.getSelectionModel().getFocusedIndex();
-        if(cluster.getNameCalibration()!=null){
+        if(selCluster.getNameCalibration()!=null){
             try {
-                ClusterDAOMySQLImpl.getInstance().removeCalibrationOnCluster(cluster);
+                ClusterDAOMySQLImpl.getInstance().removeCalibrationOnCluster(selCluster);
                 showCluster();
                 clusterTableView.getSelectionModel().select(selIndex);
                 showPort(null);
@@ -249,7 +249,17 @@ public class ClusterOverviewController {
                 e.printStackTrace();
             }
         }else {
-
+            boolean okClicked = mainApp.showAddCalibrationOnClusterDialog(selCluster);
+            if (okClicked){
+                try {
+                    ClusterDAOMySQLImpl.getInstance().addCalibrationOnCluster(selCluster);
+                    showCluster();
+                    clusterTableView.getSelectionModel().select(selIndex);
+                    showClusterDetails(selCluster);
+                } catch (DAOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

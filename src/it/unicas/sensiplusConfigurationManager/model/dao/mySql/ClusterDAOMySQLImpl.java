@@ -213,7 +213,21 @@ public class ClusterDAOMySQLImpl implements DAOCluster<Cluster> {
             st.executeUpdate(sql);
             DAOMySQLSettings.closeStatement(st);
         } catch (SQLException e) {
-            throw new DAOException("In delete() : " + e.getMessage());
+            throw new DAOException("In removeCalibrationOnCluster() : " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void addCalibrationOnCluster(Cluster a) throws DAOException {
+        String sql = "UPDATE spcluster SET SPCalibration_idSPCalibration="+a.getIdCalibration()+" WHERE idCluster='"+ a.getIdCluster()+"'";
+        logger.info("SQL: " + sql);
+        Statement st = null;
+        try {
+            st = DAOMySQLSettings.getStatement();
+            st.executeUpdate(sql);
+            DAOMySQLSettings.closeStatement(st);
+        } catch (SQLException e) {
+            throw new DAOException("In addCalibrationOnCluster() : " + e.getMessage());
         }
     }
 }

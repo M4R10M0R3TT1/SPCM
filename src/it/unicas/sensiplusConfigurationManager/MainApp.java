@@ -160,6 +160,7 @@ public class MainApp extends Application {
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
+           // primaryStage.setResizable(false);
 
             // Give the controller access to the main app.
             RootLayoutController controller = loader.getController();
@@ -187,6 +188,7 @@ public class MainApp extends Application {
 
             // Set TabPaneoverview into the center of root layout.
             rootLayout.setCenter(TabPaneOverview);
+
 
             // Give the controller access to the main app.
             //SEOverviewController controller = loader.getController();
@@ -645,34 +647,6 @@ public class MainApp extends Application {
         }
     }
 
-    /**
-     * Closes the application.
-     */
-    public void handleExit() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Are you sure?");
-        //---To set the image on dialog
-        Image image = new Image("file:resources/images/exit-res.png");
-        ImageView imageView = new ImageView(image);
-        alert.setGraphic(imageView);
-        //---To add an icon to the alert
-        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image("file:resources/images/exit.png"));
-        //---
-        alert.setHeaderText("Confirm Exit");
-        alert.setContentText("Are you sure you want to exit?");
-
-        ButtonType buttonTypeOne = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == buttonTypeOne){
-            System.exit(0);
-        }
-    }
-
     public boolean showNewClusterDialog(Cluster c){
         try{
         FXMLLoader loader = new FXMLLoader();
@@ -726,7 +700,36 @@ public class MainApp extends Application {
             controller.setDialogStage(dialogStage);
             controller.setPort(fam);
 
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+            return controller.isOkClicked();
 
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean showAddCalibrationOnClusterDialog(Cluster cluster){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/AddCalibrationOnClusterDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Add calibration on cluster");
+            dialogStage.setResizable(false);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+            dialogStage.setResizable(false);
+
+            AddCalibrationOnClusterDialogController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setDialogStage(dialogStage);
+            controller.setCalibration(cluster);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -739,6 +742,33 @@ public class MainApp extends Application {
     }
 
 
+    /**
+     * Closes the application.
+     */
+    public void handleExit() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Are you sure?");
+        //---To set the image on dialog
+        Image image = new Image("file:resources/images/exit-res.png");
+        ImageView imageView = new ImageView(image);
+        alert.setGraphic(imageView);
+        //---To add an icon to the alert
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("file:resources/images/exit.png"));
+        //---
+        alert.setHeaderText("Confirm Exit");
+        alert.setContentText("Are you sure you want to exit?");
+
+        ButtonType buttonTypeOne = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeOne){
+            System.exit(0);
+        }
+    }
 
     public MainApp(){
     }
