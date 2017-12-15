@@ -438,10 +438,15 @@ public class FamilyOverviewController {
 
     @FXML
     private void handleNewPort(){
-        Family temp=new Family("","","",true,0);
+        Family temp=new Family(0,true,"","",0,0);
         boolean okClicked = mainApp.showNewPortDialog(temp);
         if(okClicked){
-            System.out.println("Internal: "+temp.isInternal());
+            try {
+                FamilyDAOMySQLImpl.getInstance().insertPort(temp);
+
+            } catch (DAOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

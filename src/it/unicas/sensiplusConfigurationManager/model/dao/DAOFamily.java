@@ -30,4 +30,6 @@ public interface DAOFamily <T>{
     void insertMeasure(int m, int f) throws DAOException;
     Family selectSEOnPort(T a, String id) throws DAOException;
     List<T> selectPortOfChipOnCluster(Integer a,String idChip) throws DAOException;
+    void insertPort(T a) throws DAOException;
+    List<T> selectAllPort(T a) throws DAOException;
 }

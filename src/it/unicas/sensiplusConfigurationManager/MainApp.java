@@ -91,6 +91,10 @@ public class MainApp extends Application {
         return seData;
     }
 
+
+
+
+
     public ObservableList<SensingElement> getSeOnPort(){return seOnPort;}
 
     public ObservableList<Family> getSeFamData(){ return seFamData;}

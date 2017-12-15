@@ -85,6 +85,31 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
     }
 
     @Override
+    public List<Family> selectAllPort(Family a) throws DAOException {
+        ArrayList<Family> lista = new ArrayList<>();
+
+
+        try{
+            Statement st = DAOMySQLSettings.getStatement();
+            String sql = "SELECT * FROM spport";
+
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()) {
+                lista.add(new Family(
+                        rs.getInt("idSPPort"),
+                        rs.getBoolean("internal"),
+                        rs.getString("name"),
+                        null,
+                        0,
+                        0));
+            }
+        } catch (SQLException sq) {
+            throw new DAOException("In selectAllPort(): " + sq.getMessage());
+        }
+        return lista;
+    }
+
+    @Override
     public List<Family> selectMeasureTechnique(Family a) throws DAOException {
         ArrayList<Family> lista = new ArrayList<>();
         Integer id = a.getIdSPFamily();
@@ -585,8 +610,17 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             return lista;
         }
 
+    @Override
+    public void insertPort(Family a) throws DAOException {
+        String sql="INSERT INTO spport VALUE (0,"+a.isInternal()+",'"+a.getPortName()+"')";
+        try {
+            Statement st = DAOMySQLSettings.getStatement();
+            int n = st.executeUpdate(sql);
+            DAOMySQLSettings.closeStatement(st);
 
-
-
+        } catch (SQLException e) {
+            throw new DAOException("In insertPort: " + e.getMessage());
+        }
+    }
 }
 
