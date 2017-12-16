@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="530.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.ClusterOverviewController">
+<AnchorPane prefHeight="530.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.ClusterOverviewController">
    <children>
       <SplitPane dividerPositions="0.22717149220489977" prefHeight="530.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -56,6 +56,11 @@
                                     <Font size="23.0" />
                                  </font>
                               </Label>
+                              <ButtonBar layoutX="278.0" prefHeight="40.0" prefWidth="130.0">
+                                <buttons>
+                                  <Button disable="true" mnemonicParsing="false" onAction="#xmlGenerator" prefHeight="25.0" prefWidth="96.0" text="XML Generator" fx:id="xmlButton" />
+                                </buttons>
+                              </ButtonBar>
                            </children>
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="224.0" prefWidth="675.0">

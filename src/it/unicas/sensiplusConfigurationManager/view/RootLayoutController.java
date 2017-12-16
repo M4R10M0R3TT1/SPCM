@@ -65,25 +65,6 @@ public class RootLayoutController {
         }
     }
 
-
-
-    @FXML
-    private void handleSaveAs(){
-        FileChooser fileChooser=new FileChooser();
-        FileChooser.ExtensionFilter extFilter=new FileChooser.ExtensionFilter("XML files(*.xml)","*.xml");
-        fileChooser.getExtensionFilters().add(extFilter);
-
-        File file=fileChooser.showSaveDialog(mainApp.getPrimaryStage());
-        if (file!=null){
-            if(!file.getPath().endsWith(".xml"));
-            {
-                file =new File((file.getPath()+".xml"));
-            }
-            mainApp.saveSEDataToFile(file);
-        }
-    }
-
-
     /**
      * Closes the application.
      */

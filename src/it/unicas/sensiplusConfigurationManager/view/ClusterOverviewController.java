@@ -1,17 +1,22 @@
 package it.unicas.sensiplusConfigurationManager.view;
 
 import it.unicas.sensiplusConfigurationManager.MainApp;
-import it.unicas.sensiplusConfigurationManager.model.Chip;
 import it.unicas.sensiplusConfigurationManager.model.Cluster;
 import it.unicas.sensiplusConfigurationManager.model.Family;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.ClusterDAOMySQLImpl;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.FamilyDAOMySQLImpl;
+import it.unicas.sensiplusConfigurationManager.model.dao.mySql.xmlDAO.XMLDAOCluster;
+import it.unicas.sensiplusConfigurationManager.model.dao.mySql.xmlDAO.XMLDAOConfiguration;
+import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLCluster;
+import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLConfiguration;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,6 +73,8 @@ public class ClusterOverviewController {
     private Button deleteClusterButton;
     @FXML
     private Button calibrationButton;
+    @FXML
+    private Button xmlButton;
 
     private MainApp mainApp;
 
@@ -303,6 +310,7 @@ public class ClusterOverviewController {
             deleteClusterButton.setDisable(false);
             calibrationButton.setDisable(false);
             addConfigurationButton.setDisable(false);
+            xmlButton.setDisable(false);
             if(cluster.getNameCalibration()==null){
                 calibrationButton.setText("Add Calibration");
             }else{
@@ -313,6 +321,7 @@ public class ClusterOverviewController {
             deleteConfigurationButton.setDisable(true);
             deleteClusterButton.setDisable(true);
             calibrationButton.setDisable(true);
+            xmlButton.setDisable(true);
         }
         configurationTableView.getSelectionModel().selectFirst();
         chipTableView.getSelectionModel().selectFirst();
@@ -338,10 +347,56 @@ public class ClusterOverviewController {
         if(configuration!=null){
             editConfigurationButton.setDisable(false);
             deleteConfigurationButton.setDisable(false);
+            xmlButton.setDisable(false);
         }else{
             editConfigurationButton.setDisable(true);
             deleteConfigurationButton.setDisable(true);
+            xmlButton.setDisable(true);
         }
+    }
+
+    /**
+     * Opens a FileChooser to let the user select a file to save to.
+     */
+    @FXML
+    private void handleSaveAs() {
+        FileChooser fileChooser = new FileChooser();
+
+        // Set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
+                "XML files (*.xml)", "*.xml");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        // Show save file dialog
+        File file = fileChooser.showSaveDialog(mainApp.getPrimaryStage());
+
+        if (file != null) {
+            // Make sure it has the correct extension
+            if (!file.getPath().endsWith(".xml")) {
+                file = new File(file.getPath() + ".xml");
+            }
+            mainApp.saveSensichipsToFile(file);
+        }
+    }
+
+
+    @FXML
+    private void xmlGenerator(){
+        Cluster tempConf=configurationTableView.getSelectionModel().getSelectedItem();
+        int selConf=tempConf.getIdConfiguration();
+        try {
+            List<XMLConfiguration> listConf = XMLDAOConfiguration.getInstance().selectConf(selConf);
+            mainApp.getXmlConfigurationData().clear();
+            mainApp.getXmlConfigurationData().addAll(listConf);
+
+            List<XMLCluster> listCluster=XMLDAOCluster.getInstance().selectCluster(selConf);
+            mainApp.getXmlClusterData().clear();
+            mainApp.getXmlClusterData().addAll(listCluster);
+
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        handleSaveAs();
     }
 
 

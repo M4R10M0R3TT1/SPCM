@@ -3,6 +3,8 @@ package it.unicas.sensiplusConfigurationManager;
 import it.unicas.sensiplusConfigurationManager.model.*;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.ChipDAOMySQLImpl;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.DAOMySQLSettings;
+import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLCluster;
+import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLConfiguration;
 import it.unicas.sensiplusConfigurationManager.view.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -792,26 +794,37 @@ public class MainApp extends Application {
     public static void main(String[] args) { launch(args); }
 
 
+    private ObservableList<XMLConfiguration> xmlConfigurationData= FXCollections.observableArrayList();
+    public ObservableList<XMLConfiguration> getXmlConfigurationData(){return xmlConfigurationData;}
+    private ObservableList<XMLCluster> xmlClusterData= FXCollections.observableArrayList();
+    public ObservableList<XMLCluster> getXmlClusterData(){return xmlClusterData;}
+
     /**
-     * faccim nuj gli XML
+     * Saves the current person data to the specified file.
+     *
+     * @param file
      */
-    public void saveSEDataToFile(File file){
-        try{
-            JAXBContext context=JAXBContext.newInstance(SensingElementListWrapper.class);
-            Marshaller m =context.createMarshaller();
-            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,true);
+    public void saveSensichipsToFile(File file) {
+        try {
+            JAXBContext context = JAXBContext
+                    .newInstance(SensichipsListWrapper.class);
+            Marshaller m = context.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-            SensingElementListWrapper wrapper=new SensingElementListWrapper();
-            wrapper.setSE(seData);
-            wrapper.setPorta(familyPortData.get(0).getIdSPPort());
-//            wrapper.setidPort(familyPortData.get(1).getIdSPPort());
-            m.marshal(wrapper,file);
+            // Wrapping our data.
+            SensichipsListWrapper wrapper = new SensichipsListWrapper();
+            wrapper.setConfiguration(xmlConfigurationData);
+            wrapper.setCluster(xmlClusterData);
 
-            ///////////////////////
-        } catch (PropertyException e) {
-            e.printStackTrace();
-        } catch (JAXBException e) {
-            e.printStackTrace();
+            m.marshal(wrapper, file);
+
+        } catch (Exception e) { // catches ANY exception
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Could not save data");
+            alert.setContentText("Could not save data to file:\n" + file.getPath());
+
+            alert.showAndWait();
         }
     }
 
