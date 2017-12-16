@@ -6,7 +6,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.util.prefs.Preferences;
 
 /**
  * Created by on 23/11/2017.
@@ -49,6 +53,36 @@ public class RootLayoutController {
 
         alert.showAndWait();
     }
+
+
+    public File getFilePath(){
+        Preferences prefs=Preferences.systemNodeForPackage(MainApp.class);
+        String filePath=prefs.get("FilePath",null);
+        if(filePath!=null) {
+            return new File(filePath);
+        }else{
+            return null;
+        }
+    }
+
+
+
+    @FXML
+    private void handleSaveAs(){
+        FileChooser fileChooser=new FileChooser();
+        FileChooser.ExtensionFilter extFilter=new FileChooser.ExtensionFilter("XML files(*.xml)","*.xml");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File file=fileChooser.showSaveDialog(mainApp.getPrimaryStage());
+        if (file!=null){
+            if(!file.getPath().endsWith(".xml"));
+            {
+                file =new File((file.getPath()+".xml"));
+            }
+            mainApp.saveSEDataToFile(file);
+        }
+    }
+
 
     /**
      * Closes the application.

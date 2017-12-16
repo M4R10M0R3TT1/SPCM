@@ -1,9 +1,6 @@
 package it.unicas.sensiplusConfigurationManager;
 
-import it.unicas.sensiplusConfigurationManager.model.Chip;
-import it.unicas.sensiplusConfigurationManager.model.Cluster;
-import it.unicas.sensiplusConfigurationManager.model.Family;
-import it.unicas.sensiplusConfigurationManager.model.SensingElement;
+import it.unicas.sensiplusConfigurationManager.model.*;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.ChipDAOMySQLImpl;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.DAOMySQLSettings;
 import it.unicas.sensiplusConfigurationManager.view.*;
@@ -20,6 +17,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.PropertyException;
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -788,4 +790,29 @@ public class MainApp extends Application {
     }
 
     public static void main(String[] args) { launch(args); }
+
+
+    /**
+     * faccim nuj gli XML
+     */
+    public void saveSEDataToFile(File file){
+        try{
+            JAXBContext context=JAXBContext.newInstance(SensingElementListWrapper.class);
+            Marshaller m =context.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,true);
+
+            SensingElementListWrapper wrapper=new SensingElementListWrapper();
+            wrapper.setSE(seData);
+            wrapper.setPorta(familyPortData.get(0).getIdSPPort());
+//            wrapper.setidPort(familyPortData.get(1).getIdSPPort());
+            m.marshal(wrapper,file);
+
+            ///////////////////////
+        } catch (PropertyException e) {
+            e.printStackTrace();
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

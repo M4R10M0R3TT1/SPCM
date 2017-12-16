@@ -17,6 +17,7 @@
                   <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                 </accelerator>
               </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#handleSaveAs" text="XML" />
               <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
             </items>
           </Menu>
