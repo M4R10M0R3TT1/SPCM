@@ -5,6 +5,7 @@ import it.unicas.sensiplusConfigurationManager.model.dao.mySql.ChipDAOMySQLImpl;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.DAOMySQLSettings;
 import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLCluster;
 import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLConfiguration;
+import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLFamily;
 import it.unicas.sensiplusConfigurationManager.view.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -798,6 +799,8 @@ public class MainApp extends Application {
     public ObservableList<XMLConfiguration> getXmlConfigurationData(){return xmlConfigurationData;}
     private ObservableList<XMLCluster> xmlClusterData= FXCollections.observableArrayList();
     public ObservableList<XMLCluster> getXmlClusterData(){return xmlClusterData;}
+    private ObservableList<XMLFamily> xmlFamilyData = FXCollections.observableArrayList();
+    public ObservableList<XMLFamily> getXmlFamilyData(){return  xmlFamilyData;}
 
     /**
      * Saves the current person data to the specified file.
@@ -814,7 +817,10 @@ public class MainApp extends Application {
             // Wrapping our data.
             SensichipsListWrapper wrapper = new SensichipsListWrapper();
             wrapper.setConfiguration(xmlConfigurationData);
+
             wrapper.setCluster(xmlClusterData);
+            wrapper.setFamily(xmlFamilyData);
+
 
             m.marshal(wrapper, file);
 

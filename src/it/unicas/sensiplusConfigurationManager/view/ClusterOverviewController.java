@@ -8,8 +8,10 @@ import it.unicas.sensiplusConfigurationManager.model.dao.mySql.ClusterDAOMySQLIm
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.FamilyDAOMySQLImpl;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.xmlDAO.XMLDAOCluster;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.xmlDAO.XMLDAOConfiguration;
+import it.unicas.sensiplusConfigurationManager.model.dao.mySql.xmlDAO.XMLDAOFamily;
 import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLCluster;
 import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLConfiguration;
+import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLFamily;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -392,6 +394,10 @@ public class ClusterOverviewController {
             List<XMLCluster> listCluster=XMLDAOCluster.getInstance().selectCluster(selConf);
             mainApp.getXmlClusterData().clear();
             mainApp.getXmlClusterData().addAll(listCluster);
+
+            List<XMLFamily> listFamily = XMLDAOFamily.getInstance().selectFamily(selConf);
+            mainApp.getXmlFamilyData().clear();
+            mainApp.getXmlFamilyData().addAll(listFamily);
 
         } catch (DAOException e) {
             e.printStackTrace();
