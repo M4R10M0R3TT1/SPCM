@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="408.0" prefWidth="226.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.AddCalibrationOnClusterDialogController">
+<AnchorPane blendMode="EXCLUSION" prefHeight="408.0" prefWidth="226.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.AddCalibrationOnClusterDialogController">
    <children>
       <TableView fx:id="calibrationTableView" layoutX="36.0" layoutY="72.0" prefHeight="424.0" prefWidth="236.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
         <columns>

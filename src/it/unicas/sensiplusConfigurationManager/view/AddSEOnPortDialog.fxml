@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.AddSEOnPortDialogController">
+<AnchorPane blendMode="EXCLUSION" prefHeight="485.0" prefWidth="269.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.AddSEOnPortDialogController">
    <children>
       <Label layoutX="15.0" layoutY="24.0" text="Add Sensing Element" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="18.0">
          <font>
@@ -17,12 +17,12 @@
       </Label>
       <TableView fx:id="seTableView" layoutX="12.0" layoutY="80.0" prefHeight="600.0" prefWidth="350.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="70.0">
          <columns>
-            <TableColumn fx:id="seIdColumn" prefWidth="290.0" text="Sensing Element" />
+            <TableColumn fx:id="seIdColumn" prefWidth="264.0" text="Sensing Element" />
          </columns>
       </TableView>
-      <ButtonBar layoutX="105.0" layoutY="570.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="5.0">
+      <ButtonBar layoutX="14.0" layoutY="560.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="30.0">
          <buttons>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#handleAdd" text="Add" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#handleAdd" prefHeight="31.0" prefWidth="135.0" text="Add" />
             <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
          </buttons>
       </ButtonBar>

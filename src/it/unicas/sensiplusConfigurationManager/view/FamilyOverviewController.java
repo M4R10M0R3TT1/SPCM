@@ -374,9 +374,6 @@ public class FamilyOverviewController {
         }
     }
 
-
-
-
     @FXML
     private void handleAddSE(){
         Family port=portTableView.getSelectionModel().getSelectedItem();
@@ -396,9 +393,9 @@ public class FamilyOverviewController {
 
     @FXML
     private void handleDeleteSE(){
-        Family fam=familyTableView.getSelectionModel().getSelectedItem();
-        Family sensingElement=portTableView.getSelectionModel().getSelectedItem();
-        String se = sensingElement.getOccupiedBy();
+        Family family=new Family();
+        family=familyTableView.getSelectionModel().getSelectedItem();
+        Family port=portTableView.getSelectionModel().getSelectedItem();
 
         //--------DELETION CONFIRMATION DIALOG--------
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -421,8 +418,8 @@ public class FamilyOverviewController {
         //---------------------------------------------
         if (result.get() == buttonTypeOne) {
             try {
-                SensingElementDAOMySQLImpl.getInstance().deleteSEonPort(se);
-                showFamilyDetails(fam);
+                FamilyDAOMySQLImpl.getInstance().deleteSEonPort(family,port);
+                showFamilyDetails(family);
             } catch (DAOException e) {
                 alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());

@@ -67,7 +67,7 @@ public class AddSEOnFamilyDialogController {
         portInternalTableColumn.setCellValueFactory(cellData->cellData.getValue().internalProperty().asString());
 
 
-        showPort(null);
+       // showPort(null);
         activationAddButton(null);
         addFamilyTableView.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showPort(newValue));
@@ -79,14 +79,13 @@ public class AddSEOnFamilyDialogController {
 
     public void setDialogStage(Stage dialogStage, boolean verifylen){
         this.dialogStage=dialogStage;
-
         // Set the dialog icon.
         this.dialogStage.getIcons().add(new Image("file:resources/images/pencil-lapis-128.png"));
     }
 
     public void showPort(Family family) {
         addButton.setDisable(true);
-        if (sensingElement != null)
+        if (family != null)
             try {
                 List<Family> list = FamilyDAOMySQLImpl.getInstance().availablePort(family,sensingElement.getIdSensingElement().toString());
                 mainApp.getAddSeFamPortData().clear();

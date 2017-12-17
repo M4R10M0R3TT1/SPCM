@@ -81,11 +81,11 @@ public class Family {
     }
 
     //costruttore availablePort e AddPortOnFamily
-   /* public Family(Integer id, String name, Boolean internal){
+    public Family(Integer id, String name, Boolean internal){
         this.idSPPort= new SimpleIntegerProperty(id);
         this.portName= new SimpleStringProperty(name);
         this.internal= new SimpleBooleanProperty(internal);
-    }*/
+    }
 
     //costruttore addTechniqueOnFamily
     public Family(String type,Integer idSPMeasureTechnique){
@@ -94,12 +94,12 @@ public class Family {
     }
 
     //Constructor for SEonFamily
-   /* public Family(Integer id, String family_Name, String family_id){
+    public Family(Integer id, String family_Name, String family_id){
         this.idSPFamily=new SimpleIntegerProperty(id);
         this.name=new SimpleStringProperty(family_Name);
         this.id=new SimpleStringProperty(family_id);
 
-    }*/
+    }
 
     //-------------------------------------------------------------------
 

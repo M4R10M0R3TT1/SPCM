@@ -34,4 +34,5 @@ public interface DAOFamily <T>{
     void insertPort(T a) throws DAOException;
     List<T> selectAllPort(T a) throws DAOException;
     void deletePort(T a) throws DAOException;
+    void deleteSEonPort(T f, T p) throws DAOException;
 }

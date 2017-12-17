@@ -200,8 +200,11 @@ public class ChipOverviewController {
     }
 
     private void showChipDetails(Chip chip) {
+        int portIndex=1;
         if (chip != null) {
-
+            if (portTableView.getSelectionModel().getSelectedItem()!=null){
+                portIndex=portTableView.getSelectionModel().getSelectedIndex();
+            }
             //set button
             addSensingElementButton.setDisable(true);
             deleteSensingElementButton.setDisable(true);
@@ -210,6 +213,7 @@ public class ChipOverviewController {
 
             mainApp.getCalibrationChip().clear();
             chipLabel.setText(chip.getIdSPChip());
+
             try{
                 familyLabel.setText(ChipDAOMySQLImpl.getInstance().selectFamilyofChip(chip));
             } catch (DAOException e) {
@@ -252,14 +256,14 @@ public class ChipOverviewController {
                 famLabel.setVisible(false);
             }
         }
-        portTableView.getSelectionModel().selectFirst();
+        portTableView.getSelectionModel().select(portIndex);
 
     }
 
     private void showCalibrationDetails(Family family) {
         Chip selChip=chipTableView.getSelectionModel().getSelectedItem();
 
-        if (family != null) {
+        if (family != null && selChip!=null) {
             try {
                 List<Chip> list = ChipDAOMySQLImpl.getInstance().selectCalibrationChip(selChip,family);
                 mainApp.getCalibrationChip().clear();
@@ -288,7 +292,6 @@ public class ChipOverviewController {
 
         }
     }
-
     @FXML
     private void handleAddSEOnChip(){
         Chip selChip=chipTableView.getSelectionModel().getSelectedItem();
@@ -319,7 +322,6 @@ public class ChipOverviewController {
         }
         portTableView.getSelectionModel().select(selIndex);
     }
-
     @FXML
     private void handleAddCalibrationOnChip() {
         Chip selChip = chipTableView.getSelectionModel().getSelectedItem();
@@ -421,7 +423,7 @@ public class ChipOverviewController {
                     ChipDAOMySQLImpl.getInstance().deleteCalibrationOnChip(calibration,chip.getIdSPChip(),idPort);
                     showChipDetails(chip);
                     portTableView.getSelectionModel().select(selectedIndex);
-                    portTableView.getSelectionModel().selectFirst();
+              //      portTableView.getSelectionModel().selectFirst();
                     calibrationTableView.getSelectionModel().selectFirst();
                 } catch (DAOException e) {
                     e.printStackTrace();
@@ -449,7 +451,7 @@ public class ChipOverviewController {
                     ChipDAOMySQLImpl.getInstance().deassociate(chip);
                     mainApp.getChipData().addAll(chip);
                     handleReadDB();
-
+                    chipTableView.getSelectionModel().select(selindex);
 
                 } catch (DAOException e) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);

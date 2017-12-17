@@ -31,7 +31,7 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
         ArrayList<Chip> lista= new ArrayList<>();
         try{
             Statement st = DAOMySQLSettings.getStatement();
-            String sql = " SELECT * FROM spChip";
+            String sql = " SELECT * FROM spChip ORDER By idSPChip";
 
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){

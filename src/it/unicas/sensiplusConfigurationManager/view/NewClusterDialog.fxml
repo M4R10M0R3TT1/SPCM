@@ -7,18 +7,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="271.0" maxWidth="192.0" prefHeight="220.0" prefWidth="192.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.NewClusterDialogController">
+<AnchorPane blendMode="EXCLUSION" maxHeight="300.0" maxWidth="225.0" prefHeight="300.0" prefWidth="225.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.NewClusterDialogController">
    <children>
-      <Label layoutX="37.0" layoutY="14.0" text="New Cluster" AnchorPane.topAnchor="14.0">
+      <Label layoutX="55.0" layoutY="23.0" text="New Cluster" AnchorPane.topAnchor="23.0">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <TextField fx:id="clusterTextField" layoutX="37.0" layoutY="64.0" onKeyReleased="#activationButton" prefHeight="25.0" prefWidth="118.0" />
-      <Label layoutX="70.0" layoutY="46.0" text="Cluster ID" />
-      <Button fx:id="cancelButton" cancelButton="true" layoutX="103.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="25.0" prefWidth="52.0" text="Cancel" />
-      <Button fx:id="addButton" defaultButton="true" disable="true" layoutX="37.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="25.0" prefWidth="52.0" text="Add" />
-      <Label layoutX="67.0" layoutY="111.0" text="Calibration" />
-      <ComboBox fx:id="calibrationComboBox" layoutX="36.0" layoutY="128.0" onAction="#activationButton" prefHeight="25.0" prefWidth="118.0" promptText="Select..." />
+      <TextField fx:id="clusterTextField" layoutX="32.0" layoutY="97.0" onKeyReleased="#activationButton" prefHeight="25.0" prefWidth="118.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" />
+      <Label layoutX="81.0" layoutY="68.0" text="Cluster ID" />
+      <Button fx:id="cancelButton" cancelButton="true" layoutX="121.0" layoutY="224.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="31.0" prefWidth="72.0" text="Cancel" />
+      <Button fx:id="addButton" defaultButton="true" disable="true" layoutX="34.0" layoutY="224.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="31.0" prefWidth="72.0" text="Add" />
+      <Label layoutX="77.0" layoutY="140.0" text="Calibration" />
+      <ComboBox fx:id="calibrationComboBox" layoutX="32.0" layoutY="171.0" onAction="#activationButton" prefHeight="25.0" prefWidth="118.0" promptText="Select..." AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" />
    </children>
 </AnchorPane>

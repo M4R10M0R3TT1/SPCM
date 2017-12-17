@@ -38,7 +38,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
         try{
             Statement st = DAOMySQLSettings.getStatement();
 
-            String sql = "SELECT * FROM spfamily";
+            String sql = "SELECT * FROM spfamily ORDER By idSPFamily";
 
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
@@ -207,7 +207,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             Statement st = DAOMySQLSettings.getStatement();
             String sql = "SELECT f.id,f.name,p.name,p.internal, ft.idSPFamilyTemplate FROM SPFamilyTemplate ft,SPFamily f,SPPort p,SPSensingElementOnFamily sf\n" +
                     "WHERE sf.SPSensingElement_idSPSensingElement='"+a+"' AND sf.SPFamilyTemplate_idSPFamilyTemplate=ft.idSPFamilyTemplate AND ft.SPFamily_idSPFamily=f.idSPFamily" +
-                    " AND ft.SPPort_idSPPort=p.idSPPort";
+                    " AND ft.SPPort_idSPPort=p.idSPPort ORDER By f.id";
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
 
@@ -659,5 +659,67 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             throw new DAOException("In insertPort: " + e.getMessage());
         }
     }
+
+    @Override
+    public void deleteSEonPort(Family f, Family p) throws DAOException {
+        Statement st = null;
+        int t = 0;
+        try {
+            String sql0 = "SELECT idSPFamilyTemplate FROM spfamilytemplate " +
+                    "WHERE SPFamily_idSPFamily="+f.getIdSPFamily()+" AND SPPort_idSPPort="+p.getIdSPPort()+"";
+            st = DAOMySQLSettings.getStatement();
+            ResultSet rs0 = st.executeQuery(sql0);
+            while (rs0.next()) {
+                t = rs0.getInt("idSPFamilyTemplate");
+            }
+
+            String mt = null;
+            int i = 0;
+            String sql1 = "SELECT DISTINCT s.measureTechnique FROM spsensingelement s " +
+                    "WHERE s.idSPSensingElement='"+p.getOccupiedBy()+"'";
+            st = DAOMySQLSettings.getStatement();
+            ResultSet rs1 = st.executeQuery(sql1);
+            while (rs1.next()) {
+                mt = rs1.getString("measureTechnique");
+            }
+            st = null;
+            String sql2 = "SELECT s.measureTechnique FROM spsensingelement s, spsensingelementonfamily sf," +
+                    "                    spfamilytemplate ft WHERE ft.SPFamily_idSPFamily="+f.getIdSPFamily()+
+                    "                    AND ft.idSPFamilyTemplate=sf.SPFamilyTemplate_idSPFamilyTemplate AND s.measureTechnique='"+mt+"'" +
+                    "                    AND s.idSPSensingElement=sf.SPSensingElement_idSPSensingElement";
+
+            st = DAOMySQLSettings.getStatement();
+            ResultSet rs2 = st.executeQuery(sql2);
+            while (rs2.next()) {
+                rs2.getString("measureTechnique");
+                i++;
+            }
+
+            if (i == 1) {
+                String sql3 = "DELETE fm.* FROM spfamily_has_spmeasuretechnique fm, spmeasureTechnique m " +
+                        "WHERE fm.SPFamily_idSPFamily="+f.getIdSPFamily()+" " +
+                        "AND fm.SPMeasureTechnique_idSPMeasureTechnique=m.idSPMeasureTechnique AND m.type='" + mt + "'";
+                st = DAOMySQLSettings.getStatement();
+                st.executeUpdate(sql3);
+
+                String sql = "DELETE FROM spsensingelementonfamily WHERE SPSensingElement_idSPSensingElement='" + p.getOccupiedBy() + "'" +
+                        "AND SPFamilyTemplate_idSPFamilyTemplate="+t+"";
+                st = DAOMySQLSettings.getStatement();
+                int n = st.executeUpdate(sql);
+            }
+
+            else{
+                String sql = "DELETE FROM spsensingelementonfamily WHERE SPSensingElement_idSPSensingElement='" + p.getOccupiedBy() + "'" +
+                        "AND SPFamilyTemplate_idSPFamilyTemplate="+t+"";
+                st = DAOMySQLSettings.getStatement();
+                int n = st.executeUpdate(sql);
+            }
+            DAOMySQLSettings.closeStatement(st);
+
+        } catch(SQLException e){
+            throw new DAOException("In deleteSEonPort(): " + e.getMessage());
+        }
+    }
+
 }
 

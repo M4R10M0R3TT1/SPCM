@@ -239,7 +239,7 @@ public class SEEditDialogController {
             sensingElement.setModeVI(modeVIComboBox.getValue().toString());
             sensingElement.setmeasureTechnique(measureTechniqueComboBox.getValue().toString());
             sensingElement.setMeasureType(measureTypeComboBox.getValue().toString());
-            sensingElement.setFilter(Integer.parseInt(frequencyTextField.getText()));
+            sensingElement.setFilter(Integer.parseInt(filterTextField.getText()));
             sensingElement.setPhaseShiftMode(phaseShiftModeComboBox.getValue().toString());
             sensingElement.setPhaseShift(Integer.parseInt(phaseShiftTextField.getText()));
             sensingElement.setIq(IQComboBox.getValue().toString());
