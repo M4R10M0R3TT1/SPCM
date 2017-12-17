@@ -817,10 +817,8 @@ public class MainApp extends Application {
             // Wrapping our data.
             SensichipsListWrapper wrapper = new SensichipsListWrapper();
             wrapper.setConfiguration(xmlConfigurationData);
-
             wrapper.setCluster(xmlClusterData);
             wrapper.setFamily(xmlFamilyData);
-
 
             m.marshal(wrapper, file);
 
