@@ -89,35 +89,45 @@ public class CalibrationDialogController {
         if(newButton.getText()=="Confirm"){
             try {
                 ChipDAOMySQLImpl.getInstance().updateCalibration(calibrationTextField.getText(),calibrationTableView.getSelectionModel().getSelectedItem().getIdCalibration());
+                calibrationTextField.setText(null);
+                calibrationTextField.setDisable(true);
+                newButton.setText("New");
+                editButton.setText("Edit");
+                deleteButton.setDisable(false);
+                calibrationTableView.setDisable(false);
+                int selIndex=calibrationTableView.getSelectionModel().getSelectedIndex();
+                showCalibration();
+                calibrationTableView.getSelectionModel().select(selIndex);
+                okClicked=true;
             } catch (DAOException e) {
-                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("Error during edit calibration");
+                alert.setHeaderText("Another calibration with this identifier already exists!");
+                alert.showAndWait();
             }
-            calibrationTextField.setText(null);
-            calibrationTextField.setDisable(true);
-            newButton.setText("New");
-            editButton.setText("Edit");
-            deleteButton.setDisable(false);
-            calibrationTableView.setDisable(false);
-            int selIndex=calibrationTableView.getSelectionModel().getSelectedIndex();
-            showCalibration();
-            calibrationTableView.getSelectionModel().select(selIndex);
-            okClicked=true;
+
         }else if(newButton.getText()=="Add"){
             try {
                 ChipDAOMySQLImpl.getInstance().insertCalibration(calibrationTextField.getText());
+                calibrationTextField.setText(null);
+                calibrationTextField.setDisable(true);
+                newButton.setText("New");
+                editButton.setText("Edit");
+                deleteButton.setDisable(false);
+                calibrationTableView.setDisable(false);
+                newButton.setDisable(false);
+                showCalibration();
+                calibrationTableView.getSelectionModel().selectLast();
+                okClicked=true;
             } catch (DAOException e) {
-                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("Error during new calibration");
+                alert.setHeaderText("A calibration with this identifier already exists!");
+                alert.showAndWait();
             }
-            calibrationTextField.setText(null);
-            calibrationTextField.setDisable(true);
-            newButton.setText("New");
-            editButton.setText("Edit");
-            deleteButton.setDisable(false);
-            calibrationTableView.setDisable(false);
-            newButton.setDisable(false);
-            showCalibration();
-            calibrationTableView.getSelectionModel().selectLast();
-            okClicked=true;
+
         }else{
             calibrationTextField.setDisable(false);
             newButton.setText("Add");

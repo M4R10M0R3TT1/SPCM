@@ -233,6 +233,7 @@ public class MainApp extends Application {
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
+            dialogStage.setResizable(false);
 
             // Set the sensingElement into the controller.
             SEEditDialogController controller = loader.getController();
@@ -266,6 +267,7 @@ public class MainApp extends Application {
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
+            dialogStage.setResizable(false);
 
             // Set the sensingElement into the controller.
             FamilyEditDialogController controller = loader.getController();
@@ -299,6 +301,7 @@ public class MainApp extends Application {
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
+            dialogStage.setResizable(false);
 
             // Set the sensingElement into the controller.
             ChipEditDialogController controller = loader.getController();
@@ -333,6 +336,7 @@ public class MainApp extends Application {
                 dialogStage.initOwner(primaryStage);
                 Scene scene = new Scene(page);
                 dialogStage.setScene(scene);
+                dialogStage.setResizable(false);
 
                 // Set the sensingElement into the controller.
                 AddSEOnFamilyDialogController controller = loader.getController();
@@ -363,6 +367,7 @@ public class MainApp extends Application {
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
+            dialogStage.setResizable(false);
 
             AddPortOnFamilyDialogController controller=loader.getController();
             controller.setMainApp(this);
@@ -425,6 +430,7 @@ public class MainApp extends Application {
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
+            dialogStage.setResizable(false);
 
             AddSEOnPortDialogController controller=loader.getController();
             controller.setMainApp(this);
@@ -488,6 +494,7 @@ public class MainApp extends Application {
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
+            dialogStage.setResizable(false);
 
             AddSEOnChipDialogController controller=loader.getController();
             controller.setMainApp(this);
@@ -519,6 +526,7 @@ public class MainApp extends Application {
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
+            dialogStage.setResizable(false);
 
             AddSEOnChipDialogController controller=loader.getController();
             controller.setMainApp(this);
@@ -550,6 +558,7 @@ public class MainApp extends Application {
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
+            dialogStage.setResizable(false);
 
             AddSEOnChipDialogController controller=loader.getController();
             controller.setMainApp(this);
@@ -581,6 +590,7 @@ public class MainApp extends Application {
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
+            dialogStage.setResizable(false);
 
             CalibrationDialogController controller=loader.getController();
             controller.setMainApp(this);
@@ -612,6 +622,7 @@ public class MainApp extends Application {
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
+            dialogStage.setResizable(false);
 
             ConfigurationDialogController controller = loader.getController();
             controller.setMainApp(this);
@@ -641,6 +652,7 @@ public class MainApp extends Application {
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
+            dialogStage.setResizable(false);
 
             ConfigurationDialogController controller = loader.getController();
             controller.setMainApp(this);
@@ -703,6 +715,7 @@ public class MainApp extends Application {
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
+            dialogStage.setResizable(false);
 
             NewPortDialogController controller = loader.getController();
             controller.setMainApp(this);
@@ -733,7 +746,6 @@ public class MainApp extends Application {
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
-            dialogStage.setResizable(false);
 
             AddCalibrationOnClusterDialogController controller = loader.getController();
             controller.setMainApp(this);

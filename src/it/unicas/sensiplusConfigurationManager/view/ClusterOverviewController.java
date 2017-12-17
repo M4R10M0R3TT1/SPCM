@@ -130,12 +130,17 @@ public class ClusterOverviewController {
         if(okClicked){
             try {
                 ClusterDAOMySQLImpl.getInstance().insertCluster(temp);
+                temp.setNameCalibration(null);
+                clusterTableView.getItems().add(temp);
+                clusterTableView.getSelectionModel().selectLast();
             } catch (DAOException e) {
-                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("Error during 'new cluster'");
+                alert.setHeaderText("A cluster with this identifier already exists!");
+                alert.showAndWait();
             }
-            temp.setNameCalibration(null);
-            clusterTableView.getItems().add(temp);
-            clusterTableView.getSelectionModel().selectLast();
+
         }
     }
     @FXML
@@ -382,7 +387,6 @@ public class ClusterOverviewController {
             mainApp.saveSensichipsToFile(file);
         }
     }
-
 
     @FXML
     private void xmlGenerator(){
