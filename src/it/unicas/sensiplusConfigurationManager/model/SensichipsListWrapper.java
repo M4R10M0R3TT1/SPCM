@@ -13,6 +13,7 @@ public class SensichipsListWrapper {
     private List<XMLConfiguration> configuration;
     private List<XMLCluster> cluster;
     private List<XMLFamily> family;
+    private List<SensingElement> sensingElement;
 
     @XmlElementWrapper(name="CONFIGURATIONS")
     @XmlElement(name = "CONFIGURATION")
@@ -39,5 +40,11 @@ public class SensichipsListWrapper {
     public  List<XMLFamily> getFamily(){return family;}
 
     public void setFamily(List<XMLFamily> family) {this.family=family; }
+
+    @XmlElementWrapper(name="SENSINGELEMENTS")
+    @XmlElement(name = "SENSINGELEMENT")
+    public List<SensingElement> getSensingElement() {return sensingElement; }
+
+    public void setSensingElement(List<SensingElement> sensingElement) {this.sensingElement=sensingElement;}
 }
 

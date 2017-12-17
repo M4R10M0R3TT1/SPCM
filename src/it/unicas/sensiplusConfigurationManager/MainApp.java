@@ -801,6 +801,8 @@ public class MainApp extends Application {
     public ObservableList<XMLCluster> getXmlClusterData(){return xmlClusterData;}
     private ObservableList<XMLFamily> xmlFamilyData = FXCollections.observableArrayList();
     public ObservableList<XMLFamily> getXmlFamilyData(){return  xmlFamilyData;}
+    private ObservableList<SensingElement> xmlSensingElementData = FXCollections.observableArrayList();
+    public ObservableList<SensingElement> getXmlSensingElementData() {return xmlSensingElementData;}
 
     /**
      * Saves the current person data to the specified file.
@@ -816,9 +818,12 @@ public class MainApp extends Application {
 
             // Wrapping our data.
             SensichipsListWrapper wrapper = new SensichipsListWrapper();
+            wrapper.setSensingElement(xmlSensingElementData);
+            wrapper.setFamily(xmlFamilyData);
             wrapper.setConfiguration(xmlConfigurationData);
             wrapper.setCluster(xmlClusterData);
-            wrapper.setFamily(xmlFamilyData);
+
+
 
             m.marshal(wrapper, file);
 

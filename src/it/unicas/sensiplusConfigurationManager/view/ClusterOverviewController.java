@@ -3,12 +3,14 @@ package it.unicas.sensiplusConfigurationManager.view;
 import it.unicas.sensiplusConfigurationManager.MainApp;
 import it.unicas.sensiplusConfigurationManager.model.Cluster;
 import it.unicas.sensiplusConfigurationManager.model.Family;
+import it.unicas.sensiplusConfigurationManager.model.SensingElement;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.ClusterDAOMySQLImpl;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.FamilyDAOMySQLImpl;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.xmlDAO.XMLDAOCluster;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.xmlDAO.XMLDAOConfiguration;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.xmlDAO.XMLDAOFamily;
+import it.unicas.sensiplusConfigurationManager.model.dao.mySql.xmlDAO.XMLDAOSensingElement;
 import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLCluster;
 import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLConfiguration;
 import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLFamily;
@@ -398,6 +400,10 @@ public class ClusterOverviewController {
             List<XMLFamily> listFamily = XMLDAOFamily.getInstance().selectFamily(selConf);
             mainApp.getXmlFamilyData().clear();
             mainApp.getXmlFamilyData().addAll(listFamily);
+
+            List<SensingElement> listSensingElement = XMLDAOSensingElement.getInstance().selectSensingElement(selConf);
+            mainApp.getXmlSensingElementData().clear();
+            mainApp.getXmlSensingElementData().addAll(listSensingElement);
 
         } catch (DAOException e) {
             e.printStackTrace();
