@@ -319,7 +319,6 @@ public class ClusterOverviewController {
             deleteClusterButton.setDisable(false);
             calibrationButton.setDisable(false);
             addConfigurationButton.setDisable(false);
-            xmlButton.setDisable(false);
             if(cluster.getNameCalibration()==null){
                 calibrationButton.setText("Add Calibration");
             }else{
@@ -330,7 +329,6 @@ public class ClusterOverviewController {
             deleteConfigurationButton.setDisable(true);
             deleteClusterButton.setDisable(true);
             calibrationButton.setDisable(true);
-            xmlButton.setDisable(true);
         }
         configurationTableView.getSelectionModel().selectFirst();
         chipTableView.getSelectionModel().selectFirst();
