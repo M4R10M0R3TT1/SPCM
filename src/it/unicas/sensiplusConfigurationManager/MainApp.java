@@ -6,10 +6,12 @@ import it.unicas.sensiplusConfigurationManager.model.dao.mySql.DAOMySQLSettings;
 import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLCluster;
 import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLConfiguration;
 import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLFamily;
+import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLPort;
 import it.unicas.sensiplusConfigurationManager.view.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -815,6 +817,8 @@ public class MainApp extends Application {
     public ObservableList<XMLFamily> getXmlFamilyData(){return  xmlFamilyData;}
     private ObservableList<SensingElement> xmlSensingElementData = FXCollections.observableArrayList();
     public ObservableList<SensingElement> getXmlSensingElementData() {return xmlSensingElementData;}
+    private ObservableList<XMLPort> xmlPortData = FXCollections.observableArrayList();
+    public ObservableList<XMLPort> getXmlPortData() {return xmlPortData; }
 
     /**
      * Saves the current person data to the specified file.
@@ -830,6 +834,7 @@ public class MainApp extends Application {
 
             // Wrapping our data.
             SensichipsListWrapper wrapper = new SensichipsListWrapper();
+            wrapper.setPort(xmlPortData);
             wrapper.setSensingElement(xmlSensingElementData);
             wrapper.setFamily(xmlFamilyData);
             wrapper.setConfiguration(xmlConfigurationData);

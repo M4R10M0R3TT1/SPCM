@@ -7,13 +7,11 @@ import it.unicas.sensiplusConfigurationManager.model.SensingElement;
 import it.unicas.sensiplusConfigurationManager.model.dao.DAOException;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.ClusterDAOMySQLImpl;
 import it.unicas.sensiplusConfigurationManager.model.dao.mySql.FamilyDAOMySQLImpl;
-import it.unicas.sensiplusConfigurationManager.model.dao.mySql.xmlDAO.XMLDAOCluster;
-import it.unicas.sensiplusConfigurationManager.model.dao.mySql.xmlDAO.XMLDAOConfiguration;
-import it.unicas.sensiplusConfigurationManager.model.dao.mySql.xmlDAO.XMLDAOFamily;
-import it.unicas.sensiplusConfigurationManager.model.dao.mySql.xmlDAO.XMLDAOSensingElement;
+import it.unicas.sensiplusConfigurationManager.model.dao.mySql.xmlDAO.*;
 import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLCluster;
 import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLConfiguration;
 import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLFamily;
+import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLPort;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -406,6 +404,12 @@ public class ClusterOverviewController {
             List<SensingElement> listSensingElement = XMLDAOSensingElement.getInstance().selectSensingElement(selConf);
             mainApp.getXmlSensingElementData().clear();
             mainApp.getXmlSensingElementData().addAll(listSensingElement);
+
+            List<XMLPort> listPort = XMLDAOPort.getInstance().selectPort(selConf);
+            mainApp.getXmlPortData().clear();
+            mainApp.getXmlPortData().addAll(listPort);
+
+
 
         } catch (DAOException e) {
             e.printStackTrace();

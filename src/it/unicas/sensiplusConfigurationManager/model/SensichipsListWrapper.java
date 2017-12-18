@@ -3,6 +3,7 @@ package it.unicas.sensiplusConfigurationManager.model;
 import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLCluster;
 import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLConfiguration;
 import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLFamily;
+import it.unicas.sensiplusConfigurationManager.model.xmlModel.XMLPort;
 
 import javax.xml.bind.annotation.*;
 import java.util.List;
@@ -14,6 +15,7 @@ public class SensichipsListWrapper {
     private List<XMLCluster> cluster;
     private List<XMLFamily> family;
     private List<SensingElement> sensingElement;
+    private List<XMLPort> port;
 
     @XmlElementWrapper(name="CONFIGURATIONS")
     @XmlElement(name = "CONFIGURATION")
@@ -46,5 +48,15 @@ public class SensichipsListWrapper {
     public List<SensingElement> getSensingElement() {return sensingElement; }
 
     public void setSensingElement(List<SensingElement> sensingElement) {this.sensingElement=sensingElement;}
+
+    @XmlElementWrapper(name="PORTS")
+    @XmlElement(name = "PORT")
+    public List<XMLPort> getPort() {
+        return port;
+    }
+
+    public void setPort(List<XMLPort> port) {
+        this.port=port;
+    }
 }
 
