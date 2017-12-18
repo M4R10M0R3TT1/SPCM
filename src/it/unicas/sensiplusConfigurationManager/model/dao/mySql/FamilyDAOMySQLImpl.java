@@ -320,7 +320,7 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             st=DAOMySQLSettings.getStatement();
             String sql=null;
             if(mt.equals("DIRECT")) {
-                sql = "SELECT DISTINCT p.idSPPort,p.internal,p.name FROM SPPort p,SPFamilyTemplate ft, spsensingelement s, spsensingelementonfamily sf " +
+                sql = "SELECT DISTINCT p.idSPPort,p.internal,p.name FROM SPPort p,SPFamilyTemplate ft " +
                         "WHERE ft.SPFamily_idSPFamily=" + famSelected + " AND ft.idSPFamilyTemplate!=ALL(SELECT ft.idSPFamilyTemplate " +
                         "FROM SPFamilyTemplate ft,SPSensingElementOnFamily sf " +
                         "WHERE ft.SPFamily_idSPFamily=" + famSelected + " " +
