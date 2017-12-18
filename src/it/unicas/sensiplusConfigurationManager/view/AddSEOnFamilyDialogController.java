@@ -73,8 +73,6 @@ public class AddSEOnFamilyDialogController {
                 (observable, oldValue, newValue) -> showPort(newValue));
         portTableView.getSelectionModel().selectedItemProperty().addListener(
                 ((observable, oldValue, newValue) -> activationAddButton(newValue)));
-
-
     }
 
     public void setDialogStage(Stage dialogStage, boolean verifylen){

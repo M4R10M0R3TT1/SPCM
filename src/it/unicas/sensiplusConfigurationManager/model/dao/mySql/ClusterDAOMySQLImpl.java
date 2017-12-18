@@ -93,9 +93,11 @@ public class ClusterDAOMySQLImpl implements DAOCluster<Cluster> {
         ArrayList<Cluster> lista = new ArrayList<>();
         try{
             Statement st = DAOMySQLSettings.getStatement();
-            String sql ="SELECT DISTINCT c.idSPChip, f.id FROM spchip c, spfamily f, spsensingelementonchip sc, spcalibration cal" +
-                    " WHERE cal.idSPCalibration=sc.SPCalibration_idSPCalibration AND cal.idSPCalibration ="+a.getIdCalibration()+
-                    " AND sc.SPChip_idSPChip = c.idSPChip AND c.SPFamily_idSPFamily=f.idSPFamily ORDER BY c.idSPChip";
+            String sql ="SELECT DISTINCT c.idSPChip, f.id FROM spchip c, spfamily f, spsensingelementonchip sc, spfamilytemplate ft, spsensingelementonfamily sf" +
+                    " WHERE sc.SPCalibration_idSPCalibration="+a.getIdCalibration()+
+                    " AND sc.SPChip_idSPChip = c.idSPChip AND c.SPFamily_idSPFamily=f.idSPFamily" +
+                    " AND f.idSPFamily=ft.SPFamily_idSPFamily AND ft.idSPFamilyTemplate=sf.SPFamilyTemplate_idSPFamilyTemplate" +
+                    " AND sf.idSPSensingElementOnFamily=sc.SPSensingElementOnFamily_idSPSensingElementOnFamily ORDER BY c.idSPChip";
 
             ResultSet rs = st.executeQuery(sql);
 

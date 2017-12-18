@@ -232,13 +232,13 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
             Statement st=DAOMySQLSettings.getStatement();
 
             String sql="SELECT DISTINCT f.idSPFamily,f.name,f.id FROM SPFamily f INNER JOIN SPFamilyTemplate ft, SPSensingElementOnFamily sf\n" +
-                    "WHERE ft.SPFamily_idSPFamily=ALL(select distinct ft.SPFamily_idSPFamily from spfamily f, spfamilytemplate ft, spsensingelementonfamily sf\n" +
+                    "WHERE ft.SPFamily_idSPFamily!=ALL(select distinct ft.SPFamily_idSPFamily from spfamily f, spfamilytemplate ft, spsensingelementonfamily sf\n" +
                     "where sf.SPSensingElement_idSPSensingElement='"+a+"' AND sf.SPFamilyTemplate_idSPFamilyTemplate=ft.idSPFamilyTemplate)\n" +
                     "\n" +
-                    "AND ft.idSPFamilyTemplate=ALL(select distinct ft.idSPFamilyTemplate from spfamily f, spfamilytemplate ft, spsensingelementonfamily sf\n" +
+                    "AND ft.idSPFamilyTemplate!=ALL(select distinct ft.idSPFamilyTemplate from spfamily f, spfamilytemplate ft, spsensingelementonfamily sf\n" +
                     "where sf.SPSensingElement_idSPSensingElement='"+a+"' AND sf.SPFamilyTemplate_idSPFamilyTemplate=ft.idSPFamilyTemplate)\n" +
                     "\n" +
-                    "AND f.idSPFamily!=ft.SPFamily_idSPFamily";
+                    "AND f.idSPFamily=ft.SPFamily_idSPFamily";
 
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
@@ -344,8 +344,8 @@ public class FamilyDAOMySQLImpl implements DAOFamily<Family> {
                         rs.getString("name"),
                         null,0,0));
             }
-            if(lista.size()==0)
-                lista.add(null);
+            //if(lista.size()==0)
+              //  lista.add(null);
             DAOMySQLSettings.closeStatement(st);
         } catch (SQLException e) {
             e.printStackTrace();
