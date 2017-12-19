@@ -73,7 +73,8 @@ public class MainApp extends Application {
     private ObservableList<Cluster> ChipOnClusterData=FXCollections.observableArrayList();
     //Observable List for show Chip details in ClusterOverview
     private ObservableList<Family> chipDetailsOnClusterData=FXCollections.observableArrayList();
-
+    //Observable List for show Chip in CalibrationDialog
+    private ObservableList<Chip> calibrationChipSE=FXCollections.observableArrayList();
 
     @Override
     public void start(Stage primaryStage) {
@@ -158,6 +159,10 @@ public class MainApp extends Application {
 
     public ObservableList<Family> getChipDetailsOnClusterData() {
         return chipDetailsOnClusterData;
+    }
+
+    public ObservableList<Chip> getCalibrationChipSE() {
+        return calibrationChipSE;
     }
 
     public void initRootLayout(){
@@ -609,6 +614,7 @@ public class MainApp extends Application {
         }
 
     }
+
 
     public boolean showNewConfigurationDialog(Cluster cluster) {
         try {

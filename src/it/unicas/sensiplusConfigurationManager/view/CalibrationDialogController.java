@@ -24,6 +24,16 @@ public class CalibrationDialogController {
     @FXML
     private TableColumn<Chip,String> calibrationColumn;
     @FXML
+    private TableView<Chip> chipTableView;
+    @FXML
+    private TableColumn<Chip,String> idChipColumn;
+    @FXML
+    private TableColumn<Chip,String> seColumn;
+    @FXML
+    private TableColumn<Chip,String> nColumn;
+    @FXML
+    private TableColumn<Chip,String> mColumn;
+    @FXML
     private Button newButton;
     @FXML
     private Button editButton;
@@ -37,6 +47,7 @@ public class CalibrationDialogController {
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
         calibrationTableView.setItems(mainApp.getCalibration());
+        chipTableView.setItems(mainApp.getCalibrationChipSE());
     }
 
     public void setDialogStage(Stage dialogStage) {
@@ -58,12 +69,11 @@ public class CalibrationDialogController {
         } catch (DAOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("Error during DB interaction");
+            alert.setTitle("Error during DB interaction ");
             alert.setHeaderText("Error during  showCalibration ...");
             alert.setContentText(e.getMessage());
 
             alert.showAndWait();
-
         }
 
     }
@@ -73,6 +83,13 @@ public class CalibrationDialogController {
     private void initialize(){
         idColumn.setCellValueFactory(cellData->cellData.getValue().idCalibrationProperty().asString());
         calibrationColumn.setCellValueFactory((cellDeta->cellDeta.getValue().nameCalibrationProperty()));
+        calibrationTableView.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showChipSE(newValue));
+
+        idChipColumn.setCellValueFactory(cellData->cellData.getValue().idSPChipProperty());
+        seColumn.setCellValueFactory(cellData->cellData.getValue().id());
+        mColumn.setCellValueFactory(cellData->cellData.getValue().mProperty().asString());
+        nColumn.setCellValueFactory(cellData->cellData.getValue().nProperty().asString());
     }
     @FXML
     private void handleTextFieldControl(){
@@ -187,6 +204,25 @@ public class CalibrationDialogController {
             }
             showCalibration();
             okClicked=true;
+        }
+    }
+
+    private void showChipSE(Chip chip){
+        try {
+            List<Chip> list = ChipDAOMySQLImpl.getInstance().selectCalibrationChipSE(chip);
+            mainApp.getCalibrationChipSE().clear();
+            mainApp.getCalibrationChipSE().addAll(list);
+            chipTableView.getSelectionModel().selectFirst();
+
+        } catch (DAOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("Error during DB interaction");
+            alert.setHeaderText("Error during  showCalibration ... ");
+            alert.setContentText(e.getMessage());
+
+            alert.showAndWait();
+
         }
     }
 

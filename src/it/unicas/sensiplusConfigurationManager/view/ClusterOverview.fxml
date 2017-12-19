@@ -9,22 +9,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="530.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.ClusterOverviewController">
+<AnchorPane prefHeight="530.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.ClusterOverviewController">
    <children>
       <SplitPane dividerPositions="0.22717149220489977" prefHeight="530.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="528.0" prefWidth="185.0">
                <children>
-                  <TableView fx:id="clusterTableView" accessibleRole="TABLE_CELL" prefHeight="428.0" prefWidth="203.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="clusterTableView" accessibleRole="TABLE_CELL" prefHeight="428.0" prefWidth="203.0" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                       <TableColumn fx:id="clusterColumn" prefWidth="106.0" text="Cluster" />
                       <TableColumn fx:id="calibrationColumn" prefWidth="90.0" text="Calibration" />
                         <TableColumn fx:id="idCalibrationColumn" prefWidth="75.0" text="idCalibration" visible="false" />
                     </columns>
                   </TableView>
-                  <Button layoutY="428.0" mnemonicParsing="false" onAction="#handleNewCluster" prefHeight="31.0" prefWidth="200.0" text="New" AnchorPane.bottomAnchor="69.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                  <Button fx:id="deleteClusterButton" layoutY="461.0" mnemonicParsing="false" onAction="#handleDeleteCluster" prefWidth="68.0" text="Delete" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                  <Button fx:id="calibrationButton" layoutY="492.0" mnemonicParsing="false" onAction="#handleCalibrationButton" text="Calibration" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Button layoutY="428.0" mnemonicParsing="false" onAction="#handleNewCluster" prefHeight="31.0" prefWidth="200.0" text="New" AnchorPane.bottomAnchor="99.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Button fx:id="deleteClusterButton" layoutY="461.0" mnemonicParsing="false" onAction="#handleDeleteCluster" prefWidth="68.0" text="Delete" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Button fx:id="calibrationButton" layoutY="492.0" mnemonicParsing="false" onAction="#handleCalibrationButton" text="Calibration" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Button layoutX="68.0" layoutY="499.0" mnemonicParsing="false" onAction="#handleShowCalibrationManagement" text="Calibration Settings" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="528.0" prefWidth="653.0">

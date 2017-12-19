@@ -386,6 +386,14 @@ public class ClusterOverviewController {
     }
 
     @FXML
+    private void handleShowCalibrationManagement(){
+        mainApp.showCalibrationManagementDialog();
+    }
+
+
+
+
+    @FXML
     private void xmlGenerator(){
         Cluster tempConf=configurationTableView.getSelectionModel().getSelectedItem();
         int selConf=tempConf.getIdConfiguration();
@@ -409,9 +417,6 @@ public class ClusterOverviewController {
             List<XMLPort> listPort = XMLDAOPort.getInstance().selectPort(selConf);
             mainApp.getXmlPortData().clear();
             mainApp.getXmlPortData().addAll(listPort);
-
-
-
         } catch (DAOException e) {
             e.printStackTrace();
         }

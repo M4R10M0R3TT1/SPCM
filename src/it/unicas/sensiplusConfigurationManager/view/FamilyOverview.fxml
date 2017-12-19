@@ -71,7 +71,7 @@
                                     <Font size="27.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="470.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleNewPort" prefHeight="31.0" prefWidth="110.0" text="Port Setting" />
+                              <Button layoutX="470.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleNewPort" prefHeight="31.0" prefWidth="110.0" text="Port Settings" />
                            </children>
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">

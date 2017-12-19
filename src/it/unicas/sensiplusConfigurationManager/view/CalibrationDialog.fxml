@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane blendMode="EXCLUSION" prefHeight="357.0" prefWidth="513.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.CalibrationDialogController">
+<AnchorPane blendMode="EXCLUSION" prefHeight="357.0" prefWidth="744.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicas.sensiplusConfigurationManager.view.CalibrationDialogController">
    <children>
-      <SplitPane dividerPositions="0.4774951076320939" layoutX="271.0" layoutY="132.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.330188679245283" layoutX="271.0" layoutY="132.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
@@ -28,12 +28,32 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="239.0">
                <children>
-                  <TableView fx:id="calibrationTableView" layoutX="25.0" prefHeight="355.0" prefWidth="263.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <columns>
-                      <TableColumn fx:id="idColumn" prefWidth="76.0" text="ID" />
-                      <TableColumn fx:id="calibrationColumn" prefWidth="186.0" text="Calibration" />
-                    </columns>
-                  </TableView>
+                  <SplitPane dividerPositions="0.3625254582484725" prefHeight="355.0" prefWidth="263.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="353.0" prefWidth="208.0">
+                           <children>
+                              <TableView fx:id="calibrationTableView" prefHeight="355.0" prefWidth="174.0" AnchorPane.bottomAnchor="0.0">
+                                <columns>
+                                  <TableColumn fx:id="idColumn" prefWidth="38.0" text="ID" />
+                                  <TableColumn fx:id="calibrationColumn" prefWidth="133.0" text="Calibration" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="353.0" prefWidth="279.0">
+                           <children>
+                              <TableView fx:id="chipTableView" layoutX="23.0" layoutY="56.0" prefHeight="353.0" prefWidth="309.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columns>
+                                  <TableColumn fx:id="idChipColumn" prefWidth="101.0" text="Chip" />
+                                  <TableColumn fx:id="seColumn" prefWidth="138.0" text="SensingElement" />
+                                    <TableColumn fx:id="mColumn" prefWidth="34.0" text="m" />
+                                    <TableColumn fx:id="nColumn" prefWidth="33.0" text="n" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
                </children>
             </AnchorPane>
         </items>

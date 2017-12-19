@@ -414,4 +414,29 @@ public class ChipDAOMySQLImpl implements DAOChip<Chip> {
 
 
     }
+
+    @Override
+    public List<Chip> selectCalibrationChipSE(Chip a) throws DAOException {
+        ArrayList<Chip> lista= new ArrayList<>();
+        try{
+            Statement st = DAOMySQLSettings.getStatement();
+            String sql = "SELECT sc.SPChip_idSPChip,sc.m,sc.n, sf.SPSensingElement_idSPSensingElement FROM spsensingelementonchip sc, spchip c, spsensingelementonfamily sf, spfamilytemplate ft, spfamily f " +
+                    "WHERE sc.SPCalibration_idSPCalibration="+a.getIdCalibration()+" AND sc.SPChip_idSPChip=c.idSPChip AND " +
+                    "c.SPFamily_idSPFamily=f.idSPFamily AND f.idSPFamily=ft.SPFamily_idSPFamily AND ft.idSPFamilyTemplate=sf.SPFamilyTemplate_idSPFamilyTemplate AND sf.idSPSensingElementOnFamily=sc.SPSensingElementOnFamily_idSPSensingElementOnFamily";
+
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                lista.add(new Chip(rs.getString("SPChip_idSPChip"),
+                        rs.getString("SPSensingElement_idSPSensingElement"),
+                        rs.getInt("m"),
+                        rs.getInt("n")));
+            }
+            DAOMySQLSettings.closeStatement(st);
+
+        }catch (SQLException sq) {
+            throw new DAOException("In selectCalibrationChipSE(): " + sq.getMessage());
+        }
+
+        return lista;
+    }
 }

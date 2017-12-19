@@ -62,7 +62,7 @@
                                     <Font size="23.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="561.0" layoutY="6.0" mnemonicParsing="false" onAction="#handleShowCalibrationManagement" prefHeight="31.0" prefWidth="158.0" text="Calibration Setting" AnchorPane.leftAnchor="553.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <Button layoutX="561.0" layoutY="6.0" mnemonicParsing="false" onAction="#handleShowCalibrationManagement" prefHeight="31.0" prefWidth="158.0" text="Calibration Settings" AnchorPane.leftAnchor="553.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">

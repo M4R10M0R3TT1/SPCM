@@ -32,6 +32,13 @@ public class Chip {
         this.n= new SimpleIntegerProperty(n);
     }
 
+    public Chip(String idChip, String se, Integer m, Integer n) {
+        this.idSPChip = new SimpleStringProperty(idChip);
+        this.id = new SimpleStringProperty(se);
+        this.m = new SimpleIntegerProperty(m);
+        this.n = new SimpleIntegerProperty(n);
+    }
+
     /*//Chip NEW Constructor
     public Chip(String idSPChip, String id){
         this.idSPChip= new SimpleStringProperty(idSPChip);
