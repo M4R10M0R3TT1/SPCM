@@ -142,8 +142,8 @@ public class ChipOverviewController {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());
                 alert.setTitle("Error during DB interaction");
-                alert.setHeaderText("Error during insert...  ");
-                alert.setContentText(e.getMessage());
+                alert.setHeaderText("WARNING");
+                alert.setContentText("The Chip already exists!");
 
                 alert.showAndWait();
             }

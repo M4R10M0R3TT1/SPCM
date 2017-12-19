@@ -203,8 +203,8 @@ public class SEOverviewController {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());
                 alert.setTitle("Error during DB interaction ");
-                alert.setHeaderText("Error during insert ...");
-                alert.setContentText(e.getMessage());
+                alert.setHeaderText("WARNING");
+                alert.setContentText("The Senssing Element already exists!");
 
                 alert.showAndWait();
             }

@@ -110,7 +110,7 @@ public class ClusterOverviewController {
         apiOwnerColumn.setCellValueFactory(cellData->cellData.getValue().apiOwnerProperty());
         MCUColumn.setCellValueFactory(cellData->cellData.getValue().mcuProperty());
         protocolColumn.setCellValueFactory(cellData->cellData.getValue().protocolProperty());
-        addressTypeColumn.setCellValueFactory(cellData->cellData.getValue().protocolProperty());
+        addressTypeColumn.setCellValueFactory(cellData->cellData.getValue().addressingTypeProperty());
         configurationTableView.getSelectionModel().selectedItemProperty().addListener(
                 ((observable, oldValue, newValue) -> setButtonConfiguration(newValue)));
 
@@ -134,8 +134,9 @@ public class ClusterOverviewController {
             } catch (DAOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());
-                alert.setTitle("Error during 'new cluster'");
-                alert.setHeaderText("A cluster with this identifier already exists!");
+                alert.setTitle("Error during DB interaction");
+                alert.setHeaderText("WARNING");
+                alert.setContentText("The Cluster already exists!");
                 alert.showAndWait();
             }
 

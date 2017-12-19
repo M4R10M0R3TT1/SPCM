@@ -63,8 +63,8 @@ public class ConfigurationDialogController {
     @FXML
     private void handleAdd(){
         cluster.setDriver(driverTextField.getText());
-        cluster.setHostController(driverTextField.getText());
-        cluster.setApiOwner(driverTextField.getText());
+        cluster.setHostController(hostControllerTextField.getText());
+        cluster.setApiOwner(apiOwnerTextField.getText());
         cluster.setMcu(mcuTextField.getText());
         cluster.setProtocol(protocolTextField.getText());
         cluster.setAddressingType(addressTypeTextField.getText());

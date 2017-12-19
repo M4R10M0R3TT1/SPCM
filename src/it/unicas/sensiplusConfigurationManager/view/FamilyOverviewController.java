@@ -213,8 +213,8 @@ public class FamilyOverviewController {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainApp.getPrimaryStage());
                 alert.setTitle("Error during DB interaction");
-                alert.setHeaderText("Error during insert  ...");
-                alert.setContentText(e.getMessage());
+                alert.setHeaderText("WARNING");
+                alert.setContentText("The Family already exists!");
 
                 alert.showAndWait();
             }
